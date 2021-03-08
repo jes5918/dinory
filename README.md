@@ -34,8 +34,10 @@ gantt
     section Frontend
     기능 기획 :active, a1, 2021-03-08, 3d
     TechSpec :, 2021-03-09, 1d
+    React Native 초기셋팅 :, 2021-03-09,1d
     기능기획 및 화면계획서 피드백 :after a1, 1d
     프론트개발분담 :	, 2021-03-12, 1d
+    
 
     section Backend
    	개발 환경 구성 :active, 2021-03-08, 2021-03-11
