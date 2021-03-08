@@ -39,6 +39,7 @@ gantt
 
     section Backend
    	개발 환경 구성 :active, 2021-03-08, 2021-03-11
+   	DB설계 :after, 2021-03-11, 2d
 
    	section AI
    	Tacotron model 학습 :active, a2, 2021-03-08, 2021-03-11
