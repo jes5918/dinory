@@ -37,6 +37,7 @@ gantt
     title      특화프로젝트(AI 2) B105팀 sub PJT 2 0308 ~ 0312
 	section Common
 	개발 관련 공부: active, 2021-03-08, 5d
+	프로젝트 & 팀, 이름 및 로고 제작 : active, 2021-03-08, 3d
 	
     section Frontend
     기능 기획 :active, a1, 2021-03-08, 3d
@@ -51,6 +52,8 @@ gantt
    	Tacotron model 학습 :active, a2, 2021-03-08, 2021-03-11
    	IC-TTS 결합 :after a2, 1d
    	
+   	section QA
+   	Jira 2주차 점검 :, 2021-03-12, 1d
 ```
 
 
