@@ -57,7 +57,7 @@ class FeatureExtractor:
       model = build_detection_model(cfg)
       # detectron_model.pth의 주소
       checkpoint = torch.load('C:\\Users\\multicampus\\assets\\detectron_model.pth', 
-                              map_location=torch.device("cuda"))
+                              map_location=torch.device("cpu"))
 
       load_state_dict(model, checkpoint.pop("model"))
 
