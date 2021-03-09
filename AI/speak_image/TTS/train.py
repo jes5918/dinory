@@ -219,9 +219,9 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
             if not is_overflow:
                 duration = time.perf_counter() - start
                 print("Train loss {} {:.6f} Grad Norm {:.6f} {:.2f}s/it".format(
-                    iteration, reduced_loss, grad_norm, duration),end='\r')              
+                    loss, iteration, grad_norm, duration),end='\r')              
                 logger.log_training(
-                    reduced_loss, grad_norm, learning_rate, duration, iteration)
+                    loss, grad_norm, learning_rate, duration, iteration)
 
             # validation을 한 뒤 checkpoint model 저장
             if not is_overflow and (iteration % hparams['iters_per_checkpoint'] == 0):
@@ -233,7 +233,7 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
                 # checkpoint model 저장
                 checkpoint_path = os.path.join(output_directory, "checkpoint_{}".format(iteration))
                 save_checkpoint(model, optimizer, scheduler, learning_rate, iteration, checkpoint_path)
-                      
+            print(iteration, loss)
             iteration += 1
     
      
