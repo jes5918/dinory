@@ -2,15 +2,15 @@
 # Experiment Parameters        #
 ################################
 epochs: 300
-iters_per_checkpoint: 1000
-scheduler_step:  50000
+iters_per_checkpoint: 100
+scheduler_step: 50000
 gamma: 0.5
 seed: 1234
 dynamic_loss_scaling: True
 fp16_run: False
 distributed_run: False
-dist_backend: "nccl"
-dist_url: "tcp://localhost:54321"
+dist_backend: 'nccl'
+dist_url: 'tcp://localhost:54321'
 cudnn_enabled: True
 cudnn_benchmark: False
 ignore_layers: ['embedding.weight']
@@ -47,7 +47,7 @@ encoder_n_convolutions: 3
 encoder_embedding_dim: 512
 
 # Decoder parameters
-n_frames_per_step: 1  # currently only 1 is supported
+n_frames_per_step: 1 # currently only 1 is supported
 decoder_rnn_dim: 1024
 prenet_dim: 256
 max_decoder_steps: 1000
@@ -75,5 +75,5 @@ use_saved_learning_rate: False
 learning_rate: 1e-3
 weight_decay: 1e-6
 grad_clip_thresh: 1.0
-batch_size: 64
-mask_padding: True  # set model's padded outputs to padded values
+batch_size: 16
+mask_padding: True # set model's padded outputs to padded values
