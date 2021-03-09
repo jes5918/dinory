@@ -8,10 +8,12 @@ import torch
 import torch.distributed as dist
 from torch.utils.data.distributed import DistributedSampler
 from torch.utils.data import DataLoader
+from torch.optim import lr_scheduler
 
 from model import Tacotron2
 from data_utils import TextMelLoader, TextMelCollate
 from loss_function import Tacotron2Loss
+from logger import Tacotron2Logger
 #from hparams import create_hparams
 from tqdm import tqdm
 import yaml
@@ -19,8 +21,12 @@ import logging
 
 #Req. 3-3 학습 로그 기록
 ####TODO#### logging을 생성하고 학습 로그를 기록한다.
-
-
+def prepare_directories_and_logger(output_directory, log_directory, rank):
+    if not os.path.isdir(output_directory):
+        os.makedirs(output_directory)
+        os.chmod(output_directory, 0o775)
+    logger = Tacotron2Logger(os.path.join(output_directory, log_directory))
+    return logger
 ####TODO####
 
 
@@ -83,15 +89,21 @@ def warm_start_model(checkpoint_path, model, ignore_layers):
 # checkpoint path에 iteration,그리고 model, optimizer, scheduler의 statedict를 저장
 # torch.save() 함수 이용하여 딕셔너리 형태로 저장
 def save_checkpoint(model, optimizer, scheduler, learning_rate, iteration, filepath): 
-    pass
+    print("Saving model and optimizer state at iteration {} to {} and scheduler {}".format(
+        iteration, filepath, scheduler))
+    torch.save({'iteration': iteration,
+                'state_dict': model.state_dict(),
+                'optimizer': optimizer.state_dict(),
+                'scheduler': scheduler.state_dict,
+                'learning_rate': learning_rate}, filepath)
 
 ####TODO####
 
 #Req. 3-1 Validate() 함수 구현
 ####TODO#### 6. 주기적으로 validation dataset으로 모델 성능 확인 후 log 기록
-def validate(model, criterion, valset, iteration, batch_size,collate_fn, epoch, dur):
+def validate(model, criterion, valset, iteration, batch_size,collate_fn, epoch, dur, logger):
     # model을 evalutation mode로 전환
-    
+    model.eval()
     # with torch.no_grad로 전체 연산을 묶음
     with torch.no_grad():
         # validation dataset 준비
@@ -100,13 +112,21 @@ def validate(model, criterion, valset, iteration, batch_size,collate_fn, epoch, 
                                 pin_memory=False, collate_fn=collate_fn)
 
         # validation loss 계산 (train() 코드와 동일하게 작성하지만 backpropagation을 하면 안된다)
-       
+        val_loss = 0.0
+        for i, batch in enumerate(val_loader):
+            x, y = model.parse_batch(batch)
+            y_pred = model(x)
+            loss = criterion(y_pred, y)
+            reduced_val_loss = loss.item()
+            val_loss += reduced_val_loss
+        val_loss = val_loss / (i + 1)
     #Req. 3-3 학습 로그 기록
     # validation 결과 출력 및 log 기록 
-    
+    print("Validation loss {}: {:9f}  ".format(iteration, val_loss))
+    logger.log_validation(val_loss, model, y, y_pred, iteration)
     
     # model을 training mode로 전환
-        
+    model.train()    
 ####TODO####
     
 #Req. 2-1 모델 트레이닝    
@@ -121,9 +141,11 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
     # optimizer : hparams에서 learning rate, weight decay 참고
     # scheduler : hparams에서 scheduler_step, gamma 참고
     model = load_model(hparams)
-    
-    optimizer = ''
-    scheduler = ''
+
+    learning_rate = float(hparams['learning_rate'])
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate,
+                                 weight_decay=float(hparams['weight_decay']))
+    scheduler = lr_scheduler.StepLR(optimizer, step_size=hparams['scheduler_step'], gamma=hparams['gamma']) 
     
     criterion = Tacotron2Loss() # define loss function 
     ####TODO####
@@ -132,7 +154,9 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
     ####TODO#### 2. prepare_dataloaders 함수를 이용하여 dataset 준비
     # input : hparams
     # output : train_loader, valset, collate_fn 반환
-    
+    logger = prepare_directories_and_logger(
+        output_directory, './log_output', 0)
+    train_loader, valset, collate_fn = prepare_dataloaders(hparams)
     ####TODO####
     
     
@@ -144,7 +168,8 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
         # train from pretrained model
         if warm_start:
             # warm_start함수로 이동
-            pass
+            model = warm_start_model(
+                checkpoint_path, model, hparams.ignore_layers)
 
         #train from scratch
         ##제공##
@@ -157,7 +182,8 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
             epoch_offset = max(0, int(iteration / len(train_loader)))
         ##제공##        
     ####TODO####
-    
+
+    model.train()
     is_overflow = False
     ####TODO#### 4. model을 training mode로 전환 후 main loop 작성
     # hparams에서 epoch을 참고하여 mainloop 구성   
@@ -173,11 +199,15 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
             start = time.perf_counter()
             
             # set gradients to zero
-           
+            model.zero_grad()
 
             # loss 계산 후 backpropagation
-            
-           
+            x, y = model.parse_batch(batch)
+            y_pred = model(x)
+
+            loss = criterion(y_pred, y)
+            loss.backward()
+
             ####TODO####
             
             grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), hparams['grad_clip_thresh'])
@@ -190,13 +220,15 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
                 duration = time.perf_counter() - start
                 print("Train loss {} {:.6f} Grad Norm {:.6f} {:.2f}s/it".format(
                     iteration, reduced_loss, grad_norm, duration),end='\r')              
-                       
+                logger.log_training(
+                    reduced_loss, grad_norm, learning_rate, duration, iteration)
+
             # validation을 한 뒤 checkpoint model 저장
             if not is_overflow and (iteration % hparams['iters_per_checkpoint'] == 0):
                 dur = time.perf_counter() - init_start
                 
                 # validation 진행
-                validate(model, criterion, valset, iteration,hparams['batch_size'], collate_fn, epoch, dur)
+                validate(model, criterion, valset, iteration,hparams['batch_size'], collate_fn, epoch, dur, logger)
                 
                 # checkpoint model 저장
                 checkpoint_path = os.path.join(output_directory, "checkpoint_{}".format(iteration))
@@ -223,7 +255,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     print(args.hparams)
     
-    with open('/home/multicam/samsung_multicam/speak_image/TTS/config.yaml') as f:
+    with open('C:\\Users\\multicampus\\Desktop\\Projects\\special-subPJT2-forked\\AI\\speak_image\\TTS\\config.yaml') as f:
             hparams = yaml.load(f)
     
     #pytorch random seed 고정

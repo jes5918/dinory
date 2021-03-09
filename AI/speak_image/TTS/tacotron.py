@@ -29,7 +29,8 @@ class TTS_Model:
         # #### 1.학습된 모델 불러오기
         # 학습된 tacotron 모델 주소를 load하고
         # 모델에 hparam과 statedict를 load한다
-        pass
+        model = load_model(hparams)
+        model.load_state_dict(torch.load(checkpoint_path)['state_dict'])
         
 
         ####TODO####
