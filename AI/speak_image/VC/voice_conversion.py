@@ -38,7 +38,7 @@ class VC_Model(object):
         # MelGAN 보코더 인스턴스 정의
         
         # mel-spectrogram의 평균과 분산 load
-        attr_path = '/home/multicam/multicam_project/speak_image/VC/preprocessed/attr.pkl'
+        attr_path = './preprocessed/attr.pkl'
         with open(attr_path, 'rb') as f:
             self.attr = pickle.load(f)    
     ####TODO#### 
