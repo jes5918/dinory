@@ -4,6 +4,7 @@ ljs_dataset_folder/
 
 # Byte-compiled / optimized / DLL filess
 __pycache__/
+*.pyc
 *.py[cod]
 
 # C extensions
