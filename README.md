@@ -2,6 +2,8 @@
 
 > 6-7세를 위한 AI 캡셔닝을 활용해 영어 일기 작성으로 영어 문장 및 단어 학습 어플
 
+
+
 ## 👨‍👩‍👧‍👧 **팀원 소개**
 
 |    이름    | 직책 |                 역할                  |
@@ -13,6 +15,8 @@
 | **장수민** | 팀원 |         Backend(DB), AWS관리          |
 | **전의수** | 팀원 |   Backend (AI), 테크리더, UCC 제작    |
 
+
+
 ## 🔨 Tech Stack
 
 #### ⭐ Front-end : <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/> <img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=black"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/Font Awesome-339AF0?style=flat-square&logo=Font Awesome&logoColor=white"/>
@@ -20,6 +24,8 @@
 #### ⭐ Back-end : <img src="https://img.shields.io/badge/MariaDB-003545?style=flat-square&logo=MariaDB&logoColor=white"/><img src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=Django&logoColor=white"/><img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=Swagger&logoColor=black"/><img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/> <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=PyTorch&logoColor=white"/> <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=TensorFlow&logoColor=white"/>
 
 #### ⭐ Common : <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/> <img src="https://img.shields.io/badge/GitLab-FCA121?style=flat-square&logo=GitLab&logoColor=black"/><img src="https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=Jenkins&logoColor=black"/> <img src="https://img.shields.io/badge/NGINX-269539?style=flat-square&logo=NGINX&logoColor=black"/><img src="https://img.shields.io/badge/Jira-0052CC?style=flat-square&logo=Jira&logoColor=white"/><img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat-square&logo=JSON Web Tokens&logoColor=white"/>
+
+
 
 ## 🚩 Gantt Chart
 
@@ -54,6 +60,18 @@ gantt
    	PPT제작 및 질문 정리 :, 2021-03-12, 1d
 ```
 
+## 🗿 MileStone
+
+1.  3/16 : (화면정의서, 와이어프레임 및 디자인) 기획 완료, DB 설계 완료
+2.  3/17 : FE 개발 시작, AI 모델 학습 시작,  BE 개발 시작
+3.  3/19 : sub2 발표
+4.  3/24 : 주요기능 (영어일기, 단어장, 회원관리) 개발 완료 , 추가기능 (계정설정 및 통계 기능) 개발 시작
+5.  3/31 : 1차 배포 및 디자인 핵심 기능 점검
+6.  ~ 4/6 : 테스트코드 실행 및 QA
+7.  ~4/8 : 리드미 작성 및 UCC 제작
+
+
+
 ## 📌 개발 규칙
 
 #### 📝 Commit message
@@ -84,6 +102,8 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
 #     본문에 여러줄의 메시지를 작성할 땐 "-"로 구분
 ```
 
+
+
 #### 🌲 Branch
 
 - master
@@ -104,6 +124,8 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
 
     (ex. init, second, processing, end)
 
+
+
 #### 💻 Code
 
 - 전체 format
@@ -116,23 +138,27 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
     - Pascal case (ex. PascalCase) : 클래스
     - Camel case (ex. camelCase) : 기타
 
+
+
+
+
 ## 🎨 주요 기능
 
 #### 🔑 기획 배경
 
 - AI 기술과 결합하여 올바른 문장구조를 학습하고 단어를 잘 사용할 수 있는 것을 목적으로 함
-
-- 영어 단어를 활용하여 문장 구사가 가능 하고 올바른 문장 구조 및 단어 활용 연습이 필요한 6-7세를 타겟으로 함
-
 - 단어의 수가 중요한게 아니라 단어를 맥락에 맞게 문장으로 구성할 수 있는 능력이 중요
-
 - 시중의 영어 앱은 스피킹 & 단어 암기, 게임 방식의 영어 앱
-
+- 영어 단어를 활용하여 문장 구사가 가능 하고 올바른 문장 구조 및 단어 활용 연습이 필요한 아이를 타겟
 - 개인 수준별 학습된 영어 지식을 활용하여 일기를 작성할 수 있는 어플
+
+
 
 #### 📝 앱 실행 시 주의사항 고지
 
 - 앱 사용 주의사항 고지 (데이터 과금, AI 사진 데이터 사용(상업용으로 사용되지 않음) 등)
+
+
 
 #### 📝 회원 관리
 
@@ -163,6 +189,8 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
 
   - 자녀 프로필 선택 후 서비스 메인페이지로 이동
 
+
+
 #### 📝 메인페이지
 
 - **튜토리얼**
@@ -178,6 +206,8 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
   - 튜토리얼 다시보기 아이콘
   - 엄마공간(?)으로 가는 아이콘
   - 배경음악 음소거 아이콘
+
+
 
 #### 📝 **AI 캡셔닝 일기 작성**
 
@@ -216,6 +246,8 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
 
 - 중간에 일기 작성 중에 다른 페이지로 이동하면 저장되지 않는다라는 안내 후 이동할 수 있게 주의 사항 안내
 
+
+
 #### 📝 내 단어장 기능
 
 - **일기 작성 중 모르는 단어 혹은 단어장에 추가하고 싶은 단어들을 단어장에 추가.**
@@ -225,6 +257,8 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
 - **중복된 단어(이미 단어장에 들어가 있는 단어)는 추가하지 못하는 기능 추가**
 
 - **단어 저장은 단어, 뜻, 형태에 대한 충분한 정보가 같이 저장**
+
+
 
 #### 📝 일기장
 
@@ -236,11 +270,15 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
 - **일기 조회**
   - 특정 일기 카드를 선택하면 작성한 일기를 볼 수있음
 
+
+
 #### 📝 계정 설정 기능
 
 - **계정 설정**
   - 내 캐릭터 변경
   - TTS (음성 합성 목소리 설정 등)
+
+
 
 #### 📝 엄마 화면 기능(핀번호 인증으로 들어갈 수 있음)
 
@@ -257,6 +295,8 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
   - 핀 번호 변경
 - **로그아웃 기능**
 
+
+
 #### 💻 후순위 개발 기능
 
 - **계정 변환 부분**
@@ -269,3 +309,12 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
 - 일정 유사도가 나오지 않으면 캐릭터가 "다시해봐!!!" 라고 안내
 - 단어장을 활용하여 단어 복습하는 기능 추가
 - 검색기능도 시간 봐서 추가
+
+
+
+
+
+
+
+
+
