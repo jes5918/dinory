@@ -84,6 +84,6 @@ class TTS_Model:
 ####TODO####        
 if __name__ == '__main__':
     tts = TTS_Model()
-    text = 'it overturns our intellectual understanding that different interpretations of events and different opinions about them are highly likely, so that we return to seeing the world from our own point of view even after acknowledging differing positions'
+    text = 'Hello my name is euisu. nice to meet you'
     output = tts.inference(text, "output.wav")
 ####TODO####        
