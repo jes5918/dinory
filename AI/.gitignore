@@ -7,6 +7,10 @@ __pycache__/
 *.pyc
 *.py[cod]
 
+# API_key
+.env
+config.json
+
 # C extensions
 *.so
 
