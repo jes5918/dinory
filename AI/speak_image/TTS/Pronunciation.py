@@ -10,13 +10,15 @@ with open('config.json', 'r') as f: # API key 보호
 
 openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation"
 accessKey = config["PRONUNCIATION_API_KEY"] # API key
-audioFilePath = "./pronunciatindata/output3.mp3" # audio 파일
+audioFilePath = "./pronunciatindata/test13.m4a" # audio 파일
 languageCode = "english"
-script = "Hello my name is Dho Gyun. what's your name."
+# script = "Hello my name is Dho Gyun. what's your name."
+# script = "I am applying for a position at Marketing Department of your company."
+script = "I would like to contribute in planning and maintaining your homepage"
 
 w, sr = librosa.load(audioFilePath) # w는 데이터 sr은 sampling rate
 w_resample = librosa.resample(w, sr, 16000) # 16khz로 변환
-soundfile.write('pronunciatindata/temp.wav', w_resample, 16000, format='WAV', endian='LITTLE', subtype='PCM_16') # pcm wav 파일저장
+soundfile.write('./pronunciatindata/temp.wav', w_resample, 16000, format='WAV', endian='LITTLE', subtype='PCM_16') # pcm wav 파일저장
 
 file = open("./pronunciatindata/temp.wav", "rb")
 audioContents = base64.b64encode(file.read()).decode("utf8")
@@ -42,6 +44,7 @@ response = http.request(
 print("[responseCode] " + str(response.status))
 print("[responBody]")
 print("===== 결과 확인 ====")
-data = json.loads(response.data.decode("utf-8", errors='ignore'))    
+data = json.loads(response.data.decode("utf-8", errors='ignore'))
+print(data['return_object'])    
 print('확인된 음성 :', data['return_object']['recognized'])
 print('100점 만점에',round(data['return_object']['score'] * 20, 3), '점')
