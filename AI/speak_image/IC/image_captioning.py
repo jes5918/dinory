@@ -17,7 +17,7 @@ import torchvision.transforms as transforms
 
 from PIL import Image
 from io import BytesIO
-
+from pprint import pprint
 
 from maskrcnn_benchmark.config import cfg
 from maskrcnn_benchmark.layers import nms
@@ -51,7 +51,7 @@ class FeatureExtractor:
   def _build_detection_model(self):
 
       # detectron_model.yaml의 주소
-      cfg.merge_from_file('C:\\Users\\multicampus\\Desktop\\Projects\\special-subPJT1\\speak_image\\IC\\model_data\\detectron_model.yaml')
+      cfg.merge_from_file('./model_data/detectron_model.yaml')
       cfg.freeze()
 
       model = build_detection_model(cfg)
@@ -149,7 +149,7 @@ class CaptionModel:
         
     def load_model(self):
         # infos_trans12-best.pkl의 주소
-        infos = captioning.utils.misc.pickle_load(open('C:\\Users\\multicampus\\assets\\infos_trans12-best.pkl', 'rb'))
+        infos = captioning.utils.misc.pickle_load(open('./infos_trans12-best.pkl', 'rb'))
         infos['opt'].vocab = infos['vocab']
     
         self.model = captioning.models.setup(infos['opt'])
@@ -170,14 +170,14 @@ if __name__ == '__main__':
     cm = CaptionModel()
 
     # 모델에 입력할 이미지 경로 정의
-    imgFile = './test1.jpg'
+    imgFile = './test5.jpg'
 
     # cv2.imread 함수를 이용하여 이미지 불러오기
     img = cv2.imread(imgFile, cv2.IMREAD_COLOR)
 
     # CaptionModel 의 inference 함수로 캡션 얻고 출력
     result = cm.inference(imgFile)
-    print(result)
+    pprint(result)
 
     # cv2.imshow 함수를 이용하여 이미지 출력
     cv2.imshow('result', img) 

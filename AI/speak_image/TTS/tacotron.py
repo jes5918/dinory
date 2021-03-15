@@ -84,6 +84,9 @@ class TTS_Model:
 ####TODO####        
 if __name__ == '__main__':
     tts = TTS_Model()
-    text = 'Hello my name is euisu. nice to meet you'
+    # text = 'Hello my name is euisu. nice to meet you'
+    text = '''I would like to contribute in planning and maintaining your homepage. Hello my name is euisu. nice to meet you. 
+              I would like to contribute in planning and maintaining your homepage. Hello my name is euisu. nice to meet you
+           '''
     output = tts.inference(text, "output.wav")
 ####TODO####        

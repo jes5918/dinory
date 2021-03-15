@@ -35,7 +35,8 @@ def prepare_dataloaders(hparams):
     # Get data, data loaders and collate function ready
     trainset = TextMelLoader(hparams['training_files'], hparams)
     valset = TextMelLoader(hparams['validation_files'], hparams)
-    collate_fn = TextMelCollate(hparams['n_frames_per_step'])
+    collate_fn = TextMelCollate(hparams['n_frames_
+    per_step'])
 
     train_loader = DataLoader(trainset, num_workers=1, shuffle=True,
                               sampler=None,
@@ -242,7 +243,7 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-o', '--output_directory', type=str,
-                        help='directory to save checkpoints',default = "/home/multicam/checkpoints/tts_checkpoints")
+                        help='directory to save checkpoints',default = "./checkpoints/tts_checkpoints")
     parser.add_argument('-c', '--checkpoint_path', type=str, default=None,
                         required=False, help='checkpoint path')
     parser.add_argument('--warm_start', action='store_true',
@@ -255,7 +256,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     print(args.hparams)
     
-    with open('C:\\Users\\multicampus\\Desktop\\Projects\\special-subPJT2-forked\\AI\\speak_image\\TTS\\config.yaml') as f:
+    with open('./config.yaml') as f:
             hparams = yaml.load(f)
     
     #pytorch random seed 고정
