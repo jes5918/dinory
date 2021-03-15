@@ -6,7 +6,7 @@
 
 ## 🌳 캐릭터 및 디자인 컨셉
 
-![디자인_컨셉](/uploads/18906de96ded8caff49004bff194916c/디자인_컨셉.jpg)
+![디자인 컨셉](README.assets/디자인 컨셉.jpg)
 
 
 
