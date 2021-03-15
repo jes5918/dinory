@@ -6,8 +6,7 @@
 
 ## 🌳 캐릭터 및 디자인 컨셉
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210315213916334.png" alt="image-20210315213916334" style="zoom: 80%;" />
-
+![디자인_컨셉](/uploads/18906de96ded8caff49004bff194916c/디자인_컨셉.jpg)
 
 
 
