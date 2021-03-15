@@ -1,6 +1,14 @@
-## AI 그림 일기를 활용한 영어 학습 어플 (가제)
+## AI 사진 일기를 활용한 영어 학습 어플 (가제)
 
-> 6-7세를 위한 AI 캡셔닝을 활용해 영어 일기 작성으로 영어 문장 및 단어 학습 어플
+> 아동들의 영작문 실력 향상을 위한 AI 캡셔닝을 활용 영어 일기 작성어플
+
+
+
+## 🌳 캐릭터 및 디자인 컨셉
+
+<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210315213916334.png" alt="image-20210315213916334" style="zoom: 80%;" />
+
+
 
 
 
@@ -32,32 +40,28 @@
 ```mermaid
 gantt
     axisFormat  %Y-%m-%d
-    title      특화프로젝트(AI 2) B105팀 sub PJT 2 0308 ~ 0312
+    title      특화프로젝트(AI 2) B105팀 sub PJT 2 0315 ~ 0319
 	section Common
-	개발 관련 공부: active, 2021-03-08, 5d
-	프로젝트 & 팀, 이름 및 로고 제작 : active, 2021-03-08, 3d
+	sub2 발표 준비: active, 2021-03-18, 2d
+	sub2 발표 : active, 2021-03-19, 1d
 
     section Frontend
-    기능 기획 :active, a1, 2021-03-08, 3d
-    TechSpec :, 2021-03-09, 1d
-    React Native 초기셋팅 :, 2021-03-09,1d
-    기능기획 및 화면계획서 피드백 :after a1, 1d
-    프론트개발분담 :	, 2021-03-12, 1d
+    화면정의서 :active, a1, 2021-03-15, 2d
+    와이어프레임 :, 2021-03-15, 1d
+    화면정의서 & 와이어프레임 피드백 : after a1,1d
+    컴포넌트 개발 시작 :2021-03-17, 3d
 
 
     section Backend
-   	개발 환경 구성 :active, 2021-03-08, 2021-03-11
-   	DB설계 :after, 2021-03-11, 2d
-
+   	개발 환경 구성 :active, 2021-03-15, 1d
+   	DB설계 :after, 2021-03-15, 2d
+	api 설계: ,2021-03-17, 2d
+   	
    	section AI
-   	Tacotron model 학습 :active, a2, 2021-03-08, 2021-03-11
-   	IC-TTS 결합 :after a2, 1d
+   	api 작성:active, a2, 2021-03-15, 2021-03-19
 
    	section Jira Check
-   	Jira 2주차 점검 :, 2021-03-12, 1d
-
-   	section 특화 멘토링 준비
-   	PPT제작 및 질문 정리 :, 2021-03-12, 1d
+   	Jira 2주차 점검 :, 2021-03-19, 1d
 ```
 
 ## 🗿 MileStone
@@ -139,6 +143,35 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
     - Camel case (ex. camelCase) : 기타
 
 
+
+## 🧭 개발 방향
+
+> **컴포넌트set 개발 먼저 진행** ( ~ 03.19 완료 목표)
+
+- **layout** - 민호 개발
+  - square
+
+- **input** - 진우 개발
+
+- **button**  - 진우 개발
+- basic-btn
+  - arrow-btn(prev/next)
+  - round-btn
+  
+- **modal** - 도균개발
+
+  - basic-modal
+
+  - grammer-modal
+
+- **card** - 민호개발
+
+- **Img** - 민호개발
+
+- **nav-Icon** - 도균개발
+
+- **loading** - 지해 개발
+- **word** - 지해 개발
 
 
 
