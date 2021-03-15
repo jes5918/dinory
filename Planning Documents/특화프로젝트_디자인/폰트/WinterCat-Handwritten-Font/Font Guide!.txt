@@ -1,0 +1,10 @@
+============================================= FONT GUIDE ============================================= 
+
+How to Install font:
+
+https://www.howtogeek.com/192980/how-to-install-remove-and-manage-fonts-on-windows-mac-and-linux/
+
+
+How to Enable OpenType/Special Features in Microsoft Word, Adobe Photoshop and Adobe Illustrator:
+
+https://support.creativemarket.com/hc/en-us/articles/360037478813--Using-Fonts-with-Special-Features-OpenType-
