@@ -169,7 +169,7 @@ def train(output_directory, checkpoint_path, warm_start, hparams):
         if warm_start:
             # warm_start함수로 이동
             model = warm_start_model(
-                checkpoint_path, model, hparams.ignore_layers)
+                checkpoint_path, model, ['embedding.weight'])
 
         #train from scratch
         ##제공##
@@ -243,7 +243,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-o', '--output_directory', type=str,
                         help='directory to save checkpoints',default = "./checkpoints/tts_checkpoints")
-    parser.add_argument('-c', '--checkpoint_path', type=str, default=None,
+    parser.add_argument('-c', '--checkpoint_path', type=str, default="./checkpoints/tts_checkpoints",
                         required=False, help='checkpoint path')
     parser.add_argument('--warm_start', action='store_true',
                         help='load model weights only, ignore specified layers')
