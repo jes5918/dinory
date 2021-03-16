@@ -18,7 +18,7 @@ class TTS_Model:
     
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.dirname(__file__))
-        with open('C:\\Users\\multicampus\\Desktop\\Projects\\special-subPJT1\\speak_image\\TTS\\config.yaml') as f:
+        with open('./config.yaml') as f:
             self.hparams = yaml.safe_load(f)
         self.load_model()
     
@@ -70,9 +70,6 @@ class TTS_Model:
         with torch.no_grad():
             _, mel, _, _ = tacotron2.infer(sequence)
             audio = self.waveglow.infer(mel)
-        # audio_numpy = audio[0].data.cpu().numpy()
-        # rate = 22050
-        # write("audio.wav", rate, audio_numpy)
         audio_denoised = self.denoiser(audio, strength=0.01)[:, 0]
                        
         write(output_path, rate=self.hparams['sampling_rate'], data=audio_denoised[0].data.cpu().numpy())
@@ -80,13 +77,9 @@ class TTS_Model:
             
 
     
-#Req. 4-2 학습을 마친 이후 test할 수 있는 inference 코드 작성하기    
-####TODO####        
+   
 if __name__ == '__main__':
     tts = TTS_Model()
-    # text = 'Hello my name is euisu. nice to meet you'
-    text = '''I would like to contribute in planning and maintaining your homepage. Hello my name is euisu. nice to meet you. 
-              I would like to contribute in planning and maintaining your homepage. Hello my name is euisu. nice to meet you
+    text = '''I would like to contribute in planning and maintaining your homepage. 
            '''
     output = tts.inference(text, "output.wav")
-####TODO####        
