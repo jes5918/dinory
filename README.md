@@ -57,7 +57,9 @@ gantt
 	api 설계: ,2021-03-17, 2d
    	
    	section AI
-   	api 작성:active, a2, 2021-03-15, 2021-03-19
+   	OCR api 작성:active, 2021-03-16, 2021-03-17
+   	TTS inference 수정 : ,2021-03-17, 2d
+   	backend 서버 연동 : active, 2021-03-16, 2021-03-19
 
    	section Jira Check
    	Jira 2주차 점검 :, 2021-03-19, 1d
