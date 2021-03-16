@@ -35,8 +35,7 @@ def prepare_dataloaders(hparams):
     # Get data, data loaders and collate function ready
     trainset = TextMelLoader(hparams['training_files'], hparams)
     valset = TextMelLoader(hparams['validation_files'], hparams)
-    collate_fn = TextMelCollate(hparams['n_frames_
-    per_step'])
+    collate_fn = TextMelCollate(hparams['n_frames_per_step'])
 
     train_loader = DataLoader(trainset, num_workers=1, shuffle=True,
                               sampler=None,
@@ -257,7 +256,7 @@ if __name__ == '__main__':
     print(args.hparams)
     
     with open('./config.yaml') as f:
-            hparams = yaml.load(f)
+        hparams = yaml.load(f)
     
     #pytorch random seed 고정
     torch.backends.cudnn.enabled = hparams['cudnn_enabled']
