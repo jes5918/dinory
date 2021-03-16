@@ -20,29 +20,27 @@ class TTS_Model:
         self.base_dir = os.path.dirname(os.path.dirname(__file__))
         with open('./config.yaml') as f:
             self.hparams = yaml.safe_load(f)
-        self.load_model()
+        # self.load_model()
     
     #Req. 4-1 모델 로드
     def load_model(self):
         # #### 1.학습된 모델 불러오기
         # 학습된 tacotron 모델 주소를 load하고
         # 모델에 hparam과 statedict를 load한다
-        checkpoint_path = '/home/multicam/checkpoints/tts_checkpoints/checkpoint_0'
-        model = load_model(self.hparams)
-        model.load_state_dict(torch.load(checkpoint_path)['state_dict'])
-        
+        checkpoint_path = './checkpoints/tts_checkpoints/checkpoint_4500'
+        self.model = load_model(self.hparams)
+        self.model.load_state_dict(torch.load(checkpoint_path)['state_dict'])
+        _ = self.model.cuda().eval()
 
-        ####TODO####
-        _ = model.cuda().eval().half()
-        
+        # self.model = torch.hub.load('nvidia/DeepLearningExamples:torchhub', 'nvidia_tacotron2')
+        # self.model.cuda().eval()
+
         #waveglow model load
         # self.waveglow = torch.load('C:\\Users\\multicampus\\assets\\waveglow.pt')
         self.waveglow = torch.hub.load('nvidia/DeepLearningExamples:torchhub', 'nvidia_waveglow')
         self.waveglow = self.waveglow.remove_weightnorm(self.waveglow)
-        self.waveglow = self.waveglow.to('cuda')
-        self.waveglow.eval()      
-     
-        # self.waveglow.cuda().eval().half()
+        self.waveglow.cuda().eval()
+
         for k in self.waveglow.convinv:
             k.float()
         self.denoiser = Denoiser(self.waveglow)
@@ -50,25 +48,19 @@ class TTS_Model:
     
     
     def inference(self,text,output_path):
-        output_path = output_path 
-        
         #Req. 4-2 학습을 마친 이후 test할 수 있는 inference 코드 작성하기
         ####TODO#### 2.tacotron 모델로 mel-spectrogram을 생성 후 waveglow 모델로 waveform을 합성
         # text_to_sequence() 함수를 이용하여 text 전처리   => text_to_sequence(text, ['english_cleaners'])로 sequence 출력              
         # model로 mel_spectrogram예측
 
-        # tacotron2 = torch.load('C:\\Users\\multicampus\\assets\\tts_warmstart')
-        tacotron2 = torch.hub.load('nvidia/DeepLearningExamples:torchhub', 'nvidia_tacotron2')
-        tacotron2 = tacotron2.to('cuda')
-        tacotron2.eval()
-        sequence = np.array(tacotron2.text_to_sequence(text, ['english_cleaners']))[None, :]
+        sequence = np.array(text_to_sequence(text, ['english_cleaners']))[None, :]
         sequence = torch.from_numpy(sequence).to(device='cuda', dtype=torch.int64)
         ####TODO####
         
         #WaveGlow로 음성 합성하고 Waveform 저장하기
         with torch.no_grad():
-            _, mel, _, _ = tacotron2.infer(sequence)
-            audio = self.waveglow.infer(mel)
+            _, mel, _, _ = self.model.infer(sequence)
+            audio = self.waveglow.infer(mel, sigma=0.666)
         audio_denoised = self.denoiser(audio, strength=0.01)[:, 0]
                        
         write(output_path, rate=self.hparams['sampling_rate'], data=audio_denoised[0].data.cpu().numpy())
@@ -79,6 +71,17 @@ class TTS_Model:
    
 if __name__ == '__main__':
     tts = TTS_Model()
-    text = '''I would like to contribute in planning and maintaining your homepage. 
-           '''
-    output = tts.inference(text, "output.wav")
+    print("0")
+    tts.load_model()
+    print("1")
+    text = 'go to the hell'
+    output = tts.inference(text, "output1.wav")
+    print("222")
+    text = 'banana'
+    output = tts.inference(text, "output2.wav")
+    print("3333333")
+    text = 'It is better to fail in originality'
+    output = tts.inference(text, "output3.wav")
+    print("44444444444")
+    text = 'It is better to fail in originality than to succeed in imitation.'
+    output = tts.inference(text, "output4.wav")
