@@ -16,6 +16,7 @@ import {
   Text,
   TextInput,
   StatusBar,
+  Button,
 } from 'react-native';
 import {
   Header,
@@ -24,24 +25,19 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import NavIcon from '../components/elements/NavIcon'
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <View style = {styles.container}>
-      <Text >Hello World</Text>
-      <Image source={require('../assets/사자.png')}
-      style={{width:200, height:200}}
-      />
-
-      <TextInput 
-      style={{
-        height:40,
-        borderColor: 'grey',
-        borderWidth:1
-      }}
-      defaultValue='YOU CAN TYPE IN ME' 
-      />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={NavIcon} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
