@@ -32,6 +32,5 @@ def detect_document(path):
 
     if response.error.message:
         raise Exception(
-            '{}\nFor more info on error messages, check: '
-            'https://cloud.google.com/apis/design/errors'.format(
+            '{}\nFor more info on error messages, check: https://cloud.google.com/apis/design/errors'.format(
                 response.error.message))
