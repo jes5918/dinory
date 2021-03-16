@@ -8,14 +8,15 @@
 
 import React from 'react';
 import {
+  Image,
   SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
   Text,
+  TextInput,
   StatusBar,
 } from 'react-native';
-
 import {
   Header,
   LearnMoreLinks,
@@ -28,6 +29,18 @@ const App = () => {
   return (
     <View style = {styles.container}>
       <Text >Hello World</Text>
+      <Image source={require('../assets/사자.png')}
+      style={{width:200, height:200}}
+      />
+
+      <TextInput 
+      style={{
+        height:40,
+        borderColor: 'grey',
+        borderWidth:1
+      }}
+      defaultValue='YOU CAN TYPE IN ME' 
+      />
     </View>
   );
 };
