@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import BouncingPreloader from 'react-native-bouncing-preloader';
 
@@ -13,9 +13,9 @@ const icons = [
   require('../assets/사자.png'),
 ];
 
-export default class App extends Component {
-  render() {
-    return (
+export default function LoadingFir() {
+  return (
+    <View>
       <View style={styles.container}>
         <BouncingPreloader
           icons={icons}
@@ -24,8 +24,8 @@ export default class App extends Component {
           speed={1200}
         />
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
