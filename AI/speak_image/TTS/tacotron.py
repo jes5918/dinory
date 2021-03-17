@@ -40,7 +40,7 @@ class TTS_Model:
         self.waveglow = torch.hub.load('nvidia/DeepLearningExamples:torchhub', 'nvidia_waveglow')
         self.waveglow = self.waveglow.remove_weightnorm(self.waveglow)
         self.waveglow.cuda().eval()
-
+v
         for k in self.waveglow.convinv:
             k.float()
         self.denoiser = Denoiser(self.waveglow)
