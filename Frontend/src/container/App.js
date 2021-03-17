@@ -28,6 +28,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import NavIcon from '../components/elements/NavIcon'
+import LoadingFir from '../components/LoadingFir';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={NavIcon} />
+        <Stack.Screen name="LoadingFir" component={LoadingFir} />
       </Stack.Navigator>
     </NavigationContainer>
   );

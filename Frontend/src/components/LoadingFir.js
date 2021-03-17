@@ -22,6 +22,7 @@ export default function LoadingFir() {
           leftDistance={-200}
           rightDistance={-50}
           speed={1200}
+          useNativeDriver="true"
         />
       </View>
     </View>
