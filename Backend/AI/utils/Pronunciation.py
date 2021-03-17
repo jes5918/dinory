@@ -11,17 +11,16 @@ with open('config.json', 'r') as f: # API key 보호
 
 openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation"
 accessKey = config["PRONUNCIATION_API_KEY"] # API key
-audioFilePath = "./pronunciatindata/mm4.m4a" # audio 파일
+audioFilePath = "data/mm1.m4a" # audio 파일
 languageCode = "english"
 # script = "Hello my name is Dho Gyun. what's your name."
 # script = "I am applying for a position at Marketing Department of your company."
 script = "I would like to contribute in planning and maintaining your homepage"
 
-w, sr = librosa.load(audioFilePath) # w는 데이터 sr은 sampling rate
-w_resample = librosa.resample(w, sr, 16000) # 16khz로 변환
-soundfile.write('./pronunciatindata/temp.wav', w_resample, 16000, format='WAV', endian='LITTLE', subtype='PCM_16') # pcm wav 파일저장
+w, sr = librosa.load(audioFilePath, sr=16000) # w는 데이터 sr은 sampling rate
+soundfile.write('data/temp.wav', w, 16000, format='WAV', endian='LITTLE', subtype='PCM_16') # pcm wav 파일저장
 
-file = open("./pronunciatindata/temp.wav", "rb")    
+file = open("data/temp.wav", "rb")    
 audioContents = base64.b64encode(file.read()).decode("utf8")
 file.close()
 
