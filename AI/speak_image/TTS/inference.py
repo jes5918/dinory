@@ -8,9 +8,9 @@ import numpy as np
 import torch
 
 from hparams import create_hparams
-from model import Tacotron2
-from layers import TacotronSTFT, STFT
-from audio_processing import griffin_lim
+# from model import Tacotron2
+# from layers import TacotronSTFT, STFT
+# from audio_processing import griffin_lim
 from train import load_model
 from text import text_to_sequence
 from denoiser import Denoiser
