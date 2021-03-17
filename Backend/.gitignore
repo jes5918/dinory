@@ -115,3 +115,6 @@ dmypy.json
 
 # profiling data
 .prof
+
+# API key
+config.json
