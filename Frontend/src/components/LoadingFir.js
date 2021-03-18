@@ -21,7 +21,7 @@ export default function LoadingFir() {
           icons={icons}
           leftDistance={-200}
           rightDistance={-50}
-          speed={1200}
+          speed={1400}
           useNativeDriver="true"
         />
       </View>
