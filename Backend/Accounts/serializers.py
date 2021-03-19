@@ -7,10 +7,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password')
+        fields = ('username', 'password', 'email', 'pin_code')
 
 class ChildSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Child
-        fields = ('name', 'age')
+        fields = '__all__'
+        read_only_fields = ('parent',)
