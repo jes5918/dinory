@@ -220,3 +220,6 @@ dist
 !.yarn/sdks
 !.yarn/versions
 !.yarn/cache
+
+
+.idea
