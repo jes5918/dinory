@@ -4,9 +4,11 @@ from django.conf import settings
 
 # Create your models here.
 class User(AbstractUser):
-    pass
+    pin_code = models.CharField(max_length=6, default="000000")
 
 class Child(models.Model):
     parent = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='child')
     name = models.CharField(max_length=20)
-    age = models.IntegerField()
+    img = models.CharField(max_length=255)
+    birthYear = models.IntegerField()
+    birthMonth = models.IntegerField()
