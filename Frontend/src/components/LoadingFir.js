@@ -3,14 +3,14 @@ import {View, StyleSheet} from 'react-native';
 import BouncingPreloader from 'react-native-bouncing-preloader';
 
 const icons = [
-  require('../assets/egg.png'),
+  require('../assets/images/egg.png'),
   null,
-  require('../assets/character1.png'),
-  require('../assets/character2.png'),
-  require('../assets/character3.png'),
+  require('../assets/images/character1.png'),
+  require('../assets/images/character2.png'),
+  require('../assets/images/character3.png'),
   null,
-  require('../assets/character4.png'),
-  require('../assets/character5.png'),
+  require('../assets/images/character4.png'),
+  require('../assets/images/character5.png'),
 ];
 
 export default function LoadingFir() {
