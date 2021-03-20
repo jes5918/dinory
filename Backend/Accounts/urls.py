@@ -15,4 +15,5 @@ urlpatterns = [
 
     # 아이계정
     path('child/', views.child_create_read),
+    path('child/setting/<int:pk>/', views.child_update_delete),
 ]
