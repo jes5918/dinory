@@ -3,14 +3,14 @@ import {View, StyleSheet} from 'react-native';
 import BouncingPreloader from 'react-native-bouncing-preloader';
 
 const icons = [
-  require('../assets/그림자 없는 코끼리.png'),
+  require('../assets/images/egg.png'),
   null,
-  require('../assets/알에앉은노란공룡이.png'),
-  require('../assets/그림자없는곰.png'),
-  require('../assets/알에앉은주황공룡이.png'),
+  require('../assets/images/character1.png'),
+  require('../assets/images/character2.png'),
+  require('../assets/images/character3.png'),
   null,
-  require('../assets/알에앉은진한초록공룡이.png'),
-  require('../assets/사자.png'),
+  require('../assets/images/character4.png'),
+  require('../assets/images/character5.png'),
 ];
 
 export default function LoadingFir() {
@@ -20,9 +20,9 @@ export default function LoadingFir() {
         <BouncingPreloader
           icons={icons}
           leftDistance={-200}
-          rightDistance={-50}
-          speed={1400}
-          useNativeDriver="true"
+          rightDistance={-150}
+          speed={1000}
+          useNativeDriver={true}
         />
       </View>
     </View>
