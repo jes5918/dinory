@@ -44,7 +44,10 @@ export default function FlipCard({english, korean, pos, exampleSentence}) {
   };
 
   return (
-    <TouchableOpacity style={[styles.card]} onPress={() => flip()}>
+    <TouchableOpacity
+      style={[styles.card]}
+      onPress={() => flip()}
+      activeOpacity={1}>
       <Animated.View style={[t_transform_front, styles.front]}>
         <Text style={[styles.word]}>{english}</Text>
       </Animated.View>
