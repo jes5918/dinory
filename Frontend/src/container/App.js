@@ -28,6 +28,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import NavIcon from '../components/elements/NavIcon';
+import FlipCard from '../components/elements/FlipCard';
 import LoadingFir from '../components/LoadingFir';
 import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/SelectProfile';
@@ -40,9 +41,10 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="FlipCard">
         <Stack.Screen name="Home" component={NavIcon} />
         <Stack.Screen name="LoadingFir" component={LoadingFir} />
+        <Stack.Screen name="FlipCard" component={FlipCard} />
         <Stack.Screen name="SelectLogin" component={SelectLogin} />
         <Stack.Screen name="SelectProfile" component={SelectProfile} />
         <Stack.Screen name="Main" component={Main} />
