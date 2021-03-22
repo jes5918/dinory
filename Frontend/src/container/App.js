@@ -41,7 +41,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="FlipCard">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={NavIcon} />
         <Stack.Screen name="LoadingFir" component={LoadingFir} />
         <Stack.Screen name="FlipCard" component={FlipCard} />
