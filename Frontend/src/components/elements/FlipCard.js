@@ -1,79 +1,150 @@
 import React, {useState} from 'react';
-import {
-  Animated,
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native';
+import {Animated, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+//  english : 영어 단어, korean: 뜻, pos(part of speech): 품사, exampleSentence: 예시문장
+export default function FlipCard({english, korean, pos, exampleSentence}) {
+  const animationvalue = new Animated.Value(0);
+
+  let temp = 0;
+
+  animationvalue.addListener((e) => {
+    temp = e.value;
+  });
+
+  const frontflipRange = animationvalue.interpolate({
+    inputRange: [0, 180],
+    outputRange: ['0deg', '180deg'],
+  });
+  const backflipRange = animationvalue.interpolate({
+    inputRange: [0, 180],
+    outputRange: ['180deg', '360deg'],
+  });
+
+  const t_transform_front = {
+    transform: [{rotateY: frontflipRange}],
+  };
+
+  const t_transform_back = {
+    transform: [{rotateY: backflipRange}],
+  };
+
+  const flip = () => {
+    if (temp < 90) {
+      Animated.timing(animationvalue, {
+        toValue: 180,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(animationvalue, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+
+  return (
+    <TouchableOpacity
+      style={[styles.card]}
+      onPress={() => flip()}
+      activeOpacity={1}>
+      <Animated.View style={[t_transform_front, styles.front]}>
+        <Text style={[styles.word]}>{english}</Text>
+      </Animated.View>
+      <Animated.View style={[t_transform_back, styles.back]}>
+        <View style={[styles.backWordBox]}>
+          <Text style={[styles.word]}>{korean}</Text>
+          <Text style={[styles.wordClass]}>{pos}</Text>
+        </View>
+        <View style={styles.backSentenceBox}>
+          <Text style={[styles.wordSentence]}>{exampleSentence}</Text>
+        </View>
+      </Animated.View>
+    </TouchableOpacity>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    bckgroundColor: '#fff',
+    backgroundColor: '#2ffe',
   },
+
   card: {
-    width: '50%',
-    height: '50%',
-    transform: [{rotateY: '180deg'}],
-  },
-  card2: {
-    width: '50%',
-    height: '50%',
-    transform: [{rotateY: '0deg'}],
+    position: 'relative',
+    width: 260,
+    height: 338,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 10,
   },
   front: {
-    // position: 'absolute',
-    backgroundColor: 'pink',
-    // backfaceVisibility: 'hidden',
+    position: 'absolute',
+    width: 260,
+    height: 338,
+    backgroundColor: '#f0859f',
+    backfaceVisibility: 'hidden',
+    borderRadius: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+
   back: {
-    // position: 'absolute',
-    backgroundColor: 'blue',
-    transform: [{rotateY: '180deg'}],
-    // backfaceVisibility: 'hidden',
+    position: 'absolute',
+    width: 260,
+    height: 338,
+    backgroundColor: '#76b0e9',
+    backfaceVisibility: 'hidden',
+    borderRadius: 30,
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '5%',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+
+  word: {
+    fontSize: 40,
+    color: 'white',
+    fontWeight: 'bold',
+    fontFamily: 'HoonPinkpungchaR',
+  },
+  wordClass: {
+    fontSize: 24,
+    color: 'white',
+    fontFamily: 'HoonPinkpungchaR',
+  },
+  wordSentence: {
+    fontFamily: 'HoonPinkpungchaR',
+    fontSize: 24,
+    fontWeight: '500',
+  },
+  backWordBox: {
+    width: '100%',
+    height: '45%',
+    display: 'flex',
+    padding: 30,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  backSentenceBox: {
+    width: '100%',
+    height: '45%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 30,
+    padding: 15,
   },
 });
-
-export default function FlipCard() {
-  const [temp, settemp] = useState(false);
-  const flip = () => {
-    if (!temp) {
-      settemp(true);
-    } else {
-      settemp(false);
-    }
-  };
-  return (
-    <Animated.View style={styles.container}>
-      <TouchableOpacity onPress={() => flip()}>
-        <Animated.View title="apple" style={temp ? styles.card : styles.card2}>
-          <Animated.View style={styles.front}>
-            <Text>APPLE</Text>
-          </Animated.View>
-          <Animated.View style={styles.back}>
-            <Text>사과</Text>
-          </Animated.View>
-        </Animated.View>
-      </TouchableOpacity>
-    </Animated.View>
-
-  );
-}
-
-{
-  /* <div class="container">
-  <div class="card" onclick="flip(event)">
-    <div class="front">
-      <h1>APPLE</h1>
-      <p> Here is some additional text</p>
-    </div>
-    <div class="back">
-      <h1>사과</h1>
-    </div>
-  </div>
-</div>; */
-}
