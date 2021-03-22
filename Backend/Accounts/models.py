@@ -9,6 +9,5 @@ class User(AbstractUser):
 class Child(models.Model):
     parent = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='child')
     name = models.CharField(max_length=20)
-    img = models.CharField(max_length=255)
-    birthYear = models.IntegerField()
-    birthMonth = models.IntegerField()
+    img = models.IntegerField()
+    age = models.IntegerField()
