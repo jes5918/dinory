@@ -6,7 +6,7 @@
 
 ## 🌳 캐릭터 및 디자인 컨셉
 
-![디자인 컨셉](README.assets/디자인 컨셉.jpg)
+![디자인 컨셉](README.assets/디자인 컨셉-1616419898650.jpg)
 
 
 
@@ -39,30 +39,26 @@
 ```mermaid
 gantt
     axisFormat  %Y-%m-%d
-    title      특화프로젝트(AI 2) B105팀 sub PJT 2 0315 ~ 0319
+    title      특화프로젝트(AI 2) B105팀 sub PJT 3 0322 ~ 0326
 	section Common
-	sub2 발표 준비: active, 2021-03-18, 2d
-	sub2 발표 : active, 2021-03-19, 1d
+	sub2 발표 준비: active, 2021-03-25, 2d
+	sub2 발표 : active, 2021-03-26, 1d
 
     section Frontend
-    화면정의서 :active, a1, 2021-03-15, 2d
-    와이어프레임 :, 2021-03-15, 1d
-    화면정의서 & 와이어프레임 피드백 : after a1,1d
-    컴포넌트 개발 시작 :2021-03-17, 3d
-
-
+    기능별 개발 :active, a1, 2021-03-22, 5d
+    백 api 연결 :, 2021-03-23, 3d
+    코드 리뷰 : , 2021-03-22,4d
+    
     section Backend
-   	개발 환경 구성 :active, 2021-03-15, 1d
-   	DB설계 :after, 2021-03-15, 2d
-	api 설계: ,2021-03-17, 2d
+	api 설계: ,2021-03-22, 2d
+	코드 작성: ,2021-03-22, 4d
    	
    	section AI
-   	OCR api 작성:active, 2021-03-16, 2021-03-17
-   	TTS inference 수정 : ,2021-03-17, 2d
-   	backend 서버 연동 : active, 2021-03-16, 2021-03-19
+   	api 작성:active, 2021-03-22, 2021-03-25
+   	TTS train : ,2021-03-22, 3d
 
    	section Jira Check
-   	Jira 2주차 점검 :, 2021-03-19, 1d
+   	Jira 2주차 점검 :, 2021-03-26, 1d
 ```
 
 ## 🗿 MileStone
@@ -160,7 +156,7 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
 
 ## 🚀 ERD
 
-<img src="README.assets/Image Pasted at 2021-3-19 10-40.png" alt="Image Pasted at 2021-3-19 10-40" style="zoom:67%;" />
+![erd_2](README.assets/erd_2-1616416389004.png)
 
 
 
@@ -296,9 +292,9 @@ chore      : 빌드 업무 수정, 패키지 매니저 수정
   - 1개월 단위로 한 달이 지나면 이미지+ 일기 제목 카드 형식으로 묶이고, 해당월 일기는 쭉 나열해서 타임라인 형식으로 보여줌
   - 이전 달은 달을 클릭하면 앨범 형식으로 책 넘기는 느낌으로 제작 (한 페이지에 4~6개씩 카드가 들어가서 볼 수 있게)
   - 현재 와이어프레임 되어있는 구조 유지
-  
+
 - **일기 조회**
-  
+
   - 특정 일기 카드를 선택하면 작성한 일기를 볼 수있음
 
 
