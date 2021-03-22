@@ -8,13 +8,12 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from 'react-native';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    bckgroundColor: '#fff',
   },
   card: {
     width: '50%',
@@ -61,6 +60,7 @@ export default function FlipCard() {
         </Animated.View>
       </TouchableOpacity>
     </Animated.View>
+
   );
 }
 
