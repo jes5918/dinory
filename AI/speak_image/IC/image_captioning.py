@@ -57,7 +57,7 @@ class FeatureExtractor:
       model = build_detection_model(cfg)
       # detectron_model.pth의 주소
       checkpoint = torch.load('C:\\Users\\multicampus\\assets\\detectron_model.pth', 
-                              map_location=torch.device("cpu"))
+                              map_location=torch.device("cuda"))
 
       load_state_dict(model, checkpoint.pop("model"))
 
@@ -169,13 +169,10 @@ if __name__ == '__main__':
     # CaptionModel 클래스에 대한 인스턴스 생성
     cm = CaptionModel()
 
-    # 모델에 입력할 이미지 경로 정의
     imgFile = './test5.jpg'
 
-    # cv2.imread 함수를 이용하여 이미지 불러오기
     img = cv2.imread(imgFile, cv2.IMREAD_COLOR)
 
-    # CaptionModel 의 inference 함수로 캡션 얻고 출력
     result = cm.inference(imgFile)
     pprint(result)
 

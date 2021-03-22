@@ -8,7 +8,6 @@ from pprint import pprint
 
 with open('config.json', 'r') as f: # API key 보호
     config = json.load(f)
-
 openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation"
 accessKey = config["PRONUNCIATION_API_KEY"] # API key
 audioFilePath = "data/mm1.m4a" # audio 파일
