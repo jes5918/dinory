@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Animated, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {
+  Animated,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 //  english : 영어 단어, korean: 뜻, pos(part of speech): 품사, exampleSentence: 예시문장
 export default function FlipCard({english, korean, pos, exampleSentence}) {
   const animationvalue = new Animated.Value(0);
@@ -19,11 +26,11 @@ export default function FlipCard({english, korean, pos, exampleSentence}) {
     outputRange: ['180deg', '360deg'],
   });
 
-  const t_transform_front = {
+  const transformFront = {
     transform: [{rotateY: frontflipRange}],
   };
 
-  const t_transform_back = {
+  const transformBack = {
     transform: [{rotateY: backflipRange}],
   };
 
@@ -48,10 +55,10 @@ export default function FlipCard({english, korean, pos, exampleSentence}) {
       style={[styles.card]}
       onPress={() => flip()}
       activeOpacity={1}>
-      <Animated.View style={[t_transform_front, styles.front]}>
+      <Animated.View style={[transformFront, styles.front]}>
         <Text style={[styles.word]}>{english}</Text>
       </Animated.View>
-      <Animated.View style={[t_transform_back, styles.back]}>
+      <Animated.View style={[transformBack, styles.back]}>
         <View style={[styles.backWordBox]}>
           <Text style={[styles.word]}>{korean}</Text>
           <Text style={[styles.wordClass]}>{pos}</Text>
@@ -64,6 +71,12 @@ export default function FlipCard({english, korean, pos, exampleSentence}) {
   );
 }
 
+const dimensions = Dimensions.get('window');
+const screenWidth = dimensions.width;
+const screenHeight = dimensions.height;
+const cardWidth = screenWidth * 0.2;
+const cardHeight = screenHeight * 0.4;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -74,8 +87,8 @@ const styles = StyleSheet.create({
 
   card: {
     position: 'relative',
-    width: 260,
-    height: 338,
+    width: cardWidth,
+    height: cardHeight,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -87,8 +100,8 @@ const styles = StyleSheet.create({
   },
   front: {
     position: 'absolute',
-    width: 260,
-    height: 338,
+    width: cardWidth,
+    height: cardHeight,
     backgroundColor: '#f0859f',
     backfaceVisibility: 'hidden',
     borderRadius: 30,
@@ -99,8 +112,8 @@ const styles = StyleSheet.create({
 
   back: {
     position: 'absolute',
-    width: 260,
-    height: 338,
+    width: cardWidth,
+    height: cardHeight,
     backgroundColor: '#76b0e9',
     backfaceVisibility: 'hidden',
     borderRadius: 30,
