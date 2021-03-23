@@ -1,25 +1,39 @@
-version: '3'
+version: "3"
 
 services:
-  nginx:
-    container_name: nginx
-    build: ./nginx
-    image: docker-server/nginx
-    restart: always
-    ports:
-      - '80:80'
-    volumes:
-      - ./Backend:/srv/docker-server
-      - ./log:/var/log/nginx
-    depends_on:
-      - django
+    jenkins:
+        images: 'jenkinsci/blueocean'
+        restart: unless-stopped
+        user: root
+        privileged: true
+        ports:
+        - '9090:8080'
+        volumes:
+        - /home/ubuntu/docker/jenkins-data:/var/jenkins_home
+        - /var/run/docker.sock:/var/run/docker.sock
+        - "$HOME":/home
+        container_name: 'jenkins'
 
-  django:
-    container_name: django
-    build: ./Backend
-    image: docker-server/django
-    restart: always
-    command: uwsgi --ini uwsgi.ini
-    volumes:
-      - ./Backend:/srv/docker-server
-      - ./log:/var/log/uwsgi
+    nginx:
+        container_name: nginx
+        build: ./nginx
+        image: docker-server/nginx
+        restart: always
+        ports: 
+          - "80:80"
+        volumes:
+          - ./Backend:/srv/docker-server
+          - ./log:/var/log/nginx
+        depends_on:
+          - django
+
+    django:
+        container_name: django
+        build: ./Backend
+        image: docker-server/django
+        restart: always
+        command: uwsgin --ini uwsgi.ini
+        command: uwsgi --ini uwsgi.ini
+        volumes:
+          - ./Backend:/srv/docker-server
+          - ./log:/var/log/uwsgi
