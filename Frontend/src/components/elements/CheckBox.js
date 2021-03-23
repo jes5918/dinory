@@ -105,7 +105,7 @@ export default function CheckBox({textEn, textKr}) {
             style={styles.touchText}
             onPress={() => onHandleFlipCard()}
             name={'check'}>
-            <Text style={styles.text}>{textEn}</Text>
+            <Text style={styles.text}>apple</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
@@ -137,7 +137,7 @@ export default function CheckBox({textEn, textKr}) {
           <TouchableOpacity
             style={styles.touchText}
             onPress={() => onHandleFlipCard()}>
-            <Text style={styles.text}>{textKr}</Text>
+            <Text style={styles.text}>사과</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
@@ -155,22 +155,31 @@ export default function CheckBox({textEn, textKr}) {
 }
 
 const windowSize = Dimensions.get('window');
-const windowWidth = windowSize.width;
-const windowHeight = windowSize.height;
-
-console.log(windowSize, windowHeight, windowWidth);
+const windowWidth = windowSize.width; // 1280
+const windowHeight = windowSize.height; // 768
+const fontScale = windowSize.fontScale;
 
 const styles = StyleSheet.create({
   box: {
     position: 'relative',
-    minWidth: windowWidth * 0.13,
-    minHeight: windowHeight * 0.05,
-    marginRight: 5,
-    marginLeft: 5,
+    // minWidth: windowWidth * 0.13,
+    // minHeight: windowHeight * 0.05,
+    // width: windowWidth * 0.13,
+    // height: windowHeight * 0.05,
+    width: 'auto',
+    height: 'auto',
+    margin: 5,
   },
   container: {
-    minWidth: windowWidth * 0.13,
-    minHeight: windowHeight * 0.05,
+    shadowColor: 'black',
+    shadowOffset: {width: 10, height: 10},
+    elevation: 10,
+    // minWidth: windowWidth * 0.13,
+    // minHeight: windowHeight * 0.05,
+    // width: windowWidth * 0.13,
+    // height: windowHeight * 0.05,
+    width: 'auto',
+    height: 'auto',
     borderRadius: 50,
     display: 'flex',
     flexDirection: 'row',
@@ -178,6 +187,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 16,
     paddingRight: 16,
+    paddingTop: 8,
+    paddingBottom: 8,
     fontFamily: 'HoonPinkpungchaR',
     backfaceVisibility: 'hidden',
     position: 'absolute',
@@ -193,8 +204,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   checkRound: {
-    width: windowWidth * 0.019,
-    height: windowWidth * 0.019,
+    width: 24,
+    height: 24,
     borderWidth: 2,
     borderColor: '#DBDBDB',
     borderRadius: 1000,
@@ -216,7 +227,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   volumeIcon: {
-    fontSize: 20,
+    fontSize: fontScale * 20,
   },
   back: {
     backgroundColor: 'white',
