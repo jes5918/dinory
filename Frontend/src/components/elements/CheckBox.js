@@ -165,6 +165,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     minWidth: windowWidth * 0.13,
     minHeight: windowHeight * 0.05,
+    marginRight: 5,
+    marginLeft: 5,
   },
   container: {
     minWidth: windowWidth * 0.13,
