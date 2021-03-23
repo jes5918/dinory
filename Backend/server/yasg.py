@@ -8,9 +8,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view( 
     openapi.Info( 
-        title="강남영어(가제)", 
+        title="Dinory", 
         default_version="v1", 
-        description="강남영어 SERVER API 문서", 
+        description="Dinory SERVER API 문서", 
         terms_of_service="https://www.google.com/policies/terms/", 
         # contact=openapi.Contact(name="Jansu", email="popop09090@naver.com"), 
         # license=openapi.License(name="Jansu"), 
