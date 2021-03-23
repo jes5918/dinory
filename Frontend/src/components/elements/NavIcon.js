@@ -6,8 +6,8 @@ export default function NavIcon({navigation}) {
     <View>
       <Text>NavIcon 테스트</Text>
       <Button
-        title="LoadingFir"
-        onPress={() => navigation.navigate('LoadingFir')}
+        title="LoadingSec"
+        onPress={() => navigation.navigate('LoadingSec')}
       />
       <Text> </Text>
       <Button
