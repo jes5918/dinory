@@ -12,8 +12,9 @@ import {
 } from 'react-native';
 
 import CheckBox from '../elements/CheckBox.js';
+import WordList from './WordList';
 
-export default function WriteDiary({words}) {
+export default function WriteDiary({}) {
   const temp = [
     {textEn: 'happy', textKr: '행복'},
     {textEn: 'coding', textKr: '코딩'},
@@ -45,16 +46,7 @@ export default function WriteDiary({words}) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={[styles.wordListBox]}>
-        {temp.map((word, i) => {
-          return (
-            <CheckBox
-              textEn={word.textEn}
-              textKr={word.textKr}
-              key={i}></CheckBox>
-          );
-        })}
-      </View>
+      <WordList words={temp}></WordList>
     </KeyboardAvoidingView>
   );
 }
