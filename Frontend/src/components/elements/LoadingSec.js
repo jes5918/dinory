@@ -1,5 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import {Animated, View, StyleSheet, Easing, Image} from 'react-native';
+import {
+  Animated,
+  View,
+  StyleSheet,
+  Easing,
+  Image,
+  Dimensions,
+} from 'react-native';
+
+// 화면 크기 받아오기
+const dimensions = Dimensions.get('window');
+const width = dimensions.width;
+const height = dimensions.height;
 
 export default function LoadingSec() {
   const [moveAnim] = useState(new Animated.Value(-1200));
@@ -55,12 +67,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // 알로 할경우 주석 start
     resizeMode: 'center',
-    width: 300,
-    height: 300,
+    width: width * 0.6,
+    height: height * 0.4,
     // 알로 할경우 주석 end
   },
   loadingText: {
-    height: 200,
-    width: 500,
+    height: height * 0.2,
+    width: width * 0.4,
   },
 });
