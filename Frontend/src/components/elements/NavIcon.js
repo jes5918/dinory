@@ -40,6 +40,11 @@ export default function NavIcon({navigation}) {
         title="ParentSetting"
         onPress={() => navigation.navigate('ParentSetting')}
       />
+      <Text> </Text>
+      <Button
+        title="wordList"
+        onPress={() => navigation.navigate('wordList')}
+      />
     </View>
   );
 }

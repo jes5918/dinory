@@ -37,12 +37,14 @@ import LoadingSec from '../components/elements/LoadingSec';
 import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/SelectProfile';
 import Main from '../views/Main';
-import ImageCaption from '../views/diary/ImageCaption';
+// import ImageCaption from '../views/diary/ImageCaption';
 // import WriteDiary from '../views/diary/WriteDiary';
 import HomeScreen from '../views/Authorization/HomeScreen';
 import Login from '../views/Authorization/LoginScreen';
 import Signup from '../views/Authorization/SignupScreen';
 import ParentSetting from '../views/parent/ParentSetting';
+import ImageCaption from '../components/diary/ImageCaption';
+import wordList from '../components/diary/WordList';
 
 const Stack = createStackNavigator();
 
@@ -62,6 +64,7 @@ const App = () => {
         <Stack.Screen name="ImageCaption" component={ImageCaption} />
         {/* <Stack.Screen name="WriteDiary" component={WriteDiary} /> */}
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
+        <Stack.Screen name="wordList" component={wordList} />
       </Stack.Navigator>
     </NavigationContainer>
   );
