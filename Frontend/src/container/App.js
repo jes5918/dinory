@@ -35,14 +35,20 @@ import SelectProfile from '../views/SelectProfile';
 import Main from '../views/Main';
 import ImageCaption from '../views/diary/ImageCaption';
 // import WriteDiary from '../views/diary/WriteDiary';
+import HomeScreen from '../views/Authorization/HomeScreen';
+import Login from '../views/Authorization/LoginScreen';
+import Signup from '../views/Authorization/SignupScreen';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="WriteDiary">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={NavIcon} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="LoginScreen" component={Login} />
+        <Stack.Screen name="SignupScreen" component={Signup} />
         <Stack.Screen name="LoadingSec" component={LoadingSec} />
         <Stack.Screen name="WriteDiary" component={WriteDiary} />
         <Stack.Screen name="SelectLogin" component={SelectLogin} />
