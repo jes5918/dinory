@@ -4,6 +4,7 @@ from django.conf import settings
 
 # Create your models here.
 class User(AbstractUser):
+    email = models.CharField(max_length=255)
     pin_code = models.CharField(max_length=6, default="000000")
 
 class Child(models.Model):
