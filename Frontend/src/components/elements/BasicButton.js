@@ -6,21 +6,26 @@ function BasicButton({
   customFontSize,
   paddingHorizon,
   paddingVertical,
+  backgroundColor,
+  btnWidth,
+  btnHeight,
   borderRadius,
 }) {
   return (
-    // <View style={[styles.container, {width: btnWidth, height: btnHeight}]}>
     <TouchableOpacity
       activeOpacity={0.7}
       style={[
         styles.container,
         {
-          fontSize: customFontSize,
-          paddingLeft: paddingHorizon,
-          paddingRight: paddingHorizon,
-          paddingBottom: paddingVertical,
-          paddingTop: paddingVertical,
-          borderRadius: borderRadius,
+          fontSize: customFontSize || 24,
+          paddingLeft: paddingHorizon || 11,
+          paddingRight: paddingHorizon || 11,
+          paddingBottom: paddingVertical || 11,
+          paddingTop: paddingVertical || 11,
+          backgroundColor: backgroundColor || '#FB537B',
+          width: btnWidth || windowWidth * 0.4,
+          height: btnHeight || windowHeight * 0.08,
+          borderRadius: borderRadius || 14,
         },
       ]}>
       <Text style={styles.text}>{text}</Text>
@@ -29,15 +34,15 @@ function BasicButton({
 }
 
 const windowSize = Dimensions.get('window');
-const windowWidth = windowSize.width < 1280 ? 1280 : windowSize.width; // 1280
-const windowHeight = windowSize.height < 768 ? 768 : windowSize.height; // 768
+const windowWidth = windowSize.width;
+const windowHeight = windowSize.height;
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
     backgroundColor: '#FB537B',
-    width: 'auto',
-    height: 'auto',
+    width: windowWidth * 0.4,
+    height: windowHeight * 0.08,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
