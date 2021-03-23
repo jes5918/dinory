@@ -26,6 +26,7 @@ urlpatterns = [
     path('accounts/', include('Accounts.urls')),
     # path('accounts/', include('Accounts.urls')),
     path('notes/', include('Notes.urls')),
+    path('words/', include('Words.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
