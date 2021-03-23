@@ -24,7 +24,8 @@ stream.save_to_wav_file("./file.wav")
 
 # Checks result.
 if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-    print("Speech synthesized to speaker for text [{}]".format(ssml_string))
+    print("complete")
+    # print("Speech synthesized to speaker for text [{}]".format(ssml_string))
 elif result.reason == speechsdk.ResultReason.Canceled:
     cancellation_details = result.cancellation_details
     print("Speech synthesis canceled: {}".format(cancellation_details.reason))
