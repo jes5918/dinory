@@ -3,16 +3,16 @@ version: "3"
 services:
 
     jenkins:
-        images: 'jenkinsci/blueocean'
+        image: 'jenkinsci/blueocean'
         restart: unless-stopped
         user: root
         privileged: true
         ports:
-        - '9090:8080'
+          - '9090:8080'
         volumes:
           - /home/ubuntu/docker/jenkins-data:/var/jenkins_home
           - /var/run/docker.sock:/var/run/docker.sock
-          - "$HOME":/home
+          - :/home
         container_name: 'jenkins'
 
     nginx:
