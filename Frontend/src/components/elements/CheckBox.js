@@ -1,12 +1,15 @@
-import React, {useEffect} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Animated} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, Animated, Dimensions} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function CheckBox({textEn, textKr}) {
+  const [check, setCheck] = useState(false);
+
+  // 카드 애니메이션
   const animatedValue = new Animated.Value(0);
   let value = 0;
   animatedValue.addListener((e) => {
-    console.log(value);
     value = e.value;
   });
 
@@ -27,6 +30,7 @@ export default function CheckBox({textEn, textKr}) {
     ],
   };
 
+  // 배경 애니메이션(괄호 주석이 살아있으면 적용이 되지않은 상태입니다.)
   const backAnimatedStyle = {
     transform: [
       {
@@ -35,85 +39,137 @@ export default function CheckBox({textEn, textKr}) {
     ],
   };
 
-  const flipCard = () => {
+  const backgroundAnimateValue = new Animated.Value(0);
+
+  const interpolateColor = backgroundAnimateValue.interpolate({
+    inputRange: [0, 150],
+    outputRange: ['rgb(100,100,100)', 'rgb(250,250,250)'],
+  });
+
+  const backgroundAnimateStyle = {
+    backgroundColor: interpolateColor,
+  };
+
+  // Method 정의
+
+  const onHandleFlipCard = () => {
     if (value >= 90) {
       Animated.timing(animatedValue, {
         toValue: 0,
         duration: 200,
-        // friction: 8,
-        // tension: 10,
         useNativeDriver: true,
       }).start();
     } else {
       Animated.timing(animatedValue, {
         toValue: 180,
         duration: 200,
-        // friction: 8,
-        // tension: 10,
         useNativeDriver: true,
       }).start();
     }
   };
 
+  const onHandleCheck = () => {
+    setCheck((prevCheck) => !prevCheck);
+    // Check API 들어갈 부분.
+
+    // backgroundColor Change
+    // Animated.timing(backgroundAnimateValue, {
+    //   toValue: 150,
+    //   duration: 1000,
+    //   useNativeDriver: true,
+    // }).start();
+  };
+
+  const onHandleVolume = () => {
+    console.log('Volume Part');
+  };
+
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={() => flipCard()}
-      style={styles.box}>
+    <View style={styles.box}>
       {/* front */}
-      <Animated.View style={[frontAnimatedStyle]}>
-        <TouchableOpacity style={[styles.container, styles.front]}>
-          <View style={styles.left}>
-            <TouchableOpacity
-              // onPress={() => flipCard()}
-              style={styles.checkRound}
-              name={'check'}>
-              <FontAwesome5 style={styles.check} name={'check'} />
-            </TouchableOpacity>
+      <Animated.View
+        style={[
+          styles.container,
+          styles.front,
+          frontAnimatedStyle,
+          // backgroundAnimateStyle,
+          {backgroundColor: check ? '#19DC4D' : 'white'},
+        ]}>
+        <View style={styles.left}>
+          <TouchableOpacity
+            onPress={() => onHandleCheck()}
+            style={styles.checkRound}>
+            {check && <FontAwesome5 style={styles.check} name={'check'} />}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.touchText}
+            onPress={() => onHandleFlipCard()}
+            name={'check'}>
             <Text style={styles.text}>{textEn}</Text>
-          </View>
-          <View>
-            <FontAwesome5
-              style={styles.volume}
-              name={'volume-up'}
-              color="#9D9D9D"
-            />
-          </View>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.volume}
+          onPress={() => onHandleVolume()}>
+          <FontAwesome5
+            style={styles.volumeIcon}
+            name={'volume-up'}
+            color="#9D9D9D"
+          />
         </TouchableOpacity>
       </Animated.View>
 
       {/* back */}
-      <Animated.View style={[backAnimatedStyle]}>
-        <TouchableOpacity
-          style={[styles.container, styles.back, backAnimatedStyle]}>
-          <TouchableOpacity style={styles.left}>
-            <View style={styles.checkRound} name={'check'} />
+      <Animated.View
+        style={[
+          styles.container,
+          styles.back,
+          backAnimatedStyle,
+          // backgroundAnimateStyle,
+          {backgroundColor: check ? '#19DC4D' : 'white'},
+        ]}>
+        <View style={styles.left}>
+          <TouchableOpacity
+            onPress={() => onHandleCheck()}
+            style={styles.checkRound}>
+            {check && <FontAwesome5 style={styles.check} name={'check'} />}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.touchText}
+            onPress={() => onHandleFlipCard()}>
             <Text style={styles.text}>{textKr}</Text>
           </TouchableOpacity>
-          <View>
-            <FontAwesome5
-              style={styles.volume}
-              name={'volume-up'}
-              color="#9D9D9D"
-            />
-          </View>
+        </View>
+        <TouchableOpacity
+          style={styles.volume}
+          onPress={() => onHandleVolume()}>
+          <FontAwesome5
+            style={styles.volumeIcon}
+            name={'volume-up'}
+            color="#9D9D9D"
+          />
         </TouchableOpacity>
       </Animated.View>
-    </TouchableOpacity>
+    </View>
   );
 }
+
+const windowSize = Dimensions.get('window');
+const windowWidth = windowSize.width;
+const windowHeight = windowSize.height;
+
+console.log(windowSize, windowHeight, windowWidth);
 
 const styles = StyleSheet.create({
   box: {
     position: 'relative',
-    width: 170,
-    height: 38,
+    minWidth: windowWidth * 0.13,
+    minHeight: windowHeight * 0.05,
   },
   container: {
-    width: 170,
-    height: 38,
+    minWidth: windowWidth * 0.13,
+    minHeight: windowHeight * 0.05,
     borderRadius: 50,
-    backgroundColor: '#19DC4D',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -135,8 +191,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   checkRound: {
-    width: 24,
-    height: 24,
+    width: windowWidth * 0.019,
+    height: windowWidth * 0.019,
     borderWidth: 2,
     borderColor: '#DBDBDB',
     borderRadius: 1000,
@@ -145,6 +201,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  touchText: {
+    minWidth: windowWidth * 0.06,
+  },
   text: {
     color: 'black',
     fontSize: 18,
@@ -152,11 +211,17 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   volume: {
+    marginLeft: 12,
+  },
+  volumeIcon: {
     fontSize: 20,
   },
   back: {
     backgroundColor: 'white',
     position: 'absolute',
     top: 0,
+  },
+  button: {
+    fontSize: 100,
   },
 });
