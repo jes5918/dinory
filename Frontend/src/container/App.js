@@ -27,9 +27,13 @@ import React from 'react';
 // } from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+
+// components
 import NavIcon from '../components/elements/NavIcon';
 import WriteDiary from '../components/diary/WriteDiary';
 import LoadingSec from '../components/elements/LoadingSec';
+
+// view
 import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/SelectProfile';
 import Main from '../views/Main';
@@ -38,6 +42,7 @@ import ImageCaption from '../views/diary/ImageCaption';
 import HomeScreen from '../views/Authorization/HomeScreen';
 import Login from '../views/Authorization/LoginScreen';
 import Signup from '../views/Authorization/SignupScreen';
+import ParentSetting from '../views/parent/ParentSetting';
 
 const Stack = createStackNavigator();
 
@@ -56,6 +61,7 @@ const App = () => {
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ImageCaption" component={ImageCaption} />
         {/* <Stack.Screen name="WriteDiary" component={WriteDiary} /> */}
+        <Stack.Screen name="ParentSetting" component={ParentSetting} />
       </Stack.Navigator>
     </NavigationContainer>
   );
