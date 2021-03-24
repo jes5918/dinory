@@ -2,9 +2,6 @@ import React from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 
 export default function Layout({width, height, opacity, children}) {
-  //예시 <Layout width={1000} height={200} opacity={0.5}>
-  // const backgroundImageURL = `../../assets/images/background1.png`;
-  // const backgroundImage = require(backgroundImageURL); // 배경사진 설정하세요!
   return (
     <View style={styles.container}>
       <View
@@ -31,7 +28,6 @@ const styles = StyleSheet.create({
     padding: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8f8ff',
     borderRadius: 50,
   },
 });
