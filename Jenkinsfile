@@ -30,9 +30,14 @@ pipeline {
             }
         }
         stage('Deploy') {
-            // steps {
-            //     sh 'docker-compose up -d'
-            // }
+            steps {
+                script {
+                    mattermostSend (
+                        color: "good", 
+                        message: "여러분 기도하세요 빌드가 되었기를"
+                    )
+                }
+            }
         }
     }
 }
