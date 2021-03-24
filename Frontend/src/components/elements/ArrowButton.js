@@ -16,14 +16,13 @@ function ArrowButton() {
 
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
-const windowHeight = windowSize.height; // 768
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
     backgroundColor: 'transparent',
-    width: windowWidth * 0.08,
-    height: windowHeight * 0.08,
+    width: windowWidth * 0.05,
+    height: windowWidth * 0.05,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 1000,
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
   },
   arrowIcon: {
     color: 'white',
-    fontSize: 46,
+    fontSize: windowWidth * 0.04,
   },
 });
 
