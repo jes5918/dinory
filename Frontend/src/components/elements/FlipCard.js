@@ -78,13 +78,6 @@ const cardWidth = screenWidth * 0.2;
 const cardHeight = screenHeight * 0.4;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#2ffe',
-  },
-
   card: {
     position: 'relative',
     width: cardWidth,
