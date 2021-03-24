@@ -35,10 +35,8 @@ import LoadingSec from '../components/elements/LoadingSec';
 
 // view
 import SelectLogin from '../views/user/SelectLogin';
-import SelectProfile from '../views/SelectProfile';
+import SelectProfile from '../views/user/SelectProfile';
 import Main from '../views/Main';
-// import ImageCaption from '../views/diary/ImageCaption';
-// import WriteDiary from '../views/diary/WriteDiary';
 import HomeScreen from '../views/Authorization/HomeScreen';
 import Login from '../views/Authorization/LoginScreen';
 import Signup from '../views/Authorization/SignupScreen';
@@ -51,7 +49,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Home" headerMode="none">
         <Stack.Screen name="Home" component={NavIcon} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="LoginScreen" component={Login} />
@@ -62,7 +60,6 @@ const App = () => {
         <Stack.Screen name="SelectProfile" component={SelectProfile} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ImageCaption" component={ImageCaption} />
-        {/* <Stack.Screen name="WriteDiary" component={WriteDiary} /> */}
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
         <Stack.Screen name="wordList" component={wordList} />
       </Stack.Navigator>
