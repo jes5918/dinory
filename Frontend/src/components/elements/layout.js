@@ -1,5 +1,11 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from 'react-native';
 
 export default function Layout({width, height, opacity, children}) {
   return (
@@ -7,14 +13,17 @@ export default function Layout({width, height, opacity, children}) {
       <View
         style={[
           styles.layout,
-          {width, height, backgroundColor: `rgba(255,255,255,${opacity})`},
+          {
+            width: width || 'auto',
+            height: height || 'auto',
+            backgroundColor: `rgba(255,255,255,${opacity})`,
+          },
         ]}>
         {children}
       </View>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -24,10 +33,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   layout: {
-    // Customizing 부분
-    padding: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 50,
+    borderRadius: 30,
   },
 });

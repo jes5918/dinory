@@ -6,11 +6,20 @@ import {
   View,
   TextInput,
   ImageBackground,
+  Dimensions,
+  Image,
 } from 'react-native';
 import {confirmEmail} from '../../api/accounts/signup';
-import Layout from '../../components/elements/layout';
+import Layout from '../../components/elements/Layout';
+import BasicButton from '../../components/elements/BasicButton';
+import ArrowButton from '../../components/elements/ArrowButton';
 export default function EmailAuthorization(props) {
   const {navigate} = props.navigation;
+  const windowSize = Dimensions.get('window');
+  const windowWidth = windowSize.width; // 1280
+  const windowHeight = windowSize.height; // 768
+  const layoutWidth = windowWidth * 0.4984;
+  const layoutHeight = windowHeight * 0.713;
   const [userEmail, setUserEmail] = useState('');
   const emailInputRef = React.createRef();
   const submitHandler = () => {
@@ -33,22 +42,60 @@ export default function EmailAuthorization(props) {
     <ImageBackground
       style={styles.container}
       source={require('../../assets/images/background5.png')}>
-      <Layout width={500} height={500} opacity={0.7}>
-        <Text> 이메일 인증 페이지</Text>
-        <TextInput
-          placeholder={'이메일을 입력하세요'}
-          onChangeText={(Email) => setUserEmail(Email)}
-          ref={emailInputRef}
-        />
-        <Button
-          title="이메일 인증"
-          onPress={() => {
-            submitHandler();
-          }}></Button>
-        <TextInput placeholder={'핀 번호 인증'} />
-        <Button title="인증"></Button>
-        <Button title="다음" onPress={() => navigate('SignupScreen')}></Button>
-      </Layout>
+      <View style={styles.start}>
+        <View>
+          <ArrowButton></ArrowButton>
+        </View>
+        <View style={styles.logo}>
+          <Image
+            source={require('../../assets/images/logo4.png')}
+            style={styles.logo}></Image>
+        </View>
+      </View>
+      <View>
+        <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
+          <View style={styles.view}>
+            <Text style={styles.text}> 이메일 인증</Text>
+          </View>
+          <View style={styles.body}>
+            <View style={styles.text_input_button}>
+              <TextInput
+                style={styles.textinput}
+                placeholder={'이메일을 입력하세요'}
+                onChangeText={(Email) => setUserEmail(Email)}
+                ref={emailInputRef}
+              />
+              <BasicButton
+                text="중복확인"
+                customFontSize={18}
+                paddingHorizon={0}
+                paddingVertical={11}
+                btnWidth={98}
+                btnHeight={58}
+                borderRadius={14}
+                onPressHandle={() => {
+                  submitHandler();
+                }}></BasicButton>
+            </View>
+            <View style={styles.text_input_button}>
+              <TextInput
+                placeholder={'인증코드를 입력해주세요'}
+                style={styles.textinput}
+              />
+              <BasicButton
+                text="인증"
+                customFontSize={18}
+                paddingHorizon={17}
+                paddingVertical={16}
+                btnWidth={98}
+                btnHeight={58}
+                borderRadius={14}
+                onPressHandle={() => navigate('SignupScreen')}></BasicButton>
+            </View>
+          </View>
+          <View style={styles.end}></View>
+        </Layout>
+      </View>
     </ImageBackground>
   );
 }
@@ -59,5 +106,46 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  view: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#707070',
+  },
+  start: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  body: {
+    flex: 1,
+  },
+  end: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  text_input_button: {
+    flexDirection: 'row',
+    margin: 32,
+  },
+  textinput: {
+    backgroundColor: '#E8E8E8',
+    width: 389,
+    height: 58,
+    fontSize: 18,
+    borderRadius: 10,
+    marginRight: 11,
+    padding: 16,
+  },
+  logo: {
+    width: 220, //595
+    height: undefined, //101
+    aspectRatio: 200 / 80,
   },
 });
