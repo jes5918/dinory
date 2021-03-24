@@ -22,5 +22,6 @@ services:
         restart: always
         command: uwsgi --ini uwsgi.ini
         volumes:
+          - ./Backend
           - ./Backend:/srv/docker-server
           - ./log:/var/log/uwsgi
