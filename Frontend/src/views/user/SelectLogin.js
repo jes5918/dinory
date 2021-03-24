@@ -1,12 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
 
-export default class SelectLogin extends Component {
-  render() {
-    return (
-      <View>
-        <Text> SelectLogin </Text>
-      </View>
-    );
-  }
+export default function SelectLogin() {
+  return (
+    <View>
+      <Text> SelectLogin </Text>
+    </View>
+  );
 }
