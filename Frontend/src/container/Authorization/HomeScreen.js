@@ -8,7 +8,7 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
-import Layout from '../../components/elements/layout';
+import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 export default function HomeScreen(props) {
   const {navigate} = props.navigation;

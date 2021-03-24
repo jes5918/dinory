@@ -16,7 +16,7 @@ import {
 // Import Image Picker
 // import ImagePicker from 'react-native-image-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import Layout from '../../components/elements/layout';
+import Layout from '../elements/Layout';
 
 const bgurl = require('../../assets/images/background3.png');
 

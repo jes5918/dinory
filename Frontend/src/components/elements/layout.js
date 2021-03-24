@@ -35,6 +35,10 @@ const styles = StyleSheet.create({
   layout: {
     justifyContent: 'center',
     alignItems: 'center',
+<<<<<<< HEAD
     borderRadius: 30,
+=======
+    borderRadius: 50,
+>>>>>>> 5299f0d7a8e289e4892b10081d840bf2e12cc04e
   },
 });

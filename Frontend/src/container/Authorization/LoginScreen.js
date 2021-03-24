@@ -11,7 +11,7 @@ import {
   Image,
 } from 'react-native';
 import {loginInstance} from '../../api/accounts/login';
-import Layout from '../../components/elements/layout';
+import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
 export default function Login(props) {

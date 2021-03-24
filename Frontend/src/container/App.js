@@ -40,7 +40,7 @@ import SelectImage from '../components/diary/SelectImage';
 import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/user/SelectProfile';
 import Main from '../views/Main';
-import DiaryList from '../views/diary/WriteDiary';
+import DiaryList from '../views/DiaryList/DiaryList';
 // import ImageCaption from '../views/diary/ImageCaption';
 // import WriteDiary from '../views/diary/WriteDiary';
 import HomeScreen from './Authorization/HomeScreen';

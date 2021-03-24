@@ -10,7 +10,7 @@ import {
   Image,
 } from 'react-native';
 import {confirmEmail} from '../../api/accounts/signup';
-import Layout from '../../components/elements/layout';
+import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
 export default function PinCreate(props) {
