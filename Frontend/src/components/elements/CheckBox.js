@@ -4,7 +4,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const calculateLength = (text) => {
-  return text.length > 9 ? (text.length - 9) * 18 : 0;
+  return text.length > 12 ? (text.length - 12) * 18 : 0;
 };
 const calculateFontSize = (text) => {
   return text.length > 9 ? 18 - (text.length - 9) : 0;
@@ -16,8 +16,8 @@ export default function CheckBox({textEn, textKr}) {
   // text = 18px, lenght 1당 18px 추가.
   // const textEnWidth = windowWidth * 0.15 + calculateLength(textEn);
   // const textKrWidth = windowWidth * 0.15 + calculateLength(textKr);
-  const textEnWidth = windowWidth * 0.15;
-  const textKrWidth = windowWidth * 0.15;
+  const textEnWidth = windowWidth * 0.17;
+  const textKrWidth = windowWidth * 0.17;
 
   const [check, setCheck] = useState(false);
 
