@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   innerText: {
-    flex: 1,
     textAlign: 'center',
     justifyContent: 'center',
     textAlignVertical: 'center',
