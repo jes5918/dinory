@@ -5,10 +5,10 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get -y update
 RUN apt-get -y install vim
 
-RUN mkdir /docker/jenkins-data/workspace/s04p23b105/Backend
-ADD . /docker/jenkins-data/workspace/s04p23b105/Backend
+RUN mkdir /srv/docker-server
+ADD . /srv/docker-server
 
-WORKDIR /docker/jenkins-data/workspace/s04p23b105/Backend
+WORKDIR /srv/docker-server
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
