@@ -1,13 +1,28 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useCallback, useMemo} from 'react';
 import {Text, View, StyleSheet, Animated, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+const calculateLength = (text) => {
+  return text.length > 12 ? (text.length - 12) * 18 : 0;
+};
+const calculateFontSize = (text) => {
+  return text.length > 9 ? 18 - (text.length - 9) : 0;
+};
+
+const windowWidth = Dimensions.get('window').width;
+
 export default function CheckBox({textEn, textKr}) {
+  // text = 18px, lenght 1당 18px 추가.
+  // const textEnWidth = windowWidth * 0.15 + calculateLength(textEn);
+  // const textKrWidth = windowWidth * 0.15 + calculateLength(textKr);
+  const textEnWidth = windowWidth * 0.17;
+  const textKrWidth = windowWidth * 0.17;
+
   const [check, setCheck] = useState(false);
 
   // 카드 애니메이션
-  const animatedValue = new Animated.Value(0);
+  const animatedValue = useMemo(() => new Animated.Value(0), []);
   let value = 0;
   animatedValue.addListener((e) => {
     value = e.value;
@@ -30,7 +45,6 @@ export default function CheckBox({textEn, textKr}) {
     ],
   };
 
-  // 배경 애니메이션(괄호 주석이 살아있으면 적용이 되지않은 상태입니다.)
   const backAnimatedStyle = {
     transform: [
       {
@@ -39,20 +53,9 @@ export default function CheckBox({textEn, textKr}) {
     ],
   };
 
-  const backgroundAnimateValue = new Animated.Value(0);
-
-  const interpolateColor = backgroundAnimateValue.interpolate({
-    inputRange: [0, 150],
-    outputRange: ['rgb(100,100,100)', 'rgb(250,250,250)'],
-  });
-
-  const backgroundAnimateStyle = {
-    backgroundColor: interpolateColor,
-  };
-
   // Method 정의
 
-  const onHandleFlipCard = () => {
+  const onHandleFlipCard = useCallback(() => {
     if (value >= 90) {
       Animated.timing(animatedValue, {
         toValue: 0,
@@ -66,48 +69,42 @@ export default function CheckBox({textEn, textKr}) {
         useNativeDriver: true,
       }).start();
     }
-  };
+  }, [value, animatedValue]);
 
   const onHandleCheck = () => {
     setCheck((prevCheck) => !prevCheck);
-    // Check API 들어갈 부분.
-
-    // backgroundColor Change
-    // Animated.timing(backgroundAnimateValue, {
-    //   toValue: 150,
-    //   duration: 1000,
-    //   useNativeDriver: true,
-    // }).start();
   };
 
   const onHandleVolume = () => {
     console.log('Volume Part');
   };
 
+  useEffect(() => {
+    onHandleFlipCard();
+  }, [onHandleFlipCard]);
+
   return (
-    <View style={styles.box}>
+    <View style={[styles.box, {width: textEnWidth}]}>
       {/* front */}
+      {/* 코드 순서상 아래에 있는 back이 먼저 보임. 따라서 textKr을 front에서 출력합니다.  */}
       <Animated.View
         style={[
           styles.container,
           styles.front,
           frontAnimatedStyle,
-          // backgroundAnimateStyle,
-          {backgroundColor: check ? '#19DC4D' : 'white'},
+          {backgroundColor: check ? '#19DC4D' : 'white', width: textEnWidth},
         ]}>
-        <View style={styles.left}>
-          <TouchableOpacity
-            onPress={() => onHandleCheck()}
-            style={styles.checkRound}>
-            {check && <FontAwesome5 style={styles.check} name={'check'} />}
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.touchText}
-            onPress={() => onHandleFlipCard()}
-            name={'check'}>
-            <Text style={styles.text}>apple</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          onPress={() => onHandleCheck()}
+          style={styles.checkRound}>
+          {check && <FontAwesome5 style={styles.check} name={'check'} />}
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.touchText}
+          onPress={() => onHandleFlipCard()}
+          name={'check'}>
+          <Text style={styles.text}>{textKr}</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.volume}
           onPress={() => onHandleVolume()}>
@@ -125,21 +122,18 @@ export default function CheckBox({textEn, textKr}) {
           styles.container,
           styles.back,
           backAnimatedStyle,
-          // backgroundAnimateStyle,
-          {backgroundColor: check ? '#19DC4D' : 'white'},
+          {backgroundColor: check ? '#19DC4D' : 'white', width: textEnWidth},
         ]}>
-        <View style={styles.left}>
-          <TouchableOpacity
-            onPress={() => onHandleCheck()}
-            style={styles.checkRound}>
-            {check && <FontAwesome5 style={styles.check} name={'check'} />}
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.touchText}
-            onPress={() => onHandleFlipCard()}>
-            <Text style={styles.text}>사과</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          onPress={() => onHandleCheck()}
+          style={styles.checkRound}>
+          {check && <FontAwesome5 style={styles.check} name={'check'} />}
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.touchText}
+          onPress={() => onHandleFlipCard()}>
+          <Text style={styles.text}>{textEn}</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.volume}
           onPress={() => onHandleVolume()}>
@@ -154,32 +148,18 @@ export default function CheckBox({textEn, textKr}) {
   );
 }
 
-const windowSize = Dimensions.get('window');
-const windowWidth = windowSize.width; // 1280
-const windowHeight = windowSize.height; // 768
-const fontScale = windowSize.fontScale;
+const windowHeight = Dimensions.get('window').height; // 768
 
 const styles = StyleSheet.create({
   box: {
     position: 'relative',
-    // minWidth: windowWidth * 0.13,
-    // minHeight: windowHeight * 0.05,
-    // width: windowWidth * 0.13,
-    // height: windowHeight * 0.05,
-    width: 'auto',
-    height: 'auto',
+    height: windowHeight * 0.05,
     margin: 5,
   },
   container: {
-    shadowColor: 'black',
-    shadowOffset: {width: 10, height: 10},
-    elevation: 10,
-    // minWidth: windowWidth * 0.13,
-    // minHeight: windowHeight * 0.05,
-    // width: windowWidth * 0.13,
-    // height: windowHeight * 0.05,
-    width: 'auto',
-    height: 'auto',
+    height: windowHeight * 0.05,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.25)',
     borderRadius: 50,
     display: 'flex',
     flexDirection: 'row',
@@ -227,7 +207,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   volumeIcon: {
-    fontSize: fontScale * 20,
+    fontSize: 20,
   },
   back: {
     backgroundColor: 'white',

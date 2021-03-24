@@ -2,9 +2,14 @@ import React from 'react';
 import {StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-function ArrowButton() {
+function ArrowButton({onHandlePress}) {
   return (
-    <TouchableOpacity activeOpacity={0.7} style={[styles.container]}>
+    <TouchableOpacity
+      onPress={() =>
+        onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
+      }
+      activeOpacity={0.7}
+      style={[styles.container]}>
       <FontAwesome5
         style={styles.arrowIcon}
         name={'chevron-left'}

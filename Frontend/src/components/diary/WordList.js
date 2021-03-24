@@ -21,14 +21,14 @@ export default function WriteDiary({words}) {
 
 const styles = StyleSheet.create({
   wordListBox: {
-    width: '70%',
+    width: '80%',
     height: 'auto',
     backgroundColor: '#FFF',
     borderRadius: 30,
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     padding: '1.5%',
     shadowColor: '#000',

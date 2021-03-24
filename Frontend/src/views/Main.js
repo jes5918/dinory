@@ -19,6 +19,7 @@ const height = dimensions.height;
 
 export default function Main() {
   const url = require('../assets/images/background4.png');
+  console.log(url);
   // const {navigate} = props.navigation;
 
   return (
