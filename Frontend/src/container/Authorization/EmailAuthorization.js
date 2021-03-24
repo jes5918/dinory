@@ -23,7 +23,7 @@ export default function EmailAuthorization(props) {
   const [userEmail, setUserEmail] = useState('');
   const emailInputRef = React.createRef();
   const submitHandler = () => {
-    var emailAuthForm = new FormData();
+    let emailAuthForm = new FormData();
     emailAuthForm.append('email', userEmail);
     confirmEmail(
       emailAuthForm,
