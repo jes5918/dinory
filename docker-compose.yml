@@ -10,7 +10,7 @@ services:
         ports: 
           - "80:80"
         volumes:
-          - ./Backend:/srv/docker-server
+          - ./Backend:/docker/jenkins-data/workspace/s04p23b105/Backend
           - ./log:/var/log/nginx
         depends_on:
           - django
@@ -20,7 +20,7 @@ services:
         build: ./Backend
         image: docker-server/django
         restart: always
-        command: uwsgi --ini /srv/docker-server/uwsgi.ini
+        command: uwsgi --ini uwsgi.ini
         volumes:
-          - ./Backend:/srv/docker-server
+          - ./Backend:/docker/jenkins-data/workspace/s04p23b105/Backend
           - ./log:/var/log/uwsgi
