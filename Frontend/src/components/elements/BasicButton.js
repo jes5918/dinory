@@ -10,14 +10,17 @@ function BasicButton({
   btnWidth,
   btnHeight,
   borderRadius,
+  onHandlePress,
 }) {
   return (
     <TouchableOpacity
+      onPress={() =>
+        onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
+      }
       activeOpacity={0.7}
       style={[
         styles.container,
         {
-          fontSize: customFontSize || 24,
           paddingLeft: paddingHorizon || 11,
           paddingRight: paddingHorizon || 11,
           paddingBottom: paddingVertical || 11,
@@ -28,7 +31,9 @@ function BasicButton({
           borderRadius: borderRadius || 14,
         },
       ]}>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={[styles.text, {fontSize: customFontSize || 24}]}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -46,6 +51,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
+    shadowColor: 'black',
+    shadowOffset: {width: 10, height: 10},
+    elevation: 10,
   },
   text: {
     color: 'white',

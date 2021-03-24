@@ -3,9 +3,12 @@ import {Text, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 // arrow는 true이면 round 형태의 화살표 버튼, false이면 round 형태의 텍스트 버튼
-function RoundButton({text, arrow}) {
+function RoundButton({text, arrow, onHandlePress}) {
   return (
     <TouchableOpacity
+      onPress={() =>
+        onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
+      }
       activeOpacity={0.7}
       style={[
         styles.container,
@@ -19,7 +22,7 @@ function RoundButton({text, arrow}) {
         />
       ) : (
         <Text textBreakStrategy={'simple'} style={styles.text}>
-          {text || '개발자님 텍스트 인자를 넣어주세요.'}
+          {text || '텍스트'}
         </Text>
       )}
     </TouchableOpacity>
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 26,
+    fontSize: 24,
     textAlign: 'center',
   },
   arrowIcon: {
