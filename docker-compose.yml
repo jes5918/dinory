@@ -20,7 +20,7 @@ services:
         build: ./Backend
         image: docker-server/django
         restart: always
-        command: uwsgi --ini ./uwsgi.ini
+        command: ls
         volumes:
           - ./Backend:/srv/docker-server
           - ./log:/var/log/uwsgi
