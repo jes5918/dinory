@@ -8,7 +8,7 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
-import Layout from '../../components/elements/Layout';
+import Layout from '../../components/elements/layout';
 import BasicButton from '../../components/elements/BasicButton';
 export default function HomeScreen(props) {
   const {navigate} = props.navigation;
@@ -36,7 +36,7 @@ export default function HomeScreen(props) {
                 btnWidth={336}
                 btnHeight={58}
                 borderRadius={14}
-                onPressHandle={() =>
+                onHandlePress={() =>
                   navigate('EmailAuthorization')
                 }></BasicButton>
             </View>
@@ -49,7 +49,7 @@ export default function HomeScreen(props) {
                 btnWidth={336}
                 btnHeight={58}
                 borderRadius={14}
-                onPressHandle={() => navigate('LoginScreen')}></BasicButton>
+                onHandlePress={() => navigate('LoginScreen')}></BasicButton>
             </View>
           </View>
         </Layout>

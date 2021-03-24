@@ -14,7 +14,7 @@ import {
   confirmEmail,
   duflicationCheckID,
 } from '../../api/accounts/signup';
-import Layout from '../../components/elements/Layout';
+import Layout from '../../components/elements/layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
 export default function Singup(props) {
@@ -133,7 +133,7 @@ export default function Singup(props) {
                 btnWidth={111}
                 btnHeight={58}
                 borderRadius={14}
-                onPressHandle={() => idCheck()}></BasicButton>
+                onHandlePress={() => idCheck()}></BasicButton>
             </View>
             <TextInput
               style={styles.textinput}
@@ -178,7 +178,7 @@ export default function Singup(props) {
             btnWidth={500}
             btnHeight={73}
             borderRadius={14}
-            onPressHandle={() => SubmitHandler()}></BasicButton>
+            onHandlePress={() => SubmitHandler()}></BasicButton>
         </Layout>
       </View>
     </ImageBackground>

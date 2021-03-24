@@ -10,7 +10,7 @@ import {
   Image,
 } from 'react-native';
 import {confirmEmail} from '../../api/accounts/signup';
-import Layout from '../../components/elements/Layout';
+import Layout from '../../components/elements/layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
 export default function EmailAuthorization(props) {
@@ -90,7 +90,7 @@ export default function EmailAuthorization(props) {
                 btnWidth={98}
                 btnHeight={58}
                 borderRadius={14}
-                onPressHandle={() => navigate('SignupScreen')}></BasicButton>
+                onHandlePress={() => navigate('SignupScreen')}></BasicButton>
             </View>
           </View>
           <View style={styles.end}></View>

@@ -40,14 +40,13 @@ import SelectImage from '../components/diary/SelectImage';
 import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/user/SelectProfile';
 import Main from '../views/Main';
+import DiaryList from '../views/diary/WriteDiary';
 // import ImageCaption from '../views/diary/ImageCaption';
 // import WriteDiary from '../views/diary/WriteDiary';
 import HomeScreen from './Authorization/HomeScreen';
 import Login from './Authorization/LoginScreen';
 import Signup from './Authorization/SignupScreen';
 import ParentSetting from '../views/parent/ParentSetting';
-import ImageCaption from '../components/diary/ImageCaption';
-import wordList from '../components/diary/WordList';
 import EmailAuthorization from './Authorization/EmailAuthorization';
 import PinCreate from './Authorization/PinScreen';
 

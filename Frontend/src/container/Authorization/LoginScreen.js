@@ -11,7 +11,7 @@ import {
   Image,
 } from 'react-native';
 import {loginInstance} from '../../api/accounts/login';
-import Layout from '../../components/elements/Layout';
+import Layout from '../../components/elements/layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
 export default function Login(props) {
@@ -87,7 +87,7 @@ export default function Login(props) {
               btnWidth={336}
               btnHeight={58}
               borderRadius={14}
-              onPressHandle={() => LoginHandler()}></BasicButton>
+              onHandlePress={() => LoginHandler()}></BasicButton>
           </View>
         </Layout>
       </View>
