@@ -5,10 +5,10 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
   TextInput,
-  Platform,
   Button,
   TouchableOpacity,
   ImageBackground,
+  ScrollView,
 } from 'react-native';
 
 import CheckBox from '../elements/CheckBox.js';
@@ -32,12 +32,19 @@ export default function WriteDiary({}) {
   return (
     <KeyboardAvoidingView behavior={'heigth'} style={[styles.container]}>
       <View style={[styles.dirayBox]}>
-        <TextInput
-          style={[styles.textInput]}
-          multiline
-          autoCompleteType={'off'}
-          autoFocus
-          defaultValue={'제목 : '}></TextInput>
+        <ScrollView style={styles.textInputBox}>
+          <TextInput
+            style={[styles.TitleInput]}
+            autoCompleteType={'off'}
+            autoFocus
+            defaultValue={'제목 : '}></TextInput>
+          <TextInput
+            style={[styles.contentInput]}
+            multiline
+            autoCompleteType={'off'}
+            autoFocus
+            defaultValue={'내용 : '}></TextInput>
+        </ScrollView>
         <View style={[styles.grammarCheckBtnBox]}>
           <TouchableOpacity
             onPress={() => grammarCheck()}
@@ -52,13 +59,28 @@ export default function WriteDiary({}) {
 }
 
 const styles = StyleSheet.create({
-  textInput: {
+  TitleInput: {
     // borderWidth: 2,
-    width: '85%',
+    width: '100%',
     fontFamily: 'HoonPinkpungchaR',
     fontSize: 24,
     borderRadius: 30,
+    borderBottomWidth: 1,
     borderColor: 'gray',
+    paddingHorizontal: 10,
+  },
+  contentInput: {
+    // borderWidth: 2,
+    width: '100%',
+    fontFamily: 'HoonPinkpungchaR',
+    fontSize: 24,
+    borderRadius: 30,
+    paddingHorizontal: 10,
+  },
+  textInputBox: {
+    marginHorizontal: 10,
+    paddingHorizontal: 10,
+    // backgroundColor: '#5496',
   },
   container: {
     display: 'flex',
@@ -68,7 +90,7 @@ const styles = StyleSheet.create({
     padding: '1.5%',
   },
   dirayBox: {
-    width: '70%',
+    width: '80%',
     height: '55%',
     backgroundColor: '#FFF',
     borderRadius: 30,
@@ -77,6 +99,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 2,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 5,
   },
   wordListBox: {
     width: '70%',
