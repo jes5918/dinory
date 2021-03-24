@@ -24,9 +24,11 @@ export default function Main() {
   return (
     <View style={styles.container}>
       <ImageBackground source={url} style={styles.bgImage}>
-        <ArrowButton />
-        <Logo />
-        <Profile />
+        <View style={styles.header}>
+          <ArrowButton />
+          <Logo />
+          <Profile />
+        </View>
         <View style={styles.innerContainer}>
           <View>
             <TouchableOpacity activeOpacity={0.5} style={styles.menuBtn}>
@@ -85,22 +87,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  header: {
+    display: 'flex',
+    flex: 1.5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
   bgImage: {
     flex: 1,
     resizeMode: 'contain',
   },
   characterImage: {
     resizeMode: 'center',
+    alignSelf: 'flex-end',
     width: width * 0.25,
     height: height * 0.4,
     marginLeft: width * 0.1,
   },
   menuBtn: {
     width: width * 0.3,
-    height: height * 0.13,
+    height: 'auto',
     borderRadius: 50,
     backgroundColor: '#EEE',
     marginVertical: 8,
+    paddingVertical: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 3,
@@ -111,12 +123,11 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   innerContainer: {
+    flex: 5,
     flexDirection: 'row',
     marginHorizontal: width * 0.17,
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    position: 'absolute',
-    bottom: height * 0.15,
+    alignItems: 'center',
   },
   innerText: {
     flex: 1,
@@ -129,15 +140,13 @@ const styles = StyleSheet.create({
   mainIcon: {
     color: '#fff',
     fontSize: width * 0.04,
+    marginHorizontal: 10,
   },
   iconContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignSelf: 'flex-end',
-    position: 'absolute',
-    width: width * 0.2,
-    bottom: height * 0.03,
-    right: width * 0.01,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
 });

@@ -32,14 +32,9 @@ export default function Profile(/*{childName,childCharacter}*/) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
-    position: 'absolute',
     justifyContent: 'space-evenly',
-    alignSelf: 'flex-end',
     width: width * 0.12,
-    top: height * 0.02,
-    right: width * 0.02,
   },
   childName: {
     fontFamily: 'HoonPinkpungchaR',

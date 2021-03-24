@@ -25,8 +25,6 @@ const styles = StyleSheet.create({
   logoBtn: {
     justifyContent: 'center',
     alignSelf: 'center',
-    position: 'absolute',
-    top: height * 0.02,
     width: width * 0.18,
     height: height * 0.12,
   },
