@@ -10,7 +10,7 @@ pipeline {
                             color: "#2A42EE", 
                             message: "Build STARTED: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Link to build>)"
                         ) 
-                        sh 'docker-compose build'
+                        sh 'docker-compose up -d --build'
                     } catch(e) {
                         currentBuild.result = "FAILURE"
                     } finally {
@@ -30,9 +30,9 @@ pipeline {
             }
         }
         stage('Deploy') {
-            steps {
-                sh 'docker-compose up -d'
-            }
+            // steps {
+            //     sh 'docker-compose up -d'
+            // }
         }
     }
 }
