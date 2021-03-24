@@ -45,6 +45,11 @@ export default function NavIcon({navigation}) {
         title="wordList"
         onPress={() => navigation.navigate('wordList')}
       />
+      <Text> </Text>
+      <Button
+        title="SelectImage"
+        onPress={() => navigation.navigate('SelectImage')}
+      />
     </ScrollView>
   );
 }

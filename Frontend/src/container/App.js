@@ -43,6 +43,7 @@ import Signup from '../views/Authorization/SignupScreen';
 import ParentSetting from '../views/parent/ParentSetting';
 import ImageCaption from '../components/diary/ImageCaption';
 import wordList from '../components/diary/WordList';
+import SelectImage from '../components/diary/SelectImage';
 
 const Stack = createStackNavigator();
 
@@ -62,6 +63,7 @@ const App = () => {
         <Stack.Screen name="ImageCaption" component={ImageCaption} />
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
         <Stack.Screen name="wordList" component={wordList} />
+        <Stack.Screen name="SelectImage" component={SelectImage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
