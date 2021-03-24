@@ -59,5 +59,5 @@ class CheckSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Diary
-        fields = ('note', 'check', 'title', 'img', 'content', 'year', 'month', 'date')
+        fields = ('note', 'check', 'title', 'img', 'content', 'year', 'month', 'date', 'id')
         depth = 1
