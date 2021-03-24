@@ -1,6 +1,7 @@
 FROM nginx:latest
 
 RUN rm -rf /etc/nginx/default.conf
+RUN rm -rf /etc/nginx/sites-available/
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY nginx-app.conf /etc/nginx/sites-available/
