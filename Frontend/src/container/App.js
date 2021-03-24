@@ -32,6 +32,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import NavIcon from '../components/elements/NavIcon';
 import WriteDiary from '../components/diary/WriteDiary';
 import LoadingSec from '../components/elements/LoadingSec';
+import ImageCaption from '../components/diary/ImageCaption';
+import wordList from '../components/diary/WordList';
+import SelectImage from '../components/diary/SelectImage';
 
 // view
 import SelectLogin from '../views/user/SelectLogin';
@@ -41,9 +44,7 @@ import HomeScreen from '../views/Authorization/HomeScreen';
 import Login from '../views/Authorization/LoginScreen';
 import Signup from '../views/Authorization/SignupScreen';
 import ParentSetting from '../views/parent/ParentSetting';
-import ImageCaption from '../components/diary/ImageCaption';
-import wordList from '../components/diary/WordList';
-import SelectImage from '../components/diary/SelectImage';
+import DiaryList from '../views/DiaryList/DiaryList';
 
 const Stack = createStackNavigator();
 
@@ -64,6 +65,7 @@ const App = () => {
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
         <Stack.Screen name="wordList" component={wordList} />
         <Stack.Screen name="SelectImage" component={SelectImage} />
+        <Stack.Screen name="DiaryList" component={DiaryList} />
       </Stack.Navigator>
     </NavigationContainer>
   );
