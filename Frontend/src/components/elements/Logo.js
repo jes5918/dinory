@@ -12,7 +12,7 @@ export default function Logo() {
     <TouchableOpacity
       activeOpacity={0.5}
       style={styles.logoBtn}
-      onPress={() => navigation.navigate('Home')}>
+      onPress={() => navigation.navigate('Main')}>
       <Image
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
