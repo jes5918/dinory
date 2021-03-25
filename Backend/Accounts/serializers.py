@@ -34,4 +34,4 @@ class ChildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Child
         fields = '__all__'
-        read_only_fields = ('parent',)
+        read_only_fields = ('parent', 'voice')

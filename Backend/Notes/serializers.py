@@ -25,12 +25,17 @@ class DailyDiarySerializer(serializers.ModelSerializer):
 
 
 class DiarySerializer(serializers.ModelSerializer):
-
+    # img = serializers.ImageField(use_url=True)
     class Meta:
         model = Diary
-        fields = '__all__'
+        fields = ('title', 'year', 'month', 'date', 'content', 'note', 'id')
         read_only_fields = ('note',)
 
+class ImageSerializer(serializers.HyperlinkedModelSerializer):
+    img = serializers.ImageField(use_url=True)
+    class Meta:
+        model = Diary
+        fields = ('img',)
 
 class SentenceSerializer(serializers.ModelSerializer):
 
