@@ -10,7 +10,7 @@ export default function Logo() {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
-      activeOpacity={0.5}
+      activeOpacity={0.7}
       style={styles.logoBtn}
       onPress={() => navigation.navigate('Main')}>
       <Image
