@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Dimensions,
   Image,
+  ScrollView,
 } from 'react-native';
 import {confirmEmail} from '../../api/accounts/signup';
 import Layout from '../../components/elements/Layout';
@@ -38,66 +39,72 @@ export default function EmailAuthorization({navigation}) {
     );
   };
   return (
-    <ImageBackground
-      style={styles.container}
-      source={require('../../assets/images/background5.png')}>
-      <View style={styles.start}>
+    <ScrollView>
+      <ImageBackground
+        style={styles.container}
+        source={require('../../assets/images/background5.png')}>
+        <View style={styles.start}>
+          <View>
+            <ArrowButton
+              onHandlePress={() => navigation.goBack()}></ArrowButton>
+          </View>
+          <View style={styles.logo}>
+            <Image
+              source={require('../../assets/images/logo.png')}
+              style={styles.logo}></Image>
+          </View>
+        </View>
         <View>
-          <ArrowButton></ArrowButton>
-        </View>
-        <View style={styles.logo}>
-          <Image
-            source={require('../../assets/images/logo.png')}
-            style={styles.logo}></Image>
-        </View>
-      </View>
-      <View>
-        <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
-          <View style={styles.view}>
-            <Text style={styles.text}> 이메일 인증</Text>
-          </View>
-          <View style={styles.body}>
-            <View style={styles.text_Input_Button}>
-              <TextInput
-                style={styles.textInput}
-                placeholder={'이메일을 입력하세요'}
-                onChangeText={(Email) => setUserEmail(Email)}
-                ref={emailInputRef}
-              />
-              <BasicButton
-                text="중복확인"
-                customFontSize={18}
-                paddingHorizon={0}
-                paddingVertical={11}
-                btnWidth={98}
-                btnHeight={58}
-                borderRadius={14}
-                onPressHandle={() => {
-                  submitHandler();
-                }}></BasicButton>
+          <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
+            <View style={styles.view}>
+              <Text style={styles.text}> 이메일 인증</Text>
             </View>
-            <View style={styles.text_Input_Button}>
-              <TextInput
-                placeholder={'인증코드를 입력해주세요'}
-                style={styles.textInput}
-              />
-              <BasicButton
-                text="인증"
-                customFontSize={18}
-                paddingHorizon={17}
-                paddingVertical={16}
-                btnWidth={98}
-                btnHeight={58}
-                borderRadius={14}
-                onHandlePress={() =>
-                  navigation.navigate('SignupScreen')
-                }></BasicButton>
+            <View style={styles.body}>
+              <View style={styles.text_Input_Button}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder={'이메일을 입력하세요'}
+                  onChangeText={(Email) => setUserEmail(Email)}
+                  ref={emailInputRef}
+                  autoFocus={true}
+                  textContentType={'emailAddress'}
+                />
+                <BasicButton
+                  text="중복확인"
+                  customFontSize={18}
+                  paddingHorizon={0}
+                  paddingVertical={11}
+                  btnWidth={98}
+                  btnHeight={58}
+                  borderRadius={14}
+                  onPressHandle={() => {
+                    submitHandler();
+                  }}></BasicButton>
+              </View>
+              <View style={styles.text_Input_Button}>
+                <TextInput
+                  placeholder={'인증코드를 입력해주세요'}
+                  style={styles.textInput}
+                  secureTextEntry={true}
+                />
+                <BasicButton
+                  text="인증"
+                  customFontSize={18}
+                  paddingHorizon={17}
+                  paddingVertical={16}
+                  btnWidth={98}
+                  btnHeight={58}
+                  borderRadius={14}
+                  onHandlePress={() =>
+                    navigation.navigate('SignupScreen')
+                  }></BasicButton>
+              </View>
             </View>
-          </View>
-          <View style={styles.end}></View>
-        </Layout>
-      </View>
-    </ImageBackground>
+            <View style={styles.end}></View>
+          </Layout>
+        </View>
+      </ImageBackground>
+    </ScrollView>
   );
 }
 
@@ -107,11 +114,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    resizeMode: 'contain',
   },
   view: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 30,
   },
   text: {
     fontSize: 40,
