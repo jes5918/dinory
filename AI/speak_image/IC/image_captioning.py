@@ -168,11 +168,8 @@ class CaptionModel:
 if __name__ == '__main__':
     # CaptionModel 클래스에 대한 인스턴스 생성
     cm = CaptionModel()
-
     imgFile = './test5.jpg'
-
     img = cv2.imread(imgFile, cv2.IMREAD_COLOR)
-
     result = cm.inference(imgFile)
     pprint(result)
 

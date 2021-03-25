@@ -14,7 +14,7 @@ const height = dimensions.height;
 
 export default function Profile(/*{childName,childCharacter}*/) {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} activeOpacity={0.7}>
       {/* <Text style={styles.childName}>{childName}</Text> */}
       <Text style={styles.childName}>채아</Text>
       <View style={styles.characterOutside}>
@@ -39,8 +39,11 @@ const styles = StyleSheet.create({
   childName: {
     fontFamily: 'HoonPinkpungchaR',
     alignSelf: 'center',
-    color: 'white',
+    color: '#000',
     fontSize: height * 0.04,
+    textShadowColor: '#fff',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 7,
   },
   characterIcon: {
     resizeMode: 'center',

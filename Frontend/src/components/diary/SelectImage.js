@@ -16,7 +16,8 @@ import {
 // Import Image Picker
 // import ImagePicker from 'react-native-image-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import Layout from '../../components/elements/layout';
+import Layout from '../../components/elements/Layout';
+import {createDiary} from '../../api/diary/writeDiary';
 
 const bgurl = require('../../assets/images/background3.png');
 
@@ -65,8 +66,9 @@ const SelectImage = () => {
   const captureImage = async (type) => {
     let options = {
       mediaType: type,
-      quality: 1,
+      quality: 0.4,
       saveToPhotos: true,
+      // includeBase64: true,
     };
     let isCameraPermitted = await requestCameraPermission();
     let isStoragePermitted = await requestExternalWritePermission();
@@ -87,7 +89,7 @@ const SelectImage = () => {
           alert(response.errorMessage);
           return;
         }
-        console.log('base64 -> ', response.base64);
+        // console.log('base64 -> ', response.base64);
         console.log('uri -> ', response.uri);
         console.log('width -> ', response.width);
         console.log('height -> ', response.height);
@@ -95,6 +97,31 @@ const SelectImage = () => {
         console.log('type -> ', response.type);
         console.log('fileName -> ', response.fileName);
         setFilePath(response);
+        console.log('response', response);
+        const formData = new FormData();
+        formData.append('title', 'test100');
+        // formData.append('img', file);
+        formData.append('img', {
+          uri: response.uri,
+          type: response.type,
+          name: 'fileName',
+        });
+        formData.append('content ', 'asdfeas');
+        formData.append('year', '2021');
+        formData.append('month', '03');
+        formData.append('date', '01');
+
+        console.log('FormData', formData);
+        createDiary(
+          formData,
+          10,
+          (res) => {
+            console.log('resData', res.data);
+          },
+          (err) => {
+            console.error(err);
+          },
+        );
       });
     }
   };
@@ -102,7 +129,8 @@ const SelectImage = () => {
   const chooseFile = (type) => {
     let options = {
       mediaType: type,
-      quality: 1,
+      quality: 0.4,
+      // includeBase64: true,
     };
     launchImageLibrary(options, (response) => {
       console.log('Response = ', response);
@@ -120,34 +148,47 @@ const SelectImage = () => {
         alert(response.errorMessage);
         return;
       }
-      console.log('base64 -> ', response.base64);
-      console.log('uri -> ', response.uri);
-      console.log('width -> ', response.width);
-      console.log('height -> ', response.height);
-      console.log('fileSize -> ', response.fileSize);
-      console.log('type -> ', response.type);
-      console.log('fileName -> ', response.fileName);
       setFilePath(response);
+      console.log('response', response);
+      const formData = new FormData();
+      formData.append('title', '확장자 확인용');
+      // formData.append('img', file);
+      formData.append('img', {
+        uri: response.uri,
+        type: response.type,
+        name: response.fileName,
+      });
+      formData.append('content ', 'asdfeas');
+      formData.append('year', '2021');
+      formData.append('month', '03');
+      formData.append('date', '01');
+
+      console.log('FormData', formData);
+      createDiary(
+        formData,
+        10,
+        (res) => {
+          console.log('resData', res.data);
+        },
+        (err) => {
+          console.error(err);
+        },
+      );
     });
   };
+
   const dimensions = Dimensions.get('window');
   const layoutWidth = dimensions.width * 0.6;
   const layoutHeight = dimensions.height * 0.5;
 
   return (
     <ImageBackground source={bgurl} style={styles.box}>
-      <Layout width={700} height={500} opacity={1}>
-        {/* <Image
-          source={{
-            uri: 'data:image/jpeg;base64,' + filePath.data,
-          }}
-          style={styles.imageStyle}
-        /> */}
+      <Layout width={700} height={500} opacity={0.9}>
         {/* <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
         <Text style={styles.textStyle}>{filePath.uri}</Text> */}
         <View style={[styles.container]}>
           <TouchableOpacity
-            activeOpacity={0.5}
+            activeOpacity={0.7}
             style={styles.buttonStyle1}
             onPress={() => captureImage('photo')}>
             <Image
@@ -161,7 +202,7 @@ const SelectImage = () => {
             <Text style={styles.textStyle}>사진 촬영</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            activeOpacity={0.5}
+            activeOpacity={0.7}
             style={styles.buttonStyle2}
             onPress={() => chooseFile('photo')}>
             <Image
@@ -229,19 +270,12 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     display: 'flex',
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 5,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 10,
+    elevation: 7,
   },
 
   imageStyle: {
-    width: 200,
-    height: 200,
+    width: 400,
+    height: 400,
     margin: 5,
   },
   container: {

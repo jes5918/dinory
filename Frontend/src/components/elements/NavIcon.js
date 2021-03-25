@@ -9,6 +9,7 @@ export default function NavIcon({navigation}) {
         title="HomeScreen"
         onPress={() => navigation.navigate('HomeScreen')}
       />
+      <Text> </Text>
       <Button
         title="LoadingSec"
         onPress={() => navigation.navigate('LoadingSec')}
