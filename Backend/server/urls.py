@@ -27,7 +27,8 @@ urlpatterns = [
     # path('accounts/', include('Accounts.urls')),
     path('notes/', include('Notes.urls')),
     path('words/', include('Words.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('ai/', include('AI.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += [
