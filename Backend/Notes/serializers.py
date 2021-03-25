@@ -15,13 +15,13 @@ class MonthlyDiarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Diary
-        fields = ('title', 'img', 'year', 'month', 'date')
+        fields = ('title', 'img', 'year', 'month', 'date', 'id')
 
 
 class DailyDiarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Diary
-        fields = ('title', 'img', 'year', 'month', 'date', 'content', 'check')
+        fields = ('title', 'img', 'year', 'month', 'date', 'content', 'check', 'id')
 
 
 class DiarySerializer(serializers.ModelSerializer):
@@ -31,8 +31,8 @@ class DiarySerializer(serializers.ModelSerializer):
         fields = ('title', 'year', 'month', 'date', 'content', 'note', 'id')
         read_only_fields = ('note',)
 
-class ImageSerializer(serializers.HyperlinkedModelSerializer):
-    img = serializers.ImageField(use_url=True)
+class ImageSerializer(serializers.ModelSerializer):
+    # img = serializers.ImageField(use_url=True)
     class Meta:
         model = Diary
         fields = ('img',)
@@ -66,3 +66,9 @@ class CheckSerializer(serializers.ModelSerializer):
         model = Diary
         fields = ('note', 'check', 'title', 'img', 'content', 'year', 'month', 'date', 'id')
         depth = 1
+
+class WordStateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Word
+        fields = ('content', 'count')
