@@ -40,11 +40,15 @@ import SelectImage from '../components/diary/SelectImage';
 import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/user/SelectProfile';
 import Main from '../views/Main';
-import HomeScreen from '../views/Authorization/HomeScreen';
-import Login from '../views/Authorization/LoginScreen';
-import Signup from '../views/Authorization/SignupScreen';
-import ParentSetting from '../views/parent/ParentSetting';
 import DiaryList from '../views/DiaryList/DiaryList';
+// import ImageCaption from '../views/diary/ImageCaption';
+// import WriteDiary from '../views/diary/WriteDiary';
+import HomeScreen from './Authorization/HomeScreen';
+import Login from './Authorization/LoginScreen';
+import Signup from './Authorization/SignupScreen';
+import ParentSetting from '../views/parent/ParentSetting';
+import EmailAuthorization from './Authorization/EmailAuthorization';
+import PinCreate from './Authorization/PinScreen';
 
 const Stack = createStackNavigator();
 
@@ -54,8 +58,13 @@ const App = () => {
       <Stack.Navigator initialRouteName="Home" headerMode="none">
         <Stack.Screen name="Home" component={NavIcon} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen
+          name="EmailAuthorization"
+          component={EmailAuthorization}
+        />
         <Stack.Screen name="LoginScreen" component={Login} />
         <Stack.Screen name="SignupScreen" component={Signup} />
+        <Stack.Screen name="PinScreen" component={PinCreate} />
         <Stack.Screen name="LoadingSec" component={LoadingSec} />
         <Stack.Screen name="WriteDiary" component={WriteDiary} />
         <Stack.Screen name="SelectLogin" component={SelectLogin} />
