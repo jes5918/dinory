@@ -10,18 +10,6 @@ export default function NavIcon({navigation}) {
         onPress={() => navigation.navigate('HomeScreen')}
       />
       <Button
-        title="EmailAuthorization"
-        onPress={() => navigation.navigate('EmailAuthorization')}
-      />
-      <Button
-        title="LoginScreen"
-        onPress={() => navigation.navigate('Login')}
-      />
-      <Button
-        title="SignupScreen"
-        onPress={() => navigation.navigate('Singup')}
-      />
-      <Button
         title="LoadingSec"
         onPress={() => navigation.navigate('LoadingSec')}
       />

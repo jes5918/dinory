@@ -141,6 +141,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 220, //595
     height: undefined, //101
-    aspectRatio: 200 / 80,
+    aspectRatio: 300 / 100,
   },
 });
