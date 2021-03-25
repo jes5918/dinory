@@ -132,3 +132,4 @@ ljs_dataset_folder/
 # API key
 .env
 config.json
+secrets.json
