@@ -14,7 +14,7 @@ const height = dimensions.height;
 
 export default function DinoButton({imgSrc, childName}) {
   const imageUri = Image.resolveAssetSource(imgSrc).uri;
-  const cn = Text.toString(childName);
+  
   return (
     <TouchableOpacity activeOpacity={0.7}>
       <View
@@ -24,7 +24,7 @@ export default function DinoButton({imgSrc, childName}) {
         ]}>
         <Image source={imgSrc} style={styles.characterImage} />
       </View>
-      {cn.length > 0 && <Text style={styles.nameText}>{childName}</Text>}
+      {childName && <Text style={styles.nameText}>{childName}</Text>}
     </TouchableOpacity>
   );
 }
