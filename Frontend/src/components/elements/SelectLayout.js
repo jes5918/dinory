@@ -55,21 +55,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    display: 'flex',
-    flex: 1.5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-  },
   body: {
     flex: 6,
     alignItems: 'center',
-  },
-  bgImage: {
-    flex: 1,
-    resizeMode: 'contain',
   },
   innerUpper: {},
   innerMiddle: {
