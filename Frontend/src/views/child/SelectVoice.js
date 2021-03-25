@@ -24,7 +24,6 @@ export default function SelectVoice() {
           <SelectLayout
             title={'원하는 목소리를 선택해주세요'}
             btnText={'변경완료'}
-            arrow={true}
           />
         </View>
       </ImageBackground>
