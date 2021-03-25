@@ -6,6 +6,16 @@ export default function NavIcon({navigation}) {
     <ScrollView>
       <Text>NavIcon 테스트</Text>
       <Button
+        title="SelectLayout"
+        onPress={() => navigation.navigate('SelectLayout')}
+      />
+      <Text> </Text>
+      <Button
+        title="SelectVoice"
+        onPress={() => navigation.navigate('SelectVoice')}
+      />
+      <Text> </Text>
+      <Button
         title="HomeScreen"
         onPress={() => navigation.navigate('HomeScreen')}
       />
