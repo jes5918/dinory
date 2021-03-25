@@ -11,6 +11,7 @@ function BasicButton({
   btnHeight,
   borderRadius,
   onHandlePress,
+  fontHoonPink,
 }) {
   return (
     <TouchableOpacity
@@ -31,7 +32,14 @@ function BasicButton({
           borderRadius: borderRadius || 14,
         },
       ]}>
-      <Text style={[styles.text, {fontSize: customFontSize || 24}]}>
+      <Text
+        style={[
+          styles.text,
+          {
+            fontSize: customFontSize || 24,
+            fontFamily: fontHoonPink ? 'HoonPinkpungchaR' : 'NotoSansKR-Bold',
+          },
+        ]}>
         {text}
       </Text>
     </TouchableOpacity>
@@ -45,19 +53,15 @@ const windowHeight = windowSize.height;
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    backgroundColor: '#FB537B',
     width: windowWidth * 0.4,
     height: windowHeight * 0.08,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    shadowColor: 'black',
-    shadowOffset: {width: 10, height: 10},
-    elevation: 10,
+    elevation: 7,
   },
   text: {
     color: 'white',
-    fontFamily: 'NotoSansKR-Bold',
   },
 });
 
