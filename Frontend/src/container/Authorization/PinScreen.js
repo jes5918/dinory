@@ -14,7 +14,6 @@ import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
 export default function PinCreate({navigation}) {
-  // const {navigate} = props.navigation;
   const windowSize = Dimensions.get('window');
   const windowWidth = windowSize.width; // 1280
   const windowHeight = windowSize.height; // 768
@@ -23,7 +22,7 @@ export default function PinCreate({navigation}) {
   const [userPinNumber, setUserPinNumber] = useState('');
   const pinInputRef = React.createRef();
   const submitHandler = () => {
-    var pinAuthForm = new FormData();
+    let pinAuthForm = new FormData();
     pinAuthForm.append('email', userPinNumber);
     confirmEmail(
       pinAuthForm,
