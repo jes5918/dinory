@@ -22,7 +22,7 @@ export default function LoadingSec() {
         toValue: 1200,
         duration: 6000,
         // 알로 할 경우 주석 start
-        easing: Easing.bezier(1, 0.55, 0.45, 0.1),
+        easing: Easing.bezier(0.5, 0.55, 0.45, 0.1),
         // 알로 할경우 주석 end
         useNativeDriver: true,
       }),

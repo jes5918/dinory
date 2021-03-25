@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 export default function Layout({width, height, opacity, children}) {
   return (
