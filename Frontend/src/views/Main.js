@@ -12,6 +12,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Logo from '../components/elements/Logo';
 import Profile from '../components/elements/Profile';
 import ArrowButton from '../components/elements/ArrowButton';
+import {useNavigation} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -19,33 +20,35 @@ const height = dimensions.height;
 
 export default function Main() {
   const url = require('../assets/images/background4.png');
-  console.log(url);
-  // const {navigate} = props.navigation;
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <ImageBackground source={url} style={styles.bgImage}>
         <View style={styles.header}>
-          <ArrowButton />
+          <ArrowButton onHandlePress={() => navigation.goBack()} />
           <Logo />
           <Profile />
         </View>
         <View style={styles.innerContainer}>
           <View>
-            <TouchableOpacity activeOpacity={0.5} style={styles.menuBtn}>
+            <TouchableOpacity activeOpacity={0.7} style={styles.menuBtn}>
               <Text style={[styles.innerText, {color: '#ED1D9F'}]}>
                 일기장 쓰기
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.5} style={styles.menuBtn}>
+            <TouchableOpacity activeOpacity={0.7} style={styles.menuBtn}>
               <Text style={[styles.innerText, {color: '#199CDC'}]}>
                 일기 목록
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.5} style={styles.menuBtn}>
+            <TouchableOpacity activeOpacity={0.7} style={styles.menuBtn}>
               <Text style={[styles.innerText, {color: '#55E32A'}]}>단어장</Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.5} style={styles.menuBtn}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.menuBtn}
+              onPress={() => navigation.navigate('SelectVoice')}>
               <Text style={[styles.innerText, {color: '#F66833'}]}>
                 목소리 변경
               </Text>
@@ -57,7 +60,7 @@ export default function Main() {
           />
         </View>
         <View style={styles.iconContainer}>
-          <TouchableOpacity activeOpacity={0.5}>
+          <TouchableOpacity activeOpacity={0.7}>
             <MaterialIcons
               style={[
                 styles.mainIcon,
@@ -72,10 +75,10 @@ export default function Main() {
               name={'replay'}
             />
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.5}>
+          <TouchableOpacity activeOpacity={0.7}>
             <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.5}>
+          <TouchableOpacity activeOpacity={0.7}>
             <MaterialIcons style={styles.mainIcon} name={'settings'} />
           </TouchableOpacity>
         </View>
@@ -114,14 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEE',
     marginVertical: 8,
     paddingVertical: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 3,
-      height: 6,
-    },
-    shadowOpacity: 0.32,
-    shadowRadius: 3,
-    elevation: 15,
+    elevation: 7,
   },
   innerContainer: {
     flex: 5,
