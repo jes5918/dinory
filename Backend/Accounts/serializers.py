@@ -30,8 +30,15 @@ class UserPincodeChangeSerializer(serializers.ModelSerializer):
         model = User
         fields = ('pin_code', )
 
+
 class ChildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Child
         fields = '__all__'
         read_only_fields = ('parent', 'voice')
+
+
+class ChildChangeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Child
+        fields = ('name', 'age', 'img', 'voice')
