@@ -4,15 +4,16 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get -y update
 RUN apt-get -y install vim
+RUN apt-get install -y libsndfile1
 
 RUN mkdir /srv/docker-server
 ADD . /srv/docker-server
 
 WORKDIR /srv/docker-server
 
+RUN pip install --upgrade pip
 RUN pip install nltk
 RUN [ "python", "-c", "import nltk; nltk.download('all')" ]
-RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # EXPOSE 8000
