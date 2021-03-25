@@ -49,6 +49,8 @@ import Signup from './Authorization/SignupScreen';
 import ParentSetting from '../views/parent/ParentSetting';
 import EmailAuthorization from './Authorization/EmailAuthorization';
 import PinCreate from './Authorization/PinScreen';
+import SelectVoice from '../views/child/SelectVoice';
+import SelectLayout from '../components/elements/SelectLayout';
 
 const Stack = createStackNavigator();
 
@@ -75,6 +77,8 @@ const App = () => {
         <Stack.Screen name="wordList" component={wordList} />
         <Stack.Screen name="SelectImage" component={SelectImage} />
         <Stack.Screen name="DiaryList" component={DiaryList} />
+        <Stack.Screen name="SelectVoice" component={SelectVoice} />
+        <Stack.Screen name="SelectLayout" component={SelectLayout} />
       </Stack.Navigator>
     </NavigationContainer>
   );
