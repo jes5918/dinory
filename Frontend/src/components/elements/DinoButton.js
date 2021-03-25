@@ -12,11 +12,15 @@ const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
-export default function DinoButton({imgSrc, childName}) {
+export default function DinoButton({imgSrc, childName, onHandlePress}) {
   const imageUri = Image.resolveAssetSource(imgSrc).uri;
-  
+
   return (
-    <TouchableOpacity activeOpacity={0.7}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={() =>
+        onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
+      }>
       <View
         style={[
           styles.container,
