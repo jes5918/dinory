@@ -42,9 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 1000,
     borderColor: 'white',
-    shadowColor: 'black',
-    shadowOffset: {width: 10, height: 10},
-    elevation: 10,
+    elevation: 7,
   },
   text: {
     color: 'white',
