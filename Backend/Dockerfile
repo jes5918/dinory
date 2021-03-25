@@ -10,6 +10,8 @@ ADD . /srv/docker-server
 
 WORKDIR /srv/docker-server
 
+RUN pip install nltk
+RUN [ "python", "-c", "import nltk; nltk.download('all')" ]
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
