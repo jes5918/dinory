@@ -17,4 +17,5 @@ urlpatterns = [
     path('child/', views.child_create_read),
     path('child/setting/', views.child_update),
     path('child/setting/delete/', views.child_delete),
+    path('child/setting/voice/', views.child_change_voice),
 ]
