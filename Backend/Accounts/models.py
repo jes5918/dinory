@@ -12,3 +12,4 @@ class Child(models.Model):
     name = models.CharField(max_length=20)
     img = models.IntegerField()
     age = models.IntegerField()
+    voice = models.IntegerField(default=0)

@@ -5,4 +5,5 @@ urlpatterns = [
     path('diary/', views.diary_create_read),
     path('check/', views.diary_check),
     # path('word/', views.word_create),
+    # path('image/', views.upload_image),
 ]
