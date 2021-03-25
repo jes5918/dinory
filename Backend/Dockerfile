@@ -14,7 +14,7 @@ WORKDIR /srv/docker-server
 RUN pip install --upgrade pip
 RUN pip install nltk
 RUN pip install uwsgi
-RUN [ "python", "-c", "import nltk; nltk.download('averaged_perceptron_tagger'); nltk.download('punkt'); nltk.download('wordnet')" ]
+RUN [ "python", "-c", "import nltk; nltk.download('all')"]
 RUN pip install -r requirements.txt
 
 # EXPOSE 8000
