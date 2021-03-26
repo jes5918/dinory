@@ -39,7 +39,7 @@ const CardComponent = ({diaryText, diaryImage, onHandlePress}) => {
       activeOpacity={0.7}
       style={styles.cardContainer}>
       <Text style={styles.cardText}>{diaryText}</Text>
-      <Image style={styles.cardImage} source={diaryImage} />
+      <Image style={styles.cardImage} source={{uri: diaryImage}} />
     </TouchableOpacity>
   );
 };
@@ -74,7 +74,7 @@ const FooterImage = ({image, year, month}) => {
         {year}년 {month}월
       </Text>
       <TouchableOpacity activeOpacity={0.7}>
-        <Image style={styles.thumbnail} source={image} />
+        <Image style={styles.thumbnail} source={{uri: image}} />
       </TouchableOpacity>
     </View>
   );
@@ -86,7 +86,7 @@ function DiaryList() {
   const [data, setData] = useState();
 
   // static variables
-  const baseURL = 'http://j4b105.p.ssafy.io';
+  const baseURL = 'http://j4b105.p.ssafy.io/media/';
 
   // utils
   const navigation = useNavigation();
@@ -127,7 +127,10 @@ function DiaryList() {
               return (
                 <MainCardComponent
                   diaryText={diary.title}
-                  diaryImage={baseURL + diary.img}
+                  // diaryImage={baseURL + diary.img}
+                  diaryImage={
+                    'http://j4b105.p.ssafy.io/media/images/2021/03/25/%EB%82%B4_%EC%82%AC%EC%A7%84_Jy4jjh2.jpg'
+                  }
                   dateText={`${diary.year}.${diary.month}.${diary.date}`}
                   onHandlePress={onHandleDetail}
                   key={diary.id}
@@ -146,7 +149,10 @@ function DiaryList() {
                 <FooterImage
                   year={diary.year}
                   month={diary.month}
-                  image={baseURL + diary.img}
+                  // image={baseURL + diary.img}
+                  image={
+                    'http://j4b105.p.ssafy.io/media/images/2021/03/25/%EB%82%B4_%EC%82%AC%EC%A7%84_Jy4jjh2.jpg'
+                  }
                   key={diary.id}
                 />
               );
