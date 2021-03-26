@@ -12,7 +12,12 @@ const calculateFontSize = (text) => {
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function CheckBox({textEn, textKr}) {
+export default function CheckBox({
+  textEn,
+  textKr,
+  onHandleVolume,
+  onHandleCheck,
+}) {
   // text = 18px, lenght 1당 18px 추가.
   // const textEnWidth = windowWidth * 0.15 + calculateLength(textEn);
   // const textKrWidth = windowWidth * 0.15 + calculateLength(textKr);
@@ -71,12 +76,8 @@ export default function CheckBox({textEn, textKr}) {
     }
   }, [value, animatedValue]);
 
-  const onHandleCheck = () => {
+  const onHandleCheckState = () => {
     setCheck((prevCheck) => !prevCheck);
-  };
-
-  const onHandleVolume = () => {
-    console.log('Volume Part');
   };
 
   useEffect(() => {
@@ -95,7 +96,12 @@ export default function CheckBox({textEn, textKr}) {
           {backgroundColor: check ? '#19DC4D' : 'white', width: textEnWidth},
         ]}>
         <TouchableOpacity
-          onPress={() => onHandleCheck()}
+          onPress={() => {
+            onHandleCheckState();
+            onHandleCheck()
+              ? onHandleCheck()
+              : alert('함수를 props로 내려주세요!');
+          }}
           style={styles.checkRound}>
           {check && <FontAwesome5 style={styles.check} name={'check'} />}
         </TouchableOpacity>
@@ -107,7 +113,11 @@ export default function CheckBox({textEn, textKr}) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.volume}
-          onPress={() => onHandleVolume()}>
+          onPress={() =>
+            onHandleVolume
+              ? onHandleVolume()
+              : alert('함수를 props로 내려주세요!')
+          }>
           <FontAwesome5
             style={styles.volumeIcon}
             name={'volume-up'}
