@@ -6,16 +6,6 @@ export default function NavIcon({navigation}) {
     <ScrollView>
       <Text>NavIcon 테스트</Text>
       <Button
-        title="SelectLayout"
-        onPress={() => navigation.navigate('SelectLayout')}
-      />
-      <Text> </Text>
-      <Button
-        title="SelectVoice"
-        onPress={() => navigation.navigate('SelectVoice')}
-      />
-      <Text> </Text>
-      <Button
         title="HomeScreen"
         onPress={() => navigation.navigate('HomeScreen')}
       />
@@ -23,16 +13,6 @@ export default function NavIcon({navigation}) {
       <Button
         title="LoadingSec"
         onPress={() => navigation.navigate('LoadingSec')}
-      />
-      <Text> </Text>
-      <Button
-        title="SelectLogin"
-        onPress={() => navigation.navigate('SelectLogin')}
-      />
-      <Text> </Text>
-      <Button
-        title="SelectProfile"
-        onPress={() => navigation.navigate('SelectProfile')}
       />
       <Text> </Text>
       <Button title="Main" onPress={() => navigation.navigate('Main')} />
@@ -50,11 +30,6 @@ export default function NavIcon({navigation}) {
       <Button
         title="ParentSetting"
         onPress={() => navigation.navigate('ParentSetting')}
-      />
-      <Text> </Text>
-      <Button
-        title="wordList"
-        onPress={() => navigation.navigate('wordList')}
       />
       <Text> </Text>
       <Button
