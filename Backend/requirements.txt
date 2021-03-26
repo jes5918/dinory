@@ -13,9 +13,7 @@ coreschema==0.0.4
 cssutils==2.2.0
 decorator==4.4.2
 Django==3.1.7
-django-appconf==1.0.4
 django-cors-headers==3.7.0
-django-imagekit==4.0.2
 django-inlinecss==0.3.0
 django-rest-swagger==2.2.0
 djangorestframework==3.12.2
@@ -50,7 +48,6 @@ numpy==1.20.1
 oauthlib==3.1.0
 openapi-codec==1.3.2
 packaging==20.9
-pilkit==2.0
 Pillow==8.1.2
 pooch==1.3.0
 pycparser==2.20
@@ -82,4 +79,3 @@ tqdm==4.59.0
 uritemplate==3.0.1
 urllib3==1.26.3
 validate-email==1.3
-uwsgi
