@@ -21,7 +21,6 @@ const height = dimensions.height;
 export default function Main() {
   const url = require('../assets/images/background4.png');
   const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
       <ImageBackground source={url} style={styles.bgImage}>
@@ -32,12 +31,18 @@ export default function Main() {
         </View>
         <View style={styles.innerContainer}>
           <View>
-            <TouchableOpacity activeOpacity={0.7} style={styles.menuBtn}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.menuBtn}
+              onPress={() => navigation.navigate('WriteDiary')}>
               <Text style={[styles.innerText, {color: '#ED1D9F'}]}>
                 일기장 쓰기
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.7} style={styles.menuBtn}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.menuBtn}
+              onPress={() => navigation.navigate('DiaryList')}>
               <Text style={[styles.innerText, {color: '#199CDC'}]}>
                 일기 목록
               </Text>
@@ -60,7 +65,9 @@ export default function Main() {
           />
         </View>
         <View style={styles.iconContainer}>
-          <TouchableOpacity activeOpacity={0.7}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('MainTutorial')}>
             <MaterialIcons
               style={[
                 styles.mainIcon,
@@ -75,10 +82,19 @@ export default function Main() {
               name={'replay'}
             />
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.7}>
-            <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
+          <TouchableOpacity
+            activeOpacity={0.7}
+            // onPress={() => }
+          >
+            <MaterialIcons
+              style={styles.mainIcon}
+              name={'volume-up'}
+              // onPress={() =>}
+            />
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.7}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('ParentSetting')}>
             <MaterialIcons style={styles.mainIcon} name={'settings'} />
           </TouchableOpacity>
         </View>
@@ -86,7 +102,6 @@ export default function Main() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

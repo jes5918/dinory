@@ -9,6 +9,7 @@ import {
   ImageBackground,
   Dimensions,
   Image,
+  ScrollView,
 } from 'react-native';
 import {loginInstance} from '../../api/accounts/login';
 import Layout from '../../components/elements/Layout';
@@ -44,54 +45,60 @@ export default function Login({navigation}) {
     // );
   };
   return (
-    <ImageBackground
-      source={require('../../assets/images/background5.png')}
-      style={styles.container}>
-      <View style={styles.start}>
-        <View>
-          <ArrowButton></ArrowButton>
-        </View>
-        <View style={styles.logo}>
-          <Image
-            source={require('../../assets/images/logo.png')}
-            style={styles.logo}></Image>
-        </View>
-      </View>
-      <View>
-        <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
-          <View style={styles.view}>
-            <Text style={styles.text}>로그인</Text>
+    <ScrollView>
+      <ImageBackground
+        source={require('../../assets/images/background5.png')}
+        style={styles.container}>
+        <View style={styles.start}>
+          <View>
+            <ArrowButton
+              onHandlePress={() => navigation.goBack()}></ArrowButton>
           </View>
-          <View style={styles.body}>
-            <View style={styles.view}>
-              <TextInput
-                style={styles.textInput}
-                placeholder={'이메일을 입력해주세요'}
-                onChangeText={(name) => setUserName(name)}
-                ref={nameInputRef}
-              />
-              <TextInput
-                style={styles.textInput}
-                placeholder={'비밀번호를 입력해주세요'}
-                onChangeText={(pwd) => setUserPassword(pwd)}
-                ref={passwordInputRef}
-              />
-            </View>
-            <View style={styles.view}>
-              <BasicButton
-                text="로그인"
-                customFontSize={24}
-                paddingHorizon={24}
-                paddingVertical={11}
-                btnWidth={336}
-                btnHeight={58}
-                borderRadius={14}
-                onHandlePress={() => LoginHandler()}></BasicButton>
-            </View>
+          <View style={styles.logo}>
+            <Image
+              source={require('../../assets/images/logo.png')}
+              style={styles.logo}></Image>
           </View>
-        </Layout>
-      </View>
-    </ImageBackground>
+        </View>
+        <View style={styles.end}>
+          <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
+            <View style={styles.view}>
+              <Text style={styles.text}>로그인</Text>
+            </View>
+            <View style={styles.body}>
+              <View style={styles.view}>
+                <TextInput
+                  textContentType={'emailAddress'}
+                  style={styles.textInput}
+                  autoFocus={true}
+                  placeholder={'이메일을 입력해주세요'}
+                  onChangeText={(name) => setUserName(name)}
+                  ref={nameInputRef}
+                />
+                <TextInput
+                  secureTextEntry={true}
+                  style={styles.textInput}
+                  placeholder={'비밀번호를 입력해주세요'}
+                  onChangeText={(pwd) => setUserPassword(pwd)}
+                  ref={passwordInputRef}
+                />
+              </View>
+              <View style={styles.view}>
+                <BasicButton
+                  text="로그인"
+                  customFontSize={24}
+                  paddingHorizon={24}
+                  paddingVertical={11}
+                  btnWidth={336}
+                  btnHeight={58}
+                  borderRadius={14}
+                  onHandlePress={() => LoginHandler()}></BasicButton>
+              </View>
+            </View>
+          </Layout>
+        </View>
+      </ImageBackground>
+    </ScrollView>
   );
 }
 
@@ -106,6 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 30,
   },
   text: {
     fontSize: 40,
@@ -133,6 +141,9 @@ const styles = StyleSheet.create({
     aspectRatio: 300 / 100,
   },
   body: {
+    flex: 4,
+  },
+  end: {
     flex: 4,
   },
 });
