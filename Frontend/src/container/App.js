@@ -35,22 +35,22 @@ import LoadingSec from '../components/elements/LoadingSec';
 import ImageCaption from '../components/diary/ImageCaption';
 import wordList from '../components/diary/WordList';
 import SelectImage from '../components/diary/SelectImage';
+import SelectLayout from '../components/elements/SelectLayout';
 
 // view
 import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/user/SelectProfile';
 import Main from '../views/Main';
 import DiaryList from '../views/DiaryList/DiaryList';
-// import ImageCaption from '../views/diary/ImageCaption';
-// import WriteDiary from '../views/diary/WriteDiary';
 import HomeScreen from './Authorization/HomeScreen';
+import ParentSetting from '../views/parent/ParentSetting';
+import SelectVoice from '../views/child/SelectVoice';
+import MainTutorial from '../views/MainTutorial';
+
 import Login from './Authorization/LoginScreen';
 import Signup from './Authorization/SignupScreen';
-import ParentSetting from '../views/parent/ParentSetting';
 import EmailAuthorization from './Authorization/EmailAuthorization';
 import PinCreate from './Authorization/PinScreen';
-import SelectVoice from '../views/child/SelectVoice';
-import SelectLayout from '../components/elements/SelectLayout';
 
 const Stack = createStackNavigator();
 
@@ -79,6 +79,7 @@ const App = () => {
         <Stack.Screen name="DiaryList" component={DiaryList} />
         <Stack.Screen name="SelectVoice" component={SelectVoice} />
         <Stack.Screen name="SelectLayout" component={SelectLayout} />
+        <Stack.Screen name="MainTutorial" component={MainTutorial} />
       </Stack.Navigator>
     </NavigationContainer>
   );
