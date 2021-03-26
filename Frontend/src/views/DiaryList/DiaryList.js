@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
-  ImageBackground,
   StyleSheet,
   Image,
   Dimensions,
@@ -12,11 +11,12 @@ import {
 import {useNavigation} from '@react-navigation/core';
 
 // component
-import Profile from '../../components/elements/Profile';
-import ArrowButton from '../../components/elements/ArrowButton';
+import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
+import Header from '../../components/elements/Header';
+import DiaryListFooter from '../../components/diary/DiaryListFooter';
 
 // data request
-import getNotes from '../../api/diary/readDiary';
+import {getNotesByMonth, getNotesByYear} from '../../api/diary/readDiary';
 
 // image source
 const url = require('../../assets/images/background1.png');
@@ -66,43 +66,45 @@ const MainCardComponent = ({
   );
 };
 
-// FooterImage : footer 부분에 들어가는 날짜 텍스트 + 썸네일 컴포넌트입니다.
-const FooterImage = ({image, year, month}) => {
-  return (
-    <View style={styles.thumbnailContainer}>
-      <Text style={styles.thumbnailText}>
-        {year}년 {month}월
-      </Text>
-      <TouchableOpacity activeOpacity={0.7}>
-        <Image style={styles.thumbnail} source={{uri: image}} />
-      </TouchableOpacity>
-    </View>
-  );
-};
-
 // DiaryList : 전체를 렌더링하는 React Function Component입니다.
 function DiaryList() {
   // states
-  const [data, setData] = useState();
+  const [dataByMonth, setDataByMonth] = useState();
+  const [dataByYear, setDataByYear] = useState();
+
+  const navigation = useNavigation();
 
   // static variables
   const baseURL = 'http://j4b105.p.ssafy.io/media/';
 
-  // utils
-  const navigation = useNavigation();
-
   // methods
   const onHandleDetail = (diaryID) => {
-    alert('onPress 이벤트!');
-    // navigation으로 상세페이지로 이동(추후 구현)
+    alert('detail 페이지로 이동!');
+  };
+
+  const onHandleSelectMonth = () => {
+    alert('footer에서 다른 월을 선택하다!!');
+    // 다른 월의 일기를 렌더링함.
   };
 
   // componentDidMount
   useEffect(() => {
-    getNotes(
+    getNotesByMonth(
       10,
       (res) => {
-        setData(() => res.data);
+        setDataByMonth(() => res.data);
+      },
+      (err) => {
+        console.error(err);
+      },
+    );
+  }, []);
+
+  useEffect(() => {
+    getNotesByYear(
+      10,
+      (res) => {
+        setDataByYear(() => res.data);
       },
       (err) => {
         console.error(err);
@@ -112,25 +114,19 @@ function DiaryList() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={url} style={styles.backgroundImage} />
-      <View style={styles.header}>
-        <ArrowButton onHandlePress={() => navigation.goBack()} />
-        <Profile />
-      </View>
+      <BackgroundAbsolute imageSrc={url} />
+      <Header />
       <View style={styles.body}>
         <ScrollView
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           style={styles.bodyCardContainer}>
-          {data &&
-            data.map((diary) => {
+          {dataByMonth &&
+            dataByMonth.map((diary) => {
               return (
                 <MainCardComponent
                   diaryText={diary.title}
-                  // diaryImage={baseURL + diary.img}
-                  diaryImage={
-                    'http://j4b105.p.ssafy.io/media/images/2021/03/25/%EB%82%B4_%EC%82%AC%EC%A7%84_Jy4jjh2.jpg'
-                  }
+                  diaryImage={baseURL + diary.img}
                   dateText={`${diary.year}.${diary.month}.${diary.date}`}
                   onHandlePress={onHandleDetail}
                   key={diary.id}
@@ -141,24 +137,12 @@ function DiaryList() {
         <Image style={styles.character} source={character} />
         <View style={styles.line} />
       </View>
-      <View style={styles.footer}>
-        <ScrollView style={styles.footerContainer} horizontal={true}>
-          {data &&
-            data.map((diary) => {
-              return (
-                <FooterImage
-                  year={diary.year}
-                  month={diary.month}
-                  // image={baseURL + diary.img}
-                  image={
-                    'http://j4b105.p.ssafy.io/media/images/2021/03/25/%EB%82%B4_%EC%82%AC%EC%A7%84_Jy4jjh2.jpg'
-                  }
-                  key={diary.id}
-                />
-              );
-            })}
-        </ScrollView>
-      </View>
+      {dataByYear && (
+        <DiaryListFooter
+          data={dataByYear}
+          onHandlePress={onHandleSelectMonth}
+        />
+      )}
     </View>
   );
 }
@@ -176,56 +160,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backgroundImage: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
-  },
-  header: {
-    display: 'flex',
-    flex: 1.5, // 141
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    width: '100%',
-  },
   body: {
     flex: 5,
     width: '100%',
     position: 'relative',
   },
-  footer: {
-    flex: 1.5,
-    width: '100%',
-    backgroundColor: 'rgba(255,255,255, 0.75)',
-    elevation: 7,
-  },
-  footerContainer: {
-    width: '100%',
-    height: '100%',
-    paddingTop: windowHeight * 0.0133,
-  },
   text: {
     fontSize: 40,
-  },
-  thumbnailContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: 'auto',
-    marginHorizontal: windowHeight * 0.0547,
-  },
-  thumbnail: {
-    width: windowWidth * 0.06,
-    height: windowWidth * 0.06,
-    borderRadius: 15,
-  },
-  thumbnailText: {
-    fontFamily: 'HoonPinkpungchaR',
-    fontSize: 24,
-    marginBottom: windowHeight * 0.01995,
   },
   bodyCardContainer: {
     backgroundColor: 'transparent',
