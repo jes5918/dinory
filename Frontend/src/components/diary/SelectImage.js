@@ -17,7 +17,7 @@ import {
 // import ImagePicker from 'react-native-image-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Layout from '../../components/elements/Layout';
-import {createDiary} from '../../api/diary/writeDiary';
+import {createDiary, imageCaptioning} from '../../api/diary/writeDiary';
 
 const bgurl = require('../../assets/images/background3.png');
 
@@ -150,23 +150,42 @@ const SelectImage = () => {
       }
       setFilePath(response);
       console.log('response', response);
+      // const formData = new FormData();
+      // formData.append('title', 'ZZangsm');
+      // // formData.append('img', file);
+      // formData.append('img', {
+      //   uri: response.uri,
+      //   type: response.type,
+      //   name: response.fileName,
+      // });
+      // formData.append(
+      //   'content',
+      //   'I went to cafe pascucci.\nI ordered hot tea.\nIt was really good.',
+      // );
+      // formData.append('content', 'content wow.');
+      // formData.append('year', '2021');
+      // formData.append('month', '03');
+      // formData.append('date', '01');
+
+      // console.log('FormData', formData);
+      // createDiary(
+      //   formData,
+      //   10,
+      //   (res) => {
+      //     console.log('resData', res.data);
+      //   },
+      //   (err) => {
+      //     console.error(err);
+      //   },
+      // );
       const formData = new FormData();
-      formData.append('title', '확장자 확인용');
-      // formData.append('img', file);
       formData.append('img', {
         uri: response.uri,
         type: response.type,
         name: response.fileName,
       });
-      formData.append('content ', 'asdfeas');
-      formData.append('year', '2021');
-      formData.append('month', '03');
-      formData.append('date', '01');
-
-      console.log('FormData', formData);
-      createDiary(
+      imageCaptioning(
         formData,
-        10,
         (res) => {
           console.log('resData', res.data);
         },
