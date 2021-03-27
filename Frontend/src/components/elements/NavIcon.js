@@ -41,6 +41,11 @@ export default function NavIcon({navigation}) {
         title="DiaryList"
         onPress={() => navigation.navigate('DiaryList')}
       />
+      <Text> </Text>
+      <Button
+        title="GrammarCheck"
+        onPress={() => navigation.navigate('GrammarCheck')}
+      />
     </ScrollView>
   );
 }
