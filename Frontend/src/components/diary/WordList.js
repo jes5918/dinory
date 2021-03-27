@@ -16,8 +16,8 @@ export default function WriteDiary({words}) {
         words.map((word, i) => {
           return (
             <CheckBox
-              textEn={word.textEn}
-              textKr={word.textKr}
+              textEn={word.name}
+              textKr={word.mean}
               onHandleVolume={() => wordSound()}
               onHandleCheck={() => selectWord()}
               key={i}></CheckBox>
@@ -39,13 +39,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: '1.5%',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 2,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
     elevation: 5,
   },
 });
