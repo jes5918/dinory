@@ -1,5 +1,5 @@
 // Import React
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // Import required components
 import {
   StyleSheet,
@@ -21,9 +21,8 @@ import {createDiary, imageCaptioning} from '../../api/diary/writeDiary';
 
 const bgurl = require('../../assets/images/background3.png');
 
-const SelectImage = () => {
+const SelectImage = ({setSelectImage}) => {
   const [filePath, setFilePath] = useState({});
-
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
       try {
@@ -96,32 +95,8 @@ const SelectImage = () => {
         console.log('fileSize -> ', response.fileSize);
         console.log('type -> ', response.type);
         console.log('fileName -> ', response.fileName);
-        setFilePath(response);
+        setSelectImage(response);
         console.log('response', response);
-        const formData = new FormData();
-        formData.append('title', 'test100');
-        // formData.append('img', file);
-        formData.append('img', {
-          uri: response.uri,
-          type: response.type,
-          name: 'fileName',
-        });
-        formData.append('content ', 'asdfeas');
-        formData.append('year', '2021');
-        formData.append('month', '03');
-        formData.append('date', '01');
-
-        console.log('FormData', formData);
-        createDiary(
-          formData,
-          10,
-          (res) => {
-            console.log('resData', res.data);
-          },
-          (err) => {
-            console.error(err);
-          },
-        );
       });
     }
   };
@@ -148,7 +123,7 @@ const SelectImage = () => {
         alert(response.errorMessage);
         return;
       }
-      setFilePath(response);
+      setSelectImage(response);
       console.log('response', response);
       // const formData = new FormData();
       // formData.append('title', 'ZZangsm');
@@ -178,21 +153,7 @@ const SelectImage = () => {
       //     console.error(err);
       //   },
       // );
-      const formData = new FormData();
-      formData.append('img', {
-        uri: response.uri,
-        type: response.type,
-        name: response.fileName,
-      });
-      imageCaptioning(
-        formData,
-        (res) => {
-          console.log('resData', res.data);
-        },
-        (err) => {
-          console.error(err);
-        },
-      );
+      //////////////////////////
     });
   };
 
@@ -201,42 +162,40 @@ const SelectImage = () => {
   const layoutHeight = dimensions.height * 0.5;
 
   return (
-    <ImageBackground source={bgurl} style={styles.box}>
-      <Layout width={700} height={500} opacity={0.9}>
-        {/* <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+    <Layout width={700} height={500} opacity={0.9}>
+      {/* <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
         <Text style={styles.textStyle}>{filePath.uri}</Text> */}
-        <View style={[styles.container]}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.buttonStyle1}
-            onPress={() => captureImage('photo')}>
-            <Image
-              source={require('../../assets/images/egg.png')}
-              style={{
-                width: 80,
-                height: 80,
-                resizeMode: 'contain',
-                marginVertical: 10,
-              }}></Image>
-            <Text style={styles.textStyle}>사진 촬영</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.buttonStyle2}
-            onPress={() => chooseFile('photo')}>
-            <Image
-              source={require('../../assets/images/egg.png')}
-              style={{
-                width: 80,
-                height: 80,
-                resizeMode: 'contain',
-                marginVertical: 10,
-              }}></Image>
-            <Text style={styles.textStyle}>사진 가져오기</Text>
-          </TouchableOpacity>
-        </View>
-      </Layout>
-    </ImageBackground>
+      <View style={[styles.container]}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.buttonStyle1}
+          onPress={() => captureImage('photo')}>
+          <Image
+            source={require('../../assets/images/egg.png')}
+            style={{
+              width: 80,
+              height: 80,
+              resizeMode: 'contain',
+              marginVertical: 10,
+            }}></Image>
+          <Text style={styles.textStyle}>사진 촬영</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.buttonStyle2}
+          onPress={() => chooseFile('photo')}>
+          <Image
+            source={require('../../assets/images/egg.png')}
+            style={{
+              width: 80,
+              height: 80,
+              resizeMode: 'contain',
+              marginVertical: 10,
+            }}></Image>
+          <Text style={styles.textStyle}>사진 가져오기</Text>
+        </TouchableOpacity>
+      </View>
+    </Layout>
   );
 };
 
@@ -247,12 +206,6 @@ const tempWidth = tempDimensions.width;
 const tempHeight = tempDimensions.height;
 
 const styles = StyleSheet.create({
-  box: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   textStyle: {
     padding: 10,
     color: 'white',

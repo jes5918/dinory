@@ -4,6 +4,12 @@ import {View, Text, StyleSheet} from 'react-native';
 import CheckBox from '../elements/CheckBox.js';
 
 export default function WriteDiary({words}) {
+  const selectWord = () => {
+    alert('단어가 췤췤');
+  };
+  const wordSound = () => {
+    alert('단어를 잘 들어보세요 호호');
+  };
   return (
     <View style={[styles.wordListBox]}>
       {words &&
@@ -12,6 +18,8 @@ export default function WriteDiary({words}) {
             <CheckBox
               textEn={word.textEn}
               textKr={word.textKr}
+              onHandleVolume={() => wordSound()}
+              onHandleCheck={() => selectWord()}
               key={i}></CheckBox>
           );
         })}
