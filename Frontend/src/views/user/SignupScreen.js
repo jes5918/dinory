@@ -1,4 +1,6 @@
 import React, {Component, createRef, useState} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   StyleSheet,
   Text,
@@ -12,7 +14,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {
-  loginInstance,
+  signupInstance,
   confirmEmail,
   duflicationCheckID,
 } from '../../api/accounts/signup';
@@ -31,34 +33,17 @@ export default function Singup({navigation}) {
   const layoutWidth = windowWidth * 0.5;
   const layoutHeight = windowHeight * 0.83;
   const [userEmail, setUserEmail] = useState('');
+  const emailAddress = AsyncStorage.getItem('email').then((value) => {
+    setUserEmail(value);
+  });
   const [userName, setUserName] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userPasswordchk, setUserPasswordchk] = useState('');
-  const [userPinNumber, setUserPinNumber] = useState('');
-  const [userPinNumberchk, setUserPinNumberchk] = useState('');
   const emailInputRef = createRef();
   const nameInputRef = createRef();
   const passwordInputRef = createRef();
   const passwordchkInputRef = createRef();
-  const pinnumberInputRef = createRef();
-  const pinnumberchkInputRef = createRef();
-
-  const emailCheck = () => {
-    let emailForm = new FormData();
-    emailForm.append('email', userEmail);
-    confirmEmail(
-      emailForm,
-      (res) => {
-        const emailAuthNumber = res.data;
-        console.log(emailAuthNumber);
-        alert('emailAuthNumber OKAY');
-      },
-      (error) => {
-        alert('ERROR');
-        console.log(error);
-      },
-    );
-  };
+  const [idAvailable, setIdAvailable] = useState(false);
   const idCheck = () => {
     let idCheckForm = new FormData();
     idCheckForm.append('username', userName);
@@ -67,37 +52,28 @@ export default function Singup({navigation}) {
       (res) => {
         const idcheck = res.data;
         console.log(idcheck);
-        alert('idcheck OKAY');
+        setIdAvailable(true);
+        alert('사용가능한 아이디입니다.');
       },
       (error) => {
-        alert('ERROR');
+        alert('존재하는 아이디입니다.');
         console.log(error);
       },
     );
   };
   const SubmitHandler = () => {
-    // if (userPassword === passwordchkInputRef) {ㄱ
-    let signupForm = new FormData();
-    signupForm.append('username', userName);
-    signupForm.append('password', userPassword);
-    signupForm.append('password_confirmation', userPasswordchk);
-    signupForm.append('email', userEmail);
-    signupForm.append('pin_code', userPinNumber);
-    signupForm.append('pin_code_confirmation', userPinNumberchk);
-    navigation.navigate('PinScreen');
-    console.log(userName, userPassword, userPasswordchk);
-    // loginInstance(
-    //   signupForm,
-    //   (res) => {
-    //     const token = res.data.token;
-    //     alert('PASS');
-    //     navigate('LoginScreen');
-    //   },
-    //   (error) => {
-    //     alert('ERROR');
-    //     console.log(error);
-    //   },
-    // );
+    if (idAvailable) {
+      if (userPassword === userPasswordchk) {
+        AsyncStorage.setItem('username', userName);
+        AsyncStorage.setItem('password', userPassword);
+        AsyncStorage.setItem('password_confirmation', userPasswordchk);
+        navigation.navigate('PinScreen');
+      } else {
+        alert('비밀번호가 일치하지않습니다.');
+      }
+    } else {
+      alert('아이디 중복확인 하세요');
+    }
   };
   return (
     <AuthBackGround>
@@ -128,6 +104,7 @@ export default function Singup({navigation}) {
                 secureTextEntry={false}
                 autoFocus={false}
                 margin={15}
+                value={userEmail}
               />
               <View style={styles.text_Input_Button}>
                 <AuthTextInput
@@ -187,31 +164,10 @@ export default function Singup({navigation}) {
                   </Text>
                 ) : null}
               </View>
-              {/* <TextInput
-                  secureTextEntry={true}
-                  style={styles.textInput}
-                  placeholder={'핀 번호를 입력해주세요'}
-                  onChangeText={(Pin) => setUserPinNumber(Pin)}
-                  ref={pinnumberInputRef}
-                />
-                <TextInput
-                  secureTextEntry={true}
-                  style={styles.textInput}
-                  placeholder={'핀 번호를 한 번 더 입력해주세요'}
-                  onChangeText={(Pinchk) => setUserPinNumberchk(Pinchk)}
-                  ref={pinnumberchkInputRef}
-                />
-              </View>
-              <View style={{flex: 0.5, justifyContent: 'center'}}>
-                {userPinNumber !== userPinNumberchk ? (
-                  <Text style={styles.TextValidation}>
-                    핀 번호가 일치하지 않습니다.
-                  </Text>
-                ) : null} */}
             </View>
             <View style={{margin: 15}}>
               <BasicButton
-                text="가입완료"
+                text="다음"
                 customFontSize={24}
                 paddingHorizon={11}
                 paddingVertical={24}

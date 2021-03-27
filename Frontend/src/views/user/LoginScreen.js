@@ -1,16 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, {Component, useState, createRef} from 'react';
-import {
-  StyleSheet,
-  Text,
-  Button,
-  View,
-  TextInput,
-  ImageBackground,
-  Dimensions,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, View, Dimensions, Image, ScrollView} from 'react-native';
 
 import {loginInstance} from '../../api/accounts/login';
 import Layout from '../../components/elements/Layout';
@@ -33,21 +23,19 @@ export default function Login({navigation}) {
     let loginForm = new FormData();
     loginForm.append('username', userName);
     loginForm.append('password', userPassword);
-    navigation.navigate('HomeScreen');
-    console.log(userName);
-    // loginInstance(
-    //   loginForm,
-    //   (res) => {
-    //     // AsyncStorage.setItem('jwt', res.data.token);
-    //     console.log(res.data.token);
-    //     alert('PASS');
-    //     navigate('PinScreen');
-    //   },
-    //   (error) => {
-    //     alert('ERROR');
-    //     console.log(error);
-    //   },
-    // );
+    loginInstance(
+      loginForm,
+      (res) => {
+        AsyncStorage.setItem('jwt', res.data.token);
+        // console.log(res.data.token);
+        alert('로그인 되었습니다.');
+        navigation.navigate('HomeScreen');
+      },
+      (error) => {
+        alert('ERROR');
+        console.log(error);
+      },
+    );
   };
   return (
     <AuthBackGround>

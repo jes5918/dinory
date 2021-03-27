@@ -1,4 +1,6 @@
 import React, {Component, useState, createRef} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import {signupInstance} from '../../api/accounts/signup';
 import {
   StyleSheet,
   Text,
@@ -28,26 +30,51 @@ export default function PinCreate({navigation}) {
   const [userPinNumberchk, setUserPinNumberchk] = useState('');
   const pinnumberInputRef = createRef();
   const pinnumberchkInputRef = createRef();
-  const submitHandler = () => {
-    let pinAuthForm = new FormData();
-    pinAuthForm.append('email', userPinNumber);
-    console.log(userPinNumber);
-    console.log(userPinNumberchk);
-    navigation.navigate('LoginScreen');
-
-    // confirmEmail(
-    //   pinAuthForm,
-    //   (res) => {
-    //     const pinAuthNumber = res.data;
-    //     console.log(pinAuthNumber);
-    //     alert('PASS');
-    //     navigation.navigate('LoginScreen');
-    //   },
-    //   (error) => {
-    //     alert('ERROR');
-    //     console.log(error);
-    //   },
-    // );
+  const submitHandler = async () => {
+    if (userPinNumber === userPinNumberchk) {
+      let pinAuthForm = new FormData();
+      await AsyncStorage.getItem('username').then((username) => {
+        pinAuthForm.append('username', username);
+        console.log(username);
+        console.log(1);
+      });
+      await AsyncStorage.getItem('password').then((password) => {
+        pinAuthForm.append('password', password);
+        console.log(password);
+        console.log(2);
+      });
+      await AsyncStorage.getItem('password_confirmation').then(
+        (password_confirmation) => {
+          pinAuthForm.append('password_confirmation', password_confirmation);
+          console.log(password_confirmation);
+          console.log(3);
+        },
+      );
+      await AsyncStorage.getItem('email').then((email) => {
+        pinAuthForm.append('email', email);
+        console.log(email);
+        console.log(4);
+        pinAuthForm.append('pin_code', userPinNumber);
+        console.log(userPinNumber);
+        pinAuthForm.append('pin_code_confirmation', userPinNumberchk);
+        console.log(userPinNumberchk);
+      });
+      signupInstance(
+        pinAuthForm,
+        (res) => {
+          const token = res.data.token;
+          console.log(token);
+          alert('PASS');
+          navigation.navigate('LoginScreen');
+        },
+        (error) => {
+          alert('ERROR');
+          console.log(error);
+        },
+      );
+    } else {
+      alert('핀 번호가 일치하지않습니다.');
+    }
   };
   return (
     <AuthBackGround>

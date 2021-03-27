@@ -1,4 +1,6 @@
 import React, {Component, useState, createRef} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   StyleSheet,
   Text,
@@ -25,24 +27,34 @@ export default function EmailAuthorization({navigation}) {
   const layoutHeight = windowHeight * 0.713;
   const [userEmail, setUserEmail] = useState('');
   const [userAuth, setUserAuth] = useState('');
+  const [emailAuthNumber, setemailAuthNumber] = useState('');
   const emailInputRef = createRef();
   const userAuthRef = createRef();
   const submitHandler = () => {
     let emailAuthForm = new FormData();
+    console.log(userEmail);
     emailAuthForm.append('email', userEmail);
+    AsyncStorage.setItem('email', userEmail);
     confirmEmail(
       emailAuthForm,
       (res) => {
-        const emailAuthNumber = res.data;
+        const temp = res.data['인증코드'];
+        setemailAuthNumber(temp);
         console.log(emailAuthNumber);
-        console.log(userEmail);
-        alert('PASS');
+        alert('인증번호를 보냈습니다');
       },
       (error) => {
         alert('ERROR');
         console.log(error);
       },
     );
+  };
+  const emailAuthNumberchk = () => {
+    console.log(emailAuthNumber);
+    console.log(userAuth);
+    emailAuthNumber === userAuth
+      ? navigation.navigate('SignupScreen')
+      : alert('인증번호가 틀렸습니다.');
   };
   return (
     <AuthBackGround>
@@ -105,9 +117,7 @@ export default function EmailAuthorization({navigation}) {
                   btnWidth={98}
                   btnHeight={58}
                   borderRadius={14}
-                  onHandlePress={() =>
-                    navigation.navigate('SignupScreen')
-                  }></BasicButton>
+                  onHandlePress={() => emailAuthNumberchk()}></BasicButton>
               </View>
             </View>
           </ScrollView>
