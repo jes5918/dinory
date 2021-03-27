@@ -51,7 +51,6 @@ import ParentSetting from '../views/parent/ParentSetting';
 import EmailAuthorization from '../views/user/EmailAuthorization';
 import PinCreate from '../views/user/PinScreen';
 import SelectVoice from '../views/child/SelectVoice';
-import SelectLayout from '../components/elements/SelectLayout';
 import MainTutorial from '../views/MainTutorial';
 const Stack = createStackNavigator();
 
