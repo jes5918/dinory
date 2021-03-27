@@ -2,7 +2,6 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
-// component
 import ArrowButton from './ArrowButton';
 import Profile from './Profile';
 
