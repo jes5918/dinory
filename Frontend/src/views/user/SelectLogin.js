@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {HomeScreen} from '../../container/Authorization/HomeScreen';
+// import {HomeScreen} from '../../container/Authorization/HomeScreen';
 // import EmailAuthorization from '../../container/Authorization/EmailAuthorization';
 // import Login from '../../container/Authorization/LoginScreen';
 // import PinCreate from '../../container/Authorization/PinScreen';
@@ -8,8 +8,8 @@ import {HomeScreen} from '../../container/Authorization/HomeScreen';
 export default function SelectLogin() {
   return (
     <View style={styles.container}>
-      {/* <HomeScreen></HomeScreen> */}
-      {/* <EmailAuthorization />
+      {/* <HomeScreen></HomeScreen>
+      <EmailAuthorization />
       <Login />
       <PinCreate />
       <Signup /> */}
