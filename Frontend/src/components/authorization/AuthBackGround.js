@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
 import {StyleSheet, ImageBackground, ScrollView} from 'react-native';
-export default function CustomBackGround({children}) {
+export default function AuthBackGround({children}) {
   return (
     <ImageBackground
       style={styles.container}

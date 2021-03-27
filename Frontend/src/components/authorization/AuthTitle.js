@@ -6,7 +6,7 @@ import {
   View,
   Text,
 } from 'react-native';
-export default function CustomTitle({title}) {
+export default function AuthTitle({title}) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}> {title}</Text>

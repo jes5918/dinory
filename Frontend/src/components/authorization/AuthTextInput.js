@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
 import {StyleSheet, ImageBackground, ScrollView, TextInput} from 'react-native';
-export default function CustomTextInput({
+export default function AuthTextInput({
   text,
   width,
   height,
