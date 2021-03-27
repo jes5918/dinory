@@ -17,8 +17,8 @@ export default function AuthTextInput({
       style={[
         styles.textInput,
         {
-          width,
-          height,
+          width: width || 274,
+          height: height || 58,
           fontSize: size || 18,
           marginRight: marginRight || 11,
           margin,
