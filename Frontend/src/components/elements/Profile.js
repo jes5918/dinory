@@ -7,14 +7,19 @@ import {
   Image,
   View,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
-export default function Profile(/*{childName,childCharacter}*/) {
+export default function Profile({childName, childCharacter}) {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.7}
+      onPress={() => navigation.navigate('ChildSetting')}>
       {/* <Text style={styles.childName}>{childName}</Text> */}
       <Text style={styles.childName}>채아</Text>
       <View style={styles.characterOutside}>
