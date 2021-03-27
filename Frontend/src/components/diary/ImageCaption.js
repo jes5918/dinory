@@ -29,7 +29,7 @@ export default function ImageCaption() {
         <Image
           source={{
             uri:
-              'https://lh3.googleusercontent.com/proxy/ZvHW9p8a_HKw7bGpc7aHcMJ5MM36N2dhb0XNyPQ0RF_Jj3gKwL--LRfXVI_r2AARxjz8e-i4AxmSYF4ebK1lHfexef3uCPEMWFDZJiCfy0xSyjkbfaqcMpY',
+              'https://img.freepik.com/free-photo/children-playing-on-grass_1098-504.jpg?size=626&ext=jpg&ga=GA1.2.1328069820.1610496000',
           }}
           style={[styles.img]}></Image>
         <Text style={[styles.describe]}>

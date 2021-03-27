@@ -36,21 +36,24 @@ import ImageCaption from '../components/diary/ImageCaption';
 import wordList from '../components/diary/WordList';
 import SelectImage from '../components/diary/SelectImage';
 import SelectLayout from '../components/elements/SelectLayout';
+import GrammarCheck from '../components/diary/GrammarCheck';
 
 // view
 import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/user/SelectProfile';
 import Main from '../views/Main';
 import DiaryList from '../views/DiaryList/DiaryList';
-import HomeScreen from './Authorization/HomeScreen';
+// import ImageCaption from '../views/diary/ImageCaption';
+// import WriteDiary from '../views/diary/WriteDiary';
+import HomeScreen from '../views/user/HomeScreen';
+import Login from '../views/user/LoginScreen';
+import Signup from '../views/user/SignupScreen';
 import ParentSetting from '../views/parent/ParentSetting';
+import EmailAuthorization from '../views/user/EmailAuthorization';
+import PinCreate from '../views/user/PinScreen';
 import SelectVoice from '../views/child/SelectVoice';
 import MainTutorial from '../views/MainTutorial';
-
-import Login from './Authorization/LoginScreen';
-import Signup from './Authorization/SignupScreen';
-import EmailAuthorization from './Authorization/EmailAuthorization';
-import PinCreate from './Authorization/PinScreen';
+import ChildSetting from '../views/child/ChildSetting';
 
 const Stack = createStackNavigator();
 
@@ -80,6 +83,8 @@ const App = () => {
         <Stack.Screen name="SelectVoice" component={SelectVoice} />
         <Stack.Screen name="SelectLayout" component={SelectLayout} />
         <Stack.Screen name="MainTutorial" component={MainTutorial} />
+        <Stack.Screen name="GrammarCheck" component={GrammarCheck} />
+        <Stack.Screen name="ChildSetting" component={ChildSetting} />
       </Stack.Navigator>
     </NavigationContainer>
   );

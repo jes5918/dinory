@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Logo from '../components/elements/Logo';
-import Profile from '../components/elements/Profile';
-import ArrowButton from '../components/elements/ArrowButton';
+import Header from '../components/elements/Header';
 import {useNavigation} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
@@ -24,11 +23,9 @@ export default function Main() {
   return (
     <View style={styles.container}>
       <ImageBackground source={url} style={styles.bgImage}>
-        <View style={styles.header}>
-          <ArrowButton onHandlePress={() => navigation.goBack()} />
+        <Header>
           <Logo />
-          <Profile />
-        </View>
+        </Header>
         <View style={styles.innerContainer}>
           <View>
             <TouchableOpacity
@@ -105,14 +102,6 @@ export default function Main() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    display: 'flex',
-    flex: 1.5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
   },
   bgImage: {
     flex: 1,
