@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 
 import WordList from '../diary/WordList';
-
-export default function ImageCaption() {
+import BasicButton from '../../components/elements/BasicButton';
+export default function ImageCaption({selectImg, wordsList, onHandlePress}) {
   const temp = [
     {textEn: 'happy', textKr: '행복'},
     {textEn: 'coding', textKr: '코딩'},
@@ -24,20 +24,24 @@ export default function ImageCaption() {
 
   const url = require('../../assets/images/background3.png');
   return (
-    <ImageBackground source={url} style={[styles.image]}>
-      <View style={[styles.container]}>
-        <Image
-          source={{
-            uri:
-              'https://img.freepik.com/free-photo/children-playing-on-grass_1098-504.jpg?size=626&ext=jpg&ga=GA1.2.1328069820.1610496000',
-          }}
-          style={[styles.img]}></Image>
-        <Text style={[styles.describe]}>
-          어떤 단어들이 나왔는지 확인해볼까요?
-        </Text>
-        <WordList words={temp}></WordList>
-      </View>
-    </ImageBackground>
+    <View style={[styles.container]}>
+      <Image
+        source={{
+          uri: selectImg,
+        }}
+        style={[styles.img]}></Image>
+      <Text style={[styles.describe]}>
+        어떤 단어들이 나왔는지 확인해볼까요?
+      </Text>
+      <WordList words={wordsList}></WordList>
+      <BasicButton
+        text={'일기 쓰기'}
+        btnWidth={width * 0.3}
+        fontHoonPink={true}
+        customFontSize={height * 0.04}
+        onHandlePress={() => onHandlePress()}
+      />
+    </View>
   );
 }
 
@@ -46,12 +50,6 @@ const width = dimensions.width;
 const height = dimensions.height;
 
 const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-  },
-
   container: {
     flex: 1,
     display: 'flex',
