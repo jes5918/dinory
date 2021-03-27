@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, Dimensions, Text} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import Layout from './Layout';
 import BasicButton from './BasicButton';
 import RoundButton from './RoundButton';
 import DinoButton from './DinoButton';
+import Title from './Title';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -30,9 +31,7 @@ export default function SelectLayout({
   return (
     <View style={styles.container}>
       <View style={styles.body}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>{title}</Text>
-        </View>
+        <Title title={title} />
         <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
           <View sytle={styles.innerUpper}></View>
           <View style={styles.innerMiddle}>
@@ -76,17 +75,5 @@ const styles = StyleSheet.create({
   innerLower: {
     flex: 3,
     justifyContent: 'flex-start',
-  },
-  titleContainer: {
-    backgroundColor: 'rgba(255,255,255,0.8)',
-    width: width * 0.4,
-    height: height * 0.1,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  titleText: {
-    fontSize: height * 0.04,
-    fontFamily: 'HoonPinkpungchaR',
   },
 });

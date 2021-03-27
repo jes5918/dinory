@@ -53,6 +53,8 @@ import EmailAuthorization from '../views/user/EmailAuthorization';
 import PinCreate from '../views/user/PinScreen';
 import SelectVoice from '../views/child/SelectVoice';
 import MainTutorial from '../views/MainTutorial';
+import ChildSetting from '../views/child/ChildSetting';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -82,6 +84,7 @@ const App = () => {
         <Stack.Screen name="SelectLayout" component={SelectLayout} />
         <Stack.Screen name="MainTutorial" component={MainTutorial} />
         <Stack.Screen name="GrammarCheck" component={GrammarCheck} />
+        <Stack.Screen name="ChildSetting" component={ChildSetting} />
       </Stack.Navigator>
     </NavigationContainer>
   );
