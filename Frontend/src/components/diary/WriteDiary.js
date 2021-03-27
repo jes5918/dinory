@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,149 +9,170 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 
-import CheckBox from '../elements/CheckBox.js';
+import RoundButton from '../elements/RoundButton';
 import WordList from './WordList';
+import {createDiary} from '../../api/diary/writeDiary';
 
 export default function WriteDiary({}) {
+  const [title, setTitle] = React.useState('');
+  const [text, setText] = React.useState('');
+
   const temp = [
     {textEn: 'happy', textKr: '행복'},
     {textEn: 'coding', textKr: '코딩'},
-    {textEn: 'people', textKr: '사람'},
+    {textEn: 'Jinoo', textKr: '닭띠유지누'},
     {textEn: 'computer', textKr: '컴퓨터'},
-    {textEn: 'computer', textKr: '컴퓨터'},
-    {textEn: 'computer', textKr: '컴퓨터'},
-    {textEn: 'computer', textKr: '컴퓨터'},
-    {textEn: 'computer', textKr: '컴퓨터'},
+    {textEn: 'ZZangsm', textKr: '장수민'},
+    {textEn: 'jes5918', textKr: '전의수'},
+    {textEn: 'BossBaby', textKr: '윤지해'},
+    {textEn: 'soldierShin', textKr: '신민호'},
   ];
   const grammarCheck = () => {
-    alert('Grammar Check!');
+    alert('이문법이 맞는 것 같아?');
+  };
+  const onChangeTitle = (e) => {
+    console.log(e.nativeEvent.text);
+    setTitle(e.nativeEvent.text);
+  };
+  const onChangeText = (e) => {
+    console.log(e.nativeEvent.text);
+    setText(e.nativeEvent.text);
   };
 
   return (
     <KeyboardAvoidingView behavior={'heigth'} style={[styles.container]}>
-      <View style={[styles.dirayBox]}>
-        <ScrollView style={styles.textInputBox}>
-          <TextInput
-            style={[styles.TitleInput]}
-            autoCompleteType={'off'}
-            autoFocus
-            defaultValue={'제목 : '}></TextInput>
-          <TextInput
-            style={[styles.contentInput]}
-            multiline
-            autoCompleteType={'off'}
-            autoFocus
-            defaultValue={'내용 : '}></TextInput>
-        </ScrollView>
-        <View style={[styles.grammarCheckBtnBox]}>
-          <TouchableOpacity
-            onPress={() => grammarCheck()}
-            style={[styles.grammarCheckBtn]}>
-            <Text style={[styles.btnText]}>문법체크</Text>
-          </TouchableOpacity>
+      <View style={[styles.wrapper]}>
+        <View style={[styles.dirayBox]}>
+          <ScrollView style={styles.textInputBox}>
+            <View style={[styles.titleBox]}>
+              <Text style={[styles.text]}>제목 :</Text>
+              <TextInput
+                style={[styles.TitleInput]}
+                autoCompleteType={'off'}
+                onChange={onChangeTitle}></TextInput>
+            </View>
+            <TextInput
+              style={[styles.contentInput]}
+              multiline
+              autoCompleteType={'off'}
+              onChange={onChangeText}></TextInput>
+          </ScrollView>
         </View>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => grammarCheck()}
+          style={{position: 'absolute', right: '6%', top: '15%'}}>
+          <View style={styles.buttonPosition}>
+            {/* <RoundButton
+            text={'문법 체크'}
+            arrow={false}
+            onHandlePress={grammarCheck}></RoundButton> */}
+            <Text style={styles.textIndex}>문</Text>
+            <Text style={styles.textIndex}>법</Text>
+            <Text style={styles.textIndex}>체</Text>
+            <Text style={styles.textIndex}>크</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <WordList words={temp}></WordList>
     </KeyboardAvoidingView>
   );
 }
-
+const dimensions = Dimensions.get('window');
+const screenWidth = dimensions.width;
+const screenHeight = dimensions.height;
 const styles = StyleSheet.create({
-  TitleInput: {
-    // borderWidth: 2,
+  buttonPosition: {
+    width: 50,
+    height: 150,
+    backgroundColor: '#f0859f',
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+    elevation: 5,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleBox: {
+    flex: 1,
     width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
     fontFamily: 'HoonPinkpungchaR',
     fontSize: 24,
-    borderRadius: 30,
-    borderBottomWidth: 1,
+    color: 'black',
+  },
+  textIndex: {
+    fontFamily: 'HoonPinkpungchaR',
+    fontSize: 24,
+    color: '#fff',
+  },
+  TitleInput: {
+    // borderWidth: 2,
+    width: '60%',
+    fontFamily: 'HoonPinkpungchaR',
+    fontSize: 24,
+    borderBottomWidth: 2,
     borderColor: 'gray',
     paddingHorizontal: 10,
+    marginBottom: 10,
   },
   contentInput: {
     // borderWidth: 2,
     width: '100%',
+    // minHeight: screenHeight * 0.45,
     fontFamily: 'HoonPinkpungchaR',
     fontSize: 24,
     borderRadius: 30,
     paddingHorizontal: 10,
+    // borderWidth: 2,
+    // borderColor: 'gray',
+    // backgroundColor: 'yellow',
   },
   textInputBox: {
+    borderWidth: 2,
+    borderColor: 'gray',
+    borderRadius: 30,
+    // flex: 1,
+    // backgroundColor: 'green',
+    height: '100%',
     marginHorizontal: 10,
     paddingHorizontal: 10,
-    // backgroundColor: '#5496',
   },
   container: {
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     padding: '1.5%',
   },
   dirayBox: {
+    // position: 'relative',
     width: '80%',
-    height: '55%',
     backgroundColor: '#FFF',
     borderRadius: 30,
     padding: '1.5%',
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 2,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
     elevation: 5,
+    marginVertical: 15,
   },
-  wordListBox: {
-    width: '70%',
-    height: 'auto',
-    backgroundColor: '#FFF',
-    borderRadius: 30,
-    display: 'flex',
-    flexWrap: 'wrap',
+  wrapper: {
+    width: '100%',
+    height: '70%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '1.5%',
-  },
-  grammarCheckBtnBox: {
-    width: 90,
-    height: 90,
-    borderRadius: 50,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 2,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 5,
-    display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  grammarCheckBtn: {
-    width: 80,
-    height: 80,
-    borderRadius: 50,
-    backgroundColor: '#FB537B',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  btnText: {
-    fontFamily: 'HoonPinkpungchaR',
-    width: '50%',
-    textAlign: 'center',
-    color: '#fff',
-    fontSize: 24,
+    backgroundColor: 'transparent',
   },
 });
