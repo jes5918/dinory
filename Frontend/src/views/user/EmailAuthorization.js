@@ -14,9 +14,9 @@ import {confirmEmail} from '../../api/accounts/signup';
 import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
-import CustomBackGround from '../../components/authorization/BackGround';
-import CustomTextInput from '../../components/authorization/TextInput';
-import CustomTitle from '../../components/authorization/Title';
+import AuthBackGround from '../../components/authorization/AuthBackGround';
+import AuthTextInput from '../../components/authorization/AuthTextInput';
+import AuthTitle from '../../components/authorization/AuthTitle';
 export default function EmailAuthorization({navigation}) {
   const windowSize = Dimensions.get('window');
   const windowWidth = windowSize.width; // 1280
@@ -45,7 +45,7 @@ export default function EmailAuthorization({navigation}) {
     );
   };
   return (
-    <CustomBackGround>
+    <AuthBackGround>
       <View style={styles.start}>
         <View>
           <ArrowButton onHandlePress={() => navigation.goBack()}></ArrowButton>
@@ -60,11 +60,11 @@ export default function EmailAuthorization({navigation}) {
         <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
           <ScrollView>
             <View style={styles.view}>
-              <CustomTitle title={' 이메일 인증'}></CustomTitle>
+              <AuthTitle title={' 이메일 인증'}></AuthTitle>
             </View>
             <View>
               <View style={styles.text_Input_Button}>
-                <CustomTextInput
+                <AuthTextInput
                   text={'이메일을 입력하세요'}
                   width={389}
                   height={58}
@@ -87,7 +87,7 @@ export default function EmailAuthorization({navigation}) {
                   }}></BasicButton>
               </View>
               <View style={styles.text_Input_Button}>
-                <CustomTextInput
+                <AuthTextInput
                   text={'인증번호를 입력하세요'}
                   width={389}
                   height={58}
@@ -113,7 +113,7 @@ export default function EmailAuthorization({navigation}) {
           </ScrollView>
         </Layout>
       </View>
-    </CustomBackGround>
+    </AuthBackGround>
   );
 }
 

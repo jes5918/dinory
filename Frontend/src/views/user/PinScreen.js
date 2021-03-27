@@ -14,6 +14,10 @@ import {confirmEmail} from '../../api/accounts/signup';
 import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
+import AuthBackGround from '../../components/authorization/AuthBackGround';
+import AuthTextInput from '../../components/authorization/AuthTextInput';
+import AuthTitle from '../../components/authorization/AuthTitle';
+
 export default function PinCreate({navigation}) {
   const windowSize = Dimensions.get('window');
   const windowWidth = windowSize.width; // 1280
@@ -27,57 +31,65 @@ export default function PinCreate({navigation}) {
   const submitHandler = () => {
     let pinAuthForm = new FormData();
     pinAuthForm.append('email', userPinNumber);
-    confirmEmail(
-      pinAuthForm,
-      (res) => {
-        const pinAuthNumber = res.data;
-        console.log(pinAuthNumber);
-        alert('PASS');
-        navigation.navigate('LoginScreen');
-      },
-      (error) => {
-        alert('ERROR');
-        console.log(error);
-      },
-    );
+    console.log(userPinNumber);
+    console.log(userPinNumberchk);
+    navigation.navigate('LoginScreen');
+
+    // confirmEmail(
+    //   pinAuthForm,
+    //   (res) => {
+    //     const pinAuthNumber = res.data;
+    //     console.log(pinAuthNumber);
+    //     alert('PASS');
+    //     navigation.navigate('LoginScreen');
+    //   },
+    //   (error) => {
+    //     alert('ERROR');
+    //     console.log(error);
+    //   },
+    // );
   };
   return (
-    <ScrollView>
-      <ImageBackground
-        style={styles.container}
-        source={require('../../assets/images/background5.png')}>
-        <View style={styles.start}>
-          <View>
-            <ArrowButton
-              onHandlePress={() => navigation.goBack()}></ArrowButton>
-          </View>
-          <View style={styles.logo}>
-            <Image
-              source={require('../../assets/images/logo.png')}
-              style={styles.logo}></Image>
-          </View>
-        </View>
+    <AuthBackGround>
+      <View style={styles.start}>
         <View>
-          <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
+          <ArrowButton onHandlePress={() => navigation.goBack()}></ArrowButton>
+        </View>
+        <View style={styles.logo}>
+          <Image
+            source={require('../../assets/images/logo.png')}
+            style={styles.logo}></Image>
+        </View>
+      </View>
+      <View style={styles.body}>
+        <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
+          <ScrollView>
             <View style={styles.view}>
-              <Text style={styles.text}> 핀 번호 생성</Text>
+              <AuthTitle title={'핀 번호 생성'}></AuthTitle>
             </View>
             <View style={styles.body}>
               <View style={styles.view}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder={'핀 번호 숫자 6자리를 입력해주세요'}
-                  onChangeText={(Pin) => setUserPinNumber(Pin)}
+                <AuthTextInput
+                  text={'핀 번호 숫자 6자리를 입력해주세요'}
+                  width={326}
+                  height={58}
+                  size={18}
+                  setFunction={setUserPinNumber}
+                  setRef={pinnumberInputRef}
                   secureTextEntry={true}
                   autoFocus={true}
-                  ref={pinnumberInputRef}
+                  margin={15}
                 />
-                <TextInput
-                  style={styles.textInput}
+                <AuthTextInput
+                  text={'한 번 더 입력해주세요.'}
+                  width={326}
+                  height={58}
+                  size={18}
+                  setFunction={setUserPinNumberchk}
+                  setRef={pinnumberchkInputRef}
                   secureTextEntry={true}
-                  placeholder={'한 번 더 입력해주세요.'}
-                  onChangeText={(Pinchk) => setUserPinNumberchk(Pinchk)}
-                  ref={pinnumberchkInputRef}
+                  autoFocus={true}
+                  margin={15}
                 />
                 <View
                   style={{
@@ -106,10 +118,10 @@ export default function PinCreate({navigation}) {
                 </View>
               </View>
             </View>
-          </Layout>
-        </View>
-      </ImageBackground>
-    </ScrollView>
+          </ScrollView>
+        </Layout>
+      </View>
+    </AuthBackGround>
   );
 }
 

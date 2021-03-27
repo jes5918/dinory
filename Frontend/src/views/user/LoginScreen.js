@@ -11,10 +11,14 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+
 import {loginInstance} from '../../api/accounts/login';
 import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
+import AuthBackGround from '../../components/authorization/AuthBackGround';
+import AuthTextInput from '../../components/authorization/AuthTextInput';
+import AuthTitle from '../../components/authorization/AuthTitle';
 export default function Login({navigation}) {
   const windowSize = Dimensions.get('window');
   const windowWidth = windowSize.width; // 1280
@@ -30,6 +34,7 @@ export default function Login({navigation}) {
     loginForm.append('username', userName);
     loginForm.append('password', userPassword);
     navigation.navigate('HomeScreen');
+    console.log(userName);
     // loginInstance(
     //   loginForm,
     //   (res) => {
@@ -45,9 +50,7 @@ export default function Login({navigation}) {
     // );
   };
   return (
-    <ImageBackground
-      source={require('../../assets/images/background5.png')}
-      style={styles.container}>
+    <AuthBackGround>
       <View style={styles.start}>
         <View>
           <ArrowButton onHandlePress={() => navigation.goBack()}></ArrowButton>
@@ -58,28 +61,35 @@ export default function Login({navigation}) {
             style={styles.logo}></Image>
         </View>
       </View>
-      <View style={styles.end}>
+      <View style={styles.body}>
         <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
           <ScrollView>
             <View style={styles.view}>
-              <Text style={styles.text}>로그인</Text>
+              <AuthTitle title={'로그인'}></AuthTitle>
             </View>
             <View style={styles.body}>
               <View style={styles.view}>
-                <TextInput
-                  textContentType={'emailAddress'}
-                  style={styles.textInput}
+                <AuthTextInput
+                  text={'아이디를 입력하세요'}
+                  width={339}
+                  height={58}
+                  size={18}
+                  setFunction={setUserName}
+                  setRef={nameInputRef}
+                  secureTextEntry={false}
                   autoFocus={true}
-                  placeholder={'이메일을 입력해주세요'}
-                  onChangeText={(name) => setUserName(name)}
-                  ref={nameInputRef}
+                  margin={10}
                 />
-                <TextInput
+                <AuthTextInput
+                  text={'비밀번호를 입력해주세요'}
+                  width={339}
+                  height={58}
+                  size={18}
+                  setFunction={setUserPassword}
+                  setRef={passwordInputRef}
                   secureTextEntry={true}
-                  style={styles.textInput}
-                  placeholder={'비밀번호를 입력해주세요'}
-                  onChangeText={(pwd) => setUserPassword(pwd)}
-                  ref={passwordInputRef}
+                  autoFocus={true}
+                  margin={10}
                 />
               </View>
               <View style={styles.view}>
@@ -91,13 +101,14 @@ export default function Login({navigation}) {
                   btnWidth={336}
                   btnHeight={58}
                   borderRadius={14}
+                  margin={10}
                   onHandlePress={() => LoginHandler()}></BasicButton>
               </View>
             </View>
           </ScrollView>
         </Layout>
       </View>
-    </ImageBackground>
+    </AuthBackGround>
   );
 }
 

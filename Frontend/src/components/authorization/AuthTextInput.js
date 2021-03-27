@@ -10,6 +10,7 @@ export default function CustomTextInput({
   setRef,
   secureTextEntry,
   autoFocus,
+  margin,
 }) {
   return (
     <TextInput
@@ -20,6 +21,7 @@ export default function CustomTextInput({
           height,
           fontSize: size || 18,
           marginRight: marginRight || 11,
+          margin,
         },
       ]}
       secureTextEntry={secureTextEntry}
