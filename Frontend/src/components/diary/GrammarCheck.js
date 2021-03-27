@@ -14,7 +14,7 @@ import RoundButton from '../../components/elements/RoundButton';
 
 export default function GrammarCheck() {
   const grammarCheck = () => {};
-
+  const arrText = ['문', '법', '체', '크'];
   return (
     <KeyboardAvoidingView behavior={'heigth'} style={[styles.container]}>
       <View style={[styles.wrapper]}>
@@ -52,8 +52,7 @@ export default function GrammarCheck() {
             <TextInput
               style={[styles.contentInput]}
               multiline
-              autoCompleteType={'off'}
-              defaultValue={'asdjfejaisdjif ajsidjo eisdij si d'}></TextInput>
+              autoCompleteType={'off'}></TextInput>
             <TextInput
               style={[styles.contentInput]}
               multiline
@@ -76,10 +75,14 @@ export default function GrammarCheck() {
           onPress={() => grammarCheck()}
           style={{position: 'absolute', right: '6%', top: '15%'}}>
           <View style={styles.buttonPosition}>
-            <Text style={styles.textIndex}>문</Text>
-            <Text style={styles.textIndex}>법</Text>
-            <Text style={styles.textIndex}>체</Text>
-            <Text style={styles.textIndex}>크</Text>
+            {arrText &&
+              arrText.map((tempText, idx) => {
+                return (
+                  <Text key={idx} style={styles.textIndex}>
+                    {tempText}
+                  </Text>
+                );
+              })}
           </View>
         </TouchableOpacity>
       </View>
