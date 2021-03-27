@@ -4,7 +4,7 @@ import Layout from './Layout';
 import BasicButton from './BasicButton';
 import RoundButton from './RoundButton';
 import DinoButton from './DinoButton';
-import Title from './Title';
+import ContentTitle from './ContentTitle';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -31,7 +31,7 @@ export default function SelectLayout({
   return (
     <View style={styles.container}>
       <View style={styles.body}>
-        <Title title={title} />
+        <ContentTitle title={title} />
         <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
           <View sytle={styles.innerUpper}></View>
           <View style={styles.innerMiddle}>
