@@ -42,6 +42,7 @@ export default function WriteDiary({}) {
     setText(e.nativeEvent.text);
   };
 
+  const arrText = ['문', '법', '체', '크'];
   return (
     <KeyboardAvoidingView behavior={'heigth'} style={[styles.container]}>
       <View style={[styles.wrapper]}>
@@ -66,14 +67,13 @@ export default function WriteDiary({}) {
           onPress={() => grammarCheck()}
           style={{position: 'absolute', right: '6%', top: '15%'}}>
           <View style={styles.buttonPosition}>
-            {/* <RoundButton
-            text={'문법 체크'}
-            arrow={false}
-            onHandlePress={grammarCheck}></RoundButton> */}
-            <Text style={styles.textIndex}>문</Text>
-            <Text style={styles.textIndex}>법</Text>
-            <Text style={styles.textIndex}>체</Text>
-            <Text style={styles.textIndex}>크</Text>
+            {arrText.map((tempText, idx) => {
+              return (
+                <Text key={idx} style={styles.textIndex}>
+                  {tempText}
+                </Text>
+              );
+            })}
           </View>
         </TouchableOpacity>
       </View>
