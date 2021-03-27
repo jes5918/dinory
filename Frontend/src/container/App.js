@@ -35,11 +35,8 @@ import LoadingSec from '../components/elements/LoadingSec';
 import ImageCaption from '../components/diary/ImageCaption';
 import wordList from '../components/diary/WordList';
 import SelectImage from '../components/diary/SelectImage';
-<<<<<<< HEAD
 import SelectLayout from '../components/elements/SelectLayout';
-=======
 import GrammarCheck from '../components/diary/GrammarCheck';
->>>>>>> 764c0db ([feat/FE] : grammarCheck 컴포넌트 및 기타 컴포넌트 수정)
 
 // view
 import SelectLogin from '../views/user/SelectLogin';
@@ -83,11 +80,8 @@ const App = () => {
         <Stack.Screen name="DiaryList" component={DiaryList} />
         <Stack.Screen name="SelectVoice" component={SelectVoice} />
         <Stack.Screen name="SelectLayout" component={SelectLayout} />
-<<<<<<< HEAD
         <Stack.Screen name="MainTutorial" component={MainTutorial} />
-=======
         <Stack.Screen name="GrammarCheck" component={GrammarCheck} />
->>>>>>> 764c0db ([feat/FE] : grammarCheck 컴포넌트 및 기타 컴포넌트 수정)
       </Stack.Navigator>
     </NavigationContainer>
   );
