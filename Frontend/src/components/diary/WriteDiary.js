@@ -16,7 +16,7 @@ import RoundButton from '../elements/RoundButton';
 import WordList from './WordList';
 import {createDiary} from '../../api/diary/writeDiary';
 
-export default function WriteDiary({}) {
+export default function WriteDiary({wordList}) {
   const [title, setTitle] = React.useState('');
   const [text, setText] = React.useState('');
 
@@ -77,7 +77,7 @@ export default function WriteDiary({}) {
           </View>
         </TouchableOpacity>
       </View>
-      <WordList words={temp}></WordList>
+      <WordList words={wordList}></WordList>
     </KeyboardAvoidingView>
   );
 }
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   buttonPosition: {
     width: 50,
     height: 150,
-    backgroundColor: '#f0859f',
+    backgroundColor: '#FB537B',
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
     elevation: 5,

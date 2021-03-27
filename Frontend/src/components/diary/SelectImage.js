@@ -65,7 +65,7 @@ const SelectImage = ({setSelectImage}) => {
   const captureImage = async (type) => {
     let options = {
       mediaType: type,
-      quality: 0.4,
+      quality: 0.2,
       saveToPhotos: true,
       // includeBase64: true,
     };
@@ -104,7 +104,7 @@ const SelectImage = ({setSelectImage}) => {
   const chooseFile = (type) => {
     let options = {
       mediaType: type,
-      quality: 0.4,
+      quality: 0.2,
       // includeBase64: true,
     };
     launchImageLibrary(options, (response) => {
