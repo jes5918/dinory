@@ -25,10 +25,9 @@ const windowWidth = windowSize.width; // 1280
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    backgroundColor: 'lightcoral',
     width: windowWidth * 0.12,
     height: windowWidth * 0.05,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     borderRadius: 1000,
     padding: 10,

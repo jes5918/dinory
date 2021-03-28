@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     width: width * 0.12,
-    backgroundColor: 'lightgreen',
   },
   childName: {
     fontFamily: 'HoonPinkpungchaR',
