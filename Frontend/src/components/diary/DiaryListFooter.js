@@ -4,7 +4,7 @@ import {View, ScrollView, Dimensions, StyleSheet} from 'react-native';
 // component
 import DiaryFooterImage from './DiaryFooterImage';
 
-const baseURL = 'http://j4b105.p.ssafy.io/media/';
+const baseURL = 'http://j4b105.p.ssafy.io/';
 
 function DiaryListFooter({data, onHandlePress}) {
   return (
@@ -15,8 +15,9 @@ function DiaryListFooter({data, onHandlePress}) {
             return (
               <DiaryFooterImage
                 key={diary.id}
-                year={String(diary.vol).slice(0, 4)}
-                month={String(diary.vol).slice(4, 6)}
+                year={diary.year}
+                month={diary.month}
+                date={diary.date}
                 image={baseURL + diary.img}
                 onHandlePress={onHandlePress}
               />
