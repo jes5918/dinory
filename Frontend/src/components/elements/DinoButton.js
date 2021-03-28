@@ -12,11 +12,18 @@ const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
-export default function DinoButton({imgSrc, childName, onHandlePress}) {
+export default function DinoButton({
+  imgSrc,
+  childName,
+  onHandlePress,
+  widthProps,
+  effectDisalbe,
+}) {
   const imageUri = Image.resolveAssetSource(imgSrc).uri;
 
   return (
     <TouchableOpacity
+      disabled={effectDisalbe ? true : false || false}
       activeOpacity={0.7}
       onPress={() =>
         onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
@@ -24,9 +31,22 @@ export default function DinoButton({imgSrc, childName, onHandlePress}) {
       <View
         style={[
           styles.container,
-          {backgroundColor: checkCharacterImage(imageUri)},
+          {
+            backgroundColor: checkCharacterImage(imageUri),
+            width: widthProps * 1.1 || width * 0.11,
+            height: widthProps * 1.1 || width * 0.11,
+          },
         ]}>
-        <Image source={imgSrc} style={styles.characterImage} />
+        <Image
+          source={imgSrc}
+          style={[
+            styles.characterImage,
+            {
+              width: widthProps || width * 0.1,
+              height: widthProps || width * 0.1,
+            },
+          ]}
+        />
       </View>
       {childName && <Text style={styles.nameText}>{childName}</Text>}
     </TouchableOpacity>
@@ -53,8 +73,6 @@ const checkCharacterImage = (src) => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    width: width * 0.11,
-    height: width * 0.11,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 1000,
@@ -64,8 +82,6 @@ const styles = StyleSheet.create({
   },
   characterImage: {
     resizeMode: 'contain',
-    width: width * 0.1,
-    height: width * 0.1,
   },
   nameText: {
     fontFamily: 'HoonPinkpungchaR',
