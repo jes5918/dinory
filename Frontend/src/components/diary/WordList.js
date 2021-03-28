@@ -3,9 +3,20 @@ import {View, Text, StyleSheet} from 'react-native';
 
 import CheckBox from '../elements/CheckBox.js';
 
-export default function WriteDiary({words}) {
-  const selectWord = () => {
+export default function WriteDiary({words, onHandleChangeTemp}) {
+  const selectWord = (i) => {
+    const aaa = words.map((word, idx) => {
+      if (i === idx) {
+        console.log('!!!!!!!!', word);
+        return {...word, checked: !word.checked};
+      } else {
+        return word;
+      }
+    });
+
     alert('단어가 췤췤');
+    onHandleChangeTemp(aaa);
+    console.log('word변화', aaa);
   };
   const wordSound = () => {
     alert('단어를 잘 들어보세요 호호');
@@ -16,10 +27,10 @@ export default function WriteDiary({words}) {
         words.map((word, i) => {
           return (
             <CheckBox
-              textEn={word.name}
+              textEn={word.content}
               textKr={word.mean}
               onHandleVolume={() => wordSound()}
-              onHandleCheck={() => selectWord()}
+              onHandleCheck={() => selectWord(i)}
               key={i}></CheckBox>
           );
         })}
