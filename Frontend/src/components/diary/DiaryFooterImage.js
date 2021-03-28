@@ -8,12 +8,11 @@ import {
   StyleSheet,
 } from 'react-native';
 
-function DiaryFooterImage({onHandlePress, image, year, month}) {
+function DiaryFooterImage({onHandlePress, image, year, month, date}) {
+  const letters = date ? `${month}월 ${date}일` : `${year}년 ${month}월`;
   return (
     <View style={styles.thumbnailContainer}>
-      <Text style={styles.thumbnailText}>
-        {year}년 {month}월
-      </Text>
+      <Text style={styles.thumbnailText}>{letters}</Text>
       <TouchableOpacity onPress={() => onHandlePress} activeOpacity={0.7}>
         <Image style={styles.thumbnail} source={{uri: image}} />
       </TouchableOpacity>
@@ -32,17 +31,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 'auto',
     marginHorizontal: windowHeight * 0.0547,
-    paddingLeft: windowWidth * 0.037,
+    paddingLeft: windowWidth * 0.055,
   },
   thumbnail: {
-    width: windowWidth * 0.06,
-    height: windowWidth * 0.06,
+    width: windowWidth * 0.07,
+    height: windowWidth * 0.07,
     borderRadius: 15,
   },
   thumbnailText: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 24,
-    marginBottom: windowHeight * 0.01995,
+    fontSize: 18,
+    marginBottom: windowHeight * 0.01,
   },
 });
 
