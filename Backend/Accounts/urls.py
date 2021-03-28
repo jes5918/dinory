@@ -14,6 +14,7 @@ urlpatterns = [
     path('setting/password/<int:pk>/', views.password_setting),
     path('setting/pincode/<int:pk>/', views.pincode_setting),
     path('setting/delete/<int:pk>/', views.user_delete),
+    path('find/password/', views.password_find),
     # 아이계정
     path('child/', views.child_create_read),
     path('child/setting/', views.child_update),
