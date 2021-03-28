@@ -34,11 +34,9 @@ import Diary from '../views/diary/Diary';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
 import DiaryDetail from '../views/DiaryList/DiaryDetail';
-
-// account
-import HomeScreen from './Authorization/HomeScreen';
-import Login from './Authorization/LoginScreen';
-import Signup from './Authorization/SignupScreen';
+import HomeScreen from '../views/user/HomeScreen';
+import Login from '../views/user/LoginScreen';
+import Signup from '../views/user/SignupScreen';
 
 const Stack = createStackNavigator();
 
