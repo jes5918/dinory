@@ -20,6 +20,8 @@ export default function WriteDiary({
   wordList,
   onHandleChangeTemp,
   onHandleSaveDiary,
+  onHandleChangeTitle,
+  onHandleChangeContent,
 }) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
@@ -27,14 +29,14 @@ export default function WriteDiary({
   const grammarCheck = () => {
     alert('이문법이 맞는 것 같아?');
   };
-  const onChangeTitle = (e) => {
-    console.log(e.nativeEvent.text);
-    setTitle(e.nativeEvent.text);
-  };
-  const onChangeText = (e) => {
-    console.log(e.nativeEvent.text);
-    setText(e.nativeEvent.text);
-  };
+  // const onChangeTitle = (e) => {
+  //   console.log(e.nativeEvent.text);
+  //   setTitle(e.nativeEvent.text);
+  // };
+  // const onChangeText = (e) => {
+  //   console.log(e.nativeEvent.text);
+  //   setText(e.nativeEvent.text);
+  // };
   const saveDiary = () => {
     alert('일기 저장!');
   };
@@ -51,13 +53,13 @@ export default function WriteDiary({
               <TextInput
                 style={[styles.TitleInput]}
                 autoCompleteType={'off'}
-                onChange={onChangeTitle}></TextInput>
+                onChange={(e) => onHandleChangeTitle(e)}></TextInput>
             </View>
             <TextInput
               style={[styles.contentInput]}
               multiline
               autoCompleteType={'off'}
-              onChange={onChangeText}></TextInput>
+              onChange={(e) => onHandleChangeContent(e)}></TextInput>
           </ScrollView>
         </View>
         <View style={[styles.buttonWrapper]}>

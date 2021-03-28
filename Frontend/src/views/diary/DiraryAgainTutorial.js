@@ -10,19 +10,23 @@ const height = dimensions.height;
 const slides = [
   {
     key: 'one',
-    image: require('../assets/images/tutorial/main1.png'),
+    image: require('../../assets/images/tutorial/writeDiary2.png'),
   },
   {
     key: 'two',
-    image: require('../assets/images/tutorial/main2.png'),
+    image: require('../../assets/images/tutorial/writeDiary2.png'),
   },
   {
     key: 'three',
-    image: require('../assets/images/tutorial/main3.png'),
+    image: require('../../assets/images/tutorial/writeDiary3.png'),
   },
   {
     key: 'four',
-    image: require('../assets/images/tutorial/main4.png'),
+    image: require('../../assets/images/tutorial/writeDiary4.png'),
+  },
+  {
+    key: 'five',
+    image: require('../../assets/images/tutorial/writeDiary5.png'),
   },
 ];
 
@@ -47,7 +51,7 @@ const renderItem = ({item}) => {
   );
 };
 
-export default function DiraryAgainTutorial() {
+export default function DiraryAgainTutorial({onhandleEnd}) {
   const navigation = useNavigation();
 
   return (
@@ -55,7 +59,7 @@ export default function DiraryAgainTutorial() {
       renderItem={renderItem}
       data={slides}
       showSkipButton
-      onDone={() => navigation.navigate('Main')}
+      onDone={() => onhandleEnd()}
       dotClickEnabled
     />
   );
