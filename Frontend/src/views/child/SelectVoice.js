@@ -1,14 +1,18 @@
 import React from 'react';
-import {StyleSheet, View, ImageBackground} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import SelectLayout from '../../components/elements/SelectLayout';
 import Header from '../../components/elements/Header';
+import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
+
+const dimensions = Dimensions.get('window');
+const height = dimensions.height;
 
 export default function SelectVoice() {
   const url = require('../../assets/images/background2.png');
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={url} style={styles.bgImage}>
+      <BackgroundAbsolute imageSrc={url}>
         <Header />
         <View style={styles.body}>
           <SelectLayout
@@ -16,7 +20,7 @@ export default function SelectVoice() {
             btnText={'변경완료'}
           />
         </View>
-      </ImageBackground>
+      </BackgroundAbsolute>
     </View>
   );
 }
@@ -28,9 +32,6 @@ const styles = StyleSheet.create({
   body: {
     flex: 6,
     alignItems: 'center',
-  },
-  bgImage: {
-    flex: 1,
-    resizeMode: 'contain',
+    marginTop: height * 0.17,
   },
 });

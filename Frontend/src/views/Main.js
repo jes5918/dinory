@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ImageBackground,
   StyleSheet,
   View,
   Image,
@@ -12,6 +11,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Logo from '../components/elements/Logo';
 import Header from '../components/elements/Header';
 import {useNavigation} from '@react-navigation/core';
+import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -22,7 +22,7 @@ export default function Main() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <ImageBackground source={url} style={styles.bgImage}>
+      <BackgroundAbsolute imageSrc={url}>
         <Header>
           <Logo />
         </Header>
@@ -86,11 +86,7 @@ export default function Main() {
             activeOpacity={0.7}
             // onPress={() => }
           >
-            <MaterialIcons
-              style={styles.mainIcon}
-              name={'volume-up'}
-              // onPress={() =>}
-            />
+            <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -98,17 +94,13 @@ export default function Main() {
             <MaterialIcons style={styles.mainIcon} name={'settings'} />
           </TouchableOpacity>
         </View>
-      </ImageBackground>
+      </BackgroundAbsolute>
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  bgImage: {
-    flex: 1,
-    resizeMode: 'contain',
   },
   characterImage: {
     resizeMode: 'center',
@@ -132,6 +124,7 @@ const styles = StyleSheet.create({
     marginHorizontal: width * 0.17,
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: height * 0.17,
   },
   innerText: {
     textAlign: 'center',
