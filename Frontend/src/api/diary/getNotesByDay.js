@@ -2,20 +2,14 @@ import {AuthorizationInstance} from '../index.js';
 
 const instance = AuthorizationInstance();
 
-export function getNotesByYear(params, success, fail) {
+export default function getNotesByDay(params, success, fail) {
   instance
-    .get('notes/', {params: {child: (params && params.child) || child}})
-    .then(success)
-    .catch(fail);
-}
-
-export function getNotesByMonth(params, success, fail) {
-  instance
-    .get('notes/', {
+    .get('notes/diary/', {
       params: {
         child: (params && params.child) || child,
         year: (params && params.year) || year,
         month: (params && params.month) || month,
+        date: (params && params.date) || date,
       },
     })
     .then(success)

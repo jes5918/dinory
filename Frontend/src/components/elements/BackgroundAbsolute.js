@@ -1,8 +1,12 @@
 import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 
-function BackgroundAbsolute({imageSrc}) {
-  return <ImageBackground source={imageSrc} style={styles.backgroundImage} />;
+function BackgroundAbsolute({imageSrc, children}) {
+  return (
+    <ImageBackground source={imageSrc} style={styles.backgroundImage}>
+      {children}
+    </ImageBackground>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -19,12 +19,14 @@ function Header({children}) {
 const styles = StyleSheet.create({
   header: {
     display: 'flex',
-    flex: 1.5, // 141
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     width: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
 });
 

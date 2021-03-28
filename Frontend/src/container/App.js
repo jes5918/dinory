@@ -7,24 +7,6 @@
  */
 
 import React from 'react';
-// import {
-// Image,
-// SafeAreaView,
-// StyleSheet,
-// ScrollView,
-// View,
-// Text,
-// TextInput,
-// StatusBar,
-// Button,
-// } from 'react-native';
-// import {
-//   Header,
-//   LearnMoreLinks,
-//   Colors,
-//   DebugInstructions,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -38,13 +20,10 @@ import SelectLayout from '../components/elements/SelectLayout';
 import GrammarCheck from '../components/diary/GrammarCheck';
 
 // view
+import Main from '../views/Main';
 import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/user/SelectProfile';
-import Main from '../views/Main';
 import DiaryList from '../views/DiaryList/DiaryList';
-import HomeScreen from '../views/user/HomeScreen';
-import Login from '../views/user/LoginScreen';
-import Signup from '../views/user/SignupScreen';
 import ParentSetting from '../views/parent/ParentSetting';
 import EmailAuthorization from '../views/user/EmailAuthorization';
 import PinCreate from '../views/user/PinScreen';
@@ -54,6 +33,12 @@ import ChildSetting from '../views/child/ChildSetting';
 import Diary from '../views/diary/Diary';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
+import DiaryDetail from '../views/DiaryList/DiaryDetail';
+
+// account
+import HomeScreen from './Authorization/HomeScreen';
+import Login from './Authorization/LoginScreen';
+import Signup from './Authorization/SignupScreen';
 
 const Stack = createStackNavigator();
 
@@ -87,17 +72,10 @@ const App = () => {
         <Stack.Screen name="Diary" component={Diary} />
         <Stack.Screen name="Word" component={Word} />
         <Stack.Screen name="WordByAlphabet" component={WordByAlphabet} />
+        <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-// });
 
 export default App;

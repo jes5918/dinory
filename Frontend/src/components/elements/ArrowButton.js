@@ -25,8 +25,8 @@ const windowWidth = windowSize.width; // 1280
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    backgroundColor: 'transparent',
-    width: windowWidth * 0.05,
+    backgroundColor: 'lightcoral',
+    width: windowWidth * 0.12,
     height: windowWidth * 0.05,
     alignItems: 'center',
     justifyContent: 'center',
