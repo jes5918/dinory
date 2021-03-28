@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
     flex: 5,
     width: '100%',
     position: 'relative',
+    marginTop: windowHeight * 0.1,
   },
   text: {
     fontSize: 40,
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   mainEgg: {
-    width: windowWidth * 0.03,
+    width: windowWidth * 0.031,
     height: windowHeight * 0.0572,
   },
   line: {
