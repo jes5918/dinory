@@ -33,7 +33,6 @@ import NavIcon from '../components/elements/NavIcon';
 import WriteDiary from '../components/diary/WriteDiary';
 import LoadingSec from '../components/elements/LoadingSec';
 import ImageCaption from '../components/diary/ImageCaption';
-import wordList from '../components/diary/WordList';
 import SelectImage from '../components/diary/SelectImage';
 import SelectLayout from '../components/elements/SelectLayout';
 import GrammarCheck from '../components/diary/GrammarCheck';
@@ -43,8 +42,6 @@ import SelectLogin from '../views/user/SelectLogin';
 import SelectProfile from '../views/user/SelectProfile';
 import Main from '../views/Main';
 import DiaryList from '../views/DiaryList/DiaryList';
-// import ImageCaption from '../views/diary/ImageCaption';
-// import WriteDiary from '../views/diary/WriteDiary';
 import HomeScreen from '../views/user/HomeScreen';
 import Login from '../views/user/LoginScreen';
 import Signup from '../views/user/SignupScreen';
@@ -54,6 +51,7 @@ import PinCreate from '../views/user/PinScreen';
 import SelectVoice from '../views/child/SelectVoice';
 import MainTutorial from '../views/MainTutorial';
 import ChildSetting from '../views/child/ChildSetting';
+import Diary from '../views/diary/Diary';
 
 const Stack = createStackNavigator();
 
@@ -77,7 +75,6 @@ const App = () => {
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ImageCaption" component={ImageCaption} />
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
-        <Stack.Screen name="wordList" component={wordList} />
         <Stack.Screen name="SelectImage" component={SelectImage} />
         <Stack.Screen name="DiaryList" component={DiaryList} />
         <Stack.Screen name="SelectVoice" component={SelectVoice} />
@@ -85,6 +82,7 @@ const App = () => {
         <Stack.Screen name="MainTutorial" component={MainTutorial} />
         <Stack.Screen name="GrammarCheck" component={GrammarCheck} />
         <Stack.Screen name="ChildSetting" component={ChildSetting} />
+        <Stack.Screen name="Diary" component={Diary} />
       </Stack.Navigator>
     </NavigationContainer>
   );

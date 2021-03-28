@@ -16,7 +16,7 @@ import RoundButton from '../elements/RoundButton';
 import WordList from './WordList';
 import {createDiary} from '../../api/diary/writeDiary';
 
-export default function WriteDiary({}) {
+export default function WriteDiary({wordList}) {
   const [title, setTitle] = React.useState('');
   const [text, setText] = React.useState('');
 
@@ -42,6 +42,7 @@ export default function WriteDiary({}) {
     setText(e.nativeEvent.text);
   };
 
+  const arrText = ['문', '법', '체', '크'];
   return (
     <KeyboardAvoidingView behavior={'heigth'} style={[styles.container]}>
       <View style={[styles.wrapper]}>
@@ -66,18 +67,17 @@ export default function WriteDiary({}) {
           onPress={() => grammarCheck()}
           style={{position: 'absolute', right: '6%', top: '15%'}}>
           <View style={styles.buttonPosition}>
-            {/* <RoundButton
-            text={'문법 체크'}
-            arrow={false}
-            onHandlePress={grammarCheck}></RoundButton> */}
-            <Text style={styles.textIndex}>문</Text>
-            <Text style={styles.textIndex}>법</Text>
-            <Text style={styles.textIndex}>체</Text>
-            <Text style={styles.textIndex}>크</Text>
+            {arrText.map((tempText, idx) => {
+              return (
+                <Text key={idx} style={styles.textIndex}>
+                  {tempText}
+                </Text>
+              );
+            })}
           </View>
         </TouchableOpacity>
       </View>
-      <WordList words={temp}></WordList>
+      <WordList words={wordList}></WordList>
     </KeyboardAvoidingView>
   );
 }
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   buttonPosition: {
     width: 50,
     height: 150,
-    backgroundColor: '#f0859f',
+    backgroundColor: '#FB537B',
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
     elevation: 5,
