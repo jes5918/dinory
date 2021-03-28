@@ -1,12 +1,13 @@
 from django.urls import path
 from . import views
 
-from rest_framework_jwt.views import obtain_jwt_token
-
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 urlpatterns = [
     # 관리자 계정
     path('signup/', views.signup),
     path('login/', obtain_jwt_token),
+    path('login/verify/', verify_jwt_token),
+    path('login/refresh/', refresh_jwt_token),
     path('check/pin/', views.pin_check),
     path('check/email/', views.email_check),
     path('check/user/', views.user_check),
