@@ -44,7 +44,10 @@ export default function Main() {
                 일기 목록
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.7} style={styles.menuBtn}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.menuBtn}
+              onPress={() => navigation.navigate('Word')}>
               <Text style={[styles.innerText, {color: '#55E32A'}]}>단어장</Text>
             </TouchableOpacity>
             <TouchableOpacity
