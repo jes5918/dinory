@@ -48,7 +48,7 @@ export default function ChildSetting() {
                         style={styles.textInput}
                         placeholder={'채아'}
                         autoCompleteType={'off'}
-                        placeholderTextColor="#FB537B"
+                        placeholderTextColor="#6e6e6e"
                         maxLength={8}
                         // onFocus={() => changeName()}
                         onFocus={() => [
@@ -65,8 +65,10 @@ export default function ChildSetting() {
                         autoCompleteType={'off'}
                         style={styles.numInput}
                         placeholder={'2014'}
-                        placeholderTextColor="#FB537B"
+                        placeholderTextColor="#6e6e6e"
                         maxLength={4}
+                        // whenever using software keyboard
+                        keyboardType={'numeric'}
                         showSoftInputOnFocus={false}
                         // onFocus={() => changeName()}
                         onFocus={() => [
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
   textInput: {
     fontFamily: 'HoonPinkpungchaR',
     fontSize: height * 0.05,
-    color: '#BF8FFD',
+    color: '#FB537B',
     width: height * 0.35,
     height: height * 0.08,
     textAlign: 'center',
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
   numInput: {
     fontFamily: 'HoonPinkpungchaR',
     fontSize: height * 0.05,
-    color: '#BF8FFD',
+    color: '#FB537B',
     width: height * 0.2,
     height: height * 0.08,
     textAlign: 'center',

@@ -33,8 +33,8 @@ export default function DinoButton({
           styles.container,
           {
             backgroundColor: checkCharacterImage(imageUri),
-            width: widthProps * 1.1 || width * 0.11,
-            height: widthProps * 1.1 || width * 0.11,
+            width: widthProps * 1.2 || width * 0.11,
+            height: widthProps * 1.2 || width * 0.11,
           },
         ]}>
         <Image
@@ -42,8 +42,8 @@ export default function DinoButton({
           style={[
             styles.characterImage,
             {
-              width: widthProps || width * 0.1,
-              height: widthProps || width * 0.1,
+              width: widthProps || width * 0.09,
+              height: widthProps || width * 0.09,
             },
           ]}
         />
@@ -77,8 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 1000,
     elevation: 7,
-    marginHorizontal: 15,
-    marginVertical: 20,
+    marginHorizontal: width * 0.01,
   },
   characterImage: {
     resizeMode: 'contain',
