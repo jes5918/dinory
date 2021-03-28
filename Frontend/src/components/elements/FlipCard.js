@@ -118,26 +118,26 @@ const styles = StyleSheet.create({
   },
 
   word: {
-    fontSize: 40,
+    fontSize: cardWidth * 0.2,
     color: 'white',
     fontWeight: 'bold',
     fontFamily: 'HoonPinkpungchaR',
   },
   wordClass: {
-    fontSize: 24,
+    fontSize: cardWidth * 0.1,
     color: 'white',
     fontFamily: 'HoonPinkpungchaR',
   },
   wordSentence: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 24,
+    fontSize: cardWidth * 0.1,
     fontWeight: '500',
   },
   backWordBox: {
     width: '100%',
     height: '45%',
     display: 'flex',
-    padding: 30,
+    padding: cardHeight * 0.08,
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -151,6 +151,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: 30,
-    padding: 15,
+    padding: cardWidth * 0.06,
   },
 });

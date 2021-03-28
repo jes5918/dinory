@@ -52,6 +52,8 @@ import SelectVoice from '../views/child/SelectVoice';
 import MainTutorial from '../views/MainTutorial';
 import ChildSetting from '../views/child/ChildSetting';
 import Diary from '../views/diary/Diary';
+import Word from '../views/word/Word';
+import WordByAlphabet from '../views/word/WordByAlphabet';
 
 const Stack = createStackNavigator();
 
@@ -83,6 +85,8 @@ const App = () => {
         <Stack.Screen name="GrammarCheck" component={GrammarCheck} />
         <Stack.Screen name="ChildSetting" component={ChildSetting} />
         <Stack.Screen name="Diary" component={Diary} />
+        <Stack.Screen name="Word" component={Word} />
+        <Stack.Screen name="WordByAlphabet" component={WordByAlphabet} />
       </Stack.Navigator>
     </NavigationContainer>
   );
