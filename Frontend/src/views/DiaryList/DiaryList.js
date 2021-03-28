@@ -75,11 +75,17 @@ function DiaryList() {
   const navigation = useNavigation();
 
   // static variables
-  const baseURL = 'http://j4b105.p.ssafy.io/media/';
+  const baseURL = 'http://j4b105.p.ssafy.io/';
 
   // methods
-  const onHandleDetail = (diaryID) => {
-    alert('detail 페이지로 이동!');
+  const onHandleDetail = (params) => {
+    const diariesByDay = dataByMonth.filter(
+      (diary) => diary.month === params.month,
+    );
+    navigation.navigate('DiaryDetail', {
+      ...params,
+      diary: diariesByDay,
+    });
   };
 
   const onHandleSelectMonth = () => {
@@ -90,7 +96,7 @@ function DiaryList() {
   // componentDidMount
   useEffect(() => {
     getNotesByMonth(
-      10,
+      {child: 10, year: '2021', month: '02'},
       (res) => {
         setDataByMonth(() => res.data);
       },
@@ -102,7 +108,7 @@ function DiaryList() {
 
   useEffect(() => {
     getNotesByYear(
-      10,
+      {child: 10, year: '2021', month: '02', date: '21'},
       (res) => {
         setDataByYear(() => res.data);
       },
@@ -114,35 +120,37 @@ function DiaryList() {
 
   return (
     <View style={styles.container}>
-      <BackgroundAbsolute imageSrc={url} />
-      <Header />
-      <View style={styles.body}>
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          style={styles.bodyCardContainer}>
-          {dataByMonth &&
-            dataByMonth.map((diary) => {
-              return (
-                <MainCardComponent
-                  diaryText={diary.title}
-                  diaryImage={baseURL + diary.img}
-                  dateText={`${diary.year}.${diary.month}.${diary.date}`}
-                  onHandlePress={onHandleDetail}
-                  key={diary.id}
-                />
-              );
-            })}
-        </ScrollView>
-        <Image style={styles.character} source={character} />
-        <View style={styles.line} />
-      </View>
-      {dataByYear && (
-        <DiaryListFooter
-          data={dataByYear}
-          onHandlePress={onHandleSelectMonth}
-        />
-      )}
+      <BackgroundAbsolute style={styles.container} imageSrc={url}>
+        <Header />
+        <View style={styles.body}>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            style={styles.bodyCardContainer}>
+            {dataByMonth &&
+              dataByMonth.map((diary) => {
+                const {title, img, year, month, date, id} = diary;
+                return (
+                  <MainCardComponent
+                    diaryText={title}
+                    diaryImage={baseURL + img}
+                    dateText={`${year}.${month}.${date}`}
+                    onHandlePress={() => onHandleDetail({year, month, date})}
+                    key={id}
+                  />
+                );
+              })}
+          </ScrollView>
+          <Image style={styles.character} source={character} />
+          <View style={styles.line} />
+        </View>
+        {dataByYear && (
+          <DiaryListFooter
+            data={dataByYear}
+            onHandlePress={onHandleSelectMonth}
+          />
+        )}
+      </BackgroundAbsolute>
     </View>
   );
 }
@@ -175,6 +183,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     zIndex: 100,
+    paddingLeft: windowWidth * 0.12,
   },
   mainContainer: {
     width: windowWidth * 0.161,
@@ -185,7 +194,7 @@ const styles = StyleSheet.create({
     marginHorizontal: windowWidth * 0.0781,
   },
   mainInner: {
-    width: windowWidth * 0.092,
+    width: windowWidth * 0.1,
     height: windowHeight * 0.05,
     backgroundColor: '#ED6D48',
     borderRadius: 17,

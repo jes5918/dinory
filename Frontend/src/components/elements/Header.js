@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, Dimensions, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 import ArrowButton from './ArrowButton';
@@ -16,15 +16,21 @@ function Header({children}) {
   );
 }
 
+const windowSize = Dimensions.get('window');
+const windowWidth = windowSize.width;
+const windowHeight = windowSize.height;
+
 const styles = StyleSheet.create({
   header: {
     display: 'flex',
-    flex: 1.5, // 141
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     width: '100%',
+    position: 'absolute',
+    top: windowHeight * 0.02,
+    left: 0,
   },
 });
 
