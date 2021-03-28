@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {
   StyleSheet,
-  ImageBackground,
   View,
   Dimensions,
   Text,
@@ -16,6 +15,7 @@ import BasicButton from '../../components/elements/BasicButton';
 import DinoButton from '../../components/elements/DinoButton';
 import SelectProfile from '../../components/elements/SelectProfile';
 import NumberButton from '../../components/elements/NumberButton';
+import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -30,7 +30,7 @@ export default function ChildSetting() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={url} style={styles.bgImage}>
+      <BackgroundAbsolute imageSrc={url}>
         <Header />
         <View style={styles.body}>
           <ContentTitle title={'나의 정보를 변경해 보아요!'} />
@@ -123,7 +123,7 @@ export default function ChildSetting() {
             </ScrollView>
           </View>
         </View>
-      </ImageBackground>
+      </BackgroundAbsolute>
     </View>
   );
 }
@@ -135,10 +135,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 6,
     alignItems: 'center',
-  },
-  bgImage: {
-    flex: 1,
-    resizeMode: 'contain',
+    marginTop: height * 0.17,
   },
   dualBody: {
     display: 'flex',
