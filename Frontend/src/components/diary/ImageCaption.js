@@ -10,18 +10,12 @@ import {
 
 import WordList from '../diary/WordList';
 import BasicButton from '../../components/elements/BasicButton';
-export default function ImageCaption({selectImg, wordsList, onHandlePress}) {
-  const temp = [
-    {textEn: 'happy', textKr: '행복'},
-    {textEn: 'coding', textKr: '코딩'},
-    {textEn: 'people', textKr: '사람'},
-    {textEn: 'computer', textKr: '컴퓨터'},
-    {textEn: 'computer', textKr: '컴퓨터'},
-    {textEn: 'computer', textKr: '컴퓨터'},
-    {textEn: 'computer', textKr: '컴퓨터'},
-    {textEn: 'computer', textKr: '컴퓨터'},
-  ];
-
+export default function ImageCaption({
+  selectImg,
+  wordsList,
+  onHandlePress,
+  onHandleChangeTemp,
+}) {
   const url = require('../../assets/images/background3.png');
   return (
     <View style={[styles.container]}>
@@ -33,7 +27,9 @@ export default function ImageCaption({selectImg, wordsList, onHandlePress}) {
       <Text style={[styles.describe]}>
         어떤 단어들이 나왔는지 확인해볼까요?
       </Text>
-      <WordList words={wordsList}></WordList>
+      <WordList
+        words={wordsList}
+        onHandleChangeTemp={(e) => onHandleChangeTemp(e)}></WordList>
       <BasicButton
         text={'일기 쓰기'}
         btnWidth={width * 0.3}
@@ -73,7 +69,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   describe: {
-    fontSize: 32,
+    fontSize: width * 0.035,
     fontFamily: 'HoonPinkpungchaR',
     color: '#fff',
   },

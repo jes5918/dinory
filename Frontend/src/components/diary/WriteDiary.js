@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -16,20 +16,14 @@ import RoundButton from '../elements/RoundButton';
 import WordList from './WordList';
 import {createDiary} from '../../api/diary/writeDiary';
 
-export default function WriteDiary({wordList}) {
-  const [title, setTitle] = React.useState('');
-  const [text, setText] = React.useState('');
+export default function WriteDiary({
+  wordList,
+  onHandleChangeTemp,
+  onHandleSaveDiary,
+}) {
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
 
-  const temp = [
-    {textEn: 'happy', textKr: '행복'},
-    {textEn: 'coding', textKr: '코딩'},
-    {textEn: 'Jinoo', textKr: '닭띠유지누'},
-    {textEn: 'computer', textKr: '컴퓨터'},
-    {textEn: 'ZZangsm', textKr: '장수민'},
-    {textEn: 'jes5918', textKr: '전의수'},
-    {textEn: 'BossBaby', textKr: '윤지해'},
-    {textEn: 'soldierShin', textKr: '신민호'},
-  ];
   const grammarCheck = () => {
     alert('이문법이 맞는 것 같아?');
   };
@@ -41,10 +35,14 @@ export default function WriteDiary({wordList}) {
     console.log(e.nativeEvent.text);
     setText(e.nativeEvent.text);
   };
+  const saveDiary = () => {
+    alert('일기 저장!');
+  };
 
   const arrText = ['문', '법', '체', '크'];
+  const arrText2 = ['일', '기', '저', '장'];
   return (
-    <KeyboardAvoidingView behavior={'heigth'} style={[styles.container]}>
+    <KeyboardAvoidingView behavior={'height'} style={[styles.container]}>
       <View style={[styles.wrapper]}>
         <View style={[styles.dirayBox]}>
           <ScrollView style={styles.textInputBox}>
@@ -62,22 +60,36 @@ export default function WriteDiary({wordList}) {
               onChange={onChangeText}></TextInput>
           </ScrollView>
         </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => grammarCheck()}
-          style={{position: 'absolute', right: '6%', top: '15%'}}>
-          <View style={styles.buttonPosition}>
-            {arrText.map((tempText, idx) => {
-              return (
-                <Text key={idx} style={styles.textIndex}>
-                  {tempText}
-                </Text>
-              );
-            })}
-          </View>
-        </TouchableOpacity>
+        <View style={[styles.buttonWrapper]}>
+          <TouchableOpacity activeOpacity={0.7} onPress={() => grammarCheck()}>
+            <View style={styles.buttonPosition}>
+              {arrText.map((tempText, idx) => {
+                return (
+                  <Text key={idx} style={styles.textIndex}>
+                    {tempText}
+                  </Text>
+                );
+              })}
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => onHandleSaveDiary()}>
+            <View style={styles.buttonPosition2}>
+              {arrText2.map((tempText, idx) => {
+                return (
+                  <Text key={idx} style={styles.textIndex}>
+                    {tempText}
+                  </Text>
+                );
+              })}
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
-      <WordList words={wordList}></WordList>
+      <WordList
+        words={wordList}
+        onHandleChangeTemp={(e) => onHandleChangeTemp(e)}></WordList>
     </KeyboardAvoidingView>
   );
 }
@@ -86,8 +98,10 @@ const screenWidth = dimensions.width;
 const screenHeight = dimensions.height;
 const styles = StyleSheet.create({
   buttonPosition: {
-    width: 50,
-    height: 150,
+    width: 'auto',
+    height: 'auto',
+    paddingHorizontal: 15,
+    paddingVertical: 12,
     backgroundColor: '#FB537B',
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
@@ -95,6 +109,29 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonPosition2: {
+    width: 'auto',
+    height: 'auto',
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    backgroundColor: '#76b0e9',
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+    elevation: 5,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonWrapper: {
+    position: 'absolute',
+    right: screenWidth * 0.066,
+    top: screenHeight * 0.05,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   titleBox: {
@@ -112,7 +149,7 @@ const styles = StyleSheet.create({
   },
   textIndex: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 24,
+    fontSize: screenWidth * 0.016,
     color: '#fff',
   },
   TitleInput: {

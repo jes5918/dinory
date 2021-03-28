@@ -2,11 +2,8 @@ import {AuthorizationInstance} from '../index.js';
 
 const instance = AuthorizationInstance();
 
-function createDiary(diary, child_id, success, fail) {
-  instance
-    .post(`notes/diary/?child=${child_id}`, diary)
-    .then(success)
-    .catch(fail);
+function createDiary(diary, child, success, fail) {
+  instance.post(`notes/diary/?child=${child}`, diary).then(success).catch(fail);
 }
 
 function imageCaptioning(image, success, fail) {
@@ -21,4 +18,8 @@ function pronunCheck(speakfile, success, fail) {
   instance.post(`ai/pronunciation/`, speakfile).then(success).catch(fail);
 }
 
-export {createDiary, imageCaptioning, grammarCheck, pronunCheck};
+function saveWords(words, child, success, fail) {
+  instance.post(`words/?child=${child}`, words).then(success).catch(fail);
+}
+
+export {createDiary, imageCaptioning, grammarCheck, pronunCheck, saveWords};

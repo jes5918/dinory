@@ -80,16 +80,10 @@ const cardHeight = screenHeight * 0.4;
 const styles = StyleSheet.create({
   card: {
     position: 'relative',
+    backgroundColor: 'transparent',
     width: cardWidth,
     height: cardHeight,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 10,
+    elevation: 5,
   },
   front: {
     position: 'absolute',
