@@ -22,6 +22,7 @@ import {
 import {useNavigation} from '@react-navigation/core';
 import MaterialIcons from 'react-native-vector-icons/AntDesign';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import DiraryAgainTutorial from '../../views/diary/DiraryAgainTutorial';
 
 ///////날짜
 const date = new Date();
@@ -60,6 +61,7 @@ export default function Diary() {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState(false);
   const [diaryContent, setDiaryContent] = useState(false);
+  const [tempPagenum, setTempPagenum] = useState(false);
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
@@ -129,29 +131,29 @@ export default function Diary() {
       );
     }
   }, [selectImage]);
+  const gotoMain = () => {
+    useNavigation().navigate('Main');
+  };
+
   const saveDiary = () => {
     const formData = new FormData();
-    formData.append('title', 'ZZangsm');
-    // formData.append('img', file);
+    formData.append('title', title);
     formData.append('img', {
-      uri: response.uri,
-      type: response.type,
-      name: response.fileName,
+      uri: selectImage.uri,
+      type: selectImage.type,
+      name: selectImage.fileName,
     });
-    formData.append(
-      'content',
-      'I went to cafe pascucci.\nI ordered hot tea.\nIt was really good.',
-    );
-    formData.append('content', 'content wow.');
-    formData.append('year', '2021');
-    formData.append('month', '03');
-    formData.append('date', '01');
+    formData.append('content', diaryContent);
+    formData.append('year', year);
+    formData.append('month', month);
+    formData.append('date', day);
 
     console.log('FormData', formData);
     createDiary(
       formData,
       10,
       (res) => {
+        console.log('함수 실행');
         console.log('resData', res.data);
       },
       (err) => {
@@ -159,12 +161,38 @@ export default function Diary() {
       },
     );
     ////////////////////////
+    gotoMain();
   };
 
   const changeTemp = (e) => {
     setCaptionWords(e);
   };
-  if (currentPage === 1) {
+
+  const tutorialToggle = () => {
+    if (currentPage > 0) {
+      setTempPagenum(currentPage);
+      setCurrentPage(-1);
+    } else if (currentPage < 0) {
+      setCurrentPage(tempPagenum);
+    }
+  };
+
+  const onHandleChangeTitle = (e) => {
+    console.log('제목이 입력되는 중', e.nativeEvent.text);
+    setTitle(e.nativeEvent.text);
+  };
+
+  const onHandleChangeContent = (e) => {
+    console.log('내용이 입력되는 중', e.nativeEvent.text);
+    setDiaryContent(e.nativeEvent.text);
+  };
+
+  if (currentPage < 0) {
+    return (
+      <DiraryAgainTutorial
+        onhandleEnd={() => tutorialToggle()}></DiraryAgainTutorial>
+    );
+  } else if (currentPage === 1) {
     return (
       <ImageBackground source={bgurl} style={styles.bgBox}>
         <View style={styles.arrowBtnBox}>
@@ -178,7 +206,8 @@ export default function Diary() {
               height: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
+            }}
+            onPress={() => tutorialToggle()}>
             <MaterialIcons style={styles.mainIcon} name={'questioncircleo'} />
           </TouchableOpacity>
         </View>
@@ -224,7 +253,8 @@ export default function Diary() {
               height: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
+            }}
+            onPress={() => tutorialToggle()}>
             <MaterialIcons style={styles.mainIcon} name={'questioncircleo'} />
           </TouchableOpacity>
         </View>
@@ -250,12 +280,16 @@ export default function Diary() {
               height: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
+            }}
+            onPress={() => tutorialToggle()}>
             <MaterialIcons style={styles.mainIcon} name={'questioncircleo'} />
           </TouchableOpacity>
         </View>
         <WriteDiary
           wordList={captionWords}
+          onHandleChangeTitle={(e) => onHandleChangeTitle(e)}
+          onHandleChangeContent={(e) => onHandleChangeContent(e)}
+          onHandleChangeTemp={(e) => changeTemp(e)}
           onHandleSaveDiary={() => saveDiary()}></WriteDiary>
       </ImageBackground>
     );
