@@ -3,6 +3,8 @@ from . import views
 urlpatterns = [
     path('', views.note_read),
     path('diary/', views.diary_create_read),
+    path('tutorial/', views.diary_tutorial_check),
+
     path('check/', views.diary_check),
     path('stat/used_words/', views.word_used_rate),
     path('stat/used_words/cloud/', views.word_used_cloud),
