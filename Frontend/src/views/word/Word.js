@@ -52,9 +52,8 @@ export default function Word() {
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.wordContainer}
-        onPress={
-          () => navigation.navigate('WordByAlphabet', {data: item.data})
-          // navigation.navigate()
+        onPress={() =>
+          navigation.navigate('WordByAlphabet', {data: item.data})
         }>
         <Image source={item.src} style={styles.alphabet} />
       </TouchableOpacity>
