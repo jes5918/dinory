@@ -16,7 +16,6 @@ const width = dimensions.width;
 const height = dimensions.height;
 
 export default function WordByAlphabet({data}) {
-  const baseURL = 'http://j4b105.p.ssafy.io/words/';
   const url = require('../../assets/images/background1.png');
 
   return (
