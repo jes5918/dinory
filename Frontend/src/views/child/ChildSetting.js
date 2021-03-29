@@ -16,6 +16,7 @@ import DinoButton from '../../components/elements/DinoButton';
 import ChangeProfile from '../../components/elements/ChangeProfile';
 import NumberButton from '../../components/elements/NumberButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
+import {useNavigation} from '@react-navigation/core';
 import {editChildProfile} from '../../api/accounts/childSettings';
 // import AsyncStorage from '@react-native-community/async-storage';
 
@@ -26,16 +27,24 @@ const height = dimensions.height;
 // 돌아가는지 테스트 필요함
 const child = '10'; // 임시값
 export default function ChildSetting() {
+  const navigation = useNavigation();
   const submitChangeInfo = () => {
     console.log(childNName + '/' + childBirth + '/' + dinoPicNum);
-    const profileInfo = {childNName, childBirth, dinoPicNum};
+    let name = childNName;
+    let img = dinoPicNum;
+    let age = childBirth; // 생일에서 년도로 변경하면 수정필요함
+    const profileInfo = {name, age, img};
     editChildProfile(
-      {child_pk: child, profileInfo: profileInfo},
+      {child: child, profileInfo: profileInfo},
       (res) => {
         console.log(res);
+        console.log('1');
+        navigation.navigate('Main');
       },
       (err) => {
         console.log(err);
+        console.log('2');
+        navigation.navigate('Main');
       },
     );
   };
