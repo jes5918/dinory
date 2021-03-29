@@ -29,6 +29,7 @@ export default function WriteDiary({words, onHandleChangeTemp}) {
             <CheckBox
               textEn={word.content}
               textKr={word.mean}
+              ischecked={word.checked}
               onHandleVolume={() => wordSound()}
               onHandleCheck={() => selectWord(i)}
               key={i}></CheckBox>

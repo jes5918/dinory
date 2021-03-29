@@ -54,7 +54,6 @@ const App = () => {
         <Stack.Screen name="SignupScreen" component={Signup} />
         <Stack.Screen name="PinScreen" component={PinCreate} />
         <Stack.Screen name="LoadingSec" component={LoadingSec} />
-        <Stack.Screen name="WriteDiary" component={WriteDiary} />
         <Stack.Screen name="SelectLogin" component={SelectLogin} />
         <Stack.Screen name="SelectProfile" component={SelectProfile} />
         <Stack.Screen name="Main" component={Main} />
