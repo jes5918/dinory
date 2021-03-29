@@ -12,6 +12,7 @@ import Logo from '../components/elements/Logo';
 import Header from '../components/elements/Header';
 import {useNavigation} from '@react-navigation/core';
 import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
+import {didTutorial} from '../api/diary/checkTutorial';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -20,6 +21,19 @@ const height = dimensions.height;
 export default function Main() {
   const url = require('../assets/images/background4.png');
   const navigation = useNavigation();
+
+  // child 임시값 지정
+  const child = 10;
+
+  // 일기작성 여부에 따른 페이징 처리(작성 X : 튜토리얼 / 작성 O : 일기작성)
+  const checkDidTutorial = () => {
+    if (didTutorial(child)) {
+      navigation.navigate('Diary');
+    } else {
+      navigation.navigate('DiaryWriteTutorial');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <BackgroundAbsolute imageSrc={url}>
@@ -31,7 +45,7 @@ export default function Main() {
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles.menuBtn}
-              onPress={() => navigation.navigate('WriteDiary')}>
+              onPress={() => checkDidTutorial({child})}>
               <Text style={[styles.innerText, {color: '#ED1D9F'}]}>
                 일기장 쓰기
               </Text>
