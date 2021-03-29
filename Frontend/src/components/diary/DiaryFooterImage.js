@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
     paddingLeft: windowWidth * 0.055,
   },
   thumbnail: {
-    width: windowWidth * 0.07,
-    height: windowWidth * 0.07,
+    width: windowWidth * 0.075,
+    height: windowWidth * 0.075,
     borderRadius: 15,
   },
   thumbnailText: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 18,
+    fontSize: windowWidth * 0.014, // 18
     marginBottom: windowHeight * 0.01,
   },
 });

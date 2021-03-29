@@ -18,6 +18,7 @@
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-app-intro-slider": "^4.0.4",
+    "react-native-chart-kit": "6.11.0",
     "react-native-gesture-handler": "1.10.3",
     "react-native-image-picker": "3.3.2",
     "react-native-reanimated": "2.0.0",
@@ -25,7 +26,8 @@
     "react-native-screens": "2.18.1",
     "react-native-vector-icons": "8.1.0",
     "react-redux": "7.2.2",
-    "redux": "4.0.5"
+    "redux": "4.0.5",
+    "use-deep-compare-effect": "1.6.1"
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
