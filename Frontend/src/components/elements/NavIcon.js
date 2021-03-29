@@ -48,11 +48,6 @@ export default function NavIcon({navigation}) {
       />
       <Text> </Text>
       <Button title="Diary" onPress={() => navigation.navigate('Diary')} />
-      <Text> </Text>
-      <Button
-        title="DiaryDetail"
-        onPress={() => navigation.navigate('DiaryDetail')}
-      />
     </ScrollView>
   );
 }

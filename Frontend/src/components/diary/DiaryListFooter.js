@@ -19,7 +19,7 @@ function DiaryListFooter({data, onHandlePress}) {
                 month={diary.month}
                 date={diary.date}
                 image={baseURL + diary.img}
-                onHandlePress={onHandlePress}
+                onHandlePress={() => onHandlePress}
               />
             );
           })}
