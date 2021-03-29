@@ -44,7 +44,6 @@ export default function FlipCard({english, korean, pos}) {
         (res) => {
           let result = res.data.sentence;
           let selectedResult = result.replace('<b>', '').replace('</b>', '');
-          console.log(selectedResult);
           setWordDetail(() => selectedResult);
         },
         (err) => {

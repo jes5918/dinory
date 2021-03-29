@@ -8,12 +8,24 @@ import {
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/core';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
-export default function Profile({childName, childCharacter}) {
+export default function Profile() {
+  // // 캐릭터랑 닉네임을 불러와 보아요
+  // AsyncStorage.getItem('username', (err, result) => {
+  //   if ('username' !== null) {
+  //     console.log(result);
+  //   } else {
+  //     console.log(err);
+  //   }
+  // });
+  // 캐릭터랑 닉네임을 못찾겠어요. 우리 모든 key를 불러와 볼까요?
+  // AsyncStorage.getAllKeys().then(console.log);
+
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -26,7 +38,6 @@ export default function Profile({childName, childCharacter}) {
         <View style={styles.characterContainer}>
           <Image
             style={styles.characterIcon}
-            // source={childCharacter}
             source={require('../../assets/images/character4.png')}
           />
         </View>
