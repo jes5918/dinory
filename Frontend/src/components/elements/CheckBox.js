@@ -92,7 +92,7 @@ export default function CheckBox({
         <TouchableOpacity
           onPress={() => {
             onHandleCheckState();
-            onHandleCheck()
+            onHandleCheck
               ? onHandleCheck()
               : alert('함수를 props로 내려주세요!');
           }}
@@ -134,7 +134,7 @@ export default function CheckBox({
         <TouchableOpacity
           onPress={() => {
             onHandleCheckState();
-            onHandleCheck()
+            onHandleCheck
               ? onHandleCheck()
               : alert('함수를 props로 내려주세요!');
           }}
