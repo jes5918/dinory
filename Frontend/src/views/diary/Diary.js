@@ -60,10 +60,12 @@ export default function Diary() {
   const [selectImage, setSelectImage] = useState(false);
   const [captionWords, setCaptionWords] = useState(false);
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState(false);
   const [diaryContent, setDiaryContent] = useState(false);
   const [tempPagenum, setTempPagenum] = useState(false);
+  const [grammarchecked, setGrammarchecked] = useState(false);
+  const [checkData, setCheckData] = useState(null);
 
   const closeModal = () => {
     setTimeout(() => {
@@ -147,9 +149,12 @@ export default function Diary() {
       formData,
       (res) => {
         console.log('grammarcheck', res.data);
+        setCheckData(res.data.corrections);
+        setGrammarchecked(true);
       },
       (err) => {
         console.error(err);
+        alert('다시 시도해주세요!');
       },
     );
   };
@@ -196,17 +201,13 @@ export default function Diary() {
   };
 
   const onHandleChangeTitle = (e) => {
-    console.log('제목이 입력되는 중', e.nativeEvent.text);
     setTitle(e.nativeEvent.text);
   };
 
   const onHandleChangeContent = (e) => {
-    console.log('내용이 입력되는 중', e.nativeEvent.text);
     setDiaryContent(e.nativeEvent.text);
   };
 
-  const modaltext = '사진을 다시 선택해주세요!';
-  const icon = 'exclamationcircle';
   if (currentPage < 0) {
     return (
       <DiraryAgainTutorial
@@ -239,24 +240,6 @@ export default function Diary() {
           iconName={'exclamationcircle'}
           setTimeFunction={() => closeModal()}
         />
-        {/* <Modal
-          transparent={true}
-          visible={modalVisible}
-          onShow={() => closeModal()}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <MaterialIcons
-                animationType="fade"
-                style={styles.modalIcon}
-                name={'exclamationcircle'}
-              />
-              <Text style={styles.modalText}>사진을 다시 올려주세요!</Text>
-            </View>
-          </View>
-        </Modal> */}
       </ImageBackground>
     );
   } else if (currentPage === 0) {
@@ -317,7 +300,9 @@ export default function Diary() {
           onHandleChangeContent={(e) => onHandleChangeContent(e)}
           onHandleChangeTemp={(e) => changeTemp(e)}
           onHandleCheckGrammar={() => checkGrammar()}
-          onHandleSaveDiary={() => saveDiary()}></WriteDiary>
+          onHandleSaveDiary={() => saveDiary()}
+          grammarchecked={grammarchecked}
+          checkData={checkData}></WriteDiary>
       </ImageBackground>
     );
   }
@@ -354,61 +339,5 @@ const styles = StyleSheet.create({
   mainIcon: {
     color: '#fff',
     fontSize: width * 0.04,
-  },
-  modalIcon: {
-    color: 'red',
-    fontSize: width * 0.08,
-    marginVertical: width * 0.015,
-  },
-  //////modal
-  modalPosition: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    top: 150,
-    right: width * 0.5,
-    zIndex: 400,
-    // backgroundColor: 'red',
-  },
-  centeredView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    width: width * 0.375,
-    height: height * 0.4122,
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    textAlign: 'center',
-    fontFamily: 'HoonPinkpungchaR',
-    fontSize: width * 0.018,
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-    fontFamily: 'HoonPinkpungchaR',
-    fontSize: width * 0.02,
-    color: '#707070',
   },
 });
