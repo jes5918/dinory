@@ -13,9 +13,12 @@ function createChildProfile(profileInfo, success, fail) {
 }
 
 // 아이 정보 수정
-function editChildProfile(child_pk, profileInfo, success, fail) {
+function editChildProfile(child, profileInfo, success, fail) {
+  let path = `accounts/child/setting/?child=${child.child}`;
+  console.log(path);
   instance
-    .put(`accounts/child/setting/?child=${child_pk}/`, profileInfo)
+    .put(path, profileInfo)
+    // .put(`accounts/child/setting/?child=${child}`, profileInfo)
     .then(success)
     .catch(fail);
 }
