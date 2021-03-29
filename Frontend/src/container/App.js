@@ -41,6 +41,7 @@ import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
 import DiaryDetail from '../views/DiaryList/DiaryDetail';
 import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
+import LoginScreen from '../views/user/LoginScreen';
 
 const Stack = createStackNavigator();
 
@@ -76,6 +77,7 @@ const App = () => {
         <Stack.Screen name="Word" component={Word} />
         <Stack.Screen name="WordByAlphabet" component={WordByAlphabet} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen
           name="DiaryWriteTutorial "
           component={DiaryWriteTutorial}
