@@ -22,6 +22,7 @@ export default function WriteDiary({
   onHandleSaveDiary,
   onHandleChangeTitle,
   onHandleChangeContent,
+  onHandleCheckGrammar,
 }) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
@@ -63,7 +64,9 @@ export default function WriteDiary({
           </ScrollView>
         </View>
         <View style={[styles.buttonWrapper]}>
-          <TouchableOpacity activeOpacity={0.7} onPress={() => grammarCheck()}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => onHandleCheckGrammar()}>
             <View style={styles.buttonPosition}>
               {arrText.map((tempText, idx) => {
                 return (
