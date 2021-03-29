@@ -31,7 +31,7 @@ import NameProfile from '../views/user/profile/NameProfile';
 import AgeProfile from '../views/user/profile/AgeProfile';
 import AvatarProfile from '../views/user/profile/AvatarProfile';
 
-import DiaryList from '../views/DiaryList/DiaryList';
+import DiaryList from '../views/diaryList/DiaryList';
 import ParentSetting from '../views/parent/ParentSetting';
 import SelectVoice from '../views/child/SelectVoice';
 import MainTutorial from '../views/MainTutorial';
@@ -39,9 +39,9 @@ import ChildSetting from '../views/child/ChildSetting';
 import Diary from '../views/diary/Diary';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
-import DiaryDetail from '../views/DiaryList/DiaryDetail';
 import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
 import LoginScreen from '../views/user/LoginScreen';
+import DiaryDetail from '../views/diaryList/DiaryDetail';
 
 const Stack = createStackNavigator();
 

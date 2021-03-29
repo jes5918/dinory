@@ -13,7 +13,9 @@ function DiaryFooterImage({onHandlePress, image, year, month, date}) {
   return (
     <View style={styles.thumbnailContainer}>
       <Text style={styles.thumbnailText}>{letters}</Text>
-      <TouchableOpacity onPress={() => onHandlePress} activeOpacity={0.7}>
+      <TouchableOpacity
+        onPress={() => onHandlePress({year, month})}
+        activeOpacity={0.7}>
         <Image style={styles.thumbnail} source={{uri: image}} />
       </TouchableOpacity>
     </View>
