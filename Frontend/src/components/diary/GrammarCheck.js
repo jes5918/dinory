@@ -17,9 +17,7 @@ export default function GrammarCheck() {
   const arrText = ['문', '법', '체', '크'];
   return (
     <KeyboardAvoidingView behavior={'heigth'} style={[styles.container]}>
-      <View style={[styles.wrapper]}>
-        <audio
-      </View>
+      <View style={[styles.wrapper]}></View>
     </KeyboardAvoidingView>
   );
 }
