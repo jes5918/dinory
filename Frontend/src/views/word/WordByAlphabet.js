@@ -1,42 +1,55 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-  Dimensions,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View, Dimensions, ScrollView, Text} from 'react-native';
 import Header from '../../components/elements/Header';
 import FlipCard from '../../components/elements/FlipCard';
+import {getListbyAlphabet} from '../../api/word/readWord';
+import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
-export default function WordByAlphabet({data}) {
+export default function WordByAlphabet({route}) {
   const url = require('../../assets/images/background1.png');
+  const [listByAlpha, setListByAlpha] = useState();
+  const alphabet = route.params.selectAlpha;
+
+  const child = '10'; // 임시
+  useEffect(() => {
+    getListbyAlphabet(
+      {child: child, alphabet: alphabet},
+      (res) => {
+        setListByAlpha(() => res.data);
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
+  }, [child, alphabet]);
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={url} style={styles.bgImage}>
+      <BackgroundAbsolute imageSrc={url}>
         <Header>
           <Text style={styles.headerTitle}>카드를 눌러보세요!</Text>
         </Header>
         <View style={styles.body}>
-          <ScrollView horizontal>
-            <TouchableOpacity activeOpacity={0.7} style={styles.cardContainer}>
-              <FlipCard
-                english={'english'}
-                korean={'korean'}
-                pos={'verb'}
-                exampleSentence={'hello'}
-              />
-            </TouchableOpacity>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {listByAlpha &&
+              listByAlpha.map((props) => {
+                return (
+                  <View style={styles.cardContainer} key={props.id}>
+                    <FlipCard
+                      english={props.content}
+                      korean={props.mean}
+                      pos={props.part}
+                    />
+                  </View>
+                );
+              })}
           </ScrollView>
         </View>
-      </ImageBackground>
+      </BackgroundAbsolute>
     </View>
   );
 }
@@ -44,10 +57,6 @@ export default function WordByAlphabet({data}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  bgImage: {
-    flex: 1,
-    resizeMode: 'contain',
   },
   headerTitle: {
     fontFamily: 'HoonPinkpungchaR',
@@ -58,6 +67,7 @@ const styles = StyleSheet.create({
     flex: 6,
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: height * 0.17,
   },
   cardContainer: {
     width: width * 0.22,
@@ -65,6 +75,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
-    marginHorizontal: width * 0.02,
   },
 });
