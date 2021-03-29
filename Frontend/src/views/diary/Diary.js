@@ -152,7 +152,7 @@ export default function Diary() {
       (res) => {
         console.log('함수 실행');
         console.log('resData', res.data);
-        navigation.navigate('Main');
+        navigation.navigate('DiaryList');
       },
       (err) => {
         console.error(err);
