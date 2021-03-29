@@ -6,23 +6,11 @@ import DiaryFooterImage from './DiaryFooterImage';
 
 const baseURL = 'http://j4b105.p.ssafy.io/';
 
-function DiaryListFooter({data, onHandlePress}) {
+function DiaryListFooter({children}) {
   return (
     <View style={styles.footer}>
       <ScrollView style={styles.footerContainer} horizontal={true}>
-        {data &&
-          data.map((diary) => {
-            return (
-              <DiaryFooterImage
-                key={diary.id}
-                year={diary.year}
-                month={diary.month}
-                date={diary.date}
-                image={baseURL + diary.img}
-                onHandlePress={() => onHandlePress}
-              />
-            );
-          })}
+        {children}
       </ScrollView>
     </View>
   );
