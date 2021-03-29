@@ -13,11 +13,13 @@ import ImageCaption from '../../components/diary/ImageCaption';
 import WriteDiary from '../../components/diary/WriteDiary';
 import ArrowButton from '../../components/elements/ArrowButton';
 import LoadingSec from '../../components/elements/LoadingSec';
+import AlertModal from '../../components/elements/AlertModal';
 
 import {
   createDiary,
   imageCaptioning,
   saveWords,
+  grammarCheck,
 } from '../../api/diary/writeDiary';
 import {useNavigation} from '@react-navigation/core';
 import MaterialIcons from 'react-native-vector-icons/AntDesign';
@@ -58,15 +60,21 @@ export default function Diary() {
   const [selectImage, setSelectImage] = useState(false);
   const [captionWords, setCaptionWords] = useState(false);
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true);
   const [title, setTitle] = useState(false);
   const [diaryContent, setDiaryContent] = useState(false);
   const [tempPagenum, setTempPagenum] = useState(false);
+
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
     }, 2000);
   };
+
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+
   const gotoBack = () => {
     setCurrentPage(currentPage - 1);
   };
@@ -132,6 +140,20 @@ export default function Diary() {
     }
   }, [selectImage]);
 
+  const checkGrammar = () => {
+    const formData = new FormData();
+    formData.append('text', diaryContent);
+    grammarCheck(
+      formData,
+      (res) => {
+        console.log('grammarcheck', res.data);
+      },
+      (err) => {
+        console.error(err);
+      },
+    );
+  };
+
   const saveDiary = () => {
     const formData = new FormData();
     formData.append('title', title);
@@ -183,6 +205,8 @@ export default function Diary() {
     setDiaryContent(e.nativeEvent.text);
   };
 
+  const modaltext = '사진을 다시 선택해주세요!';
+  const icon = 'exclamationcircle';
   if (currentPage < 0) {
     return (
       <DiraryAgainTutorial
@@ -208,12 +232,18 @@ export default function Diary() {
           </TouchableOpacity>
         </View>
         <SelectImage setSelectImage={setSelectImage}></SelectImage>
-        <Modal
+        <AlertModal
+          modalVisible={modalVisible}
+          onHandleCloseModal={() => changeModalState()}
+          text={'사진을 다시 올려주세요!'}
+          iconName={'exclamationcircle'}
+          setTimeFunction={() => closeModal()}
+        />
+        {/* <Modal
           transparent={true}
           visible={modalVisible}
           onShow={() => closeModal()}
           onRequestClose={() => {
-            alert('Modal has been closed.');
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
@@ -226,7 +256,7 @@ export default function Diary() {
               <Text style={styles.modalText}>사진을 다시 올려주세요!</Text>
             </View>
           </View>
-        </Modal>
+        </Modal> */}
       </ImageBackground>
     );
   } else if (currentPage === 0) {
@@ -286,6 +316,7 @@ export default function Diary() {
           onHandleChangeTitle={(e) => onHandleChangeTitle(e)}
           onHandleChangeContent={(e) => onHandleChangeContent(e)}
           onHandleChangeTemp={(e) => changeTemp(e)}
+          onHandleCheckGrammar={() => checkGrammar()}
           onHandleSaveDiary={() => saveDiary()}></WriteDiary>
       </ImageBackground>
     );
@@ -326,7 +357,7 @@ const styles = StyleSheet.create({
   },
   modalIcon: {
     color: 'red',
-    fontSize: width * 0.06,
+    fontSize: width * 0.08,
     marginVertical: width * 0.015,
   },
   //////modal
@@ -348,6 +379,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
+    alignItems: 'center',
+    width: width * 0.375,
+    height: height * 0.4122,
+    display: 'flex',
+    justifyContent: 'space-around',
     alignItems: 'center',
     elevation: 5,
   },
@@ -373,6 +409,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'HoonPinkpungchaR',
     fontSize: width * 0.02,
-    color: '#888888',
+    color: '#707070',
   },
 });
