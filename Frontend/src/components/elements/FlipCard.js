@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useMemo} from 'react';
 import {
   Animated,
   StyleSheet,
@@ -7,10 +7,13 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-//  english : 영어 단어, korean: 뜻, pos(part of speech): 품사, exampleSentence: 예시문장
-export default function FlipCard({english, korean, pos, exampleSentence}) {
-  const animationvalue = new Animated.Value(0);
+import {getWordDetail} from '../../api/word/readWord';
 
+//  english : 영어 단어, korean: 뜻, pos(part of speech): 품사
+export default function FlipCard({english, korean, pos}) {
+  const animationvalue = useMemo(() => new Animated.Value(0), []);
+  const [wordDetail, setWordDetail] = useState();
+  const child = '10'; //임시
   let temp = 0;
 
   animationvalue.addListener((e) => {
@@ -34,8 +37,20 @@ export default function FlipCard({english, korean, pos, exampleSentence}) {
     transform: [{rotateY: backflipRange}],
   };
 
-  const flip = () => {
+  const flip = useCallback(() => {
     if (temp < 90) {
+      getWordDetail(
+        {child: child, word: english},
+        (res) => {
+          let result = res.data.sentence;
+          let selectedResult = result.replace('<b>', '').replace('</b>', '');
+          console.log(selectedResult);
+          setWordDetail(() => selectedResult);
+        },
+        (err) => {
+          console.log(err);
+        },
+      );
       Animated.timing(animationvalue, {
         toValue: 180,
         duration: 1000,
@@ -48,7 +63,7 @@ export default function FlipCard({english, korean, pos, exampleSentence}) {
         useNativeDriver: true,
       }).start();
     }
-  };
+  }, [temp, animationvalue, english]);
 
   return (
     <TouchableOpacity
@@ -64,7 +79,7 @@ export default function FlipCard({english, korean, pos, exampleSentence}) {
           <Text style={[styles.wordClass]}>{pos}</Text>
         </View>
         <View style={styles.backSentenceBox}>
-          <Text style={[styles.wordSentence]}>{exampleSentence}</Text>
+          <Text style={[styles.wordSentence]}>{wordDetail}</Text>
         </View>
       </Animated.View>
     </TouchableOpacity>
@@ -112,7 +127,7 @@ const styles = StyleSheet.create({
   },
 
   word: {
-    fontSize: cardWidth * 0.2,
+    fontSize: cardWidth * 0.15,
     color: 'white',
     fontWeight: 'bold',
     fontFamily: 'HoonPinkpungchaR',
@@ -124,14 +139,14 @@ const styles = StyleSheet.create({
   },
   wordSentence: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: cardWidth * 0.1,
+    fontSize: cardWidth * 0.08,
     fontWeight: '500',
   },
   backWordBox: {
     width: '100%',
     height: '45%',
     display: 'flex',
-    padding: cardHeight * 0.08,
+    padding: cardHeight * 0.05,
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
