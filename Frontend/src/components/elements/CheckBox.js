@@ -3,13 +3,6 @@ import {Text, View, StyleSheet, Animated, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const calculateLength = (text) => {
-  return text.length > 12 ? (text.length - 12) * 18 : 0;
-};
-const calculateFontSize = (text) => {
-  return text.length > 9 ? 18 - (text.length - 9) : 0;
-};
-
 const windowWidth = Dimensions.get('window').width;
 
 export default function CheckBox({
@@ -18,9 +11,6 @@ export default function CheckBox({
   onHandleVolume,
   onHandleCheck,
 }) {
-  // text = 18px, lenght 1당 18px 추가.
-  // const textEnWidth = windowWidth * 0.15 + calculateLength(textEn);
-  // const textKrWidth = windowWidth * 0.15 + calculateLength(textKr);
   const textEnWidth = windowWidth * 0.17;
   const textKrWidth = windowWidth * 0.17;
 
@@ -135,7 +125,12 @@ export default function CheckBox({
           {backgroundColor: check ? '#19DC4D' : 'white', width: textEnWidth},
         ]}>
         <TouchableOpacity
-          onPress={() => onHandleCheck()}
+          onPress={() => {
+            onHandleCheckState();
+            onHandleCheck()
+              ? onHandleCheck()
+              : alert('함수를 props로 내려주세요!');
+          }}
           style={styles.checkRound}>
           {check && <FontAwesome5 style={styles.check} name={'check'} />}
         </TouchableOpacity>
@@ -205,7 +200,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   touchText: {
-    minWidth: windowWidth * 0.06,
+    minWidth: windowWidth * 0.1,
+    display: 'flex',
+    height: windowHeight * 0.05,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     color: 'black',
@@ -215,6 +214,11 @@ const styles = StyleSheet.create({
   },
   volume: {
     marginLeft: 12,
+    height: windowHeight * 0.05,
+    width: windowWidth * 0.02,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   volumeIcon: {
     fontSize: 20,

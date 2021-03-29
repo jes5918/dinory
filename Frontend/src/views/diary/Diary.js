@@ -14,19 +14,54 @@ import WriteDiary from '../../components/diary/WriteDiary';
 import ArrowButton from '../../components/elements/ArrowButton';
 import LoadingSec from '../../components/elements/LoadingSec';
 
-import {createDiary, imageCaptioning} from '../../api/diary/writeDiary';
+import {
+  createDiary,
+  imageCaptioning,
+  saveWords,
+} from '../../api/diary/writeDiary';
 import {useNavigation} from '@react-navigation/core';
 import MaterialIcons from 'react-native-vector-icons/AntDesign';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import DiraryAgainTutorial from '../../views/diary/DiraryAgainTutorial';
+
+///////날짜
+const date = new Date();
+const textMonth = String(date.getMonth() + 1);
+const textDate = String(date.getDate());
+
+const makeDate = (text) => {
+  let newText = '';
+  if (text.length === 1) {
+    newText = '0' + text;
+  } else {
+    newText = text;
+  }
+  return newText;
+};
+const makeMonth = (text) => {
+  let newText = '';
+  if (text.length === 1) {
+    newText = '0' + text;
+  } else {
+    newText = text;
+  }
+  return newText;
+};
+//////오늘의 날자 string
+const year = String(date.getFullYear());
+const month = makeMonth(textMonth);
+const day = makeDate(textDate);
 
 export default function Diary() {
   const bgurl = require('../../assets/images/background3.png');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectImage, setSelectImage] = useState(false);
   const [captionWords, setCaptionWords] = useState(false);
-  const [addWordList, setAddWordList] = useState(false);
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState(false);
+  const [diaryContent, setDiaryContent] = useState(false);
+  const [tempPagenum, setTempPagenum] = useState(false);
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
@@ -36,7 +71,40 @@ export default function Diary() {
     setCurrentPage(currentPage - 1);
   };
   const gotoWriteDiary = () => {
-    setCurrentPage(3);
+    console.log('버튼 눌렀을 때', captionWords);
+    const selectedWordList = captionWords.filter(
+      (word) => word.checked === true,
+    );
+    console.log('여기에 들어온다1.', selectedWordList);
+    if (selectedWordList.length !== 0) {
+      console.log('여기에 들어온다.', selectedWordList);
+
+      // const formData = new FormData();
+      // formData.append('DATA', selectedWordList);
+      console.log('보내는 데이터', selectedWordList);
+      const Token =
+        'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNCwidXNlcm5hbWUiOiJzdWVtaW4xIiwiZXhwIjoxNjE3NzcwMjQyLCJlbWFpbCI6InBvcG9wMDkwOTBAbmF2ZXIuY29tIn0.NjNEuTXianJ1lQ2SzsyxV6uZgELGTM1236DVw76MtE4';
+      const child = 10;
+      //////////
+      fetch(`http://j4b105.p.ssafy.io/words/?child=${child}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: Token,
+        },
+        body: JSON.stringify({
+          DATA: selectedWordList,
+        }),
+      }).then((res) => {
+        if (res.status === 201) {
+          setCurrentPage(3);
+        }
+      });
+      ///////////////
+    } else {
+      setCurrentPage(3);
+    }
   };
   useEffect(() => {
     if (selectImage) {
@@ -50,6 +118,7 @@ export default function Diary() {
       imageCaptioning(
         formData,
         (res) => {
+          console.log('caption', res);
           setCaptionWords(res.data.data);
           setCurrentPage(2);
         },
@@ -62,8 +131,68 @@ export default function Diary() {
       );
     }
   }, [selectImage]);
+  const gotoMain = () => {
+    useNavigation().navigate('Main');
+  };
 
-  if (currentPage === 1) {
+  const saveDiary = () => {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('img', {
+      uri: selectImage.uri,
+      type: selectImage.type,
+      name: selectImage.fileName,
+    });
+    formData.append('content', diaryContent);
+    formData.append('year', year);
+    formData.append('month', month);
+    formData.append('date', day);
+
+    console.log('FormData', formData);
+    createDiary(
+      formData,
+      10,
+      (res) => {
+        console.log('함수 실행');
+        console.log('resData', res.data);
+      },
+      (err) => {
+        console.error(err);
+      },
+    );
+    ////////////////////////
+    gotoMain();
+  };
+
+  const changeTemp = (e) => {
+    setCaptionWords(e);
+  };
+
+  const tutorialToggle = () => {
+    if (currentPage > 0) {
+      setTempPagenum(currentPage);
+      setCurrentPage(-1);
+    } else if (currentPage < 0) {
+      setCurrentPage(tempPagenum);
+    }
+  };
+
+  const onHandleChangeTitle = (e) => {
+    console.log('제목이 입력되는 중', e.nativeEvent.text);
+    setTitle(e.nativeEvent.text);
+  };
+
+  const onHandleChangeContent = (e) => {
+    console.log('내용이 입력되는 중', e.nativeEvent.text);
+    setDiaryContent(e.nativeEvent.text);
+  };
+
+  if (currentPage < 0) {
+    return (
+      <DiraryAgainTutorial
+        onhandleEnd={() => tutorialToggle()}></DiraryAgainTutorial>
+    );
+  } else if (currentPage === 1) {
     return (
       <ImageBackground source={bgurl} style={styles.bgBox}>
         <View style={styles.arrowBtnBox}>
@@ -77,7 +206,8 @@ export default function Diary() {
               height: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
+            }}
+            onPress={() => tutorialToggle()}>
             <MaterialIcons style={styles.mainIcon} name={'questioncircleo'} />
           </TouchableOpacity>
         </View>
@@ -123,14 +253,17 @@ export default function Diary() {
               height: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
+            }}
+            onPress={() => tutorialToggle()}>
             <MaterialIcons style={styles.mainIcon} name={'questioncircleo'} />
           </TouchableOpacity>
         </View>
         <ImageCaption
           selectImg={selectImage.uri}
           wordsList={captionWords}
-          onHandlePress={() => gotoWriteDiary()}></ImageCaption>
+          onHandlePress={() => gotoWriteDiary()}
+          onHandleChangeTemp={(e) => changeTemp(e)}
+        />
       </ImageBackground>
     );
   } else if (currentPage == 3) {
@@ -147,11 +280,17 @@ export default function Diary() {
               height: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
+            }}
+            onPress={() => tutorialToggle()}>
             <MaterialIcons style={styles.mainIcon} name={'questioncircleo'} />
           </TouchableOpacity>
         </View>
-        <WriteDiary wordList={captionWords}></WriteDiary>
+        <WriteDiary
+          wordList={captionWords}
+          onHandleChangeTitle={(e) => onHandleChangeTitle(e)}
+          onHandleChangeContent={(e) => onHandleChangeContent(e)}
+          onHandleChangeTemp={(e) => changeTemp(e)}
+          onHandleSaveDiary={() => saveDiary()}></WriteDiary>
       </ImageBackground>
     );
   }
@@ -162,22 +301,25 @@ const height = dimensions.height;
 const styles = StyleSheet.create({
   bgBox: {
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: 'stretch',
+    position: 'absolute',
     zIndex: 1,
+    width: width,
+    height: height,
   },
   arrowBtnBox: {
     position: 'absolute',
     width: 'auto',
     height: 'auto',
     overflow: 'visible',
-    top: '3%',
+    top: height * 0.02,
     left: '2%',
     zIndex: 999,
   },
   mainIconBox: {
     zIndex: 999,
     position: 'absolute',
-    top: '4%',
+    top: height * 0.02,
     right: '2%',
     width: width * 0.05,
     height: width * 0.05,
