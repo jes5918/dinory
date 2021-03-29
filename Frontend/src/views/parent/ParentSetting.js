@@ -1,17 +1,69 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
-import CheckBox from '../../components/elements/CheckBox';
-import BasicButton from '../../components/elements/BasicButton';
-import RoundButton from '../../components/elements/RoundButton';
-import ArrowButton from '../../components/elements/ArrowButton';
+import {View, Image, StyleSheet, Text, Dimensions} from 'react-native';
 
-function ParentSetting(props) {
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart,
+} from 'react-native-chart-kit';
+
+const ChartComponent = () => {
+  return (
+    <View>
+      <Text>Bezier Line Chart</Text>
+      <LineChart
+        data={{
+          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          datasets: [
+            {
+              data: [
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+              ],
+            },
+          ],
+        }}
+        width={Dimensions.get('window').width} // from react-native
+        height={220}
+        yAxisLabel="$"
+        yAxisSuffix="k"
+        yAxisInterval={1} // optional, defaults to 1
+        chartConfig={{
+          backgroundColor: '#e26a00',
+          backgroundGradientFrom: '#fb8c00',
+          backgroundGradientTo: '#ffa726',
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          style: {
+            borderRadius: 16,
+          },
+          propsForDots: {
+            r: '6',
+            strokeWidth: '2',
+            stroke: '#ffa726',
+          },
+        }}
+        bezier
+        style={{
+          marginVertical: 8,
+          borderRadius: 16,
+        }}
+      />
+    </View>
+  );
+};
+
+function ParentSetting() {
   return (
     <View style={styles.container}>
-      {/* <CheckBox></CheckBox> */}
-      {/* <BasicButton></BasicButton>
-      <RoundButton></RoundButton>
-      <ArrowButton></ArrowButton> */}
       <Image
         source={{
           uri:

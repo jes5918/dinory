@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/core';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 // component
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
@@ -71,6 +72,11 @@ function DiaryList() {
   // states
   const [dataByMonth, setDataByMonth] = useState();
   const [dataByYear, setDataByYear] = useState();
+  const [infomation, setInfomation] = useState({
+    child: 10,
+    year: 2021,
+    month: '02',
+  });
 
   const navigation = useNavigation();
 
@@ -93,10 +99,9 @@ function DiaryList() {
     // 다른 월의 일기를 렌더링함.
   };
 
-  // componentDidMount
-  useEffect(() => {
+  const fetchNotesByMonth = ({child, year, month}) => {
     getNotesByMonth(
-      {child: 10, year: '2021', month: '02'},
+      {child, year, month},
       (res) => {
         setDataByMonth(() => res.data);
       },
@@ -104,11 +109,11 @@ function DiaryList() {
         console.error(err);
       },
     );
-  }, []);
+  };
 
-  useEffect(() => {
+  const fetchNotesByDay = ({child, year, month, date}) => {
     getNotesByYear(
-      {child: 10, year: '2021', month: '02', date: '21'},
+      {child, year, month, date},
       (res) => {
         setDataByYear(() => res.data);
       },
@@ -116,6 +121,16 @@ function DiaryList() {
         console.error(err);
       },
     );
+  };
+
+  // componentDidMount
+  useDeepCompareEffect(() => {
+    console.log('loading');
+    fetchNotesByMonth(infomation);
+  }, [infomation]);
+
+  useEffect(() => {
+    fetchNotesByDay({child: 10});
   }, []);
 
   return (
@@ -147,7 +162,16 @@ function DiaryList() {
         {dataByYear && (
           <DiaryListFooter
             data={dataByYear}
-            onHandlePress={onHandleSelectMonth}
+            onHandlePress={() =>
+              setInfomation((prev) => ({
+                ...prev,
+                year: dataByYear.year,
+                month:
+                  String(dataByYear.month).length === 1
+                    ? '0' + String(dataByYear.month)
+                    : dataByYear.month,
+              }))
+            }
           />
         )}
       </BackgroundAbsolute>
@@ -172,6 +196,7 @@ const styles = StyleSheet.create({
     flex: 5,
     width: '100%',
     position: 'relative',
+    marginTop: windowHeight * 0.1,
   },
   text: {
     fontSize: 40,
@@ -204,12 +229,12 @@ const styles = StyleSheet.create({
     marginVertical: windowHeight * 0.0133,
   },
   mainText: {
-    fontSize: 18,
+    fontSize: windowWidth * 0.014, // 18
     fontFamily: 'NotoSansKR-Bold',
     color: 'white',
   },
   mainEgg: {
-    width: windowWidth * 0.03,
+    width: windowWidth * 0.031,
     height: windowHeight * 0.0572,
   },
   line: {
@@ -246,7 +271,7 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 24,
+    fontSize: windowWidth * 0.01875, // 24
     marginBottom: windowHeight * 0.0266,
   },
   cardImage: {
