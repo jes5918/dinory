@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  ImageBackground,
   Image,
   FlatList,
   Dimensions,
@@ -12,6 +11,7 @@ import {
 } from 'react-native';
 import Header from '../../components/elements/Header';
 import {useNavigation} from '@react-navigation/core';
+import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -65,7 +65,7 @@ export default function Word() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={url} style={styles.bgImage}>
+      <BackgroundAbsolute imageSrc={url}>
         <Header>
           <Text style={styles.headerTitle}>
             찾으려는 단어의 알파벳을 선택하세요!
@@ -81,7 +81,7 @@ export default function Word() {
             />
           </ScrollView>
         </View>
-      </ImageBackground>
+      </BackgroundAbsolute>
     </View>
   );
 }
@@ -90,13 +90,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  bgImage: {
-    flex: 1,
-    resizeMode: 'contain',
-  },
   body: {
     flex: 6,
     flexDirection: 'row',
+    marginTop: height * 0.17,
+    alignItems: 'center',
   },
   wordContainer: {
     display: 'flex',
