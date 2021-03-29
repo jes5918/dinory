@@ -12,7 +12,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 // components
 import NavIcon from '../components/elements/NavIcon';
-import WriteDiary from '../components/diary/WriteDiary';
+// import WriteDiary from '../components/diary/WriteDiary';
 import LoadingSec from '../components/elements/LoadingSec';
 import ImageCaption from '../components/diary/ImageCaption';
 import SelectImage from '../components/diary/SelectImage';
@@ -40,6 +40,7 @@ import Diary from '../views/diary/Diary';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
 import DiaryDetail from '../views/DiaryList/DiaryDetail';
+import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
 
 const Stack = createStackNavigator();
 
@@ -75,6 +76,10 @@ const App = () => {
         <Stack.Screen name="Word" component={Word} />
         <Stack.Screen name="WordByAlphabet" component={WordByAlphabet} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
+        <Stack.Screen
+          name="DiaryWriteTutorial "
+          component={DiaryWriteTutorial}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
