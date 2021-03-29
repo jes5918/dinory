@@ -18,16 +18,6 @@ export default function NavIcon({navigation}) {
       <Button title="Main" onPress={() => navigation.navigate('Main')} />
       <Text> </Text>
       <Button
-        title="ImageCaption"
-        onPress={() => navigation.navigate('ImageCaption')}
-      />
-      <Text> </Text>
-      <Button
-        title="WriteDiary"
-        onPress={() => navigation.navigate('WriteDiary')}
-      />
-      <Text> </Text>
-      <Button
         title="ParentSetting"
         onPress={() => navigation.navigate('ParentSetting')}
       />
