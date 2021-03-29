@@ -8,6 +8,9 @@ urlpatterns = [
     path('check/', views.diary_check),
     path('stat/used_words/', views.word_used_rate),
     path('stat/used_words/cloud/', views.word_used_cloud),
+    path('stat/diary/', views.diary_stat),
+    path('stat/diary/monthly/', views.diary_monthly_rate),
+    path('stat/diary/yearly/', views.diary_yearly_rate),
     # path('stat/attend/', views.diary_attend_rate)
     # path('word/', views.word_create),
     # path('image/', views.upload_image),

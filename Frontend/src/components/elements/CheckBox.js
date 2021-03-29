@@ -8,6 +8,7 @@ const windowWidth = Dimensions.get('window').width;
 export default function CheckBox({
   textEn,
   textKr,
+  ischecked,
   onHandleVolume,
   onHandleCheck,
 }) {
@@ -83,7 +84,10 @@ export default function CheckBox({
           styles.container,
           styles.front,
           frontAnimatedStyle,
-          {backgroundColor: check ? '#19DC4D' : 'white', width: textEnWidth},
+          {
+            backgroundColor: ischecked ? '#19DC4D' : 'white',
+            width: textEnWidth,
+          },
         ]}>
         <TouchableOpacity
           onPress={() => {
@@ -93,7 +97,7 @@ export default function CheckBox({
               : alert('함수를 props로 내려주세요!');
           }}
           style={styles.checkRound}>
-          {check && <FontAwesome5 style={styles.check} name={'check'} />}
+          {ischecked && <FontAwesome5 style={styles.check} name={'check'} />}
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.touchText}
@@ -122,7 +126,10 @@ export default function CheckBox({
           styles.container,
           styles.back,
           backAnimatedStyle,
-          {backgroundColor: check ? '#19DC4D' : 'white', width: textEnWidth},
+          {
+            backgroundColor: ischecked ? '#19DC4D' : 'white',
+            width: textEnWidth,
+          },
         ]}>
         <TouchableOpacity
           onPress={() => {
@@ -132,7 +139,7 @@ export default function CheckBox({
               : alert('함수를 props로 내려주세요!');
           }}
           style={styles.checkRound}>
-          {check && <FontAwesome5 style={styles.check} name={'check'} />}
+          {ischecked && <FontAwesome5 style={styles.check} name={'check'} />}
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.touchText}

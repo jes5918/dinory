@@ -1,7 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  Image,
+} from 'react-native';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
-import Layout from '../../components/elements/Layout';
 import Header from '../../components/elements/Header';
 import DiaryListFooter from '../../components/diary/DiaryListFooter';
 import getNotesByDay from '../../api/diary/getNotesByDay';
@@ -9,6 +15,22 @@ import getNotesByDay from '../../api/diary/getNotesByDay';
 const image = require('../../assets/images/background1.png');
 
 const baseURL = 'http://j4b105.p.ssafy.io';
+
+const Diary = ({data}) => {
+  return (
+    <View style={styles.bodyContainer}>
+      <Image style={styles.image} source={{uri: data && baseURL + data.img}} />
+      <View style={styles.mainBox}>
+        <View style={styles.mainContainer}>
+          <Text style={styles.mainText}>제목 : {data && data.title}</Text>
+        </View>
+        <View style={styles.contentContainer}>
+          <Text style={styles.contentText}>{data && data.content}</Text>
+        </View>
+      </View>
+    </View>
+  );
+};
 
 function DiaryDetail({route, navigation}) {
   const {year, month, date, diary} = route.params;
@@ -20,55 +42,51 @@ function DiaryDetail({route, navigation}) {
     // 다른 월의 일기를 렌더링함.
   };
 
-  const sendMonth = String(month).lenght === 1 ? `0${month}` : month;
-
   useEffect(() => {
     getNotesByDay(
-      // {child: '10', year, month: sendMonth, date},
-      {child: '10', year: '2021', month: '02', date: '21'},
+      {
+        child: '10',
+        year,
+        month: String(month).length === 1 ? '0' + String(month) : month,
+        date,
+      },
       (res) => {
-        setDataByDay(() => res.data[0]);
+        setDataByDay(() => res.data); // 일단 하나 받는 걸로 고정.
       },
       (err) => {
         console.error(err);
       },
     );
-  }, [year, sendMonth, date]);
+  }, [year, month, date]);
 
   return (
     <View style={styles.container}>
-      <BackgroundAbsolute imageSrc={image} />
-      <Header>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>{headerText}</Text>
-          {/* <Text style={styles.headerText}>2021년 12월 30일</Text> */}
-        </View>
-      </Header>
-      <View style={styles.body}>
-        <View style={styles.bodyContainer}>
-          <Image
-            style={styles.image}
-            source={{uri: dataByDay && baseURL + dataByDay.img}}
-          />
-          <View style={styles.mainBox}>
-            <View style={styles.mainContainer}>
-              <Text style={styles.mainText}>
-                제목 : {dataByDay && dataByDay.title}
-              </Text>
-            </View>
-            <View style={styles.contentContainer}>
-              <Text style={styles.contentText}>
-                NHS England national medical director Prof Stephen Powis said
-                "enormous progress" had been made, but it "does not mean job
-                done".
-              </Text>
-            </View>
+      <BackgroundAbsolute imageSrc={image}>
+        <Header>
+          <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>{headerText}</Text>
           </View>
+        </Header>
+        <View style={styles.body}>
+          <ScrollView
+            horizontal={true}
+            contentContainerStyle={[
+              {
+                paddingLeft: windowWidth * 0.14,
+                paddingRight: windowWidth * 0.1,
+              },
+            ]}
+            style={styles.bodyCardContainer}>
+            {dataByDay &&
+              dataByDay.map((data) => {
+                return <Diary data={data} key={data.id} />;
+              })}
+          </ScrollView>
         </View>
-      </View>
-      {diary && (
-        <DiaryListFooter data={diary} onHandlePress={onHandleSelectDay} />
-      )}
+        {diary && (
+          <DiaryListFooter data={diary} onHandlePress={onHandleSelectDay} />
+        )}
+      </BackgroundAbsolute>
     </View>
   );
 }
@@ -86,7 +104,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   headerContainer: {
     width: windowWidth * 0.2,
     height: windowHeight * 0.1,
@@ -108,6 +125,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: windowHeight * 0.17,
   },
   bodyContainer: {
     width: windowWidth * 0.7,
@@ -116,9 +134,18 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
     padding: 24,
+    marginRight: windowWidth * 0.14,
+  },
+  bodyCardContainer: {
+    backgroundColor: 'transparent',
+    width: '100%',
+    height: 'auto',
+    display: 'flex',
+    flexDirection: 'row',
+    zIndex: 100,
   },
   image: {
     width: windowWidth * 0.3,
@@ -146,6 +173,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+    position: 'relative',
   },
   contentText: {
     fontFamily: 'HoonPinkpungchaR',
