@@ -11,6 +11,16 @@ export default function NavIcon({navigation}) {
       />
       <Text> </Text>
       <Button
+        title="CreateProfile"
+        onPress={() => navigation.navigate('CreateProfile')}
+      />
+      <Text> </Text>
+      <Button
+        title="SelectProfile"
+        onPress={() => navigation.navigate('SelectProfile')}
+      />
+      <Text> </Text>
+      <Button
         title="LoadingSec"
         onPress={() => navigation.navigate('LoadingSec')}
       />
