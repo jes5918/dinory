@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   myInfo: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: height * 0.05,
+    fontSize: height * 0.04,
     marginHorizontal: 10,
     textAlign: 'center',
   },
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: height * 0.05,
+    fontSize: height * 0.04,
     color: '#FB537B',
     width: height * 0.35,
     height: height * 0.08,
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   },
   numInput: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: height * 0.05,
+    fontSize: height * 0.04,
     color: '#FB537B',
     width: height * 0.2,
     height: height * 0.08,

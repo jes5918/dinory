@@ -52,9 +52,9 @@ export default function Word() {
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.wordContainer}
-        onPress={() =>
-          navigation.navigate('WordByAlphabet', {data: item.data})
-        }>
+        onPress={() => {
+          navigation.navigate('WordByAlphabet', {selectAlpha: item.data});
+        }}>
         <Image source={item.src} style={styles.alphabet} />
       </TouchableOpacity>
     );
@@ -72,7 +72,7 @@ export default function Word() {
           </Text>
         </Header>
         <View style={styles.body}>
-          <ScrollView horizontal>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <FlatList
               data={wordImage}
               keyExtractor={(item) => item.src.toString()}
