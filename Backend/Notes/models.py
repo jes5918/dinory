@@ -6,7 +6,10 @@ class Note(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     child = models.ForeignKey('Accounts.Child', on_delete=models.CASCADE)
     vol = models.IntegerField()
-    img = models.ImageField(upload_to='images/%Y/%m/%d')
+    img = models.ImageField(upload_to='images/%Y/%m/%d', null=True, blank=True)
+    year = models.IntegerField(default=2021)
+    month = models.IntegerField(default=3)
+    count = models.IntegerField(default=1)
 
 
 
@@ -14,7 +17,7 @@ class Diary(models.Model):
     note = models.ForeignKey('Note', on_delete=models.CASCADE, related_name='diary')
     title = models.CharField(max_length=50)
     content = models.TextField()
-    img = models.ImageField(upload_to='images/%Y/%m/%d')
+    img = models.ImageField(upload_to='images/%Y/%m/%d', null=True, blank=True)
     year = models.IntegerField()
     month = models.IntegerField()
     date = models.IntegerField()
