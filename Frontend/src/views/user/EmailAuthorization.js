@@ -1,4 +1,6 @@
 import React, {Component, useState, createRef} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   StyleSheet,
   Text,
@@ -9,6 +11,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {confirmEmail} from '../../api/accounts/signup';
 import Layout from '../../components/elements/Layout';
@@ -25,24 +28,43 @@ export default function EmailAuthorization({navigation}) {
   const layoutHeight = windowHeight * 0.713;
   const [userEmail, setUserEmail] = useState('');
   const [userAuth, setUserAuth] = useState('');
+  const [emailAuthNumber, setemailAuthNumber] = useState('');
   const emailInputRef = createRef();
   const userAuthRef = createRef();
-  const submitHandler = () => {
-    let emailAuthForm = new FormData();
-    emailAuthForm.append('email', userEmail);
-    confirmEmail(
-      emailAuthForm,
-      (res) => {
-        const emailAuthNumber = res.data;
-        console.log(emailAuthNumber);
-        console.log(userEmail);
-        alert('PASS');
-      },
-      (error) => {
-        alert('ERROR');
-        console.log(error);
-      },
-    );
+  const submitHandler = async () => {
+    if (userEmail.length > 8) {
+      let emailAuthForm = new FormData();
+      console.log(userEmail);
+      emailAuthForm.append('email', userEmail);
+      await AsyncStorage.setItem('email', userEmail);
+      confirmEmail(
+        emailAuthForm,
+        (res) => {
+          const temp = res.data['인증코드'];
+          if (temp === undefined) {
+            alert('이미 가입된 이메일입니다.');
+          } else {
+            setemailAuthNumber(temp);
+            alert('인증번호를 보냈습니다');
+          }
+        },
+        (error) => {
+          alert('이미 가입한 이메일입니다');
+          console.log(error);
+        },
+      );
+    } else {
+      alert('이메일 형식이 아닙니다');
+    }
+  };
+  const emailAuthNumberchk = async () => {
+    if (userAuth.length > 0) {
+      console.log(emailAuthNumber);
+      console.log(userAuth);
+      emailAuthNumber === userAuth
+        ? navigation.navigate('SignupScreen')
+        : alert('인증번호가 틀렸습니다.');
+    }
   };
   return (
     <AuthBackGround>
@@ -56,63 +78,73 @@ export default function EmailAuthorization({navigation}) {
             style={styles.logo}></Image>
         </View>
       </View>
-      <View style={styles.body}>
+      <KeyboardAvoidingView style={styles.body} behavior={'height'}>
         <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
-          <ScrollView>
-            <View style={styles.view}>
-              <AuthTitle title={' 이메일 인증'}></AuthTitle>
+          <View style={styles.view}>
+            <AuthTitle title={' 이메일 인증'}></AuthTitle>
+          </View>
+          <View>
+            <View style={styles.text_Input_Button}>
+              <AuthTextInput
+                text={'이메일을 입력하세요'}
+                width={389}
+                height={58}
+                size={18}
+                setFunction={setUserEmail}
+                setRef={emailInputRef}
+                secureTextEntry={false}
+                autoFocus={true}
+              />
+              <BasicButton
+                text="중복확인"
+                customFontSize={18}
+                paddingHorizon={0}
+                paddingVertical={11}
+                btnWidth={98}
+                btnHeight={58}
+                borderRadius={14}
+                onHandlePress={() => {
+                  submitHandler();
+                }}></BasicButton>
             </View>
-            <View>
-              <View style={styles.text_Input_Button}>
-                <AuthTextInput
-                  text={'이메일을 입력하세요'}
-                  width={389}
-                  height={58}
-                  size={18}
-                  setFunction={setUserEmail}
-                  setRef={emailInputRef}
-                  secureTextEntry={false}
-                  autoFocus={true}
-                />
-                <BasicButton
-                  text="중복확인"
-                  customFontSize={18}
-                  paddingHorizon={0}
-                  paddingVertical={11}
-                  btnWidth={98}
-                  btnHeight={58}
-                  borderRadius={14}
-                  onHandlePress={() => {
-                    submitHandler();
-                  }}></BasicButton>
-              </View>
-              <View style={styles.text_Input_Button}>
-                <AuthTextInput
-                  text={'인증번호를 입력하세요'}
-                  width={389}
-                  height={58}
-                  size={18}
-                  setFunction={setUserAuth}
-                  setRef={userAuthRef}
-                  autoFocus={false}
-                  secureTextEntry={true}
-                />
-                <BasicButton
-                  text="인증"
-                  customFontSize={18}
-                  paddingHorizon={17}
-                  paddingVertical={16}
-                  btnWidth={98}
-                  btnHeight={58}
-                  borderRadius={14}
-                  onHandlePress={() =>
-                    navigation.navigate('SignupScreen')
-                  }></BasicButton>
-              </View>
+            <View style={styles.text_Input_Button}>
+              <AuthTextInput
+                text={'인증번호를 입력하세요'}
+                width={389}
+                height={58}
+                size={18}
+                setFunction={setUserAuth}
+                setRef={userAuthRef}
+                autoFocus={false}
+                secureTextEntry={true}
+              />
+              <BasicButton
+                text="인증"
+                customFontSize={18}
+                paddingHorizon={17}
+                paddingVertical={16}
+                btnWidth={98}
+                btnHeight={58}
+                borderRadius={14}
+                onHandlePress={() => emailAuthNumberchk()}></BasicButton>
             </View>
-          </ScrollView>
+            <View
+              style={{
+                flex: 0.5,
+                marginLeft: 40,
+                fontSize: 18,
+                justifyContent: 'flex-start',
+              }}>
+              {emailAuthNumber !== userAuth ? (
+                <Text style={{color: '#FF0000'}}>
+                  * 인증코드가 일치하지않습니다.
+                </Text>
+              ) : null}
+            </View>
+          </View>
         </Layout>
-      </View>
+      </KeyboardAvoidingView>
+      {/* <View style={styles.end}></View> */}
     </AuthBackGround>
   );
 }
@@ -137,31 +169,24 @@ const styles = StyleSheet.create({
     color: '#707070',
   },
   start: {
-    flex: 1.5,
+    flex: 1,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   body: {
-    flex: 6,
+    flex: 4,
+    resizeMode: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   end: {
     flex: 1,
-    justifyContent: 'flex-end',
   },
   text_Input_Button: {
     flexDirection: 'row',
     margin: 32,
   },
-  // textInput: {
-  //   backgroundColor: '#E8E8E8',
-  //   width: 389,
-  //   height: 58,
-  //   fontSize: 18,
-  //   borderRadius: 10,
-  //   marginRight: 11,
-  //   padding: 16,
-  // },
   logo: {
     width: 220, //595
     height: undefined, //101
