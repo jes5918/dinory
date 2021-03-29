@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+    deploypage:
+      build:
+        dockerfile: Dockerfile
+        context: ./deploypage
+      container_name: deploypage
+      volumes:
+        - /app/node_modules
+        - ./deploypage:/app
+      stdin_open: true
+      ports:
+        - 3000:3000
 
     nginx:
         container_name: nginx
