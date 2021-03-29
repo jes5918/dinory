@@ -21,12 +21,18 @@ import GrammarCheck from '../components/diary/GrammarCheck';
 
 // view
 import Main from '../views/Main';
-import SelectLogin from '../views/user/SelectLogin';
-import SelectProfile from '../views/user/SelectProfile';
-import DiaryList from '../views/DiaryList/DiaryList';
-import ParentSetting from '../views/parent/ParentSetting';
+import HomeScreen from '../views/user/HomeScreen';
+import SignupScreen from '../views/user/SignupScreen';
 import EmailAuthorization from '../views/user/EmailAuthorization';
 import PinCreate from '../views/user/PinScreen';
+import CreateProfile from '../views/user/profile/CreateProfile';
+import SelectProfile from '../views/user/profile/SelectProfile';
+import NameProfile from '../views/user/profile/NameProfile';
+import AgeProfile from '../views/user/profile/AgeProfile';
+import AvatarProfile from '../views/user/profile/AvatarProfile';
+
+import DiaryList from '../views/DiaryList/DiaryList';
+import ParentSetting from '../views/parent/ParentSetting';
 import SelectVoice from '../views/child/SelectVoice';
 import MainTutorial from '../views/MainTutorial';
 import ChildSetting from '../views/child/ChildSetting';
@@ -34,9 +40,6 @@ import Diary from '../views/diary/Diary';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
 import DiaryDetail from '../views/DiaryList/DiaryDetail';
-import HomeScreen from '../views/user/HomeScreen';
-import Login from '../views/user/LoginScreen';
-import Signup from '../views/user/SignupScreen';
 
 const Stack = createStackNavigator();
 
@@ -50,12 +53,14 @@ const App = () => {
           name="EmailAuthorization"
           component={EmailAuthorization}
         />
-        <Stack.Screen name="LoginScreen" component={Login} />
-        <Stack.Screen name="SignupScreen" component={Signup} />
-        <Stack.Screen name="PinScreen" component={PinCreate} />
         <Stack.Screen name="LoadingSec" component={LoadingSec} />
-        <Stack.Screen name="SelectLogin" component={SelectLogin} />
+        <Stack.Screen name="SignupScreen" component={SignupScreen} />
+        <Stack.Screen name="PinScreen" component={PinCreate} />
+        <Stack.Screen name="CreateProfile" component={CreateProfile} />
         <Stack.Screen name="SelectProfile" component={SelectProfile} />
+        <Stack.Screen name="NameProfile" component={NameProfile} />
+        <Stack.Screen name="AgeProfile" component={AgeProfile} />
+        <Stack.Screen name="AvatarProfile" component={AvatarProfile} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ImageCaption" component={ImageCaption} />
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
