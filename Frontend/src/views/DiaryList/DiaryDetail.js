@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  Image,
+} from 'react-native';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import DiaryListFooter from '../../components/diary/DiaryListFooter';
@@ -61,10 +68,20 @@ function DiaryDetail({route, navigation}) {
           </View>
         </Header>
         <View style={styles.body}>
-          {dataByDay &&
-            dataByDay.map((data) => {
-              return <Diary data={data} />;
-            })}
+          <ScrollView
+            horizontal={true}
+            contentContainerStyle={[
+              {
+                paddingLeft: windowWidth * 0.14,
+                paddingRight: windowWidth * 0.1,
+              },
+            ]}
+            style={styles.bodyCardContainer}>
+            {dataByDay &&
+              dataByDay.map((data) => {
+                return <Diary data={data} key={data.id} />;
+              })}
+          </ScrollView>
         </View>
         {diary && (
           <DiaryListFooter data={diary} onHandlePress={onHandleSelectDay} />
@@ -87,7 +104,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   headerContainer: {
     width: windowWidth * 0.2,
     height: windowHeight * 0.1,
@@ -109,7 +125,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: windowHeight * 0.1,
+    marginTop: windowHeight * 0.17,
   },
   bodyContainer: {
     width: windowWidth * 0.7,
@@ -121,6 +137,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 24,
+    marginRight: windowWidth * 0.14,
+  },
+  bodyCardContainer: {
+    backgroundColor: 'transparent',
+    width: '100%',
+    height: 'auto',
+    display: 'flex',
+    flexDirection: 'row',
+    zIndex: 100,
   },
   image: {
     width: windowWidth * 0.3,
@@ -148,6 +173,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+    position: 'relative',
   },
   contentText: {
     fontFamily: 'HoonPinkpungchaR',
