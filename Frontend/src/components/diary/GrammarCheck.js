@@ -17,75 +17,7 @@ export default function GrammarCheck() {
   const arrText = ['문', '법', '체', '크'];
   return (
     <KeyboardAvoidingView behavior={'heigth'} style={[styles.container]}>
-      <View style={[styles.wrapper]}>
-        <View style={[styles.dirayBox]}>
-          <ScrollView style={styles.textInputBox}>
-            <TextInput
-              style={[styles.TitleInput]}
-              autoCompleteType={'off'}
-              autoFocus
-              defaultValue={'제목 : '}></TextInput>
-            <TextInput
-              style={[styles.contentInput]}
-              multiline
-              autoCompleteType={'off'}
-              defaultValue={'alalsek sidji isdjifjsi '}></TextInput>
-            <TextInput
-              style={[styles.contentInput]}
-              multiline
-              autoCompleteType={'off'}
-              defaultValue={'alalsek sidji isdjifjsi '}></TextInput>
-            <TextInput
-              style={[styles.contentInput]}
-              multiline
-              autoCompleteType={'off'}></TextInput>
-            <TextInput
-              style={[styles.contentInput]}
-              multiline
-              autoCompleteType={'off'}
-              defaultValue={'alalsek sidji isdjifjsi '}></TextInput>
-            <TextInput
-              style={[styles.contentInput]}
-              multiline
-              autoCompleteType={'off'}
-              defaultValue={'asdjfejaisdjif ajsidjo eisdij si d'}></TextInput>
-            <TextInput
-              style={[styles.contentInput]}
-              multiline
-              autoCompleteType={'off'}></TextInput>
-            <TextInput
-              style={[styles.contentInput]}
-              multiline
-              autoCompleteType={'off'}
-              defaultValue={'asdjfejaisdjif ajsidjo eisdij si d'}></TextInput>
-            <TextInput
-              style={[styles.contentInput]}
-              multiline
-              autoCompleteType={'off'}
-              defaultValue={'asdjfejaisdjif ajsidjo eisdij si d'}></TextInput>
-            <TextInput
-              style={[styles.contentInput]}
-              multiline
-              autoCompleteType={'off'}
-              defaultValue={'asdjfejaisdjif ajsidjo eisdij si d'}></TextInput>
-          </ScrollView>
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => grammarCheck()}
-          style={{position: 'absolute', right: '6%', top: '15%'}}>
-          <View style={styles.buttonPosition}>
-            {arrText &&
-              arrText.map((tempText, idx) => {
-                return (
-                  <Text key={idx} style={styles.textIndex}>
-                    {tempText}
-                  </Text>
-                );
-              })}
-          </View>
-        </TouchableOpacity>
-      </View>
+      <View style={[styles.wrapper]}></View>
     </KeyboardAvoidingView>
   );
 }
