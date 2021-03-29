@@ -131,9 +131,6 @@ export default function Diary() {
       );
     }
   }, [selectImage]);
-  const gotoMain = () => {
-    useNavigation().navigate('Main');
-  };
 
   const saveDiary = () => {
     const formData = new FormData();
@@ -155,13 +152,12 @@ export default function Diary() {
       (res) => {
         console.log('함수 실행');
         console.log('resData', res.data);
+        navigation.navigate('Main');
       },
       (err) => {
         console.error(err);
       },
     );
-    ////////////////////////
-    gotoMain();
   };
 
   const changeTemp = (e) => {
