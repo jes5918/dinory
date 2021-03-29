@@ -10,7 +10,9 @@ import {
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import DiaryListFooter from '../../components/diary/DiaryListFooter';
+import DiaryFooterImage from '../../components/diary/DiaryFooterImage';
 import getNotesByDay from '../../api/diary/getNotesByDay';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 const image = require('../../assets/images/background1.png');
 
@@ -34,15 +36,19 @@ const Diary = ({data}) => {
 
 function DiaryDetail({route, navigation}) {
   const {year, month, date, diary} = route.params;
-  const headerText = `${year}년 ${month}월 ${date}일`;
   const [dataByDay, setDataByDay] = useState();
+  const [information, setInformation] = useState({year, month, date});
 
-  const onHandleSelectDay = () => {
-    alert('footer에서 다른 월을 선택하다!!');
-    // 다른 월의 일기를 렌더링함.
+  const onHandleSelectDay = ({year, month, date}) => {
+    console.log('onHandleSelectDay: ', year, month, date);
+    const newMonth = String(month).length === 1 ? '0' + String(month) : month;
+    setInformation((prev) => {
+      return {...prev, year, month: newMonth, date};
+    });
   };
 
-  useEffect(() => {
+  const fetchNotesByDay = ({child, year, month, date}) => {
+    console.log(year, month, date);
     getNotesByDay(
       {
         child: '10',
@@ -57,14 +63,24 @@ function DiaryDetail({route, navigation}) {
         console.error(err);
       },
     );
-  }, [year, month, date]);
+  };
+
+  useDeepCompareEffect(() => {
+    console.log('발생 : ', information);
+    fetchNotesByDay(information);
+  }, [information]);
+
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.container}>
       <BackgroundAbsolute imageSrc={image}>
         <Header>
           <View style={styles.headerContainer}>
-            <Text style={styles.headerText}>{headerText}</Text>
+            <Text
+              style={
+                styles.headerText
+              }>{`${information.year}년 ${information.month}월 ${information.date}일`}</Text>
           </View>
         </Header>
         <View style={styles.body}>
@@ -83,9 +99,27 @@ function DiaryDetail({route, navigation}) {
               })}
           </ScrollView>
         </View>
-        {diary && (
-          <DiaryListFooter data={diary} onHandlePress={onHandleSelectDay} />
-        )}
+        <DiaryListFooter>
+          {diary &&
+            diary.map((data) => {
+              return (
+                <DiaryFooterImage
+                  key={data.id}
+                  year={data.year}
+                  month={data.month}
+                  date={data.date}
+                  image={baseURL + data.img}
+                  onHandlePress={() =>
+                    onHandleSelectDay({
+                      year: data.year,
+                      month: data.month,
+                      date: data.date,
+                    })
+                  }
+                />
+              );
+            })}
+        </DiaryListFooter>
       </BackgroundAbsolute>
     </View>
   );
