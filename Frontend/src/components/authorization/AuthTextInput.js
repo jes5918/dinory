@@ -11,6 +11,8 @@ export default function AuthTextInput({
   secureTextEntry,
   autoFocus,
   margin,
+  onHandleChange,
+  value,
 }) {
   return (
     <TextInput
@@ -32,7 +34,11 @@ export default function AuthTextInput({
           ? setFunction(value)
           : alert('onChangeText에 State 함수를 내려주세요!')
       }
-      ref={setRef}></TextInput>
+      onChange={() => {
+        onHandleChange ? onHandleChange() : null;
+      }}
+      ref={setRef}
+      value={value}></TextInput>
   );
 }
 const styles = StyleSheet.create({
