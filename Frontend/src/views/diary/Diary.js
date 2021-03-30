@@ -67,8 +67,8 @@ export default function Diary() {
   const [success, setSuccess] = useState(false);
   const [quit, setQuit] = useState(false);
   const [confirmSave, setConfirmSave] = useState(false);
-  const [title, setTitle] = useState(false);
-  const [diaryContent, setDiaryContent] = useState(false);
+  const [title, setTitle] = useState('');
+  const [diaryContent, setDiaryContent] = useState('');
   const [tempPagenum, setTempPagenum] = useState(false);
   const [grammarchecked, setGrammarchecked] = useState(false);
   const [checkData, setCheckData] = useState(null);
@@ -156,7 +156,7 @@ export default function Diary() {
         type: selectImage.type,
         name: selectImage.fileName,
       });
-      formData.append('num', 3);
+      formData.append('num', 2);
       imageCaptioning(
         formData,
         (res) => {
@@ -279,7 +279,7 @@ export default function Diary() {
         <AlertModal
           modalVisible={modalVisible}
           onHandleCloseModal={() => changeModalState(1)}
-          text={'사진을 다시 올려주세요!'}
+          text={'조금 후에 다시 시도해주세요!'}
           iconName={'exclamationcircle'}
           color={'red'}
           setTimeFunction={() => closeModal(1)}
@@ -351,6 +351,8 @@ export default function Diary() {
           </TouchableOpacity>
         </View>
         <WriteDiary
+          title={title}
+          content={diaryContent}
           wordList={captionWords}
           onHandleChangeTitle={(e) => onHandleChangeTitle(e)}
           onHandleChangeContent={(e) => onHandleChangeContent(e)}
