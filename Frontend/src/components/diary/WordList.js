@@ -17,19 +17,16 @@ export default function WriteDiary({words, onHandleChangeTemp}) {
     onHandleChangeTemp(aaa);
     console.log('word변화', aaa);
   };
-  const wordSound = () => {
-    alert('단어를 잘 들어보세요 호호');
-  };
   return (
     <View style={[styles.wordListBox]}>
       {words &&
         words.map((word, i) => {
           return (
             <CheckBox
+              soundUrl={word.filepath}
               textEn={word.content}
               textKr={word.mean}
               ischecked={word.checked}
-              onHandleVolume={() => wordSound()}
               onHandleCheck={() => selectWord(i)}
               key={i}></CheckBox>
           );
