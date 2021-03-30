@@ -45,7 +45,6 @@ export default function SelectVoice() {
     }
   });
   const soundOn = (num) => {
-    console.log(num);
     voice = num;
   };
   const submitVoice = () => {

@@ -6,9 +6,11 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import Sound from 'react-native-sound';
+import BGM from '../assets/sound/BunnyHopQuincasMoreira.mp3';
 
 // components
 import NavIcon from '../components/elements/NavIcon';
@@ -48,6 +50,36 @@ import PinUpdate from '../views/parent/PinUpdate';
 const Stack = createStackNavigator();
 
 const App = () => {
+  // 배경음
+  useEffect(() => {
+    if (soundSetting) {
+      let sound = new Sound(BGM, Sound.MAIN_BUNDLE, (error) => {
+        sound.play();
+        sound.setNumberOfLoops(-1);
+        if (error) {
+          console.log('실패');
+        }
+      });
+    }
+    return () => {
+      sound.release();
+      sound.pause();
+    };
+  });
+  let sound = new Sound(BGM, (error) => {
+    sound.setVolume(0.1);
+    sound.play();
+    sound.setNumberOfLoops(-1);
+  });
+  let [soundSetting, setSoundSetting] = useState(true);
+
+  // const ref = useRef(setSoundSetting);
+  if (soundSetting) {
+    console.log(soundSetting);
+    sound.play();
+  } else {
+    sound.pause();
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" headerMode="none">
@@ -65,7 +97,11 @@ const App = () => {
         <Stack.Screen name="NameProfile" component={NameProfile} />
         <Stack.Screen name="AgeProfile" component={AgeProfile} />
         <Stack.Screen name="AvatarProfile" component={AvatarProfile} />
-        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={(setSoundSetting = {setSoundSetting})}
+        />
         <Stack.Screen name="ImageCaption" component={ImageCaption} />
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
         <Stack.Screen name="SelectImage" component={SelectImage} />
