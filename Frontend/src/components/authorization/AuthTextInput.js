@@ -5,14 +5,15 @@ export default function AuthTextInput({
   width,
   height,
   size,
-  marginRight,
   setFunction,
   setRef,
   secureTextEntry,
   autoFocus,
-  margin,
   onHandleChange,
   value,
+  marginBottom,
+  marginRight,
+  margin,
 }) {
   return (
     <TextInput
@@ -22,8 +23,9 @@ export default function AuthTextInput({
           width: width || 274,
           height: height || 58,
           fontSize: size || 18,
-          marginRight: marginRight || 11,
+          marginBottom: marginBottom,
           margin,
+          marginRight: marginRight,
         },
       ]}
       secureTextEntry={secureTextEntry}
@@ -38,7 +40,9 @@ export default function AuthTextInput({
         onHandleChange ? onHandleChange() : null;
       }}
       ref={setRef}
-      value={value}></TextInput>
+      value={value}
+      placeholderTextColor="#707070"
+    />
   );
 }
 const styles = StyleSheet.create({
