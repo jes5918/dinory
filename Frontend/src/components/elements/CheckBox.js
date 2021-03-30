@@ -2,21 +2,22 @@ import React, {useEffect, useState, useCallback, useMemo} from 'react';
 import {Text, View, StyleSheet, Animated, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import Sound from 'react-native-sound';
 const windowWidth = Dimensions.get('window').width;
 
 export default function CheckBox({
   textEn,
   textKr,
   ischecked,
-  onHandleVolume,
   onHandleCheck,
+  soundUrl,
 }) {
   const textEnWidth = windowWidth * 0.17;
   const textKrWidth = windowWidth * 0.17;
 
   const [check, setCheck] = useState(false);
 
+  const baseUrl = 'https://j4b105.p.ssafy.io';
   // 카드 애니메이션
   const animatedValue = useMemo(() => new Animated.Value(0), []);
   let value = 0;
@@ -75,6 +76,12 @@ export default function CheckBox({
     onHandleFlipCard();
   }, [onHandleFlipCard]);
 
+  const sound = new Sound(baseUrl + soundUrl, Sound.MAIN_BUNDLE, (error) => {
+    if (error) {
+      console.log('failed to load the sound', error);
+    }
+  });
+
   return (
     <View style={[styles.box, {width: textEnWidth}]}>
       {/* front */}
@@ -105,13 +112,7 @@ export default function CheckBox({
           name={'check'}>
           <Text style={styles.text}>{textKr}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.volume}
-          onPress={() =>
-            onHandleVolume
-              ? onHandleVolume()
-              : alert('함수를 props로 내려주세요!')
-          }>
+        <TouchableOpacity style={styles.volume} onPress={() => sound.play()}>
           <FontAwesome5
             style={styles.volumeIcon}
             name={'volume-up'}
@@ -146,9 +147,7 @@ export default function CheckBox({
           onPress={() => onHandleFlipCard()}>
           <Text style={styles.text}>{textEn}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.volume}
-          onPress={() => onHandleVolume()}>
+        <TouchableOpacity style={styles.volume} onPress={() => sound.play()}>
           <FontAwesome5
             style={styles.volumeIcon}
             name={'volume-up'}
