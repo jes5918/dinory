@@ -1,8 +1,6 @@
 import {AuthorizationInstance} from '../index.js';
 
 const instance = AuthorizationInstance();
-
-// 아이 조회
 function getChildProfile(success, fail) {
   instance.get(`accounts/child/`).then(success).catch(fail);
 }
