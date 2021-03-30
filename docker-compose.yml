@@ -9,6 +9,7 @@ services:
         restart: always
         ports: 
           - "80:80"
+          - "443:443"
         volumes:
           - ./Backend:/srv/docker-server
           - ./log:/var/log/nginx
@@ -24,3 +25,4 @@ services:
         volumes:
           - ./Backend:/srv/docker-server
           - ./log:/var/log/uwsgi
+
