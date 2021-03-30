@@ -17,6 +17,7 @@
     "axios": "0.21.1",
     "react": "16.13.1",
     "react-audio-player": "0.16.1",
+    "react-devtools": "^4.10.1",
     "react-native": "0.63.4",
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-chart-kit": "6.11.0",

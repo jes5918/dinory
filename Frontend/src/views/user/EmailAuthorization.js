@@ -57,7 +57,7 @@ export default function EmailAuthorization({navigation}) {
       alert('이메일 형식이 아닙니다');
     }
   };
-  const emailAuthNumberchk = async () => {
+  const emailAuthNumberchk = () => {
     if (userAuth.length > 0) {
       console.log(emailAuthNumber);
       console.log(userAuth);

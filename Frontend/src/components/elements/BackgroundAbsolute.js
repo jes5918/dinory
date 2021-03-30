@@ -11,10 +11,13 @@ function BackgroundAbsolute({imageSrc, children}) {
 
 const styles = StyleSheet.create({
   backgroundImage: {
-    position: 'absolute',
+    position: 'relative',
     width: '100%',
     height: '100%',
     resizeMode: 'contain',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
