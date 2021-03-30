@@ -69,7 +69,7 @@ function ParentSetting() {
         <Layout
           style={styles.mainContainer}
           width={windowWidth * 0.336}
-          height={windowHeight * 0.67}
+          height={windowHeight * 0.8}
           opacity={1}>
           <TouchableOpacity
             onPress={() => console.log('clicked')}
@@ -133,13 +133,13 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   mainButton: {
-    width: windowWidth * 0.2,
+    width: '100%',
     height: windowHeight * 0.05,
-    marginVertical: windowHeight * 0.037,
+    marginVertical: windowHeight * 0.03,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 24,
   },
   mainText: {
     color: '#707070',
