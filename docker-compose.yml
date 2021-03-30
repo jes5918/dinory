@@ -26,14 +26,3 @@ services:
           - ./Backend:/srv/docker-server
           - ./log:/var/log/uwsgi
 
-    deploy:
-        build:
-          dockerfile: Dockerfile
-          context: ./Deploy
-        container_name: deploy
-        volumes:
-          - /app/node_modules
-          - ./Deploy:/app
-        stdin_open: true
-        ports:
-          - 3000:3000
