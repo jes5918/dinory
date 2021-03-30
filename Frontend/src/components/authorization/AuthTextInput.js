@@ -6,11 +6,11 @@ export default function AuthTextInput({
   height,
   size,
   setFunction,
-  setRef,
   secureTextEntry,
   autoFocus,
   onHandleChange,
   value,
+  keyboardType,
   marginBottom,
   marginRight,
   margin,
@@ -31,6 +31,7 @@ export default function AuthTextInput({
       secureTextEntry={secureTextEntry}
       placeholder={text}
       autoFocus={autoFocus}
+      keyboardType={keyboardType}
       onChangeText={(value) =>
         setFunction
           ? setFunction(value)
@@ -39,7 +40,6 @@ export default function AuthTextInput({
       onChange={() => {
         onHandleChange ? onHandleChange() : null;
       }}
-      ref={setRef}
       value={value}
       placeholderTextColor="#707070"
       inlineImageLeft="lock"

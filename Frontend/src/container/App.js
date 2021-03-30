@@ -6,9 +6,11 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import Sound from 'react-native-sound';
+import BGM from '../assets/sound/BunnyHopQuincasMoreira.mp3';
 
 // components
 import NavIcon from '../components/elements/NavIcon';
@@ -23,6 +25,7 @@ import GrammarCheck from '../components/diary/GrammarCheck';
 import Main from '../views/Main';
 import HomeScreen from '../views/user/HomeScreen';
 import SignupScreen from '../views/user/SignupScreen';
+import LoginScreen from '../views/user/LoginScreen';
 import EmailAuthorization from '../views/user/EmailAuthorization';
 import PinCreate from '../views/user/PinScreen';
 import CreateProfile from '../views/user/profile/CreateProfile';
@@ -40,7 +43,6 @@ import Diary from '../views/diary/Diary';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
 import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
-import LoginScreen from '../views/user/LoginScreen';
 import DiaryDetail from '../views/diaryList/DiaryDetail';
 import PassWordUpdate from '../views/parent/PassWordUpdate';
 import PinUpdate from '../views/parent/PinUpdate';
@@ -48,6 +50,36 @@ import PinUpdate from '../views/parent/PinUpdate';
 const Stack = createStackNavigator();
 
 const App = () => {
+  // 배경음
+  useEffect(() => {
+    if (soundSetting) {
+      let sound = new Sound(BGM, Sound.MAIN_BUNDLE, (error) => {
+        sound.play();
+        sound.setNumberOfLoops(-1);
+        if (error) {
+          console.log('실패');
+        }
+      });
+    }
+    return () => {
+      sound.release();
+      sound.pause();
+    };
+  });
+  let sound = new Sound(BGM, (error) => {
+    sound.setVolume(0.1);
+    sound.play();
+    sound.setNumberOfLoops(-1);
+  });
+  let [soundSetting, setSoundSetting] = useState(true);
+
+  // const ref = useRef(setSoundSetting);
+  if (soundSetting) {
+    console.log(soundSetting);
+    sound.play();
+  } else {
+    sound.pause();
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" headerMode="none">
@@ -57,6 +89,7 @@ const App = () => {
           name="EmailAuthorization"
           component={EmailAuthorization}
         />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="LoadingSec" component={LoadingSec} />
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
         <Stack.Screen name="PinScreen" component={PinCreate} />
@@ -65,7 +98,11 @@ const App = () => {
         <Stack.Screen name="NameProfile" component={NameProfile} />
         <Stack.Screen name="AgeProfile" component={AgeProfile} />
         <Stack.Screen name="AvatarProfile" component={AvatarProfile} />
-        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={(setSoundSetting = {setSoundSetting})}
+        />
         <Stack.Screen name="ImageCaption" component={ImageCaption} />
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
         <Stack.Screen name="SelectImage" component={SelectImage} />
@@ -79,7 +116,6 @@ const App = () => {
         <Stack.Screen name="Word" component={Word} />
         <Stack.Screen name="WordByAlphabet" component={WordByAlphabet} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen
           name="DiaryWriteTutorial "
           component={DiaryWriteTutorial}

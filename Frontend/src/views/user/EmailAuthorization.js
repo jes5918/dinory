@@ -1,4 +1,4 @@
-import React, {Component, useState, createRef} from 'react';
+import React, {Component, useState} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {
@@ -29,8 +29,6 @@ export default function EmailAuthorization({navigation}) {
   const [userEmail, setUserEmail] = useState('');
   const [userAuth, setUserAuth] = useState('');
   const [emailAuthNumber, setemailAuthNumber] = useState('');
-  const emailInputRef = createRef();
-  const userAuthRef = createRef();
   const submitHandler = async () => {
     if (userEmail.length > 8) {
       let emailAuthForm = new FormData();
@@ -91,7 +89,7 @@ export default function EmailAuthorization({navigation}) {
                 height={58}
                 size={18}
                 setFunction={setUserEmail}
-                setRef={emailInputRef}
+                keyboardType={'email-address'}
                 secureTextEntry={false}
                 autoFocus={true}
               />
@@ -114,7 +112,6 @@ export default function EmailAuthorization({navigation}) {
                 height={58}
                 size={18}
                 setFunction={setUserAuth}
-                setRef={userAuthRef}
                 autoFocus={false}
                 secureTextEntry={true}
               />

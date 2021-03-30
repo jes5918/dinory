@@ -91,7 +91,7 @@ export default function Diary() {
       setTimeout(() => {
         setSuccess(!success);
         navigation.navigate('Main');
-      }, 2000);
+      }, 1000);
     }
   };
   const openConfirmSave = () => {
@@ -108,7 +108,7 @@ export default function Diary() {
     } else if (e === 4) {
       navigation.navigate('DiaryList');
     } else if (e === 5) {
-      setSuccess(!confirmSave);
+      setConfirmSave(!confirmSave);
     } else if (e === 6) {
       setQuit(!quit);
     }
@@ -118,14 +118,10 @@ export default function Diary() {
     setCurrentPage(currentPage - 1);
   };
   const gotoWriteDiary = () => {
-    console.log('버튼 눌렀을 때', captionWords);
     const selectedWordList = captionWords.filter(
       (word) => word.checked === true,
     );
-    console.log('여기에 들어온다1.', selectedWordList);
     if (selectedWordList.length !== 0) {
-      console.log('여기에 들어온다.', selectedWordList);
-
       console.log('보내는 데이터', selectedWordList);
       const Token =
         'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNCwidXNlcm5hbWUiOiJzdWVtaW4xIiwiZXhwIjoxNjE3NzcwMjQyLCJlbWFpbCI6InBvcG9wMDkwOTBAbmF2ZXIuY29tIn0.NjNEuTXianJ1lQ2SzsyxV6uZgELGTM1236DVw76MtE4';
@@ -160,6 +156,7 @@ export default function Diary() {
         type: selectImage.type,
         name: selectImage.fileName,
       });
+      formData.append('num', 3);
       imageCaptioning(
         formData,
         (res) => {
@@ -216,10 +213,11 @@ export default function Diary() {
           console.log('함수 실행');
           console.log('resData', res.data);
           setConfirmSave(!confirmSave);
-          // setSuccess(!success);
-          setKoreanWarnModalVisible(!koreanWarnModalVisible);
+          setSuccess(!success);
+          // setKoreanWarnModalVisible(!koreanWarnModalVisible);
         },
         (err) => {
+          console.error(err);
           if (err.error === '한글은 작성할 수 없습니다') {
             setConfirmSave(!confirmSave);
             setKoreanWarnModalVisible(!koreanWarnModalVisible);
