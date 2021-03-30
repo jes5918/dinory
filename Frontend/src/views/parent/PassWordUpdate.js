@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {
@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
+import AlertModal from '../../components/elements/AlertModal';
 import BasicButton from '../../components/elements/BasicButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
@@ -31,6 +32,7 @@ function PassWordUpdate() {
 
   const [password, setPassword] = useState();
   const [passwordCheck, setPasswordCheck] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const onHandleSubmit = async () => {
     let child_pk = '';
@@ -45,7 +47,7 @@ function PassWordUpdate() {
           password_confirmation: passwordCheck,
         },
         (res) => {
-          console.log('변경 완료');
+          setModalVisible(!modalVisible);
         },
         (err) => {
           console.error(err);
@@ -54,8 +56,27 @@ function PassWordUpdate() {
     );
   };
 
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+      navigation.navigate('Main');
+    }, 2000);
+  };
+
   return (
-    <KeyboardAvoidingView behavior={'height'} style={styles.container}>
+    <View style={styles.container}>
+      <AlertModal
+        modalVisible={modalVisible}
+        onHandleCloseModal={() => changeModalState()}
+        text={'비밀번호가 변경되었습니다.'}
+        iconName={'checkcircle'}
+        color={'green'}
+        setTimeFunction={() => closeModal()}
+      />
       <BackgroundAbsolute imageSrc={backgroundImage}>
         <Header />
         <View style={styles.main}>
@@ -102,7 +123,7 @@ function PassWordUpdate() {
           </View>
         </View>
       </BackgroundAbsolute>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 

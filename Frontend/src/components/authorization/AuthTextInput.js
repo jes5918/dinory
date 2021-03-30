@@ -42,6 +42,7 @@ export default function AuthTextInput({
       ref={setRef}
       value={value}
       placeholderTextColor="#707070"
+      inlineImageLeft="lock"
     />
   );
 }
