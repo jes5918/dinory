@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
 
 import AlertModal from '../../components/elements/AlertModal';
 import BasicButton from '../../components/elements/BasicButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
-import {useNavigation} from '@react-navigation/core';
 import changePassword from '../../api/accounts/settings';
 
 // static variable
@@ -23,8 +22,8 @@ const marginBottom = windowHeight * 0.06;
 function PinAuthentication() {
   const navigation = useNavigation();
 
-  const [pinCode, setPinCode] = useState();
-  const [pinCodeCheck, setPinCodeCheck] = useState();
+  const [pinCode, setPinCode] = useState('');
+  const [pinCodeCheck, setPinCodeCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
   const onHandleSubmit = async () => {
@@ -89,15 +88,6 @@ function PinAuthentication() {
             <Text style={styles.infoText}>
               * 핀 번호는 6자리의 숫자로 구성되어야 합니다
             </Text>
-            <AuthTextInput
-              setFunction={setPinCodeCheck}
-              width={inputWidth}
-              height={inputHeight}
-              marginRight={0}
-              marginBottom={marginBottom}
-              text={'핀 번호를 한 번 더 입력해주세요.'}
-              secureTextEntry={true}
-            />
             {pinCode !== pinCodeCheck ? (
               <Text style={styles.alertMessage}>
                 핀 번호가 일치하지않습니다.

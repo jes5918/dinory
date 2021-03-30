@@ -14,7 +14,7 @@ import ArrowButton from '../../../components/elements/ArrowButton';
 import ContentTitle from '../../../components/elements/ContentTitle';
 import Layout from '../../../components/elements/Layout';
 import {getChildProfile} from '../../../api/accounts/childSettings';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
