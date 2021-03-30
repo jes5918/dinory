@@ -26,11 +26,11 @@ services:
           - ./Backend:/srv/docker-server
           - ./log:/var/log/uwsgi
 
-    Deploy:
+    deploy:
         build:
           dockerfile: Dockerfile
           context: ./Deploy
-        container_name: Deploy
+        container_name: deploy
         volumes:
           - /app/node_modules
           - ./Deploy:/app
