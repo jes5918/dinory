@@ -89,6 +89,8 @@ export default function SingupSCreen({navigation}) {
             </View>
             <View style={styles.body}>
               <AuthTextInput
+                marginBottom={0}
+                marginRight={11}
                 text={'이메일을 입력해주세요'}
                 width={500}
                 height={58}
@@ -102,6 +104,8 @@ export default function SingupSCreen({navigation}) {
               />
               <View style={styles.text_Input_Button}>
                 <AuthTextInput
+                  marginBottom={0}
+                  marginRight={11}
                   text={'아이디를 입력해주세요'}
                   width={374}
                   height={58}
@@ -125,6 +129,8 @@ export default function SingupSCreen({navigation}) {
                 </View>
               </View>
               <AuthTextInput
+                marginBottom={0}
+                marginRight={11}
                 text={'비밀번호를 입력해주세요'}
                 width={500}
                 height={58}
@@ -142,6 +148,8 @@ export default function SingupSCreen({navigation}) {
                 </Text>
               </View>
               <AuthTextInput
+                marginBottom={0}
+                marginRight={11}
                 text={'비밀번호를 한 번 더 입력해주세요'}
                 width={500}
                 height={58}
