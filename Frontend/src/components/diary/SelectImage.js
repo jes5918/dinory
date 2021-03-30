@@ -9,7 +9,6 @@ import {
   Image,
   Platform,
   PermissionsAndroid,
-  ImageBackground,
   Dimensions,
 } from 'react-native';
 
@@ -17,7 +16,6 @@ import {
 // import ImagePicker from 'react-native-image-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Layout from '../../components/elements/Layout';
-import {createDiary, imageCaptioning} from '../../api/diary/writeDiary';
 
 const bgurl = require('../../assets/images/background3.png');
 
@@ -125,35 +123,6 @@ const SelectImage = ({setSelectImage}) => {
       }
       setSelectImage(response);
       console.log('response', response);
-      // const formData = new FormData();
-      // formData.append('title', 'ZZangsm');
-      // // formData.append('img', file);
-      // formData.append('img', {
-      //   uri: response.uri,
-      //   type: response.type,
-      //   name: response.fileName,
-      // });
-      // formData.append(
-      //   'content',
-      //   'I went to cafe pascucci.\nI ordered hot tea.\nIt was really good.',
-      // );
-      // formData.append('content', 'content wow.');
-      // formData.append('year', '2021');
-      // formData.append('month', '03');
-      // formData.append('date', '01');
-
-      // console.log('FormData', formData);
-      // createDiary(
-      //   formData,
-      //   10,
-      //   (res) => {
-      //     console.log('resData', res.data);
-      //   },
-      //   (err) => {
-      //     console.error(err);
-      //   },
-      // );
-      //////////////////////////
     });
   };
 
@@ -163,18 +132,16 @@ const SelectImage = ({setSelectImage}) => {
 
   return (
     <Layout width={700} height={500} opacity={0.9}>
-      {/* <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
-        <Text style={styles.textStyle}>{filePath.uri}</Text> */}
       <View style={[styles.container]}>
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.buttonStyle1}
           onPress={() => captureImage('photo')}>
           <Image
-            source={require('../../assets/images/egg.png')}
+            source={require('../../assets/images/character5.png')}
             style={{
-              width: 80,
-              height: 80,
+              width: layoutWidth * 0.2,
+              height: layoutWidth * 0.2,
               resizeMode: 'contain',
               marginVertical: 10,
             }}></Image>
@@ -185,10 +152,10 @@ const SelectImage = ({setSelectImage}) => {
           style={styles.buttonStyle2}
           onPress={() => chooseFile('photo')}>
           <Image
-            source={require('../../assets/images/egg.png')}
+            source={require('../../assets/images/character1.png')}
             style={{
-              width: 80,
-              height: 80,
+              width: layoutWidth * 0.2,
+              height: layoutWidth * 0.2,
               resizeMode: 'contain',
               marginVertical: 10,
             }}></Image>
@@ -210,7 +177,7 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'white',
     textAlign: 'center',
-    fontSize: 36,
+    fontSize: tempWidth * 0.028,
     fontFamily: 'HoonPinkpungchaR',
   },
   buttonStyle1: {
