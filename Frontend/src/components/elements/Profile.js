@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,21 +8,23 @@ import {
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
 export default function Profile() {
+  const [childName, setChildName] = useState(childName);
   // // 캐릭터랑 닉네임을 불러와 보아요
-  // AsyncStorage.getItem('username', (err, result) => {
-  //   if ('username' !== null) {
-  //     console.log(result);
-  //   } else {
-  //     console.log(err);
-  //   }
-  // });
+  AsyncStorage.getItem('ProfileName', (err, result) => {
+    if ('ProfileName' !== null) {
+      console.log(result);
+      setChildName(result);
+    } else {
+      console.log(err);
+    }
+  });
   // 캐릭터랑 닉네임을 못찾겠어요. 우리 모든 key를 불러와 볼까요?
   // AsyncStorage.getAllKeys().then(console.log);
 
@@ -32,8 +34,7 @@ export default function Profile() {
       style={styles.container}
       activeOpacity={0.7}
       onPress={() => navigation.navigate('ChildSetting')}>
-      {/* <Text style={styles.childName}>{childName}</Text> */}
-      <Text style={styles.childName}>채아</Text>
+      <Text style={styles.childName}>{childName}</Text>
       <View style={styles.characterOutside}>
         <View style={styles.characterContainer}>
           <Image

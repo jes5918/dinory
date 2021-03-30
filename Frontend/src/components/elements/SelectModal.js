@@ -133,7 +133,6 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.4122,
     display: 'flex',
     justifyContent: 'space-around',
-    alignItems: 'center',
     elevation: 5,
   },
 });
