@@ -41,4 +41,4 @@ class ChildSerializer(serializers.ModelSerializer):
 class ChildChangeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Child
-        fields = ('name', 'age', 'img', 'voice')
+        fields = ('name', 'year', 'img', 'voice')
