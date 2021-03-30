@@ -52,15 +52,6 @@ const Stack = createStackNavigator();
 const App = () => {
   // 배경음
   useEffect(() => {
-    if (soundSetting) {
-      let sound = new Sound(BGM, Sound.MAIN_BUNDLE, (error) => {
-        sound.play();
-        sound.setNumberOfLoops(-1);
-        if (error) {
-          console.log('실패');
-        }
-      });
-    }
     return () => {
       sound.release();
       sound.pause();

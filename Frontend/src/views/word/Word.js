@@ -89,12 +89,12 @@ export default function Word() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
   },
   body: {
-    flex: 6,
+    flex: 1,
     flexDirection: 'row',
     marginTop: height * 0.17,
-    alignItems: 'center',
   },
   wordContainer: {
     display: 'flex',
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontFamily: 'HoonPinkpungchaR',
     color: '#fff',
-    fontSize: height * 0.04,
+    fontSize: height * 0.05,
+    alignSelf: 'flex-end',
   },
 });
