@@ -18,7 +18,7 @@ import NumberButton from '../../components/elements/NumberButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import {useNavigation} from '@react-navigation/core';
 import {editChildProfile} from '../../api/accounts/childSettings';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertModal from '../../components/elements/AlertModal';
 
 const dimensions = Dimensions.get('window');

@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
 
 import AlertModal from '../../components/elements/AlertModal';
 import BasicButton from '../../components/elements/BasicButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
-import {useNavigation} from '@react-navigation/core';
 import changePassword from '../../api/accounts/settings';
 
 // static variable
