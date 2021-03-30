@@ -23,13 +23,15 @@ export default function ImageCaption({
         source={{
           uri: selectImg,
         }}
-        style={[styles.img]}></Image>
+        style={[styles.img]}
+      />
       <Text style={[styles.describe]}>
         어떤 단어들이 나왔는지 확인해볼까요?
       </Text>
       <WordList
         words={wordsList}
-        onHandleChangeTemp={(e) => onHandleChangeTemp(e)}></WordList>
+        onHandleChangeTemp={(e) => onHandleChangeTemp(e)}
+      />
       <BasicButton
         text={'단어 추가하기 / 일기 쓰기'}
         btnWidth={width * 0.3}
@@ -71,6 +73,6 @@ const styles = StyleSheet.create({
   describe: {
     fontSize: width * 0.035,
     fontFamily: 'HoonPinkpungchaR',
-    color: '#fff',
+    color: '#fb537b',
   },
 });
