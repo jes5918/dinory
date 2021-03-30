@@ -13,8 +13,7 @@ import {
 import RoundButton from '../../components/elements/RoundButton';
 import Sound from 'react-native-sound';
 
-const audioURL =
-  'https://j4b105.p.ssafy.io/media/tts_basic/Wellcometodinory.wav';
+const audioURL = 'https://j4b105.p.ssafy.io/media/tts_basic/button-1.mp3';
 // const audioURL = require('../../assets/Wellcometodinory.wav');
 
 export default function GrammarCheck() {
