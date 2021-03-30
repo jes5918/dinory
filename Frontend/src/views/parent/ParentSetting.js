@@ -13,7 +13,7 @@ import Layout from '../../components/elements/Layout';
 import {useNavigation} from '@react-navigation/core';
 
 // static variable
-const url = require('../../assets/images/background3.png');
+const url = require('../../assets/images/background2.png');
 
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width;
@@ -48,13 +48,13 @@ function ParentSetting() {
             <Text style={styles.mainText}>통계 보기</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => console.log('clicked')}
+            onPress={() => navigation.push('PinUpdate')}
             activeOpacity={0.7}
             style={styles.mainButton}>
             <Text style={styles.mainText}>핀 번호 변경</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => console.log('clicked')}
+            onPress={() => navigation.push('PassWordUpdate')}
             activeOpacity={0.7}
             style={styles.mainButton}>
             <Text style={styles.mainText}>비밀번호 변경</Text>
