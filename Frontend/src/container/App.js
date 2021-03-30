@@ -25,6 +25,7 @@ import GrammarCheck from '../components/diary/GrammarCheck';
 import Main from '../views/Main';
 import HomeScreen from '../views/user/HomeScreen';
 import SignupScreen from '../views/user/SignupScreen';
+import LoginScreen from '../views/user/LoginScreen';
 import EmailAuthorization from '../views/user/EmailAuthorization';
 import PinCreate from '../views/user/PinScreen';
 import CreateProfile from '../views/user/profile/CreateProfile';
@@ -89,6 +90,7 @@ const App = () => {
           name="EmailAuthorization"
           component={EmailAuthorization}
         />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="LoadingSec" component={LoadingSec} />
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
         <Stack.Screen name="PinScreen" component={PinCreate} />

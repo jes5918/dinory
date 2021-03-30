@@ -5,15 +5,13 @@ export default function AuthTextInput({
   width,
   height,
   size,
+  marginRight,
   setFunction,
   secureTextEntry,
   autoFocus,
-  onHandleChange,
-  value,
-  keyboardType,
-  marginBottom,
-  marginRight,
   margin,
+  value,
+  elevation,
 }) {
   return (
     <TextInput
@@ -23,33 +21,27 @@ export default function AuthTextInput({
           width: width || 274,
           height: height || 58,
           fontSize: size || 18,
-          marginBottom: marginBottom,
+          marginRight: marginRight || 11,
           margin,
-          marginRight: marginRight,
         },
       ]}
       secureTextEntry={secureTextEntry}
       placeholder={text}
       autoFocus={autoFocus}
-      keyboardType={keyboardType}
       onChangeText={(value) =>
         setFunction
           ? setFunction(value)
           : alert('onChangeText에 State 함수를 내려주세요!')
       }
-      onChange={() => {
-        onHandleChange ? onHandleChange() : null;
-      }}
-      value={value}
-      placeholderTextColor="#707070"
-      inlineImageLeft="lock"
-    />
+      elevation={elevation}
+      value={value}></TextInput>
   );
 }
 const styles = StyleSheet.create({
   textInput: {
-    backgroundColor: '#E8E8E8',
-    borderRadius: 10,
+    fontFamily: 'HoonPinkpungchaR',
+    backgroundColor: '#ffffff',
+    borderRadius: 1000,
     padding: 16,
   },
 });

@@ -26,16 +26,19 @@ export default function CreateProfile({navigation}) {
             style={styles.logo}></Image>
         </View>
       </View>
-      <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
-        <ContentTitle title={'프로필 생성'}></ContentTitle>
-        <HoonPinkText fontSize={20}>
-          프로필을 추가하려면 버튼을 누르세요
-        </HoonPinkText>
-        <PlusProfileButton
-          onHandlePress={() => {
-            next();
-          }}></PlusProfileButton>
-      </Layout>
+      <View style={styles.body}>
+        <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
+          <ContentTitle title={'프로필 생성'} opacity={0.1}></ContentTitle>
+          <PlusProfileButton
+            onHandlePress={() => {
+              next();
+            }}></PlusProfileButton>
+          <HoonPinkText fontSize={32}>
+            프로필을 추가하려면 버튼을 누르세요
+          </HoonPinkText>
+        </Layout>
+      </View>
+      <View stlye={styles.end}></View>
     </BackgroundAbsolute>
   );
 }
@@ -58,5 +61,8 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 6,
+  },
+  end: {
+    flex: 1,
   },
 });

@@ -32,6 +32,7 @@ export default function HomeScreen({navigation}) {
       if (value !== null && value.length > 100) {
         // 토큰값이 널이 아니고 100자 이상이라면
         let CurrentTokenCheck = new FormData();
+        console.log(value);
         CurrentTokenCheck.append('token', value);
         // 유효성 검사 준비
         validateToken(
@@ -44,6 +45,7 @@ export default function HomeScreen({navigation}) {
               CurrentToken,
               (res) => {
                 const RefreshToken = res.data.token;
+                console.log(RefreshToken);
                 AsyncStorage.removeItem('jwt');
                 AsyncStorage.setItem('jwt', RefreshToken);
                 navigation.navigate('CreateProfile');

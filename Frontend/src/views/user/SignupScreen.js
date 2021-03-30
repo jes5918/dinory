@@ -1,4 +1,4 @@
-import React, {Component, createRef, useState} from 'react';
+import React, {Component, useState} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {
@@ -30,10 +30,6 @@ export default function SingupSCreen({navigation}) {
   const [userName, setUserName] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userPasswordchk, setUserPasswordchk] = useState('');
-  const emailInputRef = createRef();
-  const nameInputRef = createRef();
-  const passwordInputRef = createRef();
-  const passwordchkInputRef = createRef();
   const [idAvailable, setIdAvailable] = useState(false);
   const idCheck = () => {
     let idCheckForm = new FormData();
@@ -96,7 +92,6 @@ export default function SingupSCreen({navigation}) {
                 height={58}
                 size={18}
                 setFunction={setUserEmail}
-                setRef={emailInputRef}
                 secureTextEntry={false}
                 autoFocus={false}
                 margin={15}
@@ -136,7 +131,6 @@ export default function SingupSCreen({navigation}) {
                 height={58}
                 size={18}
                 setFunction={setUserPassword}
-                setRef={passwordInputRef}
                 secureTextEntry={true}
                 autoFocus={false}
                 margin={15}
@@ -155,7 +149,6 @@ export default function SingupSCreen({navigation}) {
                 height={58}
                 size={18}
                 setFunction={setUserPasswordchk}
-                setRef={passwordchkInputRef}
                 secureTextEntry={true}
                 autoFocus={false}
                 margin={15}
