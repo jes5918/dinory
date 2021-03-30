@@ -41,21 +41,15 @@ function SelectModal({
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               activeOpacity={0.7}
+              onPress={() => onHandlePressAllow()}
               style={[styles.button, styles.allowButton]}>
-              <Text
-                style={styles.allowText}
-                onPress={() => onHandlePressAllow()}>
-                {allowText}
-              </Text>
+              <Text style={styles.allowText}>{allowText}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.7}
+              onPress={() => onHandlePressRefuse()}
               style={[styles.button, styles.refuseButton]}>
-              <Text
-                style={styles.refuseText}
-                onPress={() => onHandlePressRefuse()}>
-                {refuseText}
-              </Text>
+              <Text style={styles.refuseText}>{refuseText}</Text>
             </TouchableOpacity>
           </View>
         </View>

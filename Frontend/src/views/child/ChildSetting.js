@@ -18,37 +18,59 @@ import NumberButton from '../../components/elements/NumberButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import {useNavigation} from '@react-navigation/core';
 import {editChildProfile} from '../../api/accounts/childSettings';
-// import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
+import AlertModal from '../../components/elements/AlertModal';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
-// 돌아가는지 테스트 필요함
-const child = '10'; // 임시값
 export default function ChildSetting() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [fmodalVisible, setfModalVisible] = useState(false);
   const navigation = useNavigation();
+
+  // 돌아가는지 테스트 필요함
+  const child = '10'; // 임시값
   const submitChangeInfo = () => {
-    console.log(childNName + '/' + childBirth + '/' + dinoPicNum);
-    let name = childNName;
-    let img = dinoPicNum;
-    let age = childBirth; // 생일에서 년도로 변경하면 수정필요함
-    const profileInfo = {name, age, img};
+    const formData = new FormData();
+    formData.append('name', String(childNName)); // 임시
+    formData.append('year', Number(childBirth)); // 임시
+    formData.append('img', Number(dinoPicNum)); // 임시
+
     editChildProfile(
-      {child: child, profileInfo: profileInfo},
+      child,
+      formData,
       (res) => {
-        console.log(res);
-        console.log('1');
-        navigation.navigate('Main');
+        if (res.status === 201) {
+          changeModalState();
+          setTimeout(() => {
+            navigation.navigate('Main');
+          }, 1500);
+        } else {
+        }
       },
       (err) => {
         console.log(err);
-        console.log('2');
-        navigation.navigate('Main');
       },
     );
   };
-
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1000);
+  };
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+  const fcloseModal = () => {
+    setTimeout(() => {
+      setfModalVisible(!fmodalVisible);
+    }, 1000);
+  };
+  const fchangeModalState = () => {
+    setfModalVisible(!fmodalVisible);
+  };
   let origin = '';
   // 캐릭터를 불러와 볼까요?
   // AsyncStorage.getItem('변수명몰라', (err, result) => {
@@ -59,6 +81,7 @@ export default function ChildSetting() {
   //     console.log(err);
   //   }
   // });
+  // AsyncStorage.getAllKeys().then(console.log);
 
   const url = require('../../assets/images/background2.png');
 
@@ -122,12 +145,12 @@ export default function ChildSetting() {
                         maxLength={4}
                         // whenever using software keyboard
                         keyboardType={'numeric'}
-                        showSoftInputOnFocus={false}
+                        // showSoftInputOnFocus={false}
                         onFocus={() => [
                           setIschangeName(false),
                           setIschangeBirth(true),
                           setIschangePic(false),
-                          Keyboard.dismiss(),
+                          // Keyboard.dismiss(),
                         ]}
                         value={childBirth}
                         onChangeText={(text) => setChildBirth(text)}
@@ -178,6 +201,20 @@ export default function ChildSetting() {
                       }}
                     />
                   </View>
+                  <AlertModal
+                    modalVisible={modalVisible}
+                    onHandleCloseModal={() => changeModalState()}
+                    text={'내 정보가 수정되었어요!'}
+                    iconName={'smileo'}
+                    setTimeFunction={() => closeModal()}
+                  />
+                  <AlertModal
+                    modalVisible={fmodalVisible}
+                    onHandleCloseModal={() => fchangeModalState()}
+                    text={'다시 시도해주세요!'}
+                    iconName={'frowno'}
+                    setTimeFunction={() => fcloseModal()}
+                  />
                 </Layout>
               </View>
             </ScrollView>

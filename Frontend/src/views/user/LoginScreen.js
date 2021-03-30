@@ -26,10 +26,6 @@ export default function LoginScreen({navigation}) {
   const [userPassword, setUserPassword] = useState('');
   const [autoLogin, setAutoLogin] = useState(false);
   const [storeId, setStoreId] = useState(false);
-
-  const nameInputRef = createRef();
-  const passwordInputRef = createRef();
-
   const LoginHandler = async () => {
     let loginForm = new FormData();
     loginForm.append('username', userName);
@@ -75,7 +71,6 @@ export default function LoginScreen({navigation}) {
                 height={58}
                 size={18}
                 setFunction={setUserName}
-                setRef={nameInputRef}
                 secureTextEntry={false}
                 autoFocus={true}
                 margin={10}
@@ -86,7 +81,6 @@ export default function LoginScreen({navigation}) {
                 height={58}
                 size={18}
                 setFunction={setUserPassword}
-                setRef={passwordInputRef}
                 secureTextEntry={true}
                 autoFocus={false}
                 margin={10}
