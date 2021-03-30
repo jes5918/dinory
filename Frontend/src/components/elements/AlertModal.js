@@ -12,6 +12,7 @@ export default function AlertModal({
   text,
   iconName,
   setTimeFunction,
+  color,
 }) {
   return (
     <Modal
@@ -31,7 +32,7 @@ export default function AlertModal({
         <View style={styles.modalView}>
           <MaterialIcons
             animationType="fade"
-            style={styles.modalIcon}
+            style={[styles.modalIcon, {color: color}]}
             name={iconName}
           />
           <Text style={styles.modalText}>{text}</Text>
@@ -49,15 +50,6 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: width * 0.08,
     marginVertical: width * 0.015,
-  },
-  //////modal
-  modalPosition: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    top: 150,
-    right: width * 0.5,
-    zIndex: 400,
-    // backgroundColor: 'red',
   },
   centeredView: {
     justifyContent: 'center',
