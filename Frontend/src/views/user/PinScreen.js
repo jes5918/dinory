@@ -1,4 +1,4 @@
-import React, {Component, useState, createRef} from 'react';
+import React, {Component, useState} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import {signupInstance} from '../../api/accounts/signup';
 import {
@@ -25,8 +25,6 @@ export default function PinCreate({navigation}) {
   const layoutHeight = windowHeight * 0.755;
   const [userPinNumber, setUserPinNumber] = useState('');
   const [userPinNumberchk, setUserPinNumberchk] = useState('');
-  const pinnumberInputRef = createRef();
-  const pinnumberchkInputRef = createRef();
   const [buttonChk, setButtonChk] = useState(false);
   const submitHandler = async () => {
     if (userPinNumber.length === 6 && userPinNumber === userPinNumberchk) {
@@ -56,7 +54,6 @@ export default function PinCreate({navigation}) {
           AsyncStorage.setItem('jwt', token);
           alert('회원가입 되었습니다.');
           console.log(token);
-
           navigation.navigate('LoginScreen');
         },
         (error) => {
@@ -93,7 +90,6 @@ export default function PinCreate({navigation}) {
                 height={58}
                 size={18}
                 setFunction={setUserPinNumber}
-                setRef={pinnumberInputRef}
                 secureTextEntry={true}
                 autoFocus={true}
                 margin={15}
@@ -104,7 +100,6 @@ export default function PinCreate({navigation}) {
                 height={58}
                 size={18}
                 setFunction={setUserPinNumberchk}
-                setRef={pinnumberchkInputRef}
                 secureTextEntry={true}
                 autoFocus={false}
                 margin={15}

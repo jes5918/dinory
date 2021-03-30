@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     backgroundColor: 'transparent',
-    width: windowWidth * 0.05,
-    height: windowWidth * 0.05,
+    width: windowWidth * 0.1,
+    height: windowWidth * 0.1,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 1000,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   arrowIcon: {
     color: '#FB537B',
-    fontSize: windowWidth * 0.04,
+    fontSize: windowWidth * 0.05,
   },
 });
 

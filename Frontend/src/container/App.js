@@ -25,6 +25,7 @@ import GrammarCheck from '../components/diary/GrammarCheck';
 import Main from '../views/Main';
 import HomeScreen from '../views/user/HomeScreen';
 import SignupScreen from '../views/user/SignupScreen';
+import LoginScreen from '../views/user/LoginScreen';
 import EmailAuthorization from '../views/user/EmailAuthorization';
 import PinCreate from '../views/user/PinScreen';
 import CreateProfile from '../views/user/profile/CreateProfile';
@@ -42,7 +43,6 @@ import Diary from '../views/diary/Diary';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
 import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
-import LoginScreen from '../views/user/LoginScreen';
 import DiaryDetail from '../views/diaryList/DiaryDetail';
 import PassWordUpdate from '../views/parent/PassWordUpdate';
 import PinUpdate from '../views/parent/PinUpdate';
@@ -89,6 +89,7 @@ const App = () => {
           name="EmailAuthorization"
           component={EmailAuthorization}
         />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="LoadingSec" component={LoadingSec} />
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
         <Stack.Screen name="PinScreen" component={PinCreate} />
@@ -115,7 +116,6 @@ const App = () => {
         <Stack.Screen name="Word" component={Word} />
         <Stack.Screen name="WordByAlphabet" component={WordByAlphabet} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen
           name="DiaryWriteTutorial "
           component={DiaryWriteTutorial}
