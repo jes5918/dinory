@@ -166,8 +166,9 @@ const styles = StyleSheet.create({
   iconContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
     alignItems: 'center',
     paddingHorizontal: 20,
+    justifyContent: 'flex-end',
+    left: width * 0.35,
   },
 });
