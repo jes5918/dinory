@@ -20,21 +20,14 @@ const inputWidth = windowWidth * 0.2625;
 const inputHeight = windowHeight * 0.077;
 const marginBottom = windowHeight * 0.06;
 
-function PinUpdate() {
+function PinAuthentication() {
   const navigation = useNavigation();
 
-  const [pinCode, setPinCode] = useState('');
-  const [pinCodeCheck, setPinCodeCheck] = useState('');
+  const [pinCode, setPinCode] = useState();
+  const [pinCodeCheck, setPinCodeCheck] = useState();
   const [modalVisible, setModalVisible] = useState(false);
-  const [alertForEnter, setAlertForEnter] = useState(false);
 
   const onHandleSubmit = async () => {
-    if (pinCode.length < 6 || pinCode !== pinCodeCheck) {
-      setAlertForEnter(true);
-      return;
-    } else {
-      setAlertForEnter(false);
-    }
     let child_pk = '';
     await AsyncStorage.getItem('child_pk').then((childPk) => {
       child_pk = childPk;
@@ -64,17 +57,7 @@ function PinUpdate() {
     setTimeout(() => {
       setModalVisible(!modalVisible);
       navigation.navigate('Main');
-    }, 1300);
-  };
-
-  const changeModalStateForEnter = () => {
-    setAlertForEnter(!alertForEnter);
-  };
-
-  const closeModalForEnter = () => {
-    setTimeout(() => {
-      setAlertForEnter(!alertForEnter);
-    }, 1300);
+    }, 2000);
   };
 
   return (
@@ -86,14 +69,6 @@ function PinUpdate() {
         iconName={'checkcircle'}
         color={'green'}
         setTimeFunction={() => closeModal()}
-      />
-      <AlertModal
-        modalVisible={alertForEnter}
-        onHandleCloseModal={() => changeModalStateForEnter()}
-        text={'핀 번호를 정확히 입력해주세요!'}
-        iconName={'exclamationcircle'}
-        color={'red'}
-        setTimeFunction={() => closeModalForEnter()}
       />
       <BackgroundAbsolute imageSrc={backgroundImage}>
         <Header />
@@ -188,13 +163,12 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   infoText: {
-    fontSize: 14,
+    fontSize: 18,
     color: '#707070',
-    width: windowWidth * 0.25,
+    width: windowWidth * 0.26,
     marginTop: windowHeight * 0.01,
     marginBottom: windowHeight * 0.06,
-    paddingLeft: 12,
   },
 });
 
-export default PinUpdate;
+export default PinAuthentication;
