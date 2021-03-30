@@ -6,9 +6,9 @@ import {
   Dimensions,
   Image,
   KeyboardAvoidingView,
-  CheckBox,
   Text,
 } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import {loginInstance} from '../../api/accounts/login';
 import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';

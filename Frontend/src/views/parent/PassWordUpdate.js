@@ -1,13 +1,7 @@
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 
 import AlertModal from '../../components/elements/AlertModal';
 import BasicButton from '../../components/elements/BasicButton';
@@ -18,7 +12,6 @@ import {useNavigation} from '@react-navigation/core';
 import changePassword from '../../api/accounts/settings';
 
 // static variable
-const baseURL = 'http://j4b105.p.ssafy.io/';
 const backgroundImage = require('../../assets/images/background2.png');
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
@@ -30,11 +23,20 @@ const marginBottom = windowHeight * 0.06;
 function PassWordUpdate() {
   const navigation = useNavigation();
 
-  const [password, setPassword] = useState();
-  const [passwordCheck, setPasswordCheck] = useState();
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [alertForEnter, setAlertForEnter] = useState(false);
 
   const onHandleSubmit = async () => {
+    // validation 로직
+    if (password.length < 8 || password !== passwordCheck) {
+      setAlertForEnter(true);
+      return;
+    } else {
+      setAlertForEnter(false);
+    }
+
     let child_pk = '';
     await AsyncStorage.getItem('child_pk').then((childPk) => {
       child_pk = childPk;
@@ -64,6 +66,16 @@ function PassWordUpdate() {
     setTimeout(() => {
       setModalVisible(!modalVisible);
       navigation.navigate('Main');
+    }, 1300);
+  };
+
+  const changeModalStateForEnter = () => {
+    setAlertForEnter(!alertForEnter);
+  };
+
+  const closeModalForEnter = () => {
+    setTimeout(() => {
+      setAlertForEnter(!alertForEnter);
     }, 2000);
   };
 
@@ -76,6 +88,14 @@ function PassWordUpdate() {
         iconName={'checkcircle'}
         color={'green'}
         setTimeFunction={() => closeModal()}
+      />
+      <AlertModal
+        modalVisible={alertForEnter}
+        onHandleCloseModal={() => changeModalStateForEnter()}
+        text={'비밀번호를 정확히 입력해주세요!'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModalForEnter()}
       />
       <BackgroundAbsolute imageSrc={backgroundImage}>
         <Header />
@@ -94,7 +114,8 @@ function PassWordUpdate() {
               secureTextEntry={true}
             />
             <Text style={styles.infoText}>
-              * 비밀번호는 대소문자(영어), 숫자 조합 8자리로 구성되어야 합니다
+              * 비밀번호는 대소문자(영어), 숫자 조합 8자리 이상으로 구성해야
+              합니다
             </Text>
             <AuthTextInput
               setFunction={setPasswordCheck}
@@ -170,11 +191,12 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   infoText: {
-    fontSize: 18,
+    fontSize: 14,
     color: '#707070',
-    width: windowWidth * 0.26,
+    width: windowWidth * 0.25,
     marginTop: windowHeight * 0.01,
     marginBottom: windowHeight * 0.06,
+    paddingLeft: 12,
   },
 });
 
