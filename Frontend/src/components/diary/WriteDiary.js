@@ -10,11 +10,13 @@ import {
   ImageBackground,
   ScrollView,
   Dimensions,
+  Image,
 } from 'react-native';
 
 import RoundButton from '../elements/RoundButton';
 import WordList from './WordList';
 import {createDiary} from '../../api/diary/writeDiary';
+import MaterialIcons from 'react-native-vector-icons/AntDesign';
 
 export default function WriteDiary({
   wordList,
@@ -22,27 +24,79 @@ export default function WriteDiary({
   onHandleSaveDiary,
   onHandleChangeTitle,
   onHandleChangeContent,
+  onHandleCheckGrammar,
+  grammarchecked,
+  checkData,
 }) {
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
-
-  const grammarCheck = () => {
-    alert('이문법이 맞는 것 같아?');
-  };
-  // const onChangeTitle = (e) => {
-  //   console.log(e.nativeEvent.text);
-  //   setTitle(e.nativeEvent.text);
-  // };
-  // const onChangeText = (e) => {
-  //   console.log(e.nativeEvent.text);
-  //   setText(e.nativeEvent.text);
-  // };
-  const saveDiary = () => {
-    alert('일기 저장!');
-  };
-
+  const imgIcon = require('../../assets/images/egg.png');
+  const imgPerfect = require('../../assets/images/character5.png');
   const arrText = ['문', '법', '체', '크'];
   const arrText2 = ['일', '기', '저', '장'];
+  const grammar = (
+    <View style={[styles.grammarBox]}>
+      {checkData && checkData.length ? (
+        <Text style={[styles.text, {color: 'red'}]}>고쳐볼까요?</Text>
+      ) : (
+        <Text style={[styles.text, {color: 'green'}]}>완벽해요!</Text>
+      )}
+      {checkData && checkData.length ? (
+        <ScrollView style={[styles.correctList]}>
+          {checkData.map((temp, i) => {
+            return (
+              <View
+                key={i}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  marginVertical: screenHeight * 0.01,
+                }}>
+                <Image
+                  source={imgIcon}
+                  style={{
+                    width: screenWidth * 0.02,
+                    height: screenWidth * 0.02,
+                    resizeMode: 'contain',
+                    marginRight: screenHeight * 0.01,
+                  }}></Image>
+                <Text style={[styles.text, {color: 'red'}]}>{temp.text}</Text>
+                <MaterialIcons
+                  style={[
+                    styles.text,
+                    {color: 'red', marginHorizontal: screenHeight * 0.01},
+                  ]}
+                  name={'arrowright'}
+                />
+                <Text
+                  style={[
+                    styles.text,
+                    {
+                      color: 'red',
+                      borderColor: 'red',
+                      borderBottomWidth: 2,
+                      backgroundColor: 'yellow',
+                    },
+                  ]}>
+                  {temp.correct}
+                </Text>
+              </View>
+            );
+          })}
+        </ScrollView>
+      ) : (
+        <Image
+          source={imgPerfect}
+          style={{
+            width: screenHeight * 0.2,
+            resizeMode: 'contain',
+            height: screenHeight * 0.2,
+            marginVertical: screenHeight * 0.02,
+          }}></Image>
+      )}
+    </View>
+  );
   return (
     <KeyboardAvoidingView behavior={'height'} style={[styles.container]}>
       <View style={[styles.wrapper]}>
@@ -61,9 +115,12 @@ export default function WriteDiary({
               autoCompleteType={'off'}
               onChange={(e) => onHandleChangeContent(e)}></TextInput>
           </ScrollView>
+          {grammarchecked && grammar}
         </View>
         <View style={[styles.buttonWrapper]}>
-          <TouchableOpacity activeOpacity={0.7} onPress={() => grammarCheck()}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => onHandleCheckGrammar()}>
             <View style={styles.buttonPosition}>
               {arrText.map((tempText, idx) => {
                 return (
@@ -99,6 +156,25 @@ const dimensions = Dimensions.get('window');
 const screenWidth = dimensions.width;
 const screenHeight = dimensions.height;
 const styles = StyleSheet.create({
+  grammarBox: {
+    width: '40%',
+    height: '100%',
+    borderRadius: 30,
+    borderWidth: 2.5,
+    borderColor: '#FB537B',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: screenHeight * 0.025,
+  },
+  correctList: {
+    marginHorizontal: 10,
+    paddingVertical: screenHeight * 0.02,
+    paddingHorizontal: screenWidth * 0.017,
+    width: '100%',
+    paddingHorizontal: screenHeight * 0.015,
+  },
   buttonPosition: {
     width: 'auto',
     height: 'auto',
@@ -146,7 +222,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 24,
+    fontSize: screenWidth * 0.02,
     color: 'black',
   },
   textIndex: {
@@ -157,8 +233,9 @@ const styles = StyleSheet.create({
   TitleInput: {
     // borderWidth: 2,
     width: '60%',
+    height: 'auto',
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 24,
+    fontSize: screenWidth * 0.02,
     borderBottomWidth: 2,
     borderColor: 'gray',
     paddingHorizontal: 10,
@@ -169,7 +246,7 @@ const styles = StyleSheet.create({
     width: '100%',
     // minHeight: screenHeight * 0.45,
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 24,
+    fontSize: screenWidth * 0.02,
     borderRadius: 30,
     paddingHorizontal: 10,
     // borderWidth: 2,
@@ -185,6 +262,7 @@ const styles = StyleSheet.create({
     height: '100%',
     marginHorizontal: 10,
     paddingHorizontal: 10,
+    width: '40%',
   },
   container: {
     flex: 1,
@@ -213,5 +291,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: 'transparent',
+  },
+  grammarCheckBox: {
+    width: '35%',
+    height: '100%',
+    backgroundColor: 'red',
   },
 });

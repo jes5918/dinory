@@ -14,7 +14,6 @@ export default function WriteDiary({words, onHandleChangeTemp}) {
       }
     });
 
-    alert('단어가 췤췤');
     onHandleChangeTemp(aaa);
     console.log('word변화', aaa);
   };

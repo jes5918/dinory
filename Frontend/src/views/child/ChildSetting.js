@@ -13,20 +13,71 @@ import ContentTitle from '../../components/elements/ContentTitle';
 import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import DinoButton from '../../components/elements/DinoButton';
-import SelectProfile from '../../components/elements/SelectProfile';
+import ChangeProfile from '../../components/elements/ChangeProfile';
 import NumberButton from '../../components/elements/NumberButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
+import {useNavigation} from '@react-navigation/core';
+import {editChildProfile} from '../../api/accounts/childSettings';
+// import AsyncStorage from '@react-native-community/async-storage';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
+// 돌아가는지 테스트 필요함
+const child = '10'; // 임시값
 export default function ChildSetting() {
+  const navigation = useNavigation();
+  const submitChangeInfo = () => {
+    console.log(childNName + '/' + childBirth + '/' + dinoPicNum);
+    let name = childNName;
+    let img = dinoPicNum;
+    let age = childBirth; // 생일에서 년도로 변경하면 수정필요함
+    const profileInfo = {name, age, img};
+    editChildProfile(
+      {child: child, profileInfo: profileInfo},
+      (res) => {
+        console.log(res);
+        console.log('1');
+        navigation.navigate('Main');
+      },
+      (err) => {
+        console.log(err);
+        console.log('2');
+        navigation.navigate('Main');
+      },
+    );
+  };
+
+  let origin = '';
+  // 캐릭터를 불러와 볼까요?
+  // AsyncStorage.getItem('변수명몰라', (err, result) => {
+  //   if ('변수명몰라' !== null) {
+  //     origin = reuslt;
+  //     console.log(result);
+  //   } else {
+  //     console.log(err);
+  //   }
+  // });
+
   const url = require('../../assets/images/background2.png');
 
   const [isChangeName, setIschangeName] = useState(false);
   const [isChangeBirth, setIschangeBirth] = useState(false);
   const [isChangePic, setIschangePic] = useState(false);
+  const [childNName, setChildNName] = useState('');
+  const [childBirth, setChildBirth] = useState('');
+  const [dinoPicNum, setDinoPicNum] = useState(origin);
+
+  let dinoArray = {
+    1: require('../../assets/images/character1.png'),
+    2: require('../../assets/images/character2.png'),
+    3: require('../../assets/images/character3.png'),
+    4: require('../../assets/images/character4.png'),
+    5: require('../../assets/images/character5.png'),
+  };
+
+  let dinoPic = dinoArray[dinoPicNum];
 
   return (
     <View style={styles.container}>
@@ -46,37 +97,40 @@ export default function ChildSetting() {
                       <Text style={styles.myInfo}>저는</Text>
                       <TextInput
                         style={styles.textInput}
+                        // 수정해야함
                         placeholder={'채아'}
                         autoCompleteType={'off'}
                         placeholderTextColor="#6e6e6e"
                         maxLength={8}
-                        // onFocus={() => changeName()}
                         onFocus={() => [
                           setIschangeName(true),
                           setIschangeBirth(false),
                           setIschangePic(false),
                         ]}
+                        value={childNName}
+                        onChangeText={(text) => setChildNName(text)}
                       />
                       <Text style={styles.myInfo}>입니다</Text>
                     </View>
                     <View style={styles.inLine}>
                       <TextInput
-                        // value={}
                         autoCompleteType={'off'}
                         style={styles.numInput}
+                        // 수정해야함
                         placeholder={'2014'}
                         placeholderTextColor="#6e6e6e"
                         maxLength={4}
                         // whenever using software keyboard
                         keyboardType={'numeric'}
                         showSoftInputOnFocus={false}
-                        // onFocus={() => changeName()}
                         onFocus={() => [
                           setIschangeName(false),
                           setIschangeBirth(true),
                           setIschangePic(false),
                           Keyboard.dismiss(),
                         ]}
+                        value={childBirth}
+                        onChangeText={(text) => setChildBirth(text)}
                       />
                       <Text style={styles.myInfo}>년에 태어났구요</Text>
                     </View>
@@ -92,7 +146,9 @@ export default function ChildSetting() {
                           setIschangePic(true),
                         ]}>
                         <DinoButton
-                          imgSrc={require('../../assets/images/character4.png')}
+                          imgSrc={
+                            dinoPic || require('../../assets/images/egg.png')
+                          }
                           widthProps={width * 0.08}
                           effectDisalbe={true}
                         />
@@ -109,13 +165,17 @@ export default function ChildSetting() {
                     {/* <NumberButton /> */}
                     {isChangeName && <Text> </Text>}
                     {isChangeBirth && <NumberButton />}
-                    {isChangePic && <SelectProfile />}
+                    {isChangePic && (
+                      <ChangeProfile setDinoPicNum={setDinoPicNum} />
+                    )}
                   </View>
                   <View style={styles.submitBtn}>
                     <BasicButton
                       text={'변경완료'}
                       btnWidth={width * 0.2}
-                      /* // onHandlePress={onHandlePressBasic} */
+                      onHandlePress={() => {
+                        submitChangeInfo();
+                      }}
                     />
                   </View>
                 </Layout>
