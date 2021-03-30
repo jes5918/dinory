@@ -3,7 +3,7 @@ from django.contrib.auth.models import update_last_login
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 
-from .models import Child
+from .models import Child, Authenticatecode
 # from rest_framework_jwt.settings import api_settings
 # JWT_PAYLOAD_HANDLER = api_settings.JWT_PAYLOAD_HANDLER
 # JWT_ENCODE_HANDLER = api_settings.JWT_ENCODE_HANDLER
@@ -42,3 +42,9 @@ class ChildChangeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Child
         fields = ('name', 'year', 'img', 'voice')
+
+
+class AuthenticatecodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Authenticatecode
+        fields = '__all__'
