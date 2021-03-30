@@ -10,15 +10,25 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Logo from '../components/elements/Logo';
 import Header from '../components/elements/Header';
-import {useNavigation} from '@react-navigation/core';
 import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
+import {useNavigation} from '@react-navigation/core';
 import {didTutorial} from '../api/diary/checkTutorial';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
-export default function Main() {
+export default function Main(props) {
+  let onSound = true;
+  // const stopAndPlay = () => {
+  //   if (onSound) {
+  //     console.log(onSound);
+  //     ound.play();
+  //   } else {
+  //     console.log(onSound);
+  //     ound.pause();
+  //   }
+  // };
   const url = require('../assets/images/background4.png');
   const navigation = useNavigation();
 
@@ -98,8 +108,9 @@ export default function Main() {
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.7}
-            // onPress={() => }
-          >
+            onPress={() => {
+              props.setSoundSetting(!onSound);
+            }}>
             <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
           </TouchableOpacity>
           <TouchableOpacity
