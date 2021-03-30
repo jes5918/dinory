@@ -16,7 +16,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 
 const image = require('../../assets/images/background1.png');
 
-const baseURL = 'http://j4b105.p.ssafy.io';
+const baseURL = 'https://j4b105.p.ssafy.io';
 
 const Diary = ({data}) => {
   return (
@@ -40,7 +40,6 @@ function DiaryDetail({route, navigation}) {
   const [information, setInformation] = useState({year, month, date});
 
   const onHandleSelectDay = ({year, month, date}) => {
-    console.log('onHandleSelectDay: ', year, month, date);
     const newMonth = String(month).length === 1 ? '0' + String(month) : month;
     setInformation((prev) => {
       return {...prev, year, month: newMonth, date};
@@ -48,7 +47,6 @@ function DiaryDetail({route, navigation}) {
   };
 
   const fetchNotesByDay = ({child, year, month, date}) => {
-    console.log(year, month, date);
     getNotesByDay(
       {
         child: '10',
@@ -66,7 +64,6 @@ function DiaryDetail({route, navigation}) {
   };
 
   useDeepCompareEffect(() => {
-    console.log('발생 : ', information);
     fetchNotesByDay(information);
   }, [information]);
 
