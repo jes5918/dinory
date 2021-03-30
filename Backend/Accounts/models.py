@@ -11,5 +11,5 @@ class Child(models.Model):
     parent = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='child')
     name = models.CharField(max_length=20)
     img = models.IntegerField()
-    age = models.IntegerField()
+    year = models.IntegerField()
     voice = models.IntegerField(default=0)
