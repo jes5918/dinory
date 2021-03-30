@@ -14,6 +14,7 @@ import WriteDiary from '../../components/diary/WriteDiary';
 import ArrowButton from '../../components/elements/ArrowButton';
 import LoadingSec from '../../components/elements/LoadingSec';
 import AlertModal from '../../components/elements/AlertModal';
+import SelectModal from '../../components/elements/SelectModal';
 
 import {
   createDiary,
@@ -55,26 +56,62 @@ const month = makeMonth(textMonth);
 const day = makeDate(textDate);
 
 export default function Diary() {
-  const bgurl = require('../../assets/images/background3.png');
+  const bgurl = require('../../assets/images/background4.png');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectImage, setSelectImage] = useState(false);
   const [captionWords, setCaptionWords] = useState(false);
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [somethignwrong, setSomethignwrong] = useState(false);
+  const [koreanWarnModalVisible, setKoreanWarnModalVisible] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [quit, setQuit] = useState(false);
+  const [confirmSave, setConfirmSave] = useState(false);
   const [title, setTitle] = useState(false);
   const [diaryContent, setDiaryContent] = useState(false);
   const [tempPagenum, setTempPagenum] = useState(false);
   const [grammarchecked, setGrammarchecked] = useState(false);
   const [checkData, setCheckData] = useState(null);
 
-  const closeModal = () => {
-    setTimeout(() => {
-      setModalVisible(!modalVisible);
-    }, 2000);
+  const closeModal = (e) => {
+    if (e === 1) {
+      setTimeout(() => {
+        setModalVisible(!modalVisible);
+      }, 2000);
+    } else if (e === 2) {
+      console.log('여기로 들어온다.');
+      setTimeout(() => {
+        setKoreanWarnModalVisible(!koreanWarnModalVisible);
+      }, 2000);
+    } else if (e === 3) {
+      setTimeout(() => {
+        setSomethignwrong(!somethignwrong);
+      }, 2000);
+    } else if (e === 4) {
+      setTimeout(() => {
+        setSuccess(!success);
+        navigation.navigate('Main');
+      }, 2000);
+    }
+  };
+  const openConfirmSave = () => {
+    setConfirmSave(true);
   };
 
-  const changeModalState = () => {
-    setModalVisible(!modalVisible);
+  const changeModalState = (e) => {
+    if (e === 1) {
+      setModalVisible(!modalVisible);
+    } else if (e === 2) {
+      setKoreanWarnModalVisible(!koreanWarnModalVisible);
+    } else if (e === 3) {
+      setSomethignwrong(!koreanWarnModalVisible);
+    } else if (e === 4) {
+      navigation.navigate('DiaryList');
+    } else if (e === 5) {
+      setSuccess(!confirmSave);
+    } else if (e === 6) {
+      setQuit(!quit);
+    }
   };
 
   const gotoBack = () => {
@@ -89,14 +126,12 @@ export default function Diary() {
     if (selectedWordList.length !== 0) {
       console.log('여기에 들어온다.', selectedWordList);
 
-      // const formData = new FormData();
-      // formData.append('DATA', selectedWordList);
       console.log('보내는 데이터', selectedWordList);
       const Token =
         'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNCwidXNlcm5hbWUiOiJzdWVtaW4xIiwiZXhwIjoxNjE3NzcwMjQyLCJlbWFpbCI6InBvcG9wMDkwOTBAbmF2ZXIuY29tIn0.NjNEuTXianJ1lQ2SzsyxV6uZgELGTM1236DVw76MtE4';
       const child = 10;
       //////////
-      fetch(`http://j4b105.p.ssafy.io/words/?child=${child}`, {
+      fetch(`https://j4b105.p.ssafy.io/words/?child=${child}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -160,31 +195,41 @@ export default function Diary() {
   };
 
   const saveDiary = () => {
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('img', {
-      uri: selectImage.uri,
-      type: selectImage.type,
-      name: selectImage.fileName,
-    });
-    formData.append('content', diaryContent);
-    formData.append('year', year);
-    formData.append('month', month);
-    formData.append('date', day);
+    if (title && diaryContent && selectImage) {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('img', {
+        uri: selectImage.uri,
+        type: selectImage.type,
+        name: selectImage.fileName,
+      });
+      formData.append('content', diaryContent);
+      formData.append('year', year);
+      formData.append('month', month);
+      formData.append('date', day);
 
-    console.log('FormData', formData);
-    createDiary(
-      formData,
-      10,
-      (res) => {
-        console.log('함수 실행');
-        console.log('resData', res.data);
-        navigation.navigate('DiaryList');
-      },
-      (err) => {
-        console.error(err);
-      },
-    );
+      console.log('FormData', formData);
+      createDiary(
+        formData,
+        10,
+        (res) => {
+          console.log('함수 실행');
+          console.log('resData', res.data);
+          setConfirmSave(!confirmSave);
+          // setSuccess(!success);
+          setKoreanWarnModalVisible(!koreanWarnModalVisible);
+        },
+        (err) => {
+          if (err.error === '한글은 작성할 수 없습니다') {
+            setConfirmSave(!confirmSave);
+            setKoreanWarnModalVisible(!koreanWarnModalVisible);
+          } else {
+          }
+        },
+      );
+    } else {
+      alert('여기!!');
+    }
   };
 
   const changeTemp = (e) => {
@@ -217,7 +262,7 @@ export default function Diary() {
     return (
       <ImageBackground source={bgurl} style={styles.bgBox}>
         <View style={styles.arrowBtnBox}>
-          <ArrowButton onHandlePress={() => navigation.goBack()} />
+          <ArrowButton onHandlePress={() => setQuit(!quit)} />
         </View>
         <View style={styles.mainIconBox}>
           <TouchableOpacity
@@ -235,10 +280,23 @@ export default function Diary() {
         <SelectImage setSelectImage={setSelectImage}></SelectImage>
         <AlertModal
           modalVisible={modalVisible}
-          onHandleCloseModal={() => changeModalState()}
+          onHandleCloseModal={() => changeModalState(1)}
           text={'사진을 다시 올려주세요!'}
           iconName={'exclamationcircle'}
-          setTimeFunction={() => closeModal()}
+          color={'red'}
+          setTimeFunction={() => closeModal(1)}
+        />
+        <SelectModal
+          modalVisible={quit}
+          alertText={'지금 나가면 저장되지 않아요.'}
+          secondText={'정말 나가시겠어요?'}
+          refuseText={'취소'}
+          allowText={'나가기'}
+          onHandlePressAllow={() => {
+            setQuit(!quit);
+            navigation.goBack();
+          }}
+          onHandlePressRefuse={() => changeModalState(6)}
         />
       </ImageBackground>
     );
@@ -300,9 +358,41 @@ export default function Diary() {
           onHandleChangeContent={(e) => onHandleChangeContent(e)}
           onHandleChangeTemp={(e) => changeTemp(e)}
           onHandleCheckGrammar={() => checkGrammar()}
-          onHandleSaveDiary={() => saveDiary()}
+          onHandleSaveDiary={() => openConfirmSave()}
           grammarchecked={grammarchecked}
           checkData={checkData}></WriteDiary>
+        <AlertModal
+          modalVisible={koreanWarnModalVisible}
+          onHandleCloseModal={() => changeModalState(2)}
+          text={'한글이 포함되어있어요!'}
+          iconName={'exclamationcircle'}
+          color={'red'}
+          setTimeFunction={() => closeModal(2)}
+        />
+        <AlertModal
+          modalVisible={somethignwrong}
+          onHandleCloseModal={() => changeModalState(3)}
+          text={'일기 저장에 실패했어요. 다시 시도해주세요'}
+          iconName={'exclamationcircle'}
+          color={'red'}
+          setTimeFunction={() => closeModal(3)}
+        />
+        <AlertModal
+          modalVisible={success}
+          onHandleCloseModal={() => changeModalState(4)}
+          text={'오늘의 일기가 저장됐어요!'}
+          iconName={'checkcircle'}
+          color={'green'}
+          setTimeFunction={() => closeModal(4)}
+        />
+        <SelectModal
+          modalVisible={confirmSave}
+          alertText={'일기를 저장해볼까요?'}
+          refuseText={'취소'}
+          allowText={'저장할래요!'}
+          onHandlePressAllow={() => saveDiary()}
+          onHandlePressRefuse={() => changeModalState(5)}
+        />
       </ImageBackground>
     );
   }
