@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     height: height * 0.4122,
     display: 'flex',
     justifyContent: 'space-around',
-    alignItems: 'center',
     elevation: 5,
   },
   button: {

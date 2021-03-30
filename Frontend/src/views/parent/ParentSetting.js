@@ -48,7 +48,7 @@ function ParentSetting() {
             <Text style={styles.mainText}>통계 보기</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => console.log('clicked')}
+            onPress={() => navigation.push('PinUpdate')}
             activeOpacity={0.7}
             style={styles.mainButton}>
             <Text style={styles.mainText}>핀 번호 변경</Text>
