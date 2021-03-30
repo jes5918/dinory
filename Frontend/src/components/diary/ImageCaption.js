@@ -31,7 +31,7 @@ export default function ImageCaption({
         words={wordsList}
         onHandleChangeTemp={(e) => onHandleChangeTemp(e)}></WordList>
       <BasicButton
-        text={'일기 쓰기'}
+        text={'단어 추가하기 / 일기 쓰기'}
         btnWidth={width * 0.3}
         fontHoonPink={true}
         customFontSize={height * 0.04}
