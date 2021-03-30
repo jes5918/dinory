@@ -1,5 +1,5 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // API_KEY 받아오고
 const API_BASE_URL = `https://j4b105.p.ssafy.io/`;
 
