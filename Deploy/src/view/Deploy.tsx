@@ -10,6 +10,8 @@ function Deploy(props: Props) {
   return (
     <>
       <div>{text}</div>
+      <div>{text}</div>
+      <div>{text}</div>
     </>
   );
 }
