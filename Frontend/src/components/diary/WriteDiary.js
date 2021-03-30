@@ -27,11 +27,13 @@ export default function WriteDiary({
   onHandleCheckGrammar,
   grammarchecked,
   checkData,
+  title,
+  content,
 }) {
   const imgIcon = require('../../assets/images/egg.png');
   const imgPerfect = require('../../assets/images/character5.png');
   const arrText = ['문', '법', '체', '크'];
-  const arrText2 = ['일', '기', '저', '장'];
+  const arrText2 = ['저', '장'];
   const grammar = (
     <View style={[styles.grammarBox]}>
       {checkData && checkData.length ? (
@@ -89,10 +91,10 @@ export default function WriteDiary({
         <Image
           source={imgPerfect}
           style={{
-            width: screenHeight * 0.2,
+            width: screenHeight * 0.13,
             resizeMode: 'contain',
-            height: screenHeight * 0.2,
-            marginVertical: screenHeight * 0.02,
+            height: screenHeight * 0.13,
+            marginVertical: screenHeight * 0.01,
           }}></Image>
       )}
     </View>
@@ -105,6 +107,7 @@ export default function WriteDiary({
             <View style={[styles.titleBox]}>
               <Text style={[styles.text]}>제목 :</Text>
               <TextInput
+                value={title}
                 style={[styles.TitleInput]}
                 autoCompleteType={'off'}
                 onChange={(e) => onHandleChangeTitle(e)}></TextInput>
@@ -112,6 +115,7 @@ export default function WriteDiary({
             <TextInput
               style={[styles.contentInput]}
               multiline
+              value={content}
               autoCompleteType={'off'}
               onChange={(e) => onHandleChangeContent(e)}></TextInput>
           </ScrollView>
@@ -206,7 +210,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     position: 'absolute',
     right: screenWidth * 0.066,
-    top: screenHeight * 0.05,
+    top: screenHeight * 0.045,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',

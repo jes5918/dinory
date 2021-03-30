@@ -10,7 +10,7 @@ const height = dimensions.height;
 const slides = [
   {
     key: 'one',
-    image: require('../../assets/images/tutorial/writeDiary2.png'),
+    image: require('../../assets/images/tutorial/writeDiary1.png'),
   },
   {
     key: 'two',

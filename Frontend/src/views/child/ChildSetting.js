@@ -18,7 +18,7 @@ import NumberButton from '../../components/elements/NumberButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import {useNavigation} from '@react-navigation/core';
 import {editChildProfile} from '../../api/accounts/childSettings';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertModal from '../../components/elements/AlertModal';
 
 const dimensions = Dimensions.get('window');
@@ -30,14 +30,20 @@ export default function ChildSetting() {
   const [fmodalVisible, setfModalVisible] = useState(false);
   const navigation = useNavigation();
 
-  // 돌아가는지 테스트 필요함
   const child = '10'; // 임시값
   const submitChangeInfo = () => {
     const formData = new FormData();
-    formData.append('name', String(childNName)); // 임시
-    formData.append('year', Number(childBirth)); // 임시
-    formData.append('img', Number(dinoPicNum)); // 임시
-
+    formData.append(
+      'name',
+      childNName !== '' ? String(childNName) : originName,
+    );
+    formData.append(
+      'year',
+      childBirth !== 0 ? Number(childBirth) : originBirth,
+    );
+    // 받아오는게 없어서 에러남. 나중에 수정
+    // formData.append('img', dinoPicNum !== 0 ? Number(dinoPicNum) : originPic);
+    console.log(formData);
     editChildProfile(
       child,
       formData,
@@ -71,12 +77,25 @@ export default function ChildSetting() {
   const fchangeModalState = () => {
     setfModalVisible(!fmodalVisible);
   };
-  let origin = '';
+
   // 캐릭터를 불러와 볼까요?
-  // AsyncStorage.getItem('변수명몰라', (err, result) => {
-  //   if ('변수명몰라' !== null) {
-  //     origin = reuslt;
-  //     console.log(result);
+  AsyncStorage.getItem('ProfileName', (err, result) => {
+    if ('ProfileName' !== null) {
+      setOriginName(result);
+    } else {
+      console.log(err);
+    }
+  });
+  AsyncStorage.getItem('ProfileYear', (err, result) => {
+    if ('ProfileYear' !== null) {
+      setOriginBirth(result);
+    } else {
+      console.log(err);
+    }
+  });
+  // AsyncStorage.getItem('ProfileYear', (err, result) => {
+  //   if ('ProfileYear' !== null) {
+  //     setOriginPic = result;
   //   } else {
   //     console.log(err);
   //   }
@@ -90,7 +109,10 @@ export default function ChildSetting() {
   const [isChangePic, setIschangePic] = useState(false);
   const [childNName, setChildNName] = useState('');
   const [childBirth, setChildBirth] = useState('');
-  const [dinoPicNum, setDinoPicNum] = useState(origin);
+  const [dinoPicNum, setDinoPicNum] = useState('');
+  const [originName, setOriginName] = useState(originName);
+  const [originBirth, setOriginBirth] = useState(originBirth);
+  // const [originPic, setOriginPic] = useState(originPic);
 
   let dinoArray = {
     1: require('../../assets/images/character1.png'),
@@ -121,7 +143,7 @@ export default function ChildSetting() {
                       <TextInput
                         style={styles.textInput}
                         // 수정해야함
-                        placeholder={'채아'}
+                        placeholder={originName}
                         autoCompleteType={'off'}
                         placeholderTextColor="#6e6e6e"
                         maxLength={8}
@@ -140,17 +162,17 @@ export default function ChildSetting() {
                         autoCompleteType={'off'}
                         style={styles.numInput}
                         // 수정해야함
-                        placeholder={'2014'}
+                        placeholder={originBirth}
                         placeholderTextColor="#6e6e6e"
                         maxLength={4}
                         // whenever using software keyboard
-                        keyboardType={'numeric'}
+                        // keyboardType={'numeric'}
                         // showSoftInputOnFocus={false}
                         onFocus={() => [
                           setIschangeName(false),
                           setIschangeBirth(true),
                           setIschangePic(false),
-                          // Keyboard.dismiss(),
+                          Keyboard.dismiss(),
                         ]}
                         value={childBirth}
                         onChangeText={(text) => setChildBirth(text)}
