@@ -13,12 +13,38 @@ import {
 import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// static
+const windowSize = Dimensions.get('window');
+const windowWidth = windowSize.width; // 1280
+const windowHeight = windowSize.height; // 768 //752
+const layoutWidth = windowWidth * 0.5;
+const layoutHeight = windowHeight * 0.708;
+
+let allKeys = [];
+const getAllKeys = async () => {
+  try {
+    allKeys = await AsyncStorage.getAllKeys();
+  } catch (e) {
+    // read key error
+  }
+
+  console.log('getAllKeys : ', allKeys);
+  outputAsyncStorage(allKeys);
+};
+
+const outputAsyncStorage = async (keyArray) => {
+  if (keyArray) {
+    for (let key of keyArray) {
+      AsyncStorage.getItem(key).then((value) => {
+        console.log('KeyName : ', key, ', value : ', value);
+      });
+    }
+  }
+};
+
 export default function HomeScreen({navigation}) {
-  const windowSize = Dimensions.get('window');
-  const windowWidth = windowSize.width; // 1280
-  const windowHeight = windowSize.height; // 768 //752
-  const layoutWidth = windowWidth * 0.5;
-  const layoutHeight = windowHeight * 0.708;
+  // getAllKeys();
   const [AutoLoginState, setAutoLoginState] = useState(false);
   const AutoLoginCheck = () => {
     AsyncStorage.getItem('AutoLogin').then((value) => {
@@ -32,7 +58,6 @@ export default function HomeScreen({navigation}) {
       if (value !== null && value.length > 100) {
         // 토큰값이 널이 아니고 100자 이상이라면
         let CurrentTokenCheck = new FormData();
-        console.log(value);
         CurrentTokenCheck.append('token', value);
         // 유효성 검사 준비
         validateToken(
@@ -45,7 +70,6 @@ export default function HomeScreen({navigation}) {
               CurrentToken,
               (res) => {
                 const RefreshToken = res.data.token;
-                console.log(RefreshToken);
                 AsyncStorage.removeItem('jwt');
                 AsyncStorage.setItem('jwt', RefreshToken);
                 navigation.navigate('CreateProfile');
@@ -74,9 +98,10 @@ export default function HomeScreen({navigation}) {
         source={require('../../assets/images/background5.png')}
         style={styles.container}>
         <View style={styles.view_logo}>
-          <View style={styles.logo}>
-            <Image source={require('../../assets/images/logo.png')} />
-          </View>
+          <Image
+            style={styles.logoImage}
+            source={require('../../assets/images/logo.png')}
+          />
         </View>
         <View>
           <Layout width={layoutWidth} height={layoutHeight} opacity={0}>
@@ -138,16 +163,16 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 100,
+    marginTop: windowHeight * 0.2,
   },
   button_mg: {
     margin: 32,
   },
-  logo: {
-    width: 595, //595
-    height: 101, //101
-    marginTop: 50,
-    flex: 1,
+  logoImage: {
+    marginTop: windowHeight * 0.3,
+    width: windowWidth * 0.4, //595
+    height: windowHeight * 0.17, //101
+    resizeMode: 'contain',
   },
   body: {
     flex: 4,
