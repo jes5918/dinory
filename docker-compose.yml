@@ -36,7 +36,4 @@ services:
         volumes:
           - ./Backend:/srv/docker-server
           - ./log:/var/log/uwsgi
-        stdin_open: true
-        ports:
-          - 8000:8000
 
