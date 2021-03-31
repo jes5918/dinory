@@ -8,7 +8,7 @@ import BasicButton from '../../components/elements/BasicButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
-import changePassword from '../../api/accounts/settings';
+import changePincode from '../../api/accounts/settings';
 
 // static variable
 const backgroundImage = require('../../assets/images/background2.png');
@@ -34,13 +34,13 @@ function PinUpdate() {
     } else {
       setAlertForEnter(false);
     }
-    let child_pk = '';
-    await AsyncStorage.getItem('child_pk').then((childPk) => {
-      child_pk = childPk;
+    let user_pk = '';
+    await AsyncStorage.getItem('user_pk').then((storedUserPK) => {
+      user_pk = storedUserPK;
     });
     await AsyncStorage.getItem('pin_code').then((oldPinCode) =>
-      changePassword(
-        child_pk,
+      changePincode(
+        user_pk,
         {
           old_pincode: oldPinCode,
           pin_code: pinCode,
@@ -63,7 +63,7 @@ function PinUpdate() {
     setTimeout(() => {
       setModalVisible(!modalVisible);
       navigation.navigate('Main');
-    }, 1300);
+    }, 1000);
   };
 
   const changeModalStateForEnter = () => {
@@ -73,7 +73,7 @@ function PinUpdate() {
   const closeModalForEnter = () => {
     setTimeout(() => {
       setAlertForEnter(!alertForEnter);
-    }, 1300);
+    }, 1000);
   };
 
   return (
