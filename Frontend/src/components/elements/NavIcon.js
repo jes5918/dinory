@@ -42,11 +42,6 @@ export default function NavIcon({navigation}) {
         onPress={() => navigation.navigate('DiaryList')}
       />
       <Text> </Text>
-      <Button
-        title="GrammarCheck"
-        onPress={() => navigation.navigate('GrammarCheck')}
-      />
-      <Text> </Text>
       <Button title="Diary" onPress={() => navigation.navigate('Diary')} />
       <Text> </Text>
       <Button
