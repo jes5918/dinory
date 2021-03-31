@@ -19,30 +19,6 @@ export default function SelectProfile({navigation}) {
   const [childrenInfo, setChildrenInfo] = useState(null);
   const imageSrc = require('../../../assets/images/background2.png');
 
-  const transformImage = (num) => {
-    let Src = '';
-    console.log('num : ', num);
-    console.log('num Type : ', typeof num);
-    switch (String(num)) {
-      case '1':
-        Src = require('../../../assets/images/character1.png');
-        break;
-      case '2':
-        Src = require('../../../assets/images/character2.png');
-        break;
-      case '3':
-        Src = require('../../../assets/images/character3.png');
-        break;
-      case '4':
-        Src = require('../../../assets/images/character4.png');
-        break;
-      default:
-        Src = require('../../../assets/images/character5.png');
-        break;
-    }
-    return Src;
-  };
-
   useEffect(() => {
     getChildProfile(
       (res) => {
@@ -83,11 +59,10 @@ export default function SelectProfile({navigation}) {
               {childrenInfo &&
                 childrenInfo.map((profile) => {
                   const {id, img, name, voice, year} = profile;
-                  const profileImg = transformImage(img);
                   const onButtonClick = () => {
                     const profileData = {
                       profile_pk: id,
-                      profile_image: profileImg,
+                      profile_image: img,
                       profile_name: name,
                       profile_year: year,
                       voice_pk: voice,
