@@ -26,13 +26,10 @@ export default function AvatarProfile({navigation}) {
       let ProfileInfo = new FormData();
       await AsyncStorage.getItem('ProfileName').then((profileName) => {
         ProfileInfo.append('name', profileName);
-        console.log(profileName, 1);
       });
       await AsyncStorage.getItem('ProfileYear').then((ProfileYear) => {
         ProfileInfo.append('year', ProfileYear);
-        console.log(ProfileYear, 2);
         ProfileInfo.append('img', imgNumber);
-        console.log(imgNumber, 3);
       });
       createChildProfile(
         ProfileInfo,

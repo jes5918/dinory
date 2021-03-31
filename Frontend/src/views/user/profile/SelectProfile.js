@@ -8,16 +8,27 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import SelectLayout from '../../../components/elements/SelectLayout';
+// import SelectLayout from '../../../components/elements/SelectLayout';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
 import ArrowButton from '../../../components/elements/ArrowButton';
 import ContentTitle from '../../../components/elements/ContentTitle';
 import Layout from '../../../components/elements/Layout';
 import {getChildProfile} from '../../../api/accounts/childSettings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SelectProfileButton from '../../../components/authorization/SelectProfileButton';
+
+// static variable
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
+
+// imageSrc
+// const character1 = require('../../../assets/images/character1.png');
+// const character2 = require('../../../assets/images/character2.png');
+// const character3 = require('../../../assets/images/character3.png');
+// const character4 = require('../../../assets/images/character4.png');
+// const character5 = require('../../../assets/images/character5.png');
+
 export default function SelectProfile({navigation}) {
   useEffect(() => {
     AsyncStorage.getItem('jwt').then((value) => {
@@ -56,17 +67,29 @@ export default function SelectProfile({navigation}) {
               showsHorizontalScrollIndicator={false}
               horizontal={true}
               style={styles.bodyCardContainer}>
-              <View style={styles.body}>
-                {childrenInfo &&
-                  childrenInfo.map((profile) => {
-                    const {id, img, name, parent, voice, year} = profile;
-                    return (
-                      <View key={id}>
-                        <Text> {name}</Text>
-                      </View>
-                    );
-                  })}
-              </View>
+              {childrenInfo &&
+                childrenInfo.map((profile) => {
+                  const {id, img, name, parent, voice, year} = profile;
+                  const imageSrc = transformImage(img);
+                  const onButtonClick = () => {
+                    AsyncStorage.setItem('child_pk', String(id)),
+                      AsyncStorage.setItem('img', String(imageSrc)),
+                      AsyncStorage.setItem('name', String(name)),
+                      AsyncStorage.setItem('parent', String(parent)),
+                      AsyncStorage.setItem('voice', String(voice)),
+                      AsyncStorage.setItem('year', String(year)),
+                      navigation.navigate('Main');
+                  };
+                  return (
+                    <View key={id}>
+                      <SelectProfileButton
+                        imageSrc={imageSrc}
+                        Name={name}
+                        onHandlePress={onButtonClick}
+                      />
+                    </View>
+                  );
+                })}
             </ScrollView>
           </Layout>
         </View>
@@ -75,6 +98,30 @@ export default function SelectProfile({navigation}) {
     </BackgroundAbsolute>
   );
 }
+
+const transformImage = (num) => {
+  let Src = '';
+  console.log('num : ', num);
+  console.log('num Type : ', typeof num);
+  switch (String(num)) {
+    case '1':
+      Src = require('../../../assets/images/character1.png');
+      break;
+    case '2':
+      Src = require('../../../assets/images/character2.png');
+      break;
+    case '3':
+      Src = require('../../../assets/images/character3.png');
+      break;
+    case '4':
+      Src = require('../../../assets/images/character4.png');
+      break;
+    default:
+      Src = require('../../../assets/images/character5.png');
+      break;
+  }
+  return Src;
+};
 
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width;
@@ -101,6 +148,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   body: {
+    // flexDirection: 'row',
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center',

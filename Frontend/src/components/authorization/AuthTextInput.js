@@ -8,7 +8,6 @@ export default function AuthTextInput({
   setFunction,
   secureTextEntry,
   autoFocus,
-  onHandleChange,
   value,
   keyboardType,
   marginBottom,
@@ -37,9 +36,6 @@ export default function AuthTextInput({
           ? setFunction(value)
           : alert('onChangeText에 State 함수를 내려주세요!')
       }
-      onChange={() => {
-        onHandleChange ? onHandleChange() : null;
-      }}
       value={value}
       placeholderTextColor="#707070"
       inlineImageLeft="lock"
