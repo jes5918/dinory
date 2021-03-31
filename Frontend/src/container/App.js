@@ -46,6 +46,7 @@ import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
 import DiaryDetail from '../views/diaryList/DiaryDetail';
 import PassWordUpdate from '../views/parent/PassWordUpdate';
 import PinUpdate from '../views/parent/PinUpdate';
+import PinAuthentication from '../views/parent/PinAuthentication';
 
 const Stack = createStackNavigator();
 
@@ -113,6 +114,7 @@ const App = () => {
         />
         <Stack.Screen name="PassWordUpdate" component={PassWordUpdate} />
         <Stack.Screen name="PinUpdate" component={PinUpdate} />
+        <Stack.Screen name="PinAuthentication" component={PinAuthentication} />
       </Stack.Navigator>
     </NavigationContainer>
   );
