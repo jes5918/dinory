@@ -17,7 +17,7 @@ export default function CheckBox({
 
   const [check, setCheck] = useState(false);
 
-  const baseUrl = 'https://j4b105.p.ssafy.io';
+  const baseUrl = 'https://j4b105.p.ssafy.io/api';
   // 카드 애니메이션
   const animatedValue = useMemo(() => new Animated.Value(0), []);
   let value = 0;

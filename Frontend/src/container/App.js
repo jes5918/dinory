@@ -102,7 +102,6 @@ const App = () => {
         <Stack.Screen name="SelectVoice" component={SelectVoice} />
         <Stack.Screen name="SelectLayout" component={SelectLayout} />
         <Stack.Screen name="MainTutorial" component={MainTutorial} />
-        <Stack.Screen name="GrammarCheck" component={GrammarCheck} />
         <Stack.Screen name="ChildSetting" component={ChildSetting} />
         <Stack.Screen name="Diary" component={Diary} />
         <Stack.Screen name="Word" component={Word} />
