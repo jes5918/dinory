@@ -105,6 +105,7 @@ function ParentSetting() {
         allowText={'로그아웃'}
         onHandlePressAllow={onHandlePressAllow}
         onHandlePressRefuse={onHandlePressRefuse}
+        secondText={'자동 로그인을 한 경우, 해제됩니다.'}
       />
       <AlertModal
         modalVisible={updateInfoModal}
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 24,
+    paddingVertical: windowHeight * 0.032,
   },
   mainText: {
     color: '#707070',
