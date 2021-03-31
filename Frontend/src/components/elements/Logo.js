@@ -1,6 +1,6 @@
-import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Image, Dimensions} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;

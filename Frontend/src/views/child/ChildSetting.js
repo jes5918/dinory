@@ -38,7 +38,7 @@ export default function ChildSetting() {
   const [childBirth, setChildBirth] = useState('');
   const [dinoPicNum, setDinoPicNum] = useState('');
   const [originName, setOriginName] = useState(originName);
-  const [originBirth, setOriginBirth] = useState(originBirth);
+  // const [originBirth, setOriginBirth] = useState(originBirth);
   // const [originPic, setOriginPic] = useState(originPic);
 
   const navigation = useNavigation();
@@ -59,9 +59,13 @@ export default function ChildSetting() {
   let year = today.getFullYear();
 
   const dialFunction = (data) => {
-    if (childBirth.length !== 4) {
+    if (childBirth.length <= 5) {
       if (data !== '지우개') {
-        setChildBirth(childBirth.concat(data));
+        if (childBirth.length <= 3) {
+          setChildBirth(childBirth.concat(data));
+        } else {
+          bchangeModalState();
+        }
       } else {
         setChildBirth(childBirth.slice(0, -1));
       }
@@ -84,7 +88,7 @@ export default function ChildSetting() {
       );
       formData.append(
         'year',
-        childBirth !== 0 ? Number(childBirth) : originBirth,
+        // childBirth !== 0 ? Number(childBirth) : originBirth,
       );
       // 받아오는게 없어서 에러남. 나중에 수정
       // formData.append('img', dinoPicNum !== 0 ? Number(dinoPicNum) : originPic);
@@ -171,7 +175,6 @@ export default function ChildSetting() {
                       <Text style={styles.myInfo}>저는</Text>
                       <TextInput
                         style={styles.textInput}
-                        // 수정해야함
                         placeholder={originName}
                         autoCompleteType={'off'}
                         placeholderTextColor="#6e6e6e"
@@ -201,9 +204,7 @@ export default function ChildSetting() {
                             setIschangeBirth(true),
                             setIschangePic(false),
                           ]}>
-                          <Text value={originBirth} style={styles.birthText}>
-                            {childBirth}
-                          </Text>
+                          <Text style={styles.birthText}>{childBirth}</Text>
                         </View>
                       </TouchableOpacity>
                       {/* <TextInput
@@ -283,6 +284,7 @@ export default function ChildSetting() {
                     onHandleCloseModal={() => changeModalState()}
                     text={'내 정보가 수정되었어요!'}
                     iconName={'smileo'}
+                    color={'#A0A0FF'}
                     setTimeFunction={() => closeModal()}
                   />
                   <AlertModal
@@ -290,6 +292,7 @@ export default function ChildSetting() {
                     onHandleCloseModal={() => fchangeModalState()}
                     text={'다시 시도해주세요!'}
                     iconName={'frowno'}
+                    color={'#FF0000'}
                     setTimeFunction={() => fcloseModal()}
                   />
                   <AlertModal
@@ -297,6 +300,7 @@ export default function ChildSetting() {
                     onHandleCloseModal={() => bchangeModalState()}
                     text={'태어난 년도를 다시 확인해볼까요?'}
                     iconName={'frowno'}
+                    color={'#FF0000'}
                     setTimeFunction={() => bcloseModal()}
                   />
                 </Layout>
