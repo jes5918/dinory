@@ -126,7 +126,7 @@ export default function Diary() {
     );
     if (selectedWordList.length !== 0) {
       console.log('보내는 데이터', selectedWordList);
-      fetch(`https://j4b105.p.ssafy.io/words/?child=${childPk}`, {
+      fetch(`https://j4b105.p.ssafy.io/api/words/?child=${childPk}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
