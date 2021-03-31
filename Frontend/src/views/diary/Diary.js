@@ -153,11 +153,22 @@ export default function Diary() {
   };
 
   useEffect(() => {
+    AsyncStorage.getAllKeys((err, keys) => {
+      AsyncStorage.multiGet(keys, (err, stores) => {
+        stores.map((result, i, store) => {
+          // get at each store's key/value so you can work with it
+          let key = store[i][0];
+          let value = store[i][1];
+          console.log(key, ' : ', value);
+        });
+      });
+    });
     getChildPk('child_pk', setChildPk);
     console.log('애번호', childPk);
     getChildPk('jwt', setToken);
     console.log('토큰', token);
   }, []);
+
   useEffect(() => {
     if (selectImage) {
       setCurrentPage(0);
@@ -263,10 +274,7 @@ export default function Diary() {
   };
 
   if (currentPage < 0) {
-    return (
-      <DiraryAgainTutorial
-        onhandleEnd={() => tutorialToggle()}></DiraryAgainTutorial>
-    );
+    return <DiraryAgainTutorial onhandleEnd={() => tutorialToggle()} />;
   } else if (currentPage === 1) {
     return (
       <ImageBackground source={bgurl} style={styles.bgBox}>
@@ -286,7 +294,7 @@ export default function Diary() {
             <MaterialIcons style={styles.mainIcon} name={'questioncircleo'} />
           </TouchableOpacity>
         </View>
-        <SelectImage setSelectImage={setSelectImage}></SelectImage>
+        <SelectImage setSelectImage={setSelectImage} />
         <AlertModal
           modalVisible={modalVisible}
           onHandleCloseModal={() => changeModalState(1)}
@@ -312,7 +320,7 @@ export default function Diary() {
   } else if (currentPage === 0) {
     return (
       <ImageBackground source={bgurl} style={styles.bgBox}>
-        <LoadingSec></LoadingSec>
+        <LoadingSec />
       </ImageBackground>
     );
   } else if (currentPage == 2) {
@@ -371,7 +379,8 @@ export default function Diary() {
           onHandleCheckGrammar={() => checkGrammar()}
           onHandleSaveDiary={() => openConfirmSave()}
           grammarchecked={grammarchecked}
-          checkData={checkData}></WriteDiary>
+          checkData={checkData}
+        />
         <AlertModal
           modalVisible={koreanWarnModalVisible}
           onHandleCloseModal={() => changeModalState(2)}
