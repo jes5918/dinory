@@ -1,6 +1,4 @@
-// Import React
 import React, {useEffect, useState} from 'react';
-// Import required components
 import {
   StyleSheet,
   Text,
@@ -71,8 +69,6 @@ const SelectImage = ({setSelectImage}) => {
     let isStoragePermitted = await requestExternalWritePermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, (response) => {
-        console.log('Response = ', response);
-
         if (response.didCancel) {
           alert('사진 찍기 취소!');
           return;
@@ -86,15 +82,6 @@ const SelectImage = ({setSelectImage}) => {
           alert(response.errorMessage);
           return;
         }
-        // console.log('base64 -> ', response.base64);
-        console.log('uri -> ', response.uri);
-        console.log('width -> ', response.width);
-        console.log('height -> ', response.height);
-        console.log('fileSize -> ', response.fileSize);
-        console.log('type -> ', response.type);
-        console.log('fileName -> ', response.fileName);
-        setSelectImage(response);
-        console.log('response', response);
       });
     }
   };
@@ -103,11 +90,8 @@ const SelectImage = ({setSelectImage}) => {
     let options = {
       mediaType: type,
       quality: 0.2,
-      // includeBase64: true,
     };
     launchImageLibrary(options, (response) => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         alert('사진 올리기 취소!');
         return;
@@ -122,7 +106,6 @@ const SelectImage = ({setSelectImage}) => {
         return;
       }
       setSelectImage(response);
-      console.log('response', response);
     });
   };
 
@@ -131,7 +114,7 @@ const SelectImage = ({setSelectImage}) => {
   const layoutHeight = dimensions.height * 0.5;
 
   return (
-    <Layout width={700} height={500} opacity={0.9}>
+    <Layout width={700} height={500} opacity={0.9} styleProps={{zIndex: 10}}>
       <View style={[styles.container]}>
         <TouchableOpacity
           activeOpacity={0.7}

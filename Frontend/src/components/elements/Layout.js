@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
-export default function Layout({width, height, opacity, children}) {
+export default function Layout({width, height, opacity, children, styleProps}) {
   return (
-    <View style={styles.container}>
+    <View
+      style={styleProps ? [styles.container, styleProps] : styles.container}>
       <View
         style={[
           styles.layout,
