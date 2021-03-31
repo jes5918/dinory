@@ -16,24 +16,15 @@ import Layout from '../../../components/elements/Layout';
 import {getChildProfile} from '../../../api/accounts/childSettings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SelectProfileButton from '../../../components/authorization/SelectProfileButton';
+import BasicButton from '../../../components/elements/BasicButton';
 
 // static variable
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
-// imageSrc
-// const character1 = require('../../../assets/images/character1.png');
-// const character2 = require('../../../assets/images/character2.png');
-// const character3 = require('../../../assets/images/character3.png');
-// const character4 = require('../../../assets/images/character4.png');
-// const character5 = require('../../../assets/images/character5.png');
-
 export default function SelectProfile({navigation}) {
   useEffect(() => {
-    AsyncStorage.getItem('jwt').then((value) => {
-      console.log(value);
-    });
     getChildProfile(
       (res) => {
         setChildrenInfo(res.data);
@@ -43,7 +34,7 @@ export default function SelectProfile({navigation}) {
       },
     );
   }, []);
-  const [childrenInfo, setChildrenInfo] = useState(childrenInfo);
+  const [childrenInfo, setChildrenInfo] = useState(null);
   const imageSrc = require('../../../assets/images/background2.png');
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
@@ -92,6 +83,13 @@ export default function SelectProfile({navigation}) {
                   );
                 })}
             </ScrollView>
+            <BasicButton
+              text={'프로필 추가하기'}
+              customFontSize={32}
+              onHandlePress={() => {
+                navigation.navigate('NameProfile');
+              }}
+              margin={30}></BasicButton>
           </Layout>
         </View>
       </View>

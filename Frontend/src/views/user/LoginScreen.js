@@ -26,8 +26,12 @@ export default function LoginScreen({navigation}) {
     loginForm.append('password', userPassword);
     loginInstance(
       loginForm,
-      (res) => {
-        AsyncStorage.setItem('jwt', res.data.token);
+      async (res) => {
+        console.log('로그인 시 토큰  : ', res.data.token);
+        if (await AsyncStorage.getItem('jwt')) {
+          AsyncStorage.removeItem('jwt');
+        }
+        await AsyncStorage.setItem('jwt', res.data.token);
         alert('로그인 되었습니다.');
         navigation.navigate('SelectProfile');
       },
