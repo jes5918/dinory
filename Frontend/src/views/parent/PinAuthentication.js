@@ -8,7 +8,7 @@ import BasicButton from '../../components/elements/BasicButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
-import changePassword from '../../api/accounts/settings';
+import checkPincode from '../../api/accounts/settings';
 
 // static variable
 const backgroundImage = require('../../assets/images/background2.png');
@@ -17,34 +17,41 @@ const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
 const inputWidth = windowWidth * 0.2625;
 const inputHeight = windowHeight * 0.077;
-const marginBottom = windowHeight * 0.06;
 
-function PinAuthentication() {
+function PinAuthentication({route}) {
+  const {connetedRoute} = route.params;
   const navigation = useNavigation();
 
   const [pinCode, setPinCode] = useState('');
-  const [pinCodeCheck, setPinCodeCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [alertForEnter, setAlertForEnter] = useState(false);
 
   const onHandleSubmit = async () => {
-    let child_pk = '';
-    await AsyncStorage.getItem('child_pk').then((childPk) => {
-      child_pk = childPk;
+    // validation
+    // isNaN : 숫자인지 확인(타입 상관 없이)
+    if (pinCode.length < 6 || isNaN(pinCode)) {
+      setAlertForEnter(true);
+      return;
+    } else {
+      setAlertForEnter(false);
+    }
+
+    let user_pk = '';
+    await AsyncStorage.getItem('user_pk').then((storedUserPK) => {
+      user_pk = storedUserPK;
     });
-    await AsyncStorage.getItem('pin_code').then((oldPinCode) =>
-      changePassword(
-        child_pk,
-        {
-          old_pincode: oldPinCode,
-          pin_code: pinCode,
-        },
-        (res) => {
-          setModalVisible(!modalVisible);
-        },
-        (err) => {
-          console.error(err);
-        },
-      ),
+
+    checkPincode(
+      {
+        pin_code: pinCode,
+      },
+      (res) => {
+        setModalVisible(!modalVisible);
+        navigation.navigate(connetedRoute);
+      },
+      (err) => {
+        console.error(err);
+      },
     );
   };
 
@@ -55,16 +62,33 @@ function PinAuthentication() {
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
-      navigation.navigate('Main');
-    }, 2000);
+    }, 1000);
+  };
+
+  const changeModalStateForEnter = () => {
+    setAlertForEnter(!alertForEnter);
+  };
+
+  const closeModalForEnter = () => {
+    setTimeout(() => {
+      setAlertForEnter(!alertForEnter);
+    }, 1000);
   };
 
   return (
     <View style={styles.container}>
       <AlertModal
+        modalVisible={alertForEnter}
+        onHandleCloseModal={() => changeModalStateForEnter()}
+        text={'핀 번호를 정확히 입력해주세요.'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModalForEnter()}
+      />
+      <AlertModal
         modalVisible={modalVisible}
         onHandleCloseModal={() => changeModalState()}
-        text={'핀 번호가 변경되었습니다.'}
+        text={'인증되었습니다.'}
         iconName={'checkcircle'}
         color={'green'}
         setTimeFunction={() => closeModal()}
@@ -73,7 +97,7 @@ function PinAuthentication() {
         <Header />
         <View style={styles.main}>
           <View style={styles.mainTop}>
-            <Text style={styles.mainText}>핀 번호 변경</Text>
+            <Text style={styles.mainText}>핀 번호 인증</Text>
           </View>
           <View style={styles.mainMid}>
             <AuthTextInput
@@ -82,17 +106,12 @@ function PinAuthentication() {
               height={inputHeight}
               marginRight={0}
               marginBottom={0}
-              text={'새로운 핀 번호를 입력해주세요.'}
+              text={'핀 번호를 입력하세요.'}
               secureTextEntry={true}
             />
             <Text style={styles.infoText}>
-              * 핀 번호는 6자리의 숫자로 구성되어야 합니다
+              * 핀 번호는 6자리의 숫자로 구성됩니다.
             </Text>
-            {pinCode !== pinCodeCheck ? (
-              <Text style={styles.alertMessage}>
-                핀 번호가 일치하지않습니다.
-              </Text>
-            ) : null}
           </View>
           <View style={styles.mainBot}>
             <BasicButton
@@ -125,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     width: windowWidth * 0.372, // 476
-    height: windowHeight * 0.754, // 642
+    height: windowHeight * 0.58, // 642
     borderRadius: 50,
     elevation: 7,
     paddingTop: windowHeight * 0.043, // 32
@@ -153,7 +172,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   infoText: {
-    fontSize: 18,
+    fontSize: 14,
     color: '#707070',
     width: windowWidth * 0.26,
     marginTop: windowHeight * 0.01,

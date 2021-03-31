@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     width: windowWidth * 0.2,
-    height: windowHeight * 0.1,
+    height: windowHeight * 0.07,
+    marginTop: windowHeight * 0.02,
     borderRadius: 50,
     elevation: 7,
     backgroundColor: 'white',
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
   },
   mainText: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: windowWidth * 0.01875, // 24
+    fontSize: windowWidth * 0.024, // 24
   },
   contentContainer: {
     flex: 4,
@@ -208,7 +209,8 @@ const styles = StyleSheet.create({
   },
   contentText: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: windowWidth * 0.014, // 18
+    // fontSize: windowWidth * 0.014, // 18
+    fontSize: windowWidth * 0.017, // 18
     lineHeight: windowHeight * 0.05,
     textDecorationLine: 'underline',
   },

@@ -19,7 +19,7 @@ export default function Profile() {
   // // 캐릭터랑 닉네임을 불러와 보아요
   AsyncStorage.getItem('ProfileName', (err, result) => {
     if ('ProfileName' !== null) {
-      console.log(result);
+      // console.log(result);
       setChildName(result);
     } else {
       console.log(err);
