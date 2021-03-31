@@ -22,13 +22,12 @@ from django.urls import path, include
 from .yasg import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('Accounts.urls')),
+    path('api/admin/', admin.site.urls),
+    path('api/accounts/', include('Accounts.urls')),
     # path('accounts/', include('Accounts.urls')),
-    path('notes/', include('Notes.urls')),
-    path('words/', include('Words.urls')),
-    path('ai/', include('AI.urls')),
-    path('stats/', include('Stats.urls')),
+    path('api/notes/', include('Notes.urls')),
+    path('api/words/', include('Words.urls')),
+    path('api/ai/', include('AI.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
