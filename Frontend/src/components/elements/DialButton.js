@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet, Image, TouchableOpacity, View} from 'react-native';
 import zero from '../../assets/images/number/0.png';
 import one from '../../assets/images/number/1.png';
 import two from '../../assets/images/number/2.png';
@@ -11,6 +10,7 @@ import seven from '../../assets/images/number/7.png';
 import eight from '../../assets/images/number/8.png';
 import nine from '../../assets/images/number/9.png';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import {StyleSheet, Image, TouchableOpacity, View} from 'react-native';
 
 export default function DialButton({
   size,

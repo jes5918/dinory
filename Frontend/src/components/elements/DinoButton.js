@@ -12,6 +12,24 @@ const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
+const checkCharacterImage = (src) => {
+  if (src.indexOf('character1') !== -1) {
+    return '#6EC2E2';
+  }
+  if (src.indexOf('character2') !== -1) {
+    return '#BF8FFD';
+  }
+  if (src.indexOf('character3') !== -1) {
+    return '#63D882';
+  }
+  if (src.indexOf('character4') !== -1) {
+    return '#E96C59';
+  }
+  if (src.indexOf('character5') !== -1) {
+    return '#68C6DD';
+  }
+};
+
 export default function DinoButton({
   imgSrc,
   childName,
@@ -52,23 +70,6 @@ export default function DinoButton({
     </TouchableOpacity>
   );
 }
-const checkCharacterImage = (src) => {
-  if (src.indexOf('character1') !== -1) {
-    return '#6EC2E2';
-  }
-  if (src.indexOf('character2') !== -1) {
-    return '#BF8FFD';
-  }
-  if (src.indexOf('character3') !== -1) {
-    return '#63D882';
-  }
-  if (src.indexOf('character4') !== -1) {
-    return '#E96C59';
-  }
-  if (src.indexOf('character5') !== -1) {
-    return '#68C6DD';
-  }
-};
 
 const styles = StyleSheet.create({
   container: {

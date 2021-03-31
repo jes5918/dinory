@@ -1,4 +1,8 @@
 import React from 'react';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Logo from '../components/elements/Logo';
+import Header from '../components/elements/Header';
+import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
 import {
   StyleSheet,
   View,
@@ -7,10 +11,6 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Logo from '../components/elements/Logo';
-import Header from '../components/elements/Header';
-import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
 import {useNavigation} from '@react-navigation/core';
 import {didTutorial} from '../api/diary/checkTutorial';
 
