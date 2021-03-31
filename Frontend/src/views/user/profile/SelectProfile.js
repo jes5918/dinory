@@ -82,6 +82,7 @@ export default function SelectProfile({navigation}) {
               style={styles.bodyCardContainer}>
               {childrenInfo &&
                 childrenInfo.map((profile) => {
+<<<<<<< HEAD
                   const {id, img, name, voice, year} = profile;
                   const profileImg = transformImage(img);
                   const onButtonClick = () => {
@@ -97,6 +98,29 @@ export default function SelectProfile({navigation}) {
                       JSON.stringify(profileData),
                     );
                     navigation.navigate('Main');
+=======
+                  const {id, img, name, parent, voice, year} = profile;
+                  const imageSrc = transformImage(img);
+                  const onButtonClick = async () => {
+                    await AsyncStorage.multiRemove(
+                      'child_pk',
+                      'img',
+                      'name',
+                      'parent',
+                      'voice',
+                      'year',
+                    );
+                    await AsyncStorage.setItem('profile_pk ', String(id));
+                    await AsyncStorage.setItem(
+                      'profile_image ',
+                      String(imageSrc),
+                    );
+                    await AsyncStorage.setItem('profile_name ', String(name));
+                    await AsyncStorage.setItem('user_pk ', String(parent));
+                    await AsyncStorage.setItem('voice', String(voice));
+                    await AsyncStorage.setItem('voice_pk  ', String(year));
+                    await navigation.navigate('Main');
+>>>>>>> daff9f6 ([feat/FE] : 비밀번호 찾기, 변경 추가 구현)
                   };
                   return (
                     <View key={id}>

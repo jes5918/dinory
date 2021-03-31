@@ -27,7 +27,6 @@ export default function LoginScreen({navigation}) {
     loginInstance(
       loginForm,
       async (res) => {
-        console.log('로그인 시 토큰  : ', res.data.token);
         if (await AsyncStorage.getItem('jwt')) {
           AsyncStorage.removeItem('jwt');
         }
@@ -68,6 +67,16 @@ export default function LoginScreen({navigation}) {
             secureTextEntry={true}
             autoFocus={false}
           />
+        </View>
+        <View style={styles.password}>
+          <Text>비밀번호를 잃어버리셨나요? </Text>
+          <Text
+            style={{color: 'blue'}}
+            onPress={() => {
+              navigation.navigate('SearchPassword');
+            }}>
+            비밀번호 찾기
+          </Text>
         </View>
         <View style={styles.start}>
           <View style={styles.checkOption}>
@@ -133,6 +142,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: windowWidth * 0.3,
+    marginTop: windowHeight * 0.043 * 2,
+  },
+  password: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: windowWidth * 0.29,
     marginTop: windowHeight * 0.043 * 2,
   },
   label: {
