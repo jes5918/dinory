@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, Dimensions} from 'react-native';
 import Layout from './Layout';
 import BasicButton from './BasicButton';
 import RoundButton from './RoundButton';
 import DinoButton from './DinoButton';
 import ContentTitle from './ContentTitle';
+import {StyleSheet, View, Dimensions} from 'react-native';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -33,7 +33,6 @@ export default function SelectLayout({
       <View style={styles.body}>
         <ContentTitle title={title} />
         <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
-          <View sytle={styles.innerUpper}></View>
           <View style={styles.innerMiddle}>
             <DinoButton imgSrc={character1} onHandlePress={onHandlePressC1} />
             <DinoButton imgSrc={character2} onHandlePress={onHandlePressC2} />
