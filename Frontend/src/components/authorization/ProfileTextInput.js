@@ -12,6 +12,7 @@ export default function AuthTextInput({
   margin,
   value,
   elevation,
+  maxLength,
 }) {
   return (
     <TextInput
@@ -25,6 +26,7 @@ export default function AuthTextInput({
           margin,
         },
       ]}
+      maxLength={maxLength || 4}
       secureTextEntry={secureTextEntry}
       placeholder={text}
       autoFocus={autoFocus}
