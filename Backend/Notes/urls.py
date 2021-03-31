@@ -4,6 +4,7 @@ urlpatterns = [
     path('', views.note_read),
     path('diary/', views.diary_create_read),
     path('diary/<int:pk>/', views.diary_read_only_pk),
+    path('diary/footer/', views.diary_read_footer),
     path('tutorial/', views.diary_tutorial_check),
 
     path('check/', views.diary_check),
