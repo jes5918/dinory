@@ -67,22 +67,24 @@ export default function EmailAuthorization({navigation}) {
     <AuthBackGround>
       <View style={styles.start}>
         <View>
-          <ArrowButton onHandlePress={() => navigation.goBack()}></ArrowButton>
+          <ArrowButton onHandlePress={() => navigation.goBack()} />
         </View>
         <View style={styles.logo}>
           <Image
             source={require('../../assets/images/logo.png')}
-            style={styles.logo}></Image>
+            style={styles.logo}
+          />
         </View>
       </View>
       <KeyboardAvoidingView style={styles.body} behavior={'height'}>
         <Layout width={layoutWidth} height={layoutHeight} opacity={1}>
           <View style={styles.view}>
-            <AuthTitle title={' 이메일 인증'}></AuthTitle>
+            <AuthTitle title={' 이메일 인증'} />
           </View>
           <View>
             <View style={styles.text_Input_Button}>
               <AuthTextInput
+                marginRight={11}
                 text={'이메일을 입력하세요'}
                 width={389}
                 height={58}
@@ -99,13 +101,15 @@ export default function EmailAuthorization({navigation}) {
                 paddingVertical={11}
                 btnWidth={98}
                 btnHeight={58}
-                borderRadius={14}
+                borderRadius={10}
                 onHandlePress={() => {
                   submitHandler();
-                }}></BasicButton>
+                }}
+              />
             </View>
             <View style={styles.text_Input_Button}>
               <AuthTextInput
+                marginRight={11}
                 text={'인증번호를 입력하세요'}
                 width={389}
                 height={58}
@@ -121,8 +125,9 @@ export default function EmailAuthorization({navigation}) {
                 paddingVertical={16}
                 btnWidth={98}
                 btnHeight={58}
-                borderRadius={14}
-                onHandlePress={() => emailAuthNumberchk()}></BasicButton>
+                borderRadius={10}
+                onHandlePress={() => emailAuthNumberchk()}
+              />
             </View>
             <View
               style={{
@@ -140,7 +145,6 @@ export default function EmailAuthorization({navigation}) {
           </View>
         </Layout>
       </KeyboardAvoidingView>
-      {/* <View style={styles.end}></View> */}
     </AuthBackGround>
   );
 }

@@ -39,7 +39,7 @@ export default function HomeScreen({navigation}) {
           CurrentTokenCheck,
           (res) => {
             // 유효성 검사를 패스한 현재 토큰을 리프레쉬할 준비
-            CurrentToken = new FormData();
+            const CurrentToken = new FormData();
             CurrentToken.append('token', res.data.token);
             refreshToken(
               CurrentToken,
@@ -69,13 +69,13 @@ export default function HomeScreen({navigation}) {
     });
   };
   return (
-    <ScrollView style={styles.scroll}>
+    <View style={styles.scroll}>
       <ImageBackground
         source={require('../../assets/images/background5.png')}
         style={styles.container}>
         <View style={styles.view_logo}>
           <View style={styles.logo}>
-            <Image source={require('../../assets/images/logo.png')}></Image>
+            <Image source={require('../../assets/images/logo.png')} />
           </View>
         </View>
         <View>
@@ -93,7 +93,8 @@ export default function HomeScreen({navigation}) {
                     borderRadius={14}
                     onHandlePress={() =>
                       navigation.navigate('EmailAuthorization')
-                    }></BasicButton>
+                    }
+                  />
                 </View>
                 <View style={styles.button_mg}>
                   <BasicButton
@@ -104,14 +105,15 @@ export default function HomeScreen({navigation}) {
                     btnWidth={336}
                     btnHeight={73}
                     borderRadius={14}
-                    onHandlePress={() => Autologin()}></BasicButton>
+                    onHandlePress={() => Autologin()}
+                  />
                 </View>
               </View>
             </View>
           </Layout>
         </View>
       </ImageBackground>
-    </ScrollView>
+    </View>
   );
 }
 

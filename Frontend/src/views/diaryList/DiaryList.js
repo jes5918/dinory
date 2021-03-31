@@ -61,7 +61,9 @@ const MainCardComponent = ({
       <View style={styles.mainInner}>
         <Text style={styles.mainText}>{dateText}</Text>
       </View>
-      <Image style={styles.mainEgg} source={egg} />
+      <View style={styles.mainImage}>
+        <Image style={styles.mainEgg} source={egg} />
+      </View>
       <CardComponent
         diaryText={diaryText}
         diaryImage={diaryImage}
@@ -141,8 +143,13 @@ function DiaryList() {
         <Header />
         <View style={styles.body}>
           <ScrollView
-            showsHorizontalScrollIndicator={false}
             horizontal={true}
+            contentContainerStyle={[
+              {
+                paddingLeft: windowWidth * 0.14,
+                paddingRight: windowWidth * 0.1,
+              },
+            ]}
             style={styles.bodyCardContainer}>
             {dataByMonth &&
               dataByMonth.map((diary) => {
@@ -238,9 +245,13 @@ const styles = StyleSheet.create({
     fontFamily: 'NotoSansKR-Bold',
     color: 'white',
   },
+  mainImage: {
+    width: windowWidth * 0.034,
+    height: windowHeight * 0.061,
+  },
   mainEgg: {
     width: windowWidth * 0.031,
-    height: windowHeight * 0.0572,
+    height: windowHeight * 0.061,
   },
   line: {
     width: windowWidth,

@@ -16,4 +16,8 @@ function changePincode(user_pk, pinInfo, success, fail) {
     .catch(fail);
 }
 
-export {changePassword, changePincode};
+function checkPincode(pinInfo, success, fail) {
+  instance.post('accounts/check/pin/', pinInfo).then(success).catch(fail);
+}
+
+export {changePassword, changePincode, checkPincode};
