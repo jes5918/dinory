@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Dimensions} from 'react-native';
 import SelectLayout from '../../components/elements/SelectLayout';
 import Header from '../../components/elements/Header';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
-import {editChildVoice} from '../../api/accounts/childSettings';
 import Sound from 'react-native-sound';
 import voiceOne from '../../assets/sound/0hellonicetomeetyou.wav';
 import voiceTwo from '../../assets/sound/1hellonicetomeetyou.wav';
@@ -11,6 +9,8 @@ import voiceThr from '../../assets/sound/2hellonicetomeetyou.wav';
 import voiceFou from '../../assets/sound/3hellonicetomeetyou.wav';
 import voiceFiv from '../../assets/sound/4hellonicetomeetyou.wav';
 import AlertModal from '../../components/elements/AlertModal';
+import {editChildVoice} from '../../api/accounts/childSettings';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
@@ -20,10 +20,10 @@ export default function SelectVoice() {
   const [modalVisible, setModalVisible] = useState(false);
   const [fmodalVisible, setfModalVisible] = useState(false);
   const navigation = useNavigation();
-
   const url = require('../../assets/images/background2.png');
-  let voice = '';
   const child = '10'; // 임시
+  let voice = '';
+
   let soundf = new Sound(voiceOne, Sound.MAIN_BUNDLE, (error) => {
     if (error) {
     }
@@ -44,6 +44,7 @@ export default function SelectVoice() {
     if (error) {
     }
   });
+
   const soundOn = (num) => {
     voice = num;
   };
@@ -58,7 +59,7 @@ export default function SelectVoice() {
           changeModalState();
           setTimeout(() => {
             navigation.navigate('Main');
-          }, 1500);
+          }, 2000);
         }
       },
       (err) => {
@@ -69,7 +70,7 @@ export default function SelectVoice() {
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
-    }, 1000);
+    }, 1500);
   };
   const changeModalState = () => {
     setModalVisible(!modalVisible);
@@ -77,11 +78,12 @@ export default function SelectVoice() {
   const fcloseModal = () => {
     setTimeout(() => {
       setfModalVisible(!fmodalVisible);
-    }, 1000);
+    }, 1500);
   };
   const fchangeModalState = () => {
     setfModalVisible(!fmodalVisible);
   };
+
   return (
     <View style={styles.container}>
       <BackgroundAbsolute imageSrc={url}>

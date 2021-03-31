@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Image, StyleSheet, Dimensions} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import {View, Image, StyleSheet, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
@@ -26,19 +26,6 @@ const slides = [
   },
 ];
 
-const styles = StyleSheet.create({
-  slide: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    width: width,
-    height: height,
-    resizeMode: 'stretch',
-  },
-});
-
 const renderItem = ({item}) => {
   return (
     <View style={styles.slide}>
@@ -60,3 +47,16 @@ export default function MainTutorial() {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  slide: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: width,
+    height: height,
+    resizeMode: 'stretch',
+  },
+});

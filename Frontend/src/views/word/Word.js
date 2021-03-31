@@ -1,4 +1,6 @@
 import React from 'react';
+import Header from '../../components/elements/Header';
+import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import {
   StyleSheet,
   View,
@@ -9,14 +11,11 @@ import {
   ScrollView,
   Text,
 } from 'react-native';
-import Header from '../../components/elements/Header';
 import {useNavigation} from '@react-navigation/core';
-import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
-
 const wordImage = [
   {src: require('../../assets/images/alphabet/A.png'), data: 'A'},
   {src: require('../../assets/images/alphabet/B.png'), data: 'B'},
@@ -47,6 +46,9 @@ const wordImage = [
 ];
 
 export default function Word() {
+  const navigation = useNavigation();
+  const url = require('../../assets/images/background1.png');
+
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
@@ -59,9 +61,6 @@ export default function Word() {
       </TouchableOpacity>
     );
   };
-
-  const navigation = useNavigation();
-  const url = require('../../assets/images/background1.png');
 
   return (
     <View style={styles.container}>
