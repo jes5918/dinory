@@ -9,6 +9,9 @@ FROM nginx:latest
 
 COPY --from=build /app/Deploy/build /usr/share/nginx/html
 
+RUN apt-get -y update
+RUN apt-get -y install vim
+
 RUN rm -rf /etc/nginx/default.conf
 RUN rm -rf /etc/nginx/sites-available/
 

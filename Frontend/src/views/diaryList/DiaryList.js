@@ -146,7 +146,7 @@ function DiaryList() {
             horizontal={true}
             contentContainerStyle={[
               {
-                paddingLeft: windowWidth * 0.14,
+                paddingLeft: windowWidth * 0.08,
                 paddingRight: windowWidth * 0.1,
               },
             ]}

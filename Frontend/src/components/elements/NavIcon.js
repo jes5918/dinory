@@ -11,11 +11,6 @@ export default function NavIcon({navigation}) {
       />
       <Text> </Text>
       <Button
-        title="CreateProfile"
-        onPress={() => navigation.navigate('CreateProfile')}
-      />
-      <Text> </Text>
-      <Button
         title="SelectProfile"
         onPress={() => navigation.navigate('SelectProfile')}
       />
@@ -42,12 +37,22 @@ export default function NavIcon({navigation}) {
         onPress={() => navigation.navigate('DiaryList')}
       />
       <Text> </Text>
+      <Button title="Diary" onPress={() => navigation.navigate('Diary')} />
+      <Text> </Text>
       <Button
-        title="GrammarCheck"
-        onPress={() => navigation.navigate('GrammarCheck')}
+        title="PinScreen"
+        onPress={() => navigation.navigate('PinScreen')}
       />
       <Text> </Text>
-      <Button title="Diary" onPress={() => navigation.navigate('Diary')} />
+      <Button
+        title="SignupScreen"
+        onPress={() => navigation.navigate('SignupScreen')}
+      />
+      <Text> </Text>
+      <Button
+        title="LoginScreen"
+        onPress={() => navigation.navigate('LoginScreen')}
+      />
     </ScrollView>
   );
 }

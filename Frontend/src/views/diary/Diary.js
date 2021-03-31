@@ -26,6 +26,7 @@ import {useNavigation} from '@react-navigation/core';
 import MaterialIcons from 'react-native-vector-icons/AntDesign';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import DiraryAgainTutorial from '../../views/diary/DiraryAgainTutorial';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 ///////날짜
 const date = new Date();
@@ -71,7 +72,9 @@ export default function Diary() {
   const [diaryContent, setDiaryContent] = useState('');
   const [tempPagenum, setTempPagenum] = useState(false);
   const [grammarchecked, setGrammarchecked] = useState(false);
-  const [checkData, setCheckData] = useState(null);
+  const [checkData, setCheckData] = useState('');
+  const [childPk, setChildPk] = useState('');
+  const [token, setToken] = useState('');
 
   const closeModal = (e) => {
     if (e === 1) {
@@ -123,16 +126,12 @@ export default function Diary() {
     );
     if (selectedWordList.length !== 0) {
       console.log('보내는 데이터', selectedWordList);
-      const Token =
-        'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNCwidXNlcm5hbWUiOiJzdWVtaW4xIiwiZXhwIjoxNjE3NzcwMjQyLCJlbWFpbCI6InBvcG9wMDkwOTBAbmF2ZXIuY29tIn0.NjNEuTXianJ1lQ2SzsyxV6uZgELGTM1236DVw76MtE4';
-      const child = 10;
-      //////////
-      fetch(`https://j4b105.p.ssafy.io/words/?child=${child}`, {
+      fetch(`https://j4b105.p.ssafy.io/api/words/?child=${childPk}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: Token,
+          Authorization: token,
         },
         body: JSON.stringify({
           DATA: selectedWordList,
@@ -147,6 +146,18 @@ export default function Diary() {
       setCurrentPage(3);
     }
   };
+  const getChildPk = async (keyName, setValue) => {
+    await AsyncStorage.getItem(keyName).then((value) => {
+      setValue(value);
+    });
+  };
+
+  useEffect(() => {
+    getChildPk('child_pk', setChildPk);
+    console.log('애번호', childPk);
+    getChildPk('jwt', setToken);
+    console.log('토큰', token);
+  }, []);
   useEffect(() => {
     if (selectImage) {
       setCurrentPage(0);
@@ -208,7 +219,7 @@ export default function Diary() {
       console.log('FormData', formData);
       createDiary(
         formData,
-        10,
+        childPk,
         (res) => {
           console.log('함수 실행');
           console.log('resData', res.data);

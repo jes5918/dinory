@@ -1,17 +1,28 @@
 import React from 'react';
-import {View, Dimensions, StyleSheet} from 'react-native';
+import {View, Dimensions, Image, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 import ArrowButton from './ArrowButton';
 import Profile from './Profile';
 
-function Header({children}) {
+const LogoImage = () => {
+  return (
+    <View style={styles.logo}>
+      <Image
+        source={require('../../assets/images/logo.png')}
+        style={styles.logoImage}
+      />
+    </View>
+  );
+};
+
+function Header({children, logoHeader}) {
   const navigation = useNavigation();
   return (
     <View style={styles.header}>
       <ArrowButton onHandlePress={() => navigation.goBack()} />
       {children}
-      <Profile />
+      {logoHeader ? <LogoImage /> : <Profile />}
     </View>
   );
 }
@@ -31,6 +42,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: windowHeight * 0.02,
     left: 0,
+  },
+  logo: {},
+  logoImage: {
+    resizeMode: 'contain',
+    width: windowWidth * 0.12, //595
+    height: windowHeight * 0.09, //101
   },
 });
 
