@@ -8,6 +8,7 @@ import {
   Image,
   KeyboardAvoidingView,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import Layout from '../../../components/elements/Layout';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
@@ -24,11 +25,35 @@ const height = dimensions.height;
 
 export default function AgeProfile({navigation}) {
   const imageSrc = require('../../../assets/images/background2.png');
-  const [year, setYear] = useState('');
+  const [childBirth, setChildBirth] = useState('');
+  const [bmodalVisible, setbModalVisible] = useState(false);
+  let today = new Date();
+  let year = today.getFullYear();
+
+  const dialFunction = (data) => {
+    if (childBirth.length <= 5) {
+      if (data !== '지우개') {
+        if (childBirth.length <= 3) {
+          setChildBirth(childBirth.concat(data));
+        } else {
+          bchangeModalState();
+        }
+      } else {
+        setChildBirth(childBirth.slice(0, -1));
+      }
+    } else {
+      if (data === '지우개') {
+        setChildBirth(childBirth.slice(0, -1));
+      }
+    }
+  };
+  const bchangeModalState = () => {
+    setbModalVisible(!bmodalVisible);
+  };
   const next = () => {
-    if (year >= 1990 && year <= 2020) {
-      console.log(year);
-      AsyncStorage.setItem('ProfileYear', year);
+    if (childBirth >= 1990 && childBirth <= 2020) {
+      console.log(childBirth);
+      AsyncStorage.setItem('ProfileYear', childBirth);
       navigation.navigate('AvatarProfile');
     } else {
       alert('올바른 연도가 아닙니다');
@@ -51,17 +76,33 @@ export default function AgeProfile({navigation}) {
           <ContentTitle title={'태어난 연도를 선택해주세요'}></ContentTitle>
         </KeyboardAvoidingView>
         <View>
-          <TextInput ref={ageInputRef}></TextInput>
           <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
-            <ProfileTextInput
-              text={'숫자 4자리를 입력해주세요'}
-              width={width * 0.375}
-              height={height * 0.1}
-              size={32}
-              autoFocus={false}
-              setFunction={setYear}
-              elevation={3}></ProfileTextInput>
-            <DialButton childName={'1'}></DialButton>
+            <View style={styles.inLine}>
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => [
+                  setIschangeName(false),
+                  setIschangeBirth(true),
+                  setIschangePic(false),
+                ]}>
+                <View
+                  style={styles.birthContainer}
+                  onPress={() => [
+                    setIschangeName(false),
+                    setIschangeBirth(true),
+                    setIschangePic(false),
+                  ]}>
+                  <Text style={styles.birthText}>{childBirth}</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <DialButton // 민호체크
+              size={width * 0.06}
+              verMargin={height * 0.02}
+              horMargin={width * 0.01}
+              deleteSize={width * 0.04}
+              inputFunc={dialFunction}
+            />
             <ArrowProfileButton
               onHandlePress={() => {
                 next();

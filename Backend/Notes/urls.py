@@ -1,20 +1,18 @@
 from django.urls import path
+from .views import note_check_views, note_read_views, note_create_views
 from . import views
 urlpatterns = [
-    path('', views.note_read),
-    path('diary/', views.diary_create_read),
-    path('diary/<int:pk>/', views.diary_read_only_pk),
-    path('diary/footer/', views.diary_read_footer),
-    path('tutorial/', views.diary_tutorial_check),
+    # 일기 작성
+    path('diary/', note_create_views.diary_create),
 
-    path('check/', views.diary_check),
-    path('stat/used_words/', views.word_used_rate),
-    path('stat/used_words/cloud/', views.word_used_cloud),
-    path('stat/diary/', views.diary_stat),
-    path('stat/diary/commit/', views.diary_commit),
-    path('stat/diary/monthly/', views.diary_monthly_rate),
-    path('stat/diary/yearly/', views.diary_yearly_rate),
-    # path('stat/attend/', views.diary_attend_rate)
-    # path('word/', views.word_create),
-    # path('image/', views.upload_image),
+    # 일기 조회
+    path('diary/total/', note_read_views.diary_read_total),
+    path('diary/total/monthly/', note_read_views.diary_read_total_monthly),
+    path('diary/total/daily/', note_read_views.diary_read_total_daily),
+    path('diary/monthly/', note_read_views.diary_read_monthly),
+    path('diary/<int:pk>/', note_read_views.diary_read_only_pk),
+
+    # 체크 , 관리자 확인, 튜토리얼 여부 확인
+    path('check/', note_check_views.diary_check),
+    path('tutorial/', note_check_views.diary_tutorial_check),
 ]

@@ -19,9 +19,7 @@ function AuthorizationInstance() {
   AsyncStorage.getItem('jwt').then((value) => {
     let Token = '';
     Token = 'jwt ' + value;
-    console.log(Token);
-    instance.defaults.headers.common.Authorization =
-      'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNCwidXNlcm5hbWUiOiJzdWVtaW4xIiwiZXhwIjoxNjE3NzcwMjQyLCJlbWFpbCI6InBvcG9wMDkwOTBAbmF2ZXIuY29tIn0.NjNEuTXianJ1lQ2SzsyxV6uZgELGTM1236DVw76MtE4';
+    instance.defaults.headers.common['Authorization'] = Token;
     instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
   });
   return instance;

@@ -28,6 +28,7 @@ urlpatterns = [
     path('find/password/', find_password_views.password_find),
     path('find/password/confirm/', find_password_views.password_find_confirm),
     path('find/password/setting/<int:pk>/', find_password_views.password_find_setting),
+    
     # 아이계정
     path('child/', child_views.child_create_read),
     path('child/setting/', child_views.child_update),
