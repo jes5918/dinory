@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,7 +6,6 @@ import {
   Text,
   TextInput,
   ScrollView,
-  // Keyboard,
   TouchableOpacity,
 } from 'react-native';
 import Header from '../../components/elements/Header';
@@ -38,8 +37,6 @@ export default function ChildSetting() {
   const [childBirth, setChildBirth] = useState('');
   const [dinoPicNum, setDinoPicNum] = useState('');
   const [originName, setOriginName] = useState(originName);
-  // const [originBirth, setOriginBirth] = useState(originBirth);
-  // const [originPic, setOriginPic] = useState(originPic);
 
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
@@ -86,10 +83,7 @@ export default function ChildSetting() {
         'name',
         childNName !== '' ? String(childNName) : originName,
       );
-      formData.append(
-        'year',
-        // childBirth !== 0 ? Number(childBirth) : originBirth,
-      );
+      formData.append('year');
       // 받아오는게 없어서 에러남. 나중에 수정
       // formData.append('img', dinoPicNum !== 0 ? Number(dinoPicNum) : originPic);
       console.log(formData);
@@ -98,6 +92,10 @@ export default function ChildSetting() {
         formData,
         (res) => {
           if (res.status === 201) {
+            AsyncStorage.removeItem('ProfileName');
+            AsyncStorage.removeItem('ProfileYear');
+            AsyncStorage.setItem('ProfileName', String(childNName));
+            AsyncStorage.setItem('ProfileYear', String(childBirth));
             changeModalState();
             setTimeout(() => {
               navigation.navigate('Main');
@@ -148,13 +146,15 @@ export default function ChildSetting() {
       console.log(err);
     }
   });
-  AsyncStorage.getItem('ProfileYear', (err, result) => {
-    if ('ProfileYear' !== null) {
-      // setChildBirth(result);
-    } else {
-      console.log(err);
-    }
-  });
+  useEffect(() => {
+    AsyncStorage.getItem('ProfileYear', (err, result) => {
+      if ('ProfileYear' !== null) {
+        setChildBirth(result);
+      } else {
+        console.log(err);
+      }
+    });
+  }, []);
   // AsyncStorage.getAllKeys().then(console.log);
 
   return (
@@ -207,25 +207,6 @@ export default function ChildSetting() {
                           <Text style={styles.birthText}>{childBirth}</Text>
                         </View>
                       </TouchableOpacity>
-                      {/* <TextInput
-                        autoCompleteType={'off'}
-                        style={styles.numInput}
-                        // 수정해야함
-                        placeholder={originBirth}
-                        placeholderTextColor="#6e6e6e"
-                        maxLength={4}
-                        // whenever using software keyboard
-                        // keyboardType={'numeric'} // 숫자 입력만 가능하도록(키보드 사용시)
-                        showSoftInputOnFocus={false} // 눌렀을 때 소프트웨어 키보드 팝업 안뜨게 하기
-                        onFocus={() => [
-                          setIschangeName(false),
-                          setIschangeBirth(true),
-                          setIschangePic(false),
-                          Keyboard.dismiss(), // focus가 생겼을 때 키보드 끄기
-                        ]}
-                        value={childBirth}
-                        onChange={(text) => setChildBirth(text)}
-                      /> */}
                       <Text style={styles.myInfo}>년에 태어났구요</Text>
                     </View>
                     <View style={styles.inLine}>
@@ -354,17 +335,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     elevation: 7,
   },
-  // numInput: {
-  //   fontFamily: 'HoonPinkpungchaR',
-  //   fontSize: height * 0.04,
-  //   color: '#FB537B',
-  //   width: height * 0.2,
-  //   height: height * 0.08,
-  //   textAlign: 'center',
-  //   backgroundColor: '#fff',
-  //   borderRadius: 20,
-  //   elevation: 7,
-  // },
   scrollContainer: {
     flex: 1,
     flexDirection: 'row',
