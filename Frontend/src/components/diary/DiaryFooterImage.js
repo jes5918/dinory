@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   thumbnailText: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: windowWidth * 0.014, // 18
+    fontSize: windowWidth * 0.016, // 18
     marginBottom: windowHeight * 0.01,
   },
 });
