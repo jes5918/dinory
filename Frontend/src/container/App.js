@@ -28,7 +28,6 @@ import SignupScreen from '../views/user/SignupScreen';
 import LoginScreen from '../views/user/LoginScreen';
 import EmailAuthorization from '../views/user/EmailAuthorization';
 import PinCreate from '../views/user/PinScreen';
-import CreateProfile from '../views/user/profile/CreateProfile';
 import SelectProfile from '../views/user/profile/SelectProfile';
 import NameProfile from '../views/user/profile/NameProfile';
 import AgeProfile from '../views/user/profile/AgeProfile';
@@ -85,7 +84,6 @@ const App = () => {
         <Stack.Screen name="LoadingSec" component={LoadingSec} />
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
         <Stack.Screen name="PinScreen" component={PinCreate} />
-        <Stack.Screen name="CreateProfile" component={CreateProfile} />
         <Stack.Screen name="SelectProfile" component={SelectProfile} />
         <Stack.Screen name="NameProfile" component={NameProfile} />
         <Stack.Screen name="AgeProfile" component={AgeProfile} />

@@ -36,19 +36,25 @@ export default function EmailAuthorization({navigation}) {
   const [randomAuthCode, setRandomAuthCode] = useState('');
   const Authenticate = async () => {
     if (userWriteEmail.length > 8) {
+      console.log('들어옴');
+      console.log(userWriteEmail);
       let emailAuthForm = new FormData();
       emailAuthForm.append('email', userWriteEmail);
       await AsyncStorage.setItem('email', userWriteEmail);
+      console.log('들어옴2');
       // 이메일 중복 확인!
       confirmEmail(
         emailAuthForm,
         (res) => {
+          console.log('중복 확인');
+          console.log(res.data['success']);
           TransmitCodeToEmail(
             //인증 번호 전송
             emailAuthForm,
             (res) => {
-              console.log(res);
-              setUserTicket(res.data);
+              console.log('인증 번호 전송 확인');
+              console.log(res.data);
+              setUserTicket(res.data['id']);
               //번호표 저장
             },
             (error) => {
@@ -67,10 +73,11 @@ export default function EmailAuthorization({navigation}) {
       const ConfirmForm = new FormData();
       ConfirmForm.append('code', userWriteCode);
       ConfirmForm.append('id', userTicket);
+      console.log(userWriteCode);
       confirmEmailCode(
         ConfirmForm,
         (res) => {
-          console.log(res);
+          console.log(res.data);
           AsyncStorage.setItem('email', userWriteEmail);
           alert('인증이 완료되었습니다');
           navigation.navigate('SignupScreen');

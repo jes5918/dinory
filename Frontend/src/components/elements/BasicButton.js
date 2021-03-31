@@ -12,6 +12,7 @@ function BasicButton({
   borderRadius,
   onHandlePress,
   fontHoonPink,
+  margin,
 }) {
   return (
     <TouchableOpacity
@@ -30,6 +31,7 @@ function BasicButton({
           width: btnWidth || windowWidth * 0.4,
           height: btnHeight || windowHeight * 0.08,
           borderRadius: borderRadius || 14,
+          margin: margin || 0,
         },
       ]}>
       <Text
