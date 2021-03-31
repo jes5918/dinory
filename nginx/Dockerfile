@@ -1,13 +1,4 @@
-FROM node:14.15.4 as build
-WORKDIR /app/Deploy
-COPY ./Deploy/package*.json ./
-RUN yarn install
-COPY ./Deploy/ ./
-RUN yarn build
-
 FROM nginx:latest
-
-COPY --from=build /app/deploy/build /usr/share/nginx/html
 
 RUN rm -rf /etc/nginx/default.conf
 RUN rm -rf /etc/nginx/sites-available/
