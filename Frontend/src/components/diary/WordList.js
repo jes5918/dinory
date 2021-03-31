@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 import CheckBox from '../elements/CheckBox.js';
 
@@ -7,7 +7,6 @@ export default function WriteDiary({words, onHandleChangeTemp}) {
   const selectWord = (i) => {
     const aaa = words.map((word, idx) => {
       if (i === idx) {
-        console.log('!!!!!!!!', word);
         return {...word, checked: !word.checked};
       } else {
         return word;
@@ -15,7 +14,6 @@ export default function WriteDiary({words, onHandleChangeTemp}) {
     });
 
     onHandleChangeTemp(aaa);
-    console.log('word변화', aaa);
   };
   return (
     <View style={[styles.wordListBox]}>

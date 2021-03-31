@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  Image,
-  Dimensions,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 
 import WordList from '../diary/WordList';
 import BasicButton from '../../components/elements/BasicButton';

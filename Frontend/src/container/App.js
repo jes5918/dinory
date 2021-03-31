@@ -109,7 +109,7 @@ const App = () => {
         <Stack.Screen name="WordByAlphabet" component={WordByAlphabet} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
         <Stack.Screen
-          name="DiaryWriteTutorial "
+          name="DiaryWriteTutorial"
           component={DiaryWriteTutorial}
         />
         <Stack.Screen name="PassWordUpdate" component={PassWordUpdate} />

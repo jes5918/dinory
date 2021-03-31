@@ -12,7 +12,12 @@ import {
   ScrollView,
   KeyboardAvoidingView,
 } from 'react-native';
-import {confirmEmail} from '../../api/accounts/signup';
+import {
+  confirmEmail,
+  TransmitCodeToEmail,
+  confirmEmailCode,
+  duflicationCheckID,
+} from '../../api/accounts/signup';
 import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import ArrowButton from '../../components/elements/ArrowButton';
@@ -25,42 +30,56 @@ export default function EmailAuthorization({navigation}) {
   const windowHeight = windowSize.height; // 768
   const layoutWidth = windowWidth * 0.4984;
   const layoutHeight = windowHeight * 0.713;
-  const [userEmail, setUserEmail] = useState('');
-  const [userAuth, setUserAuth] = useState('');
-  const [emailAuthNumber, setemailAuthNumber] = useState('');
-  const submitHandler = async () => {
-    if (userEmail.length > 8) {
+  const [userWriteEmail, setUserWriteEmail] = useState('');
+  const [userWriteCode, setUserWriteCode] = useState('');
+  const [userTicket, setUserTicket] = useState(0);
+  const [randomAuthCode, setRandomAuthCode] = useState('');
+  const Authenticate = async () => {
+    if (userWriteEmail.length > 8) {
       let emailAuthForm = new FormData();
-      console.log(userEmail);
-      emailAuthForm.append('email', userEmail);
-      await AsyncStorage.setItem('email', userEmail);
+      emailAuthForm.append('email', userWriteEmail);
+      await AsyncStorage.setItem('email', userWriteEmail);
+      // 이메일 중복 확인!
       confirmEmail(
         emailAuthForm,
         (res) => {
-          const temp = res.data['인증코드'];
-          if (temp === undefined) {
-            alert('이미 가입된 이메일입니다.');
-          } else {
-            setemailAuthNumber(temp);
-            alert('인증번호를 보냈습니다');
-          }
+          TransmitCodeToEmail(
+            //인증 번호 전송
+            emailAuthForm,
+            (res) => {
+              console.log(res);
+              setUserTicket(res.data);
+              //번호표 저장
+            },
+            (error) => {
+              console.log(error);
+            },
+          );
         },
         (error) => {
-          alert('이미 가입한 이메일입니다');
           console.log(error);
         },
       );
-    } else {
-      alert('이메일 형식이 아닙니다');
     }
   };
-  const emailAuthNumberchk = () => {
-    if (userAuth.length > 0) {
-      console.log(emailAuthNumber);
-      console.log(userAuth);
-      emailAuthNumber === userAuth
-        ? navigation.navigate('SignupScreen')
-        : alert('인증번호가 틀렸습니다.');
+  const ConfirmCode = () => {
+    if (userWriteCode.length > 0) {
+      ConfirmForm = new FormData();
+      ConfirmForm.append('code', userWriteCode);
+      ConfirmForm.append('id', userTicket);
+      confirmEmailCode(
+        ConfirmForm,
+        (res) => {
+          console.log(res);
+          AsyncStorage.setItem('email', userWriteEmail);
+          alert('인증이 완료되었습니다');
+          navigation.navigate('SignupScreen');
+        },
+        (error) => {
+          console.log(error);
+          alert('인증번호가 틀렸습니다.');
+        },
+      );
     }
   };
   return (
@@ -89,7 +108,7 @@ export default function EmailAuthorization({navigation}) {
                 width={389}
                 height={58}
                 size={18}
-                setFunction={setUserEmail}
+                setFunction={setUserWriteEmail}
                 keyboardType={'email-address'}
                 secureTextEntry={false}
                 autoFocus={true}
@@ -103,9 +122,8 @@ export default function EmailAuthorization({navigation}) {
                 btnHeight={58}
                 borderRadius={10}
                 onHandlePress={() => {
-                  submitHandler();
-                }}
-              />
+                  Authenticate();
+                }}></BasicButton>
             </View>
             <View style={styles.text_Input_Button}>
               <AuthTextInput
@@ -114,7 +132,7 @@ export default function EmailAuthorization({navigation}) {
                 width={389}
                 height={58}
                 size={18}
-                setFunction={setUserAuth}
+                setFunction={setUserWriteCode}
                 autoFocus={false}
                 secureTextEntry={true}
               />
@@ -125,9 +143,8 @@ export default function EmailAuthorization({navigation}) {
                 paddingVertical={16}
                 btnWidth={98}
                 btnHeight={58}
-                borderRadius={10}
-                onHandlePress={() => emailAuthNumberchk()}
-              />
+                borderRadius={14}
+                onHandlePress={() => ConfirmCode()}></BasicButton>
             </View>
             <View
               style={{
@@ -136,7 +153,7 @@ export default function EmailAuthorization({navigation}) {
                 fontSize: 18,
                 justifyContent: 'flex-start',
               }}>
-              {emailAuthNumber !== userAuth ? (
+              {randomAuthCode !== userWriteCode ? (
                 <Text style={{color: '#FF0000'}}>
                   * 인증코드가 일치하지않습니다.
                 </Text>

@@ -35,7 +35,7 @@ export default function LoginScreen({navigation}) {
       (res) => {
         AsyncStorage.setItem('jwt', res.data.token);
         alert('로그인 되었습니다.');
-        navigation.navigate('CreateProfile');
+        navigation.navigate('SelectProfile');
       },
       (error) => {
         alert('비밀번호가 잘못되었습니다');

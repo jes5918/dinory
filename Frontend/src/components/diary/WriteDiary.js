@@ -1,21 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
   KeyboardAvoidingView,
   StyleSheet,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageBackground,
   ScrollView,
   Dimensions,
   Image,
 } from 'react-native';
 
-import RoundButton from '../elements/RoundButton';
 import WordList from './WordList';
-import {createDiary} from '../../api/diary/writeDiary';
 import MaterialIcons from 'react-native-vector-icons/AntDesign';
 
 export default function WriteDiary({
@@ -235,7 +231,6 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   TitleInput: {
-    // borderWidth: 2,
     width: '60%',
     height: 'auto',
     paddingBottom: 0,
@@ -246,26 +241,18 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     paddingHorizontal: 10,
     marginBottom: 10,
-    // backgroundColor: 'red',
   },
   contentInput: {
-    // borderWidth: 2,
     width: '100%',
-    // minHeight: screenHeight * 0.45,
     fontFamily: 'HoonPinkpungchaR',
     fontSize: screenWidth * 0.02,
     borderRadius: 30,
     paddingHorizontal: 10,
-    // borderWidth: 2,
-    // borderColor: 'gray',
-    // backgroundColor: 'yellow',
   },
   textInputBox: {
     borderWidth: 2,
     borderColor: 'gray',
     borderRadius: 30,
-    // flex: 1,
-    // backgroundColor: 'green',
     height: '100%',
     marginHorizontal: 10,
     paddingHorizontal: 10,
@@ -280,7 +267,6 @@ const styles = StyleSheet.create({
     padding: '1.5%',
   },
   dirayBox: {
-    // position: 'relative',
     width: '80%',
     backgroundColor: '#FFF',
     borderRadius: 30,
