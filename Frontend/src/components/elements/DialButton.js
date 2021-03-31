@@ -1,75 +1,224 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-  Text,
-  View,
-} from 'react-native';
-
-const dimensions = Dimensions.get('window');
-const width = dimensions.width;
-const height = dimensions.height;
+import {StyleSheet, Image, TouchableOpacity, View} from 'react-native';
+import zero from '../../assets/images/number/0.png';
+import one from '../../assets/images/number/1.png';
+import two from '../../assets/images/number/2.png';
+import three from '../../assets/images/number/3.png';
+import four from '../../assets/images/number/4.png';
+import five from '../../assets/images/number/5.png';
+import six from '../../assets/images/number/6.png';
+import seven from '../../assets/images/number/7.png';
+import eight from '../../assets/images/number/8.png';
+import nine from '../../assets/images/number/9.png';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default function DialButton({
-  childName,
-  onHandlePress,
-  widthProps,
-  effectDisalbe,
+  size,
+  verMargin,
+  horMargin,
+  deleteSize,
+  inputFunc,
 }) {
+  const sendDial = (data) => {
+    inputFunc(data);
+  };
   return (
-    <TouchableOpacity
-      disabled={effectDisalbe ? true : false || false}
-      activeOpacity={0.7}
-      onPress={() =>
-        onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
-      }>
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: '#ffffff',
-            width: widthProps * 1.2 || width * 0.11,
-            height: widthProps * 1.2 || width * 0.11,
-          },
-        ]}>
-        <Image
-          style={[
-            styles.characterImage,
-            {
-              width: widthProps || width * 0.09,
-              height: widthProps || width * 0.09,
-            },
-          ]}
-        />
+    <View style={styles.container}>
+      <View style={styles.rowConatiner}>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => sendDial(1)}>
+          <Image
+            source={one}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => sendDial(2)}>
+          <Image
+            source={two}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => sendDial(3)}>
+          <Image
+            source={three}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => sendDial(4)}>
+          <Image
+            source={four}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
       </View>
-      {childName && <Text style={styles.nameText}>{childName}</Text>}
-    </TouchableOpacity>
+      <View style={styles.rowConatiner}>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => sendDial(5)}>
+          <Image
+            source={five}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.test}
+          activeOpacity={0.7}
+          onPress={() => sendDial(6)}>
+          <Image
+            source={six}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => sendDial(7)}>
+          <Image
+            source={seven}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.rowConatiner}>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => sendDial(8)}>
+          <Image
+            source={eight}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => sendDial(9)}>
+          <Image
+            source={nine}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7} onPress={() => sendDial(0)}>
+          <Image
+            source={zero}
+            style={[
+              styles.numImage,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => sendDial('지우개')}>
+          <View
+            style={[
+              styles.arrowIcon,
+              {
+                width: size,
+                height: size,
+                marginVertical: verMargin,
+                marginHorizontal: horMargin,
+              },
+            ]}>
+            <FontAwesome5Icon
+              style={[
+                {
+                  fontSize: deleteSize,
+                },
+              ]}
+              name={'arrow-left'}
+              color="white"
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 1000,
-    elevation: 7,
-    marginHorizontal: width * 0.01,
   },
-  characterImage: {
+  rowConatiner: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  numImage: {
     resizeMode: 'contain',
   },
-  nameText: {
-    fontFamily: 'HoonPinkpungchaR',
-    alignSelf: 'center',
-    fontSize: height * 0.05,
-  },
-  nullNameText: {
-    fontFamily: 'HoonPinkpungchaR',
-    alignSelf: 'center',
-    fontSize: 100,
-    backgroundColor: 'red',
+  arrowIcon: {
+    backgroundColor: '#585858',
+    borderRadius: 1000,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
