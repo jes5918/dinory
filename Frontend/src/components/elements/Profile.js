@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   Text,
@@ -8,27 +9,26 @@ import {
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
 export default function Profile() {
+  const navigation = useNavigation();
   const [childName, setChildName] = useState(childName);
-  // // 캐릭터랑 닉네임을 불러와 보아요
+
   AsyncStorage.getItem('ProfileName', (err, result) => {
     if ('ProfileName' !== null) {
-      // console.log(result);
       setChildName(result);
     } else {
       console.log(err);
     }
   });
-  // 캐릭터랑 닉네임을 못찾겠어요. 우리 모든 key를 불러와 볼까요?
+
+  // 캐릭터를 못찾겠어요. 우리 모든 key를 불러와 볼까요?
   // AsyncStorage.getAllKeys().then(console.log);
 
-  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.container}
