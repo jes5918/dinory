@@ -31,6 +31,7 @@
     "react-native-sensitive-info": "6.0.0-alpha.9",
     "react-native-sound": "0.11.0",
     "react-native-svg": "12.1.0",
+    "react-native-typewriter": "0.7.0",
     "react-native-vector-icons": "8.1.0",
     "react-redux": "7.2.2",
     "redux": "4.0.5",
