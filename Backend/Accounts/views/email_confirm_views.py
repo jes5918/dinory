@@ -1,3 +1,4 @@
+# 이메일 인증코드 발송, 인증코드 확인
 from threading import Thread
 import time
 import random
