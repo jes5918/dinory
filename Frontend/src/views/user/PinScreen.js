@@ -28,27 +28,57 @@ export default function PinCreate({navigation}) {
   const [userPinNumber, setUserPinNumber] = useState('');
   const [userPinNumberchk, setUserPinNumberchk] = useState('');
   const [buttonChk, setButtonChk] = useState(false);
+  const AsyncStorageChecker = async () => {
+    if (await AsyncStorage.getItem('username')) {
+      AsyncStorage.removeItem('username');
+    }
+    if (await AsyncStorage.getItem('password')) {
+      AsyncStorage.removeItem('password');
+    }
+    if (await AsyncStorage.getItem('password_confirmation')) {
+      AsyncStorage.removeItem('password_confirmation');
+    }
+    if (await AsyncStorage.getItem('email')) {
+      AsyncStorage.removeItem('email');
+    }
+    if (await AsyncStorage.getItem('pin_code')) {
+      AsyncStorage.removeItem('pin_code');
+    }
+    if (await AsyncStorage.getItem('userpin_code_confirmationname')) {
+      AsyncStorage.removeItem('pin_code_confirmation');
+    }
+  };
   const submitHandler = async () => {
-    if (userPinNumber.length === 6 && userPinNumber === userPinNumberchk) {
+    if (userPinNumber.length === 6) {
+      AsyncStorage.getAllKeys((value) => {
+        console.log(value);
+      });
       AsyncStorage.setItem('pin_code', userPinNumber);
       AsyncStorage.setItem('pin_code_confirmation', userPinNumberchk);
       let pinAuthForm = new FormData();
       await AsyncStorage.getItem('username').then((username) => {
         pinAuthForm.append('username', username);
+        console.log(username);
       });
       await AsyncStorage.getItem('password').then((password) => {
         pinAuthForm.append('password', password);
+        console.log(password);
       });
       await AsyncStorage.getItem('password_confirmation').then(
         (password_confirmation) => {
           pinAuthForm.append('password_confirmation', password_confirmation);
+          console.log(password_confirmation);
         },
       );
       await AsyncStorage.getItem('email').then((email) => {
         pinAuthForm.append('email', email);
+        console.log(email);
+        console.log(userPinNumber);
+        console.log(userPinNumberchk);
         pinAuthForm.append('pin_code', userPinNumber);
         pinAuthForm.append('pin_code_confirmation', userPinNumberchk);
       });
+      console.log(pinAuthForm);
       signupInstance(
         pinAuthForm,
         (res) => {
