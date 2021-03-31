@@ -46,7 +46,7 @@ def child_create_read(request):
 @authentication_classes([JSONWebTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def child_update(request):
-    child = get_object_or_404(Child, id=request.GET.get('child'))
+    child = get_object_or_404(Child, parent=request.user, id=request.GET.get('child'))
     name = request.data.get('name')
     if not name.isalpha() and not isHangul(name):
         return Response({'error' : '이름은 한글이나 영어만 입력 가능합니다.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -65,7 +65,7 @@ def child_update(request):
 @authentication_classes([JSONWebTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def child_delete(request):
-    child = get_object_or_404(Child, id=request.GET['child'])
+    child = get_object_or_404(Child, parent=request.user, id=request.GET.get('child'))
     if request.user == child.parent:
         child.delete()
         return Response({'success' : '아이 계정이 삭제되었습니다.'}, status=status.HTTP_200_OK)
@@ -79,7 +79,7 @@ def child_change_voice(request):
     voice = request.data.get('voice')
     if not voice.isdigit() or int(voice) < 0 or int(voice) > 4:
         return Response({'error' : '잘못된 음성입니다. 음성 번호 0~4 사이의 숫자로 입력해주세요'}, status=status.HTTP_400_BAD_REQUEST)
-    child = Child.objects.get(id=request.GET['child'])
+    child = get_object_or_404(Child, parent=request.user, id=request.GET.get('child'))
     child.voice = voice
     child.save()
     return Response({'success' : '목소리가 변경되었습니다.'}, status=status.HTTP_200_OK)
