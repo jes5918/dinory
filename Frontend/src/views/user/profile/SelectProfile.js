@@ -54,12 +54,13 @@ export default function SelectProfile({navigation}) {
         <View style={styles.logo}>
           <Image
             source={require('../../../assets/images/logo.png')}
-            style={styles.logo}></Image>
+            style={styles.logo}
+          />
         </View>
       </View>
       <View style={styles.body}>
         <View style={styles.view}>
-          <ContentTitle title={'프로필을 선택하세요'}></ContentTitle>
+          <ContentTitle title={'프로필을 선택하세요'} />
         </View>
         <View>
           <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>

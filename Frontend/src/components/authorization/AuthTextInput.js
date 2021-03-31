@@ -45,7 +45,8 @@ export default function AuthTextInput({
 const styles = StyleSheet.create({
   textInput: {
     backgroundColor: '#E8E8E8',
-    borderRadius: 10,
+    borderRadius: 14,
     padding: 16,
+    elevation: 7,
   },
 });
