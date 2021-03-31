@@ -72,3 +72,9 @@ class WordStateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Word
         fields = ('content', 'count')
+
+class DiaryFooterSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Diary
+        fields = ('date', 'id', 'img')

@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Dimensions} from 'react-native';
 import DinoButton from './DinoButton';
+import {StyleSheet, View, Dimensions} from 'react-native';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;

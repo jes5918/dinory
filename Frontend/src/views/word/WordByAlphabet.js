@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Dimensions, ScrollView, Text} from 'react-native';
 import Header from '../../components/elements/Header';
 import FlipCard from '../../components/elements/FlipCard';
-import {getListbyAlphabet} from '../../api/word/readWord';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
+import {getListbyAlphabet} from '../../api/word/readWord';
+import {StyleSheet, View, Dimensions, ScrollView, Text} from 'react-native';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -13,8 +13,8 @@ export default function WordByAlphabet({route}) {
   const url = require('../../assets/images/background1.png');
   const [listByAlpha, setListByAlpha] = useState();
   const alphabet = route.params.selectAlpha;
-
   const child = '10'; // 임시
+
   useEffect(() => {
     getListbyAlphabet(
       {child: child, alphabet: alphabet},

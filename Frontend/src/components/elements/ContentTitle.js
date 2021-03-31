@@ -19,7 +19,6 @@ export default function ContentTitle({title, opacity}) {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    // backgroundColor: 'rgba(255,255,255,0.8)',
     width: width * 0.4,
     height: height * 0.1,
     borderRadius: 50,
