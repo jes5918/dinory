@@ -28,6 +28,8 @@ export default function PinCreate({navigation}) {
   const [buttonChk, setButtonChk] = useState(false);
   const submitHandler = async () => {
     if (userPinNumber.length === 6 && userPinNumber === userPinNumberchk) {
+      AsyncStorage.setItem('pin_code', userPinNumber);
+      AsyncStorage.setItem('pin_code_confirmation', userPinNumberchk);
       let pinAuthForm = new FormData();
       await AsyncStorage.getItem('username').then((username) => {
         pinAuthForm.append('username', username);
