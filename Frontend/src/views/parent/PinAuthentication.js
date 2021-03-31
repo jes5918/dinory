@@ -27,6 +27,7 @@ function PinAuthentication({route}) {
   const [alertForEnter, setAlertForEnter] = useState(false);
 
   const onHandleSubmit = async () => {
+    console.log('pinCode : ', pinCode);
     // validation
     // isNaN : 숫자인지 확인(타입 상관 없이)
     if (pinCode.length < 6 || isNaN(pinCode)) {
@@ -35,11 +36,6 @@ function PinAuthentication({route}) {
     } else {
       setAlertForEnter(false);
     }
-
-    let user_pk = '';
-    await AsyncStorage.getItem('user_pk').then((storedUserPK) => {
-      user_pk = storedUserPK;
-    });
 
     checkPincode(
       {
