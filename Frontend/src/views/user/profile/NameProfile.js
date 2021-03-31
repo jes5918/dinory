@@ -53,7 +53,7 @@ export default function NameProfile({navigation}) {
               autoFocus={false}
               setFunction={setName}
               elevation={3}
-              maxLength={12}></ProfileTextInput>
+              maxLength={8}></ProfileTextInput>
             <ArrowProfileButton
               onHandlePress={() => {
                 next();
