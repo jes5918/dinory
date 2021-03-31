@@ -28,6 +28,7 @@ urlpatterns = [
     path('api/notes/', include('Notes.urls')),
     path('api/words/', include('Words.urls')),
     path('api/ai/', include('AI.urls')),
+    path('api/stats/', include('Stats.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
