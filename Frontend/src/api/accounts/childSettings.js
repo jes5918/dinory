@@ -1,5 +1,5 @@
 import {AuthorizationInstance} from '../index.js';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const instance = AuthorizationInstance();
 function getChildProfile(success, fail) {
   instance.get(`accounts/child/`).then(success).catch(fail);
@@ -7,7 +7,14 @@ function getChildProfile(success, fail) {
 
 // 아이 생성
 function createChildProfile(profileInfo, success, fail) {
-  instance.post(`accounts/child/`, profileInfo).then(success).catch(fail);
+  instance
+    .post(`accounts/child/`, profileInfo, {
+      headers: {
+        Authorization: `jwt ${AsyncStorage.getItem('jwt')}`,
+      },
+    })
+    .then(success)
+    .catch(fail);
 }
 
 // 아이 정보 수정

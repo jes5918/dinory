@@ -58,37 +58,34 @@ export default function PinCreate({navigation}) {
       let pinAuthForm = new FormData();
       await AsyncStorage.getItem('username').then((username) => {
         pinAuthForm.append('username', username);
-        console.log(username);
       });
       await AsyncStorage.getItem('password').then((password) => {
         pinAuthForm.append('password', password);
-        console.log(password);
       });
       await AsyncStorage.getItem('password_confirmation').then(
         (password_confirmation) => {
           pinAuthForm.append('password_confirmation', password_confirmation);
-          console.log(password_confirmation);
         },
       );
       await AsyncStorage.getItem('email').then((email) => {
         pinAuthForm.append('email', email);
-        console.log(email);
-        console.log(userPinNumber);
-        console.log(userPinNumberchk);
         pinAuthForm.append('pin_code', userPinNumber);
         pinAuthForm.append('pin_code_confirmation', userPinNumberchk);
       });
-      console.log(pinAuthForm);
+      await AsyncStorage.removeItem('email');
+      await AsyncStorage.removeItem('username');
+      await AsyncStorage.removeItem('password');
+      await AsyncStorage.removeItem('password_confirmation');
+      await AsyncStorage.removeItem('ProfileName');
+
       signupInstance(
         pinAuthForm,
         (res) => {
           const token = res.data.token;
-          console.log(token);
           AsyncStorage.removeItem('jwt');
           AsyncStorage.setItem('jwt', token);
           alert('회원가입 되었습니다.');
-          console.log(token);
-          navigation.navigate('LoginScreen');
+          navigation.navigate('SelectProfile');
         },
         (error) => {
           alert('ERROR');

@@ -24,13 +24,19 @@ export default function AvatarProfile({navigation}) {
   const CreateProfile = async () => {
     if (imgNumber !== 0) {
       let ProfileInfo = new FormData();
+      await AsyncStorage.getItem('jwt').then((jwt) => {
+        console.log('프로필에서 ', jwt);
+      });
       await AsyncStorage.getItem('ProfileName').then((profileName) => {
         ProfileInfo.append('name', profileName);
       });
       await AsyncStorage.getItem('ProfileYear').then((ProfileYear) => {
         ProfileInfo.append('year', ProfileYear);
         ProfileInfo.append('img', imgNumber);
+        AsyncStorage.removeItem('ProfileName');
+        AsyncStorage.removeItem('ProfileYear');
       });
+      console.log(ProfileInfo);
       createChildProfile(
         ProfileInfo,
         (res) => {

@@ -57,7 +57,6 @@ export default function HomeScreen({navigation}) {
     await AsyncStorage.getItem('jwt').then((value) => {
       if (value !== null && value.length > 100) {
         // 토큰값이 널이 아니고 100자 이상이라면
-        console.log('refresh 전 토큰 :', value);
         let CurrentTokenCheck = new FormData();
         CurrentTokenCheck.append('token', value);
         // 유효성 검사 준비
@@ -71,7 +70,7 @@ export default function HomeScreen({navigation}) {
               CurrentToken,
               (res) => {
                 const RefreshToken = res.data.token;
-                console.log('RefreshToken : ', RefreshToken);
+
                 AsyncStorage.removeItem('jwt');
                 AsyncStorage.setItem('jwt', RefreshToken);
                 navigation.navigate('SelectProfile');
