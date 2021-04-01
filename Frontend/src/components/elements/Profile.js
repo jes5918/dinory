@@ -32,7 +32,6 @@ export default function Profile() {
 
   const transformImage = (num) => {
     let Src = '';
-    console.log(num);
     switch (String(num)) {
       case '0':
         Src = require('../../assets/images/character1.png');
