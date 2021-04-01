@@ -83,11 +83,12 @@ export default function ChildSetting() {
       const formData = new FormData();
       formData.append(
         'name',
-        childNName !== '' ? String(childNName) : originName,
+        childNName !== originName && childNName.length !== 0
+          ? childNName
+          : originName,
       );
       formData.append('year', childBirth);
       formData.append('img', dinoPicNum);
-      console.log(formData);
 
       editChildProfile(
         child,
@@ -97,7 +98,10 @@ export default function ChildSetting() {
             const profileData = {
               profile_pk: child,
               profile_image: dinoPicNum,
-              profile_name: childNName,
+              profile_name:
+                childNName !== originName && childNName.length !== 0
+                  ? childNName
+                  : originName,
               profile_year: childBirth,
               voice_pk: voiceNum,
             };

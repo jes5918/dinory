@@ -22,22 +22,22 @@ export default function WordByAlphabet({route}) {
       AsyncStorage.getItem('profile').then((profile) => {
         const data = JSON.parse(profile);
         setChild(data.profile_pk);
-        let jwt = data.token;
-        console.log(jwt);
       });
     }, []),
   );
 
   useEffect(() => {
-    getListbyAlphabet(
-      {child: child, alphabet: alphabet},
-      (res) => {
-        setListByAlpha(() => res.data);
-      },
-      (err) => {
-        console.log(err);
-      },
-    );
+    if (child && alphabet) {
+      getListbyAlphabet(
+        {child: child, alphabet: alphabet},
+        (res) => {
+          setListByAlpha(() => res.data);
+        },
+        (err) => {
+          console.log(err);
+        },
+      );
+    }
   }, [child, alphabet]);
 
   return (
@@ -74,13 +74,15 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontFamily: 'HoonPinkpungchaR',
     color: '#fff',
-    fontSize: height * 0.04,
+    fontSize: height * 0.05,
+    alignSelf: 'flex-end',
   },
   body: {
     flex: 6,
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: height * 0.17,
+    marginHorizontal: width * 0.05,
   },
   cardContainer: {
     width: width * 0.22,
