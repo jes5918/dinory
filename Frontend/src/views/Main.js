@@ -228,7 +228,11 @@ export default function Main() {
           </TouchableOpacity> */}
           <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => navigation.navigate('ParentSetting')}>
+            onPress={() =>
+              navigation.navigate('PinAuthentication', {
+                connetedRoute: 'ParentSetting',
+              })
+            }>
             <MaterialIcons style={styles.mainIcon} name={'settings'} />
           </TouchableOpacity>
         </View>
