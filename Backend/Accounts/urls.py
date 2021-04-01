@@ -20,9 +20,9 @@ urlpatterns = [
     path('send/email/confirm/', email_confirm_views.email_code_confirm),
 
     # 회원정보수정 - 핀번호, 비밀번호, 삭제
-    path('setting/password/<int:pk>/', setting_user_views.password_setting),
-    path('setting/pincode/<int:pk>/', setting_user_views.pincode_setting),
-    path('setting/delete/<int:pk>/', setting_user_views.user_delete),
+    path('setting/password/', setting_user_views.password_setting),
+    path('setting/pincode/', setting_user_views.pincode_setting),
+    path('setting/delete/', setting_user_views.user_delete),
 
     # 비밀번호 찾기
     path('find/password/', find_password_views.password_find),
