@@ -192,33 +192,6 @@ export default function Diary() {
     }, []),
   );
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     if (selectImage) {
-  //       setCurrentPage(0);
-  //       const formData = new FormData();
-  //       formData.append('img', {
-  //         uri: selectImage.uri,
-  //         type: selectImage.type,
-  //         name: selectImage.fileName,
-  //       });
-  //       formData.append('num', voicePk);
-  //       imageCaptioning(
-  //         formData,
-  //         (res) => {
-  //           setCaptionWords(res.data.data);
-  //           setCurrentPage(2);
-  //         },
-  //         (err) => {
-  //           setSelectImage(false);
-  //           setCurrentPage(1);
-  //           setModalVisible(true);
-  //         },
-  //       );
-  //     }
-  //   }, [selectImage]),
-  // );
-
   useEffect(() => {
     if (selectImage) {
       setCurrentPage(0);
