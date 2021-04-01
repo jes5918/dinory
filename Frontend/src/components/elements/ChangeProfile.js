@@ -13,21 +13,21 @@ export default function ChangeProfile(props) {
           imgSrc={require('../../assets/images/character1.png')}
           widthProps={width * 0.08}
           onHandlePress={() => {
-            props.setDinoPicNum(1);
+            props.setDinoPicNum(0);
           }}
         />
         <DinoButton
           imgSrc={require('../../assets/images/character2.png')}
           widthProps={width * 0.08}
           onHandlePress={() => {
-            props.setDinoPicNum(2);
+            props.setDinoPicNum(1);
           }}
         />
         <DinoButton
           imgSrc={require('../../assets/images/character3.png')}
           widthProps={width * 0.08}
           onHandlePress={() => {
-            props.setDinoPicNum(3);
+            props.setDinoPicNum(2);
           }}
         />
       </View>
@@ -36,14 +36,14 @@ export default function ChangeProfile(props) {
           imgSrc={require('../../assets/images/character4.png')}
           widthProps={width * 0.08}
           onHandlePress={() => {
-            props.setDinoPicNum(4);
+            props.setDinoPicNum(3);
           }}
         />
         <DinoButton
           imgSrc={require('../../assets/images/character5.png')}
           widthProps={width * 0.08}
           onHandlePress={() => {
-            props.setDinoPicNum(5);
+            props.setDinoPicNum(4);
           }}
         />
       </View>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Logo from '../components/elements/Logo';
 import Header from '../components/elements/Header';
@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation, useFocusEffect} from '@react-navigation/core';
 // import {didTutorial} from '../api/diary/checkTutorial';
 
 const dimensions = Dimensions.get('window');
@@ -35,12 +35,14 @@ export default function Main(props) {
   const navigation = useNavigation();
   const [child, setChild] = useState('');
 
-  useEffect(() => {
-    AsyncStorage.getItem('profile').then((profile) => {
-      const data = JSON.parse(profile);
-      setChild(data.profile_pk);
-    });
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('profile').then((profile) => {
+        const data = JSON.parse(profile);
+        setChild(data.profile_pk);
+      });
+    }, []),
+  );
 
   // 2차 배포 때 구현 예정 : 일기작성 여부에 따른 페이징 처리(작성 X : 튜토리얼 / 작성 O : 일기작성)
   // const checkDidTutorial = () => {
