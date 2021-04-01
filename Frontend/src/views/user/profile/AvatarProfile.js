@@ -21,7 +21,7 @@ const height = dimensions.height;
 
 export default function AvatarProfile({navigation, route}) {
   const imageSrc = require('../../../assets/images/background2.png');
-  const [imgNumber, setImgNumber] = useState(0);
+  const [imgNumber, setImgNumber] = useState(-1);
   const [modalVisible, setModalVisible] = useState(false);
   const [fmodalVisible, setfModalVisible] = useState(false);
 
@@ -31,7 +31,8 @@ export default function AvatarProfile({navigation, route}) {
   };
 
   const CreateProfile = () => {
-    if (imgNumber !== 0) {
+    console.log(imgNumber);
+    if (imgNumber !== -1) {
       let ProfileInfo = new FormData();
       ProfileInfo.append('name', route.params.ProfileName);
       ProfileInfo.append('year', route.params.ProfileYear);
@@ -101,27 +102,27 @@ export default function AvatarProfile({navigation, route}) {
                 <DinoButton
                   imgSrc={require('../../../assets/images/character1.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(1)}
+                  onHandlePress={() => selectNumber(0)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character2.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(2)}
+                  onHandlePress={() => selectNumber(1)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character3.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(3)}
+                  onHandlePress={() => selectNumber(2)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character4.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(4)}
+                  onHandlePress={() => selectNumber(3)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character5.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(5)}
+                  onHandlePress={() => selectNumber(4)}
                 />
               </View>
             </View>
