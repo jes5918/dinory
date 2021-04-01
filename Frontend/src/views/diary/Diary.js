@@ -182,6 +182,7 @@ export default function Diary() {
   useFocusEffect(
     useCallback(() => {
       getChildPk().then((res) => {
+        console.log('llllllllll', res.voice_pk);
         setChildPk(res.profile_pk);
         setVoicePk(res.voice_pk);
       });
@@ -201,6 +202,7 @@ export default function Diary() {
         name: selectImage.fileName,
       });
       formData.append('num', voicePk);
+      console.log('ffff', formData);
       imageCaptioning(
         formData,
         (res) => {
