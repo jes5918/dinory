@@ -45,7 +45,7 @@ function PinUpdate() {
         setModalVisible(!modalVisible);
       },
       (err) => {
-        console.error(err);
+        console.log('PinUpdate.js 에러', err);
       },
     );
   };
