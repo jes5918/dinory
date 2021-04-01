@@ -61,7 +61,12 @@ export default function Profile() {
       <Text style={styles.childName}>{childName}</Text>
       <View style={styles.characterOutside}>
         <View style={styles.characterContainer}>
-          <Image style={styles.characterIcon} source={childCharacter} />
+          <Image
+            style={styles.characterIcon}
+            source={
+              childCharacter || require('../../assets/images/character1.png')
+            }
+          />
         </View>
       </View>
     </TouchableOpacity>
