@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
@@ -16,18 +16,25 @@ const height = dimensions.height;
 
 export default function Profile() {
   const navigation = useNavigation();
-  const [childName, setChildName] = useState(childName);
+  const [childName, setChildName] = useState('');
+  const [childCharacter, setChildCharacter] = useState('');
 
-  AsyncStorage.getItem('ProfileName', (err, result) => {
-    if ('ProfileName' !== null) {
-      setChildName(result);
-    } else {
-      console.log(err);
-    }
-  });
+  const getProfileInfo = useCallback(async () => {
+    await AsyncStorage.getItem('profile').then((profile) => {
+      const data = JSON.parse(profile);
+      setChildName(data.profile_name);
+      setChildCharacter(data.profile_image);
+      // 에러남 확인 필요
+      // setChildCharacter("require('../../assets/images/background1.png')");
+      // console.log('profile.js : ', childName);
+      // console.log('profile.js : ', childCharacter);
+    });
+  }, []);
+  // }, [childName, childCharacter]);
 
-  // 캐릭터를 못찾겠어요. 우리 모든 key를 불러와 볼까요?
-  // AsyncStorage.getAllKeys().then(console.log);
+  useEffect(() => {
+    getProfileInfo();
+  }, [getProfileInfo]);
 
   return (
     <TouchableOpacity
@@ -37,10 +44,7 @@ export default function Profile() {
       <Text style={styles.childName}>{childName}</Text>
       <View style={styles.characterOutside}>
         <View style={styles.characterContainer}>
-          <Image
-            style={styles.characterIcon}
-            source={require('../../assets/images/character4.png')}
-          />
+          <Image style={styles.characterIcon} source={childCharacter} />
         </View>
       </View>
     </TouchableOpacity>
@@ -50,16 +54,16 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    width: width * 0.12,
+    justifyContent: 'flex-end',
+    width: width * 0.25,
   },
   childName: {
     fontFamily: 'HoonPinkpungchaR',
-    alignSelf: 'center',
+    textAlignVertical: 'center',
     color: '#000',
     fontSize: height * 0.04,
     textShadowColor: '#fff',
-    textShadowOffset: {width: -1, height: 1},
+    textShadowOffset: {width: -2, height: 2},
     textShadowRadius: 7,
   },
   characterIcon: {
@@ -84,5 +88,6 @@ const styles = StyleSheet.create({
     height: height * 0.085,
     backgroundColor: '#fff',
     borderRadius: 75,
+    marginHorizontal: width * 0.02,
   },
 });

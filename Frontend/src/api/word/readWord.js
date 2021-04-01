@@ -2,26 +2,27 @@ import {AuthorizationInstance} from '../index.js';
 
 const instance = AuthorizationInstance();
 // 알파벳 별 단어 리스트 불러오기
-export function getListbyAlphabet(params, success, fail) {
+function getListbyAlphabet(params, success, fail) {
   instance
-    .get('words/', {
+    .get('word/', {
       params: {
-        child: params.child,
-        alphabet: params.alphabet,
+        child: params && params.child,
+        alphabet: params && params.alphabet,
       },
     })
     .then(success)
     .catch(fail);
 }
 // 단어별 정보 조회
-export function getWordDetail(params, success, fail) {
-  const url = 'words/' + params.word;
+function getWordDetail(params, success, fail) {
   instance
-    .get(url, {
+    .get('words/absolute/', {
       params: {
-        child: params.child,
+        child: params && params.child,
       },
     })
     .then(success)
     .catch(fail);
 }
+
+export {getListbyAlphabet, getWordDetail};

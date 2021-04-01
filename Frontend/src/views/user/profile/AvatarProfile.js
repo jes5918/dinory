@@ -1,85 +1,98 @@
-import React, {Component, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  Image,
-  KeyboardAvoidingView,
-} from 'react-native';
+// basic
+import React, {useState} from 'react';
+import {StyleSheet, View, Dimensions, Image} from 'react-native';
+
+// axios
+import {createChildProfile} from '../../../api/accounts/childSettings';
+
+// 컴포넌트
 import Layout from '../../../components/elements/Layout';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
 import ContentTitle from '../../../components/elements/ContentTitle';
-import HoonPinkText from '../../../components/elements/HoonPinkText';
 import ArrowProfileButton from '../../../components/authorization/ArrowProfileButton';
 import ArrowButton from '../../../components/elements/ArrowButton';
 import DinoButton from '../../../components/elements/DinoButton';
-import {createChildProfile} from '../../../api/accounts/childSettings';
+import AlertModal from '../../../components/elements/AlertModal';
+
+// 화면세팅
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
-export default function AvatarProfile({navigation}) {
+
+export default function AvatarProfile({navigation, route}) {
   const imageSrc = require('../../../assets/images/background2.png');
-  const CreateProfile = async () => {
+  const [imgNumber, setImgNumber] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [fmodalVisible, setfModalVisible] = useState(false);
+
+  // 프로필 사진 고르기
+  const selectNumber = (num) => {
+    setImgNumber(num);
+  };
+
+  const CreateProfile = () => {
     if (imgNumber !== 0) {
       let ProfileInfo = new FormData();
-      await AsyncStorage.getItem('ProfileName').then((profileName) => {
-        ProfileInfo.append('name', profileName);
-      });
-      await AsyncStorage.getItem('ProfileYear').then((ProfileYear) => {
-        ProfileInfo.append('year', ProfileYear);
-        ProfileInfo.append('img', imgNumber);
-      });
+      ProfileInfo.append('name', route.params.ProfileName);
+      ProfileInfo.append('year', route.params.ProfileYear);
+      ProfileInfo.append('img', imgNumber);
       createChildProfile(
         ProfileInfo,
         (res) => {
           console.log(res.data);
-          alert('프로필이 생성되었습니다');
+          changeModalState();
+          setTimeout(() => {
+            navigation.navigate('SelectProfile');
+          }, 1500);
         },
         (error) => {
           console.log(error);
-          alert('토큰이 보내지지않았습니다.');
+          alert('axios 에러남 확인해주세요.');
         },
       );
-      console.log(imgNumber);
-      navigation.navigate('SelectProfile');
     } else {
-      alert('아바타를 선택하세요');
+      fchangeModalState();
     }
   };
-  const [imgNumber, setImgNumber] = useState(0);
-  const number1 = async () => {
-    setImgNumber(1);
+
+  // 프로필 생성 성공 모달
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1500);
   };
-  const number2 = () => {
-    setImgNumber(2);
+
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
   };
-  const number3 = () => {
-    setImgNumber(3);
+
+  // 프로필 아바타 안선택했을 때 모달
+  const fcloseModal = () => {
+    setTimeout(() => {
+      setfModalVisible(!fmodalVisible);
+    }, 2000);
   };
-  const number4 = () => {
-    setImgNumber(4);
-  };
-  const number5 = () => {
-    setImgNumber(5);
+
+  const fchangeModalState = () => {
+    setfModalVisible(!fmodalVisible);
   };
 
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
       <View style={styles.start}>
         <View>
-          <ArrowButton onHandlePress={() => navigation.goBack()}></ArrowButton>
+          <ArrowButton onHandlePress={() => navigation.goBack()} />
         </View>
         <View style={styles.logo}>
           <Image
             source={require('../../../assets/images/logo.png')}
-            style={styles.logo}></Image>
+            style={styles.logo}
+          />
         </View>
       </View>
       <View style={styles.body}>
         <View style={styles.view}>
-          <ContentTitle title={'아바타를 선택하세요'}></ContentTitle>
+          <ContentTitle title={'아바타를 선택하세요'} />
         </View>
         <View>
           <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
@@ -88,27 +101,27 @@ export default function AvatarProfile({navigation}) {
                 <DinoButton
                   imgSrc={require('../../../assets/images/character1.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={number1}
+                  onHandlePress={() => selectNumber(1)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character2.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={number2}
+                  onHandlePress={() => selectNumber(2)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character3.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={number3}
+                  onHandlePress={() => selectNumber(3)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character4.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={number4}
+                  onHandlePress={() => selectNumber(4)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character5.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={number5}
+                  onHandlePress={() => selectNumber(5)}
                 />
               </View>
             </View>
@@ -116,12 +129,29 @@ export default function AvatarProfile({navigation}) {
               <ArrowProfileButton
                 onHandlePress={() => {
                   CreateProfile();
-                }}></ArrowProfileButton>
+                }}
+              />
             </View>
+            <AlertModal
+              modalVisible={modalVisible}
+              onHandleCloseModal={() => changeModalState()}
+              text={'프로필이 생성되었습니다'}
+              iconName={'smileo'}
+              color={'#A0A0FF'}
+              setTimeFunction={() => closeModal()}
+            />
+            <AlertModal
+              modalVisible={fmodalVisible}
+              onHandleCloseModal={() => fchangeModalState()}
+              text={'프로필을 선택해주세요!'}
+              iconName={'frowno'}
+              color={'#FF0000'}
+              setTimeFunction={() => fcloseModal()}
+            />
           </Layout>
         </View>
       </View>
-      <View style={styles.end}></View>
+      <View style={styles.end} />
     </BackgroundAbsolute>
   );
 }

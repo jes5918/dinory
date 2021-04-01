@@ -1,13 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Text,
-  View,
-  Button,
-  StyleSheet,
-  Image,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
+import {View, StyleSheet, Image, Dimensions, ScrollView} from 'react-native';
 // import SelectLayout from '../../../components/elements/SelectLayout';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
 import ArrowButton from '../../../components/elements/ArrowButton';
@@ -19,11 +11,14 @@ import SelectProfileButton from '../../../components/authorization/SelectProfile
 import BasicButton from '../../../components/elements/BasicButton';
 
 // static variable
-const dimensions = Dimensions.get('window');
-const width = dimensions.width;
-const height = dimensions.height;
+const windowSize = Dimensions.get('window');
+const windowWidth = windowSize.width;
+const windowHeight = windowSize.height; // 752
 
 export default function SelectProfile({navigation}) {
+  const [childrenInfo, setChildrenInfo] = useState(null);
+  const imageSrc = require('../../../assets/images/background2.png');
+
   useEffect(() => {
     getChildProfile(
       (res) => {
@@ -34,13 +29,12 @@ export default function SelectProfile({navigation}) {
       },
     );
   }, []);
-  const [childrenInfo, setChildrenInfo] = useState(null);
-  const imageSrc = require('../../../assets/images/background2.png');
+
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
       <View style={styles.start}>
         <View>
-          <ArrowButton onHandlePress={() => navigation.goBack()}></ArrowButton>
+          <ArrowButton onHandlePress={() => navigation.goBack()} />
         </View>
         <View style={styles.logo}>
           <Image
@@ -54,28 +48,35 @@ export default function SelectProfile({navigation}) {
           <ContentTitle title={'프로필을 선택하세요'} />
         </View>
         <View>
-          <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
+          <Layout
+            width={windowWidth * 0.8}
+            height={windowHeight * 0.6}
+            opacity={0.8}>
             <ScrollView
               showsHorizontalScrollIndicator={false}
               horizontal={true}
               style={styles.bodyCardContainer}>
               {childrenInfo &&
                 childrenInfo.map((profile) => {
-                  const {id, img, name, parent, voice, year} = profile;
-                  const imageSrc = transformImage(img);
+                  const {id, img, name, voice, year} = profile;
                   const onButtonClick = () => {
-                    AsyncStorage.setItem('child_pk', String(id)),
-                      AsyncStorage.setItem('img', String(imageSrc)),
-                      AsyncStorage.setItem('name', String(name)),
-                      AsyncStorage.setItem('parent', String(parent)),
-                      AsyncStorage.setItem('voice', String(voice)),
-                      AsyncStorage.setItem('year', String(year)),
-                      navigation.navigate('Main');
+                    const profileData = {
+                      profile_pk: id,
+                      profile_image: img,
+                      profile_name: name,
+                      profile_year: year,
+                      voice_pk: voice,
+                    };
+                    AsyncStorage.setItem(
+                      'profile',
+                      JSON.stringify(profileData),
+                    );
+                    navigation.navigate('Main');
                   };
                   return (
                     <View key={id}>
                       <SelectProfileButton
-                        imageSrc={imageSrc}
+                        imageSrc={profileImg}
                         Name={name}
                         onHandlePress={onButtonClick}
                       />
@@ -89,42 +90,16 @@ export default function SelectProfile({navigation}) {
               onHandlePress={() => {
                 navigation.navigate('NameProfile');
               }}
-              margin={30}></BasicButton>
+              margin={30}
+            />
           </Layout>
         </View>
       </View>
-      <View style={styles.end}></View>
+      <View style={styles.end} />
     </BackgroundAbsolute>
   );
 }
 
-const transformImage = (num) => {
-  let Src = '';
-  console.log('num : ', num);
-  console.log('num Type : ', typeof num);
-  switch (String(num)) {
-    case '1':
-      Src = require('../../../assets/images/character1.png');
-      break;
-    case '2':
-      Src = require('../../../assets/images/character2.png');
-      break;
-    case '3':
-      Src = require('../../../assets/images/character3.png');
-      break;
-    case '4':
-      Src = require('../../../assets/images/character4.png');
-      break;
-    default:
-      Src = require('../../../assets/images/character5.png');
-      break;
-  }
-  return Src;
-};
-
-const windowSize = Dimensions.get('window');
-const windowWidth = windowSize.width;
-const windowHeight = windowSize.height; // 752
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -32,6 +32,8 @@ import SelectProfile from '../views/user/profile/SelectProfile';
 import NameProfile from '../views/user/profile/NameProfile';
 import AgeProfile from '../views/user/profile/AgeProfile';
 import AvatarProfile from '../views/user/profile/AvatarProfile';
+import SearchPassword from '../views/user/SearchPassword';
+import ModifyPassword from '../views/user/ModifyPassword';
 
 import DiaryList from '../views/diaryList/DiaryList';
 import ParentSetting from '../views/parent/ParentSetting';
@@ -88,6 +90,8 @@ const App = () => {
         <Stack.Screen name="NameProfile" component={NameProfile} />
         <Stack.Screen name="AgeProfile" component={AgeProfile} />
         <Stack.Screen name="AvatarProfile" component={AvatarProfile} />
+        <Stack.Screen name="SearchPassword" component={SearchPassword} />
+        <Stack.Screen name="ModifyPassword" component={ModifyPassword} />
         <Stack.Screen
           name="Main"
           component={Main}
