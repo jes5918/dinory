@@ -16,12 +16,18 @@ function AuthorizationInstance() {
   const instance = axios.create({
     baseURL: API_BASE_URL,
   });
+
   AsyncStorage.getItem('jwt').then((value) => {
-    let Token = '';
-    Token = 'jwt ' + value;
-    instance.defaults.headers.common['Authorization'] = Token;
+    instance.defaults.headers.common.Authorization = `jwt ${value}`;
     instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
   });
+
+  // AsyncStorage.getItem('user').then((value) => {
+  //   console.log(JSON.parse(value));
+  //   const accessToken = JSON.parse(value).jwt;
+  //   instance.defaults.headers.common.Authorization = `jwt ${accessToken}`;
+  //   instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+  // });
   return instance;
 }
 

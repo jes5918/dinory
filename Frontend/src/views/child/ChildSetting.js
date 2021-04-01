@@ -7,6 +7,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  // Image,
 } from 'react-native';
 import Header from '../../components/elements/Header';
 import ContentTitle from '../../components/elements/ContentTitle';
@@ -37,10 +38,11 @@ export default function ChildSetting() {
   const [childBirth, setChildBirth] = useState('');
   const [dinoPicNum, setDinoPicNum] = useState('');
   const [originName, setOriginName] = useState(originName);
+  const [child, setChild] = useState('');
 
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
-  const child = '10'; // 임시값
+  // const child = '10'; // 임시값
 
   let dinoArray = {
     1: require('../../assets/images/character1.png'),
@@ -51,6 +53,10 @@ export default function ChildSetting() {
   };
 
   let dinoPic = dinoArray[dinoPicNum];
+  // const imgUri = Image.resolveAssetSource(dinoPic).uri;
+  // 체크 해야함
+  // console.log("ChildSetting.js : "dinoPic);
+  // console.log("ChildSetting.js : "dinoPicNum);
   // 생년입력(민호체크)
   let today = new Date();
   let year = today.getFullYear();
@@ -139,20 +145,32 @@ export default function ChildSetting() {
   };
 
   // 로컬스토리지 정보 추출
-  AsyncStorage.getItem('ProfileName', (err, result) => {
-    if ('ProfileName' !== null) {
-      setOriginName(result);
-    } else {
-      console.log(err);
-    }
+  // AsyncStorage.getItem('ProfileName', (err, result) => {
+  //   if ('ProfileName' !== null) {
+  //     setOriginName(result);
+  //   } else {
+  //     console.log(err);
+  //   }
+  // });
+  AsyncStorage.getItem('profile').then((profile) => {
+    const data = JSON.parse(profile);
+    setChild(data.profile_pk);
+    setOriginName(data.profile_name);
+    // setOriginPic(data.profile_image);
   });
   useEffect(() => {
-    AsyncStorage.getItem('ProfileYear', (err, result) => {
-      if ('ProfileYear' !== null) {
-        setChildBirth(result);
-      } else {
-        console.log(err);
-      }
+    // useEffect(() => {
+    //   AsyncStorage.getItem('ProfileYear', (err, result) => {
+    //     if ('ProfileYear' !== null) {
+    //       setChildBirth(result);
+    //     } else {
+    //       console.log(err);
+    //     }
+    //   });
+    // }, []);
+    AsyncStorage.getItem('profile').then((profile) => {
+      const data = JSON.parse(profile);
+      setChildBirth(data.profile_year);
     });
   }, []);
   // AsyncStorage.getAllKeys().then(console.log);
