@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
@@ -8,7 +7,7 @@ import BasicButton from '../../components/elements/BasicButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
-import checkPincode from '../../api/accounts/settings';
+import {checkPincode} from '../../api/accounts/settings';
 
 // static variable
 const backgroundImage = require('../../assets/images/background2.png');
@@ -27,7 +26,6 @@ function PinAuthentication({route}) {
   const [alertForEnter, setAlertForEnter] = useState(false);
 
   const onHandleSubmit = async () => {
-    console.log('pinCode : ', pinCode);
     // validation
     // isNaN : 숫자인지 확인(타입 상관 없이)
     if (pinCode.length < 6 || isNaN(pinCode)) {
@@ -37,15 +35,17 @@ function PinAuthentication({route}) {
       setAlertForEnter(false);
     }
 
+    console.log('pinCode : ', pinCode);
+    const pinInfo = new FormData();
+    pinInfo.append('pin_code', pinCode);
     checkPincode(
-      {
-        pin_code: pinCode,
-      },
+      pinInfo,
       (res) => {
         setModalVisible(!modalVisible);
         navigation.navigate(connetedRoute);
       },
       (err) => {
+        setAlertForEnter(!alertForEnter);
         console.error(err);
       },
     );
@@ -58,7 +58,7 @@ function PinAuthentication({route}) {
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
-    }, 1000);
+    }, 1500);
   };
 
   const changeModalStateForEnter = () => {
@@ -68,7 +68,7 @@ function PinAuthentication({route}) {
   const closeModalForEnter = () => {
     setTimeout(() => {
       setAlertForEnter(!alertForEnter);
-    }, 1000);
+    }, 1500);
   };
 
   return (
@@ -111,7 +111,7 @@ function PinAuthentication({route}) {
           </View>
           <View style={styles.mainBot}>
             <BasicButton
-              text="변경 완료"
+              text="인증"
               customFontSize={windowWidth * 0.01875} // 24
               btnWidth={windowWidth * 0.2625} // 336
               btnHeight={windowHeight * 0.077} // 58

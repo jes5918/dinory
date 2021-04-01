@@ -12,7 +12,6 @@ import Header from '../../components/elements/Header';
 import DiaryListFooter from '../../components/diary/DiaryListFooter';
 import DiaryFooterImage from '../../components/diary/DiaryFooterImage';
 import {getNotesByDay, getNotesByOneDay} from '../../api/diary/readDiary';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 
 const image = require('../../assets/images/background1.png');
 
@@ -34,7 +33,7 @@ const Diary = ({data}) => {
   );
 };
 
-function DiaryDetail({route, navigation}) {
+function DiaryDetail({route}) {
   let {year, month, date, diary, profilePK} = route.params;
   const [dataByDay, setDataByDay] = useState();
   const [dataJustOneDay, setDataJustOneDay] = useState();
