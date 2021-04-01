@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   Text,
   ImageBackground,
   StyleSheet,
-  Modal,
   Dimensions,
-  Pressable,
+  ActivityIndicator,
 } from 'react-native';
+import {useFocusEffect} from '@react-navigation/core';
+
 import SelectImage from '../../components/diary/SelectImage';
 import ImageCaption from '../../components/diary/ImageCaption';
 import WriteDiary from '../../components/diary/WriteDiary';
@@ -74,27 +75,39 @@ export default function Diary() {
   const [grammarchecked, setGrammarchecked] = useState(false);
   const [checkData, setCheckData] = useState('');
   const [childPk, setChildPk] = useState('');
+  const [voicePk, setVoicePk] = useState(false);
   const [token, setToken] = useState('');
+  const [spinner, setSpinner] = useState(false);
+  const [tryagain, setTryagain] = useState(false);
+  const [wordSaveSpinner, setWordSaveSpinner] = useState(false);
+  const [trylater, setTrylater] = useState(false);
 
   const closeModal = (e) => {
     if (e === 1) {
       setTimeout(() => {
-        setModalVisible(!modalVisible);
+        setModalVisible(false);
       }, 2000);
     } else if (e === 2) {
-      console.log('여기로 들어온다.');
       setTimeout(() => {
-        setKoreanWarnModalVisible(!koreanWarnModalVisible);
+        setKoreanWarnModalVisible(false);
       }, 2000);
     } else if (e === 3) {
       setTimeout(() => {
-        setSomethignwrong(!somethignwrong);
+        setSomethignwrong(false);
       }, 2000);
     } else if (e === 4) {
       setTimeout(() => {
-        setSuccess(!success);
+        setSuccess(false);
         navigation.navigate('Main');
       }, 1000);
+    } else if (e === 7) {
+      setTimeout(() => {
+        setTryagain(false);
+      }, 2000);
+    } else if (e === 8) {
+      setTimeout(() => {
+        setTrylater(false);
+      }, 2000);
     }
   };
   const openConfirmSave = () => {
@@ -103,17 +116,21 @@ export default function Diary() {
 
   const changeModalState = (e) => {
     if (e === 1) {
-      setModalVisible(!modalVisible);
+      setModalVisible(false);
     } else if (e === 2) {
-      setKoreanWarnModalVisible(!koreanWarnModalVisible);
+      setKoreanWarnModalVisible(false);
     } else if (e === 3) {
-      setSomethignwrong(!koreanWarnModalVisible);
+      setSomethignwrong(false);
     } else if (e === 4) {
-      navigation.navigate('DiaryList');
+      navigation.navigate('Main');
     } else if (e === 5) {
-      setConfirmSave(!confirmSave);
+      setConfirmSave(false);
     } else if (e === 6) {
-      setQuit(!quit);
+      setQuit(false);
+    } else if (e === 7) {
+      setTryagain(false);
+    } else if (e === 8) {
+      setTrylater(false);
     }
   };
 
@@ -125,49 +142,82 @@ export default function Diary() {
       (word) => word.checked === true,
     );
     if (selectedWordList.length !== 0) {
-      console.log('보내는 데이터', selectedWordList);
+      setWordSaveSpinner(true);
       fetch(`https://j4b105.p.ssafy.io/api/words/?child=${childPk}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: token,
+          Authorization: `jwt ${token}`,
         },
         body: JSON.stringify({
           DATA: selectedWordList,
         }),
       }).then((res) => {
         if (res.status === 201) {
+          setWordSaveSpinner(false);
           setCurrentPage(3);
         }
       });
       ///////////////
     } else {
+      setWordSaveSpinner(false);
+      setTrylater(true);
       setCurrentPage(3);
     }
   };
-  const getChildPk = async (keyName, setValue) => {
-    await AsyncStorage.getItem(keyName).then((value) => {
-      setValue(value);
-    });
+  const getChildPk = async () => {
+    try {
+      const data = await AsyncStorage.getItem('profile');
+      const parsData = JSON.parse(data);
+      return parsData;
+    } catch (e) {}
   };
 
-  useEffect(() => {
-    AsyncStorage.getAllKeys((err, keys) => {
-      AsyncStorage.multiGet(keys, (err, stores) => {
-        stores.map((result, i, store) => {
-          // get at each store's key/value so you can work with it
-          let key = store[i][0];
-          let value = store[i][1];
-          console.log(key, ' : ', value);
-        });
+  const getToken = async () => {
+    try {
+      const data = await AsyncStorage.getItem('jwt');
+      return data;
+    } catch (e) {}
+  };
+  useFocusEffect(
+    useCallback(() => {
+      getChildPk().then((res) => {
+        setChildPk(res.profile_pk);
+        setVoicePk(res.voice_pk);
       });
-    });
-    getChildPk('child_pk', setChildPk);
-    console.log('애번호', childPk);
-    getChildPk('jwt', setToken);
-    console.log('토큰', token);
-  }, []);
+      getToken().then((res) => {
+        setToken(res);
+      });
+    }, []),
+  );
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     if (selectImage) {
+  //       setCurrentPage(0);
+  //       const formData = new FormData();
+  //       formData.append('img', {
+  //         uri: selectImage.uri,
+  //         type: selectImage.type,
+  //         name: selectImage.fileName,
+  //       });
+  //       formData.append('num', voicePk);
+  //       imageCaptioning(
+  //         formData,
+  //         (res) => {
+  //           setCaptionWords(res.data.data);
+  //           setCurrentPage(2);
+  //         },
+  //         (err) => {
+  //           setSelectImage(false);
+  //           setCurrentPage(1);
+  //           setModalVisible(true);
+  //         },
+  //       );
+  //     }
+  //   }, [selectImage]),
+  // );
 
   useEffect(() => {
     if (selectImage) {
@@ -178,16 +228,14 @@ export default function Diary() {
         type: selectImage.type,
         name: selectImage.fileName,
       });
-      formData.append('num', 2);
+      formData.append('num', voicePk);
       imageCaptioning(
         formData,
         (res) => {
-          console.log('caption', res);
           setCaptionWords(res.data.data);
           setCurrentPage(2);
         },
         (err) => {
-          console.error(err);
           setSelectImage(false);
           setCurrentPage(1);
           setModalVisible(!modalVisible);
@@ -197,24 +245,33 @@ export default function Diary() {
   }, [selectImage]);
 
   const checkGrammar = () => {
+    setSpinner(true);
     const formData = new FormData();
     formData.append('text', diaryContent);
     grammarCheck(
       formData,
       (res) => {
-        console.log('grammarcheck', res.data);
         setCheckData(res.data.corrections);
+        setSpinner(false);
         setGrammarchecked(true);
       },
       (err) => {
-        console.error(err);
-        alert('다시 시도해주세요!');
+        console.log(err.response.data.error);
+        if (err.response.data.error === '한글은 작성할 수 없습니다') {
+          setSpinner(false);
+          setKoreanWarnModalVisible(true);
+        } else {
+          setSpinner(false);
+          setTryagain(true);
+        }
       },
     );
   };
 
   const saveDiary = () => {
     if (title && diaryContent && selectImage) {
+      setConfirmSave(false);
+      setSpinner(true);
       const formData = new FormData();
       formData.append('title', title);
       formData.append('img', {
@@ -227,28 +284,24 @@ export default function Diary() {
       formData.append('month', month);
       formData.append('date', day);
 
-      console.log('FormData', formData);
       createDiary(
         formData,
         childPk,
         (res) => {
-          console.log('함수 실행');
-          console.log('resData', res.data);
-          setConfirmSave(!confirmSave);
-          setSuccess(!success);
-          // setKoreanWarnModalVisible(!koreanWarnModalVisible);
+          setSpinner(false);
+          setSuccess(true);
         },
         (err) => {
-          console.error(err);
-          if (err.error === '한글은 작성할 수 없습니다') {
-            setConfirmSave(!confirmSave);
-            setKoreanWarnModalVisible(!koreanWarnModalVisible);
+          setSpinner(false);
+          if (err.response.data.error === '한글은 작성할 수 없습니다') {
+            setSpinner(false);
+            setKoreanWarnModalVisible(true);
           } else {
           }
         },
       );
     } else {
-      alert('여기!!');
+      setTryagain(true);
     }
   };
 
@@ -279,7 +332,7 @@ export default function Diary() {
     return (
       <ImageBackground source={bgurl} style={styles.bgBox}>
         <View style={styles.arrowBtnBox}>
-          <ArrowButton onHandlePress={() => setQuit(!quit)} />
+          <ArrowButton onHandlePress={() => setQuit(true)} />
         </View>
         <View style={styles.mainIconBox}>
           <TouchableOpacity
@@ -310,7 +363,7 @@ export default function Diary() {
           refuseText={'취소'}
           allowText={'나가기'}
           onHandlePressAllow={() => {
-            setQuit(!quit);
+            setQuit(false);
             navigation.goBack();
           }}
           onHandlePressRefuse={() => changeModalState(6)}
@@ -347,6 +400,25 @@ export default function Diary() {
           wordsList={captionWords}
           onHandlePress={() => gotoWriteDiary()}
           onHandleChangeTemp={(e) => changeTemp(e)}
+        />
+        <ActivityIndicator
+          size="large"
+          color="#FB537B"
+          style={{
+            zIndex: 999,
+            position: 'absolute',
+            alignSelf: 'center',
+            top: height * 0.5,
+          }}
+          animating={wordSaveSpinner}
+        />
+        <AlertModal
+          modalVisible={trylater}
+          onHandleCloseModal={() => changeModalState(8)}
+          text={'조금 후에 다시 시도해주세요!'}
+          iconName={'exclamationcircle'}
+          color={'red'}
+          setTimeFunction={() => closeModal(8)}
         />
       </ImageBackground>
     );
@@ -412,6 +484,25 @@ export default function Diary() {
           allowText={'저장할래요!'}
           onHandlePressAllow={() => saveDiary()}
           onHandlePressRefuse={() => changeModalState(5)}
+        />
+        <AlertModal
+          modalVisible={tryagain}
+          onHandleCloseModal={() => changeModalState(7)}
+          text={'조금 후에 다시 시도해주세요!'}
+          iconName={'exclamationcircle'}
+          color={'red'}
+          setTimeFunction={() => closeModal(7)}
+        />
+        <ActivityIndicator
+          size="large"
+          color="#FB537B"
+          style={{
+            zIndex: 999,
+            position: 'absolute',
+            alignSelf: 'center',
+            top: height * 0.5,
+          }}
+          animating={spinner}
         />
       </ImageBackground>
     );

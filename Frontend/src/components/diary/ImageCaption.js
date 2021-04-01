@@ -66,6 +66,6 @@ const styles = StyleSheet.create({
   describe: {
     fontSize: width * 0.035,
     fontFamily: 'HoonPinkpungchaR',
-    color: '#fb537b',
+    color: 'white',
   },
 });
