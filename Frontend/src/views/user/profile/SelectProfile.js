@@ -15,23 +15,23 @@ const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width;
 const windowHeight = windowSize.height; // 752
 
-export default function SelectProfile({navigation}) {
+export default function SelectProfile({navigation, route}) {
   const [childrenInfo, setChildrenInfo] = useState(null);
   const imageSrc = require('../../../assets/images/background2.png');
 
   const transformImage = (num) => {
     let Src = '';
     switch (String(num)) {
-      case '1':
+      case '0':
         Src = require('../../../assets/images/character1.png');
         break;
-      case '2':
+      case '1':
         Src = require('../../../assets/images/character2.png');
         break;
-      case '3':
+      case '2':
         Src = require('../../../assets/images/character3.png');
         break;
-      case '4':
+      case '3':
         Src = require('../../../assets/images/character4.png');
         break;
       default:
@@ -40,19 +40,6 @@ export default function SelectProfile({navigation}) {
     }
     return Src;
   };
-<<<<<<< HEAD
-
-  useEffect(() => {
-    getChildProfile(
-      (res) => {
-        setChildrenInfo(res.data);
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
-  }, []);
-=======
   useFocusEffect(
     useCallback(() => {
       getChildProfile(
@@ -66,7 +53,6 @@ export default function SelectProfile({navigation}) {
       );
     }, []),
   );
->>>>>>> 47bf32d ([fix/FE] : api instance header 변경)
 
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
@@ -92,7 +78,7 @@ export default function SelectProfile({navigation}) {
                         profile_year: year,
                         voice_pk: voice,
                       };
-                      AsyncStorage.setItem(
+                      AsyncStorage.mergeItem(
                         'profile',
                         JSON.stringify(profileData),
                       );
