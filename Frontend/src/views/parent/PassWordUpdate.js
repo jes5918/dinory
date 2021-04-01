@@ -66,7 +66,7 @@ function PassWordUpdate() {
     setTimeout(() => {
       setModalVisible(!modalVisible);
       navigation.navigate('Main');
-    }, 1300);
+    }, 1500);
   };
 
   const changeModalStateForEnter = () => {
@@ -76,7 +76,7 @@ function PassWordUpdate() {
   const closeModalForEnter = () => {
     setTimeout(() => {
       setAlertForEnter(!alertForEnter);
-    }, 2000);
+    }, 1500);
   };
 
   return (
