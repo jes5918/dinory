@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#707070',
     width: windowWidth * 0.26,
-    marginTop: windowHeight * 0.01,
-    marginBottom: windowHeight * 0.06,
+    marginTop: windowHeight * 0.02,
+    marginBottom: windowHeight * 0.05,
   },
 });
 
