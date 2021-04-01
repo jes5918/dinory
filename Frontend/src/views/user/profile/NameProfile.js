@@ -85,7 +85,7 @@ export default function NameProfile({navigation}) {
         </View>
         <View style={styles.logo}>
           <Image
-            source={require('../../../assets/images/logo.png')}
+            source={require('../../../assets/images/logo_ver2.png')}
             style={styles.logo}
           />
         </View>
@@ -100,7 +100,7 @@ export default function NameProfile({navigation}) {
               text={'한글 또는 영어로 입력해주세요'}
               width={width * 0.375}
               height={height * 0.1}
-              size={32}
+              size={height * 0.04}
               autoFocus={false}
               setFunction={setName}
               elevation={3}
@@ -147,9 +147,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   logo: {
-    width: 220, //595
+    width: width * 0.17, //595
     height: undefined, //101
-    aspectRatio: 300 / 100,
+    aspectRatio: 300 / 130,
   },
   view: {
     marginBottom: 26,
