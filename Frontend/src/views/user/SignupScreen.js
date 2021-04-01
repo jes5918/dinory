@@ -13,8 +13,7 @@ const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
 
-export default function SingupSCreen({navigation}) {
-  const [userEmail, setUserEmail] = useState('');
+export default function SingupSCreen({navigation, route}) {
   const [userName, setUserName] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userPasswordchk, setUserPasswordchk] = useState('');
@@ -23,6 +22,8 @@ export default function SingupSCreen({navigation}) {
   const [bmodalVisible, setbModalVisible] = useState(false);
   const [cmodalVisible, setcModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
+  const [pmodalVisible, setpModalVisible] = useState(false);
+  const user_email = route.params.email;
   const idCheck = () => {
     let idCheckForm = new FormData();
     idCheckForm.append('username', userName);
@@ -38,13 +39,34 @@ export default function SingupSCreen({navigation}) {
       },
     );
   };
+  const chkPW = (password) => {
+    chk1 = /^[a-zA-Z0-9]{8,20}$/;
+    chk2 = /[a-z]/;
+    chk3 = /[A-Z]/;
+    chk4 = /\d/;
+
+    return chk1.test(password) &&
+      chk2.test(password) &&
+      chk3.test(password) &&
+      chk4.test(password)
+      ? true
+      : false;
+  };
   const SubmitHandler = () => {
     if (idAvailable) {
       if (userPassword === userPasswordchk) {
-        AsyncStorage.setItem('username', userName);
-        AsyncStorage.setItem('password', userPassword);
-        AsyncStorage.setItem('password_confirmation', userPasswordchk);
-        navigation.navigate('PinScreen');
+        if (!chkPW(userPassword)) {
+          pchangeModalState();
+          return;
+        }
+        navigation.navigate('PinScreen', {
+          userInfo: {
+            user_email: user_email,
+            user_name: userName,
+            user_Pass: userPassword,
+            user_Passchk: userPasswordchk,
+          },
+        });
       } else {
         bchangeModalState();
       }
@@ -83,6 +105,14 @@ export default function SingupSCreen({navigation}) {
   };
   const cchangeModalState = () => {
     setcModalVisible(!cmodalVisible);
+  };
+  const pcloseModal = () => {
+    setTimeout(() => {
+      setpModalVisible(!pmodalVisible);
+    }, 2000);
+  };
+  const pchangeModalState = () => {
+    setpModalVisible(!pmodalVisible);
   };
   return (
     <AuthBackGround>
@@ -187,6 +217,14 @@ export default function SingupSCreen({navigation}) {
           iconName={'smileo'}
           color={'#A0A0FF'}
           setTimeFunction={() => ccloseModal()}
+        />
+        <AlertModal
+          modalVisible={pmodalVisible}
+          onHandleCloseModal={() => pchangeModalState()}
+          text={'비밀번호는 영어 대,소문자 + 숫자로 구성된 8자리 이상입니다!'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => pcloseModal()}
         />
       </View>
     </AuthBackGround>
