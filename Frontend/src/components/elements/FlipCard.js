@@ -68,9 +68,7 @@ export default function FlipCard({english, korean, pos}) {
           let selectedResult = result.replace('<b>', '').replace('</b>', '');
           setWordDetail(() => selectedResult);
         },
-        (err) => {
-          console.log(err);
-        },
+        (err) => {},
       );
       Animated.timing(animationvalue, {
         toValue: 180,

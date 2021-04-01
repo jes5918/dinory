@@ -53,9 +53,7 @@ export default function PinCreate({navigation}) {
   };
   const submitHandler = async () => {
     if (userPinNumber.length === 6) {
-      AsyncStorage.getAllKeys((value) => {
-        console.log(value);
-      });
+      AsyncStorage.getAllKeys((value) => {});
       AsyncStorage.setItem('pin_code', userPinNumber);
       AsyncStorage.setItem('pin_code_confirmation', userPinNumberchk);
       let pinAuthForm = new FormData();
@@ -85,7 +83,6 @@ export default function PinCreate({navigation}) {
         pinAuthForm,
         (res) => {
           const token = res.data.token;
-          console.log(pinAuthForm);
           AsyncStorage.removeItem('jwt');
           AsyncStorage.setItem('jwt', token);
           changeModalState();
@@ -94,8 +91,6 @@ export default function PinCreate({navigation}) {
           }, 2000);
         },
         (error) => {
-          console.log(error);
-          console.log(1);
           dchangeModalState();
         },
       );

@@ -73,7 +73,6 @@ export default function SelectVoice() {
         }
       },
       (err) => {
-        console.log(err);
         noChangeModalState();
       },
     );

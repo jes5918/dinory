@@ -40,12 +40,9 @@ export default function EmailAuthorization({navigation}) {
             (res) => {
               setUserTicket(res.data.id);
               bchangeModalState();
-              // console.log(res);
               //번호표 저장
             },
-            (error) => {
-              console.log(error);
-            },
+            (error) => {},
           );
         },
         (error) => {
@@ -64,12 +61,10 @@ export default function EmailAuthorization({navigation}) {
         ConfirmForm,
         (res) => {
           AsyncStorage.setItem('email', userWriteEmail);
-          console.log(res);
           changeModalState();
           navigation.navigate('SignupScreen');
         },
         (error) => {
-          console.log(error);
           dchangeModalState();
         },
       );

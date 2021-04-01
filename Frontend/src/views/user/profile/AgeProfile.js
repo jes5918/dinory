@@ -26,12 +26,6 @@ export default function AgeProfile({navigation, route}) {
   const [bmodalVisible, setbModalVisible] = useState(false);
   const [isChangeBirth, setIschangeBirth] = useState(false);
 
-  // 데이터 확인용 나중에 지우세요
-  useEffect(() => {
-    console.log(route.params);
-    console.log(route.params.ProfileName);
-  }, [route.params?.ProfileName]);
-
   const dialFunction = (data) => {
     if (childBirth.length <= 5) {
       if (data !== '지우개') {
@@ -62,7 +56,6 @@ export default function AgeProfile({navigation, route}) {
 
   const next = () => {
     if (childBirth >= 1990 && childBirth <= 2020) {
-      console.log(childBirth);
       navigation.navigate('AvatarProfile', {
         ...route.params,
         ProfileYear: childBirth,

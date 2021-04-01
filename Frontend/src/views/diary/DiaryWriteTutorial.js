@@ -79,7 +79,6 @@ export default function Diary() {
         setModalVisible(!modalVisible);
       }, 2000);
     } else if (e === 2) {
-      console.log('여기로 들어온다.');
       setTimeout(() => {
         setKoreanWarnModalVisible(!koreanWarnModalVisible);
       }, 2000);
@@ -122,7 +121,6 @@ export default function Diary() {
       (word) => word.checked === true,
     );
     if (selectedWordList.length !== 0) {
-      console.log('보내는 데이터', selectedWordList);
       const Token =
         'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNCwidXNlcm5hbWUiOiJzdWVtaW4xIiwiZXhwIjoxNjE3NzcwMjQyLCJlbWFpbCI6InBvcG9wMDkwOTBAbmF2ZXIuY29tIn0.NjNEuTXianJ1lQ2SzsyxV6uZgELGTM1236DVw76MtE4';
       const child = 10;
@@ -160,7 +158,6 @@ export default function Diary() {
       imageCaptioning(
         formData,
         (res) => {
-          console.log('caption', res);
           setCaptionWords(res.data.data);
           setCurrentPage(2);
         },
@@ -180,7 +177,6 @@ export default function Diary() {
     grammarCheck(
       formData,
       (res) => {
-        console.log('grammarcheck', res.data);
         setCheckData(res.data.corrections);
         setGrammarchecked(true);
       },
@@ -205,13 +201,10 @@ export default function Diary() {
       formData.append('month', month);
       formData.append('date', day);
 
-      console.log('FormData', formData);
       createDiary(
         formData,
         10,
         (res) => {
-          console.log('함수 실행');
-          console.log('resData', res.data);
           setConfirmSave(!confirmSave);
           setSuccess(!success);
           // setKoreanWarnModalVisible(!koreanWarnModalVisible);
