@@ -21,30 +21,7 @@ const windowHeight = windowSize.height; // 768 //752
 const layoutWidth = windowWidth * 0.5;
 const layoutHeight = windowHeight * 0.708;
 
-let allKeys = [];
-const getAllKeys = async () => {
-  try {
-    allKeys = await AsyncStorage.getAllKeys();
-  } catch (e) {
-    // read key error
-  }
-
-  console.log('getAllKeys : ', allKeys);
-  outputAsyncStorage(allKeys);
-};
-
-const outputAsyncStorage = async (keyArray) => {
-  if (keyArray) {
-    for (let key of keyArray) {
-      AsyncStorage.getItem(key).then((value) => {
-        console.log('KeyName : ', key, ', value : ', value);
-      });
-    }
-  }
-};
-
 export default function HomeScreen({navigation}) {
-  // getAllKeys();
   const [AutoLoginState, setAutoLoginState] = useState(false);
   const AutoLoginCheck = () => {
     AsyncStorage.getItem('AutoLogin').then((value) => {

@@ -1,20 +1,14 @@
 import {AuthorizationInstance} from '../index.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const instance = AuthorizationInstance();
+
 function getChildProfile(success, fail) {
-  instance.get(`accounts/child/`).then(success).catch(fail);
+  instance.get('accounts/child/').then(success).catch(fail);
 }
 
 // 아이 생성
 function createChildProfile(profileInfo, success, fail) {
-  instance
-    .post(`accounts/child/`, profileInfo, {
-      headers: {
-        Authorization: `jwt ${AsyncStorage.getItem('jwt')}`,
-      },
-    })
-    .then(success)
-    .catch(fail);
+  instance.post('accounts/child/', profileInfo).then(success).catch(fail);
 }
 
 // 아이 정보 수정
@@ -27,6 +21,12 @@ function editChildProfile(child, profileInfo, success, fail) {
 function editChildVoice(child, voice, success, fail) {
   let path = `accounts/child/setting/voice/?child=${child}`;
   instance.put(path, voice).then(success).catch(fail);
+}
+
+// 아이 계정 삭제
+function removeChildProfile(child, success, fail) {
+  let path = `accounts/child/setting/delete/?child=${child}`;
+  instance.delete(path).then(success).catch(fail);
 }
 
 // function deleteChildProfile(child_pk, profileInfo, success, fail) {
@@ -42,4 +42,5 @@ export {
   editChildProfile,
   editChildVoice,
   // editChildProfile,
+  removeChildProfile,
 };
