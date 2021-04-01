@@ -37,7 +37,7 @@ export default function ChildSetting() {
   const [childNName, setChildNName] = useState('');
   const [childBirth, setChildBirth] = useState('');
   const [dinoPicNum, setDinoPicNum] = useState('');
-  const [originName, setOriginName] = useState(originName);
+  const [originName, setOriginName] = useState('');
   const [child, setChild] = useState('');
   const [voiceNum, setVoiceNum] = useState('');
 
@@ -184,7 +184,7 @@ export default function ChildSetting() {
                           setIschangeBirth(false),
                           setIschangePic(false),
                         ]}
-                        value={originName}
+                        value={childNName}
                         onChangeText={(text) => setChildNName(text)}
                       />
                       <Text style={styles.myInfo}>입니다</Text>
@@ -239,7 +239,7 @@ export default function ChildSetting() {
                   <View style={styles.innerContext}>
                     {isChangeName && <Text> </Text>}
                     {isChangeBirth && (
-                      <DialButton // 민호체크
+                      <DialButton
                         size={width * 0.06}
                         verMargin={height * 0.02}
                         horMargin={width * 0.01}
@@ -370,5 +370,6 @@ const styles = StyleSheet.create({
   birthText: {
     textAlign: 'center',
     fontSize: height * 0.04,
+    color: '#FB537B',
   },
 });

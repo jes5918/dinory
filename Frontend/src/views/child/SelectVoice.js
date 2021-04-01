@@ -7,7 +7,6 @@ import voiceOne from '../../assets/sound/0hellonicetomeetyou.wav';
 import voiceTwo from '../../assets/sound/1hellonicetomeetyou.wav';
 import voiceThr from '../../assets/sound/2hellonicetomeetyou.wav';
 import voiceFou from '../../assets/sound/3hellonicetomeetyou.wav';
-import voiceFiv from '../../assets/sound/4hellonicetomeetyou.wav';
 import AlertModal from '../../components/elements/AlertModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {editChildVoice} from '../../api/accounts/childSettings';
@@ -20,6 +19,7 @@ const height = dimensions.height;
 export default function SelectVoice() {
   const [modalVisible, setModalVisible] = useState(false);
   const [fmodalVisible, setfModalVisible] = useState(false);
+  const [nomodalVisible, setNoModalVisible] = useState(false);
   const [child, setChild] = useState('');
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
@@ -38,10 +38,6 @@ export default function SelectVoice() {
     }
   });
   let soundfo = new Sound(voiceFou, Sound.MAIN_BUNDLE, (error) => {
-    if (error) {
-    }
-  });
-  let soundfi = new Sound(voiceFiv, Sound.MAIN_BUNDLE, (error) => {
     if (error) {
     }
   });
@@ -72,10 +68,13 @@ export default function SelectVoice() {
           setTimeout(() => {
             navigation.navigate('Main');
           }, 2000);
+        } else {
+          fchangeModalState();
         }
       },
       (err) => {
         console.log(err);
+        noChangeModalState();
       },
     );
   };
@@ -95,7 +94,14 @@ export default function SelectVoice() {
   const fchangeModalState = () => {
     setfModalVisible(!fmodalVisible);
   };
-
+  const noCloseModal = () => {
+    setTimeout(() => {
+      setNoModalVisible(!nomodalVisible);
+    }, 1500);
+  };
+  const noChangeModalState = () => {
+    setNoModalVisible(!nomodalVisible);
+  };
   return (
     <View style={styles.container}>
       <BackgroundAbsolute imageSrc={url}>
@@ -124,11 +130,6 @@ export default function SelectVoice() {
               soundOn(4);
               soundfo.play();
             }}
-            onHandlePressC5={() => {
-              soundfi.setVolume(0.5);
-              soundOn(5);
-              soundfi.play();
-            }}
             onHandlePressBasic={() => submitVoice()}
           />
           <AlertModal
@@ -136,6 +137,7 @@ export default function SelectVoice() {
             onHandleCloseModal={() => changeModalState()}
             text={'목소리가 변경되었어요!'}
             iconName={'smileo'}
+            color={'#A0A0FF'}
             setTimeFunction={() => closeModal()}
           />
           <AlertModal
@@ -143,7 +145,16 @@ export default function SelectVoice() {
             onHandleCloseModal={() => fchangeModalState()}
             text={'다시 시도해주세요!'}
             iconName={'frowno'}
+            color={'#FF0000'}
             setTimeFunction={() => fcloseModal()}
+          />
+          <AlertModal
+            modalVisible={nomodalVisible}
+            onHandleCloseModal={() => noChangeModalState()}
+            text={'목소리를 선택해주세요!'}
+            iconName={'frowno'}
+            color={'#FF0000'}
+            setTimeFunction={() => noCloseModal()}
           />
         </View>
       </BackgroundAbsolute>
