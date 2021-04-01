@@ -8,6 +8,7 @@ import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
+import AlertModal from '../../components/elements/AlertModal';
 
 // static variable
 const windowSize = Dimensions.get('window');
@@ -22,6 +23,8 @@ export default function SearchPassword({navigation}) {
   const [codeInputState, setCodeInputState] = useState(false);
   const [VisibleState, setVisibleState] = useState(true);
   const [userWriteCode, setUserWriteCode] = useState('');
+  const [fmodalVisible, setfModalVisible] = useState(false);
+  const [dmodalVisible, setdModalVisible] = useState(false);
   const AuthenticateEmail = async () => {
     let PasswordForm = new FormData();
     PasswordForm.append('email', userWriteEmail);
@@ -32,10 +35,9 @@ export default function SearchPassword({navigation}) {
         setUserTicket(res.data.id);
         setVisibleState(false);
         setCodeInputState(true);
-        alert('인증번호를  보냈습니다.');
       },
       (error) => {
-        alert('정보가 일치하지않습니다');
+        fchangeModalState();
         console.log(error);
       },
     );
@@ -51,10 +53,26 @@ export default function SearchPassword({navigation}) {
         navigation.navigate('ModifyPassword', {user_ID: res.data.user});
       },
       (error) => {
-        alert('코드가 일치하지 않습니다.');
+        dchangeModalState();
         console.log(error);
       },
     );
+  };
+  const fcloseModal = () => {
+    setTimeout(() => {
+      setfModalVisible(!fmodalVisible);
+    }, 2000);
+  };
+  const fchangeModalState = () => {
+    setfModalVisible(!fmodalVisible);
+  };
+  const dcloseModal = () => {
+    setTimeout(() => {
+      setdModalVisible(!dmodalVisible);
+    }, 2000);
+  };
+  const dchangeModalState = () => {
+    setdModalVisible(!dmodalVisible);
   };
   return (
     <AuthBackGround>
@@ -123,6 +141,22 @@ export default function SearchPassword({navigation}) {
             />
           </View>
         ) : null}
+        <AlertModal
+          modalVisible={fmodalVisible}
+          onHandleCloseModal={() => fchangeModalState()}
+          text={'등록된 회원정보가 없습니다!'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => fcloseModal()}
+        />
+        <AlertModal
+          modalVisible={dmodalVisible}
+          onHandleCloseModal={() => dchangeModalState()}
+          text={'인증코드가 틀렸습니다!'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => dcloseModal()}
+        />
       </View>
     </AuthBackGround>
   );

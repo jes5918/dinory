@@ -7,7 +7,7 @@ import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
-
+import AlertModal from '../../components/elements/AlertModal';
 // static variable
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
@@ -19,6 +19,10 @@ export default function SingupSCreen({navigation}) {
   const [userPassword, setUserPassword] = useState('');
   const [userPasswordchk, setUserPasswordchk] = useState('');
   const [idAvailable, setIdAvailable] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [bmodalVisible, setbModalVisible] = useState(false);
+  const [cmodalVisible, setcModalVisible] = useState(false);
+  const [dmodalVisible, setdModalVisible] = useState(false);
   const idCheck = () => {
     let idCheckForm = new FormData();
     idCheckForm.append('username', userName);
@@ -28,10 +32,10 @@ export default function SingupSCreen({navigation}) {
         const idcheck = res.data;
         console.log(idcheck);
         setIdAvailable(true);
-        alert('사용가능한 아이디입니다.');
+        changeModalState();
       },
       (error) => {
-        alert('존재하는 아이디입니다.');
+        dchangeModalState();
         console.log(error);
       },
     );
@@ -44,11 +48,43 @@ export default function SingupSCreen({navigation}) {
         AsyncStorage.setItem('password_confirmation', userPasswordchk);
         navigation.navigate('PinScreen');
       } else {
-        alert('비밀번호가 일치하지않습니다.');
+        bchangeModalState();
       }
     } else {
-      alert('아이디 중복확인 하세요');
+      cchangeModalState();
     }
+  };
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1500);
+  };
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+  const dcloseModal = () => {
+    setTimeout(() => {
+      setdModalVisible(!dmodalVisible);
+    }, 2000);
+  };
+  const dchangeModalState = () => {
+    setdModalVisible(!dmodalVisible);
+  };
+  const bcloseModal = () => {
+    setTimeout(() => {
+      setbModalVisible(!bmodalVisible);
+    }, 1500);
+  };
+  const bchangeModalState = () => {
+    setbModalVisible(!bmodalVisible);
+  };
+  const ccloseModal = () => {
+    setTimeout(() => {
+      setcModalVisible(!cmodalVisible);
+    }, 2000);
+  };
+  const cchangeModalState = () => {
+    setcModalVisible(!cmodalVisible);
   };
   return (
     <AuthBackGround>
@@ -122,6 +158,38 @@ export default function SingupSCreen({navigation}) {
             onHandlePress={() => SubmitHandler()}
           />
         </View>
+        <AlertModal
+          modalVisible={modalVisible}
+          onHandleCloseModal={() => changeModalState()}
+          text={'사용가능한 아이디입니다.'}
+          iconName={'smileo'}
+          color={'#A0A0FF'}
+          setTimeFunction={() => closeModal()}
+        />
+        <AlertModal
+          modalVisible={dmodalVisible}
+          onHandleCloseModal={() => dchangeModalState()}
+          text={'존재하는 아이디입니다.'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => dcloseModal()}
+        />
+        <AlertModal
+          modalVisible={bmodalVisible}
+          onHandleCloseModal={() => bchangeModalState()}
+          text={'비밀번호가 일치하지않습니다.'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => bcloseModal()}
+        />
+        <AlertModal
+          modalVisible={cmodalVisible}
+          onHandleCloseModal={() => cchangeModalState()}
+          text={'아이디 중복확인 하세요'}
+          iconName={'smileo'}
+          color={'#A0A0FF'}
+          setTimeFunction={() => ccloseModal()}
+        />
       </View>
     </AuthBackGround>
   );
