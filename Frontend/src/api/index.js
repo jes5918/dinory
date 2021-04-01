@@ -5,6 +5,22 @@ const API_BASE_URL = 'https://j4b105.p.ssafy.io/api/';
 
 // 'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNCwidXNlcm5hbWUiOiJzdWVtaW4xIiwiZXhwIjoxNjE3NzcwMjQyLCJlbWFpbCI6InBvcG9wMDkwOTBAbmF2ZXIuY29tIn0.NjNEuTXianJ1lQ2SzsyxV6uZgELGTM1236DVw76MtE4';
 
+const getToken = async () => {
+  let tempToken = '';
+  try {
+    await AsyncStorage.getItem('jwt').then((jwt) => {
+      tempToken = jwt;
+    });
+    if (tempToken) {
+      return tempToken;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+
+  console.log('Done.');
+};
+
 function createInstance() {
   const instance = axios.create({
     baseURL: API_BASE_URL,
@@ -17,17 +33,24 @@ function AuthorizationInstance() {
     baseURL: API_BASE_URL,
   });
 
-  AsyncStorage.getItem('jwt').then((value) => {
-    instance.defaults.headers.common.Authorization = `jwt ${value}`;
-    instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-  });
+  instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+  instance.interceptors.request.use(
+    async function (config) {
+      const accToken = await getToken();
+      const token = 'jwt ' + accToken;
 
-  // AsyncStorage.getItem('user').then((value) => {
-  //   console.log(JSON.parse(value));
-  //   const accessToken = JSON.parse(value).jwt;
-  //   instance.defaults.headers.common.Authorization = `jwt ${accessToken}`;
-  //   instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-  // });
+      config.headers = {
+        Authorization: token,
+      };
+
+      return config;
+    },
+    function (error) {
+      // 오류 요청을 보내기전 수행할 일
+      // ...
+      return Promise.reject(error);
+    },
+  );
 
   return instance;
 }

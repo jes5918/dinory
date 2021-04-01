@@ -40,7 +40,7 @@ function ParentSetting() {
     try {
       setLogoutModal(!logoutModal);
       await AsyncStorage.multiRemove(willRemovedKeys);
-      navigation.navigate('Homescreen');
+      navigation.navigate('HomeScreen');
     } catch (e) {
       console.log('AsyncStorage Remove Keys Fail : ', e);
     }

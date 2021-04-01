@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet, View, Dimensions, Text} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {loginInstance} from '../../api/accounts/login';
@@ -8,6 +8,7 @@ import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
+import {useFocusEffect} from '@react-navigation/core';
 
 // static variable
 const windowSize = Dimensions.get('window');
@@ -19,6 +20,7 @@ export default function LoginScreen({navigation}) {
   const [userPassword, setUserPassword] = useState('');
   const [autoLogin, setAutoLogin] = useState(false);
   const [storeId, setStoreId] = useState(false);
+
   const LoginHandler = async () => {
     let loginForm = new FormData();
     loginForm.append('username', userName);
@@ -28,6 +30,7 @@ export default function LoginScreen({navigation}) {
       (res) => {
         alert('로그인 되었습니다.');
         AsyncStorage.setItem('jwt', res.data.token);
+        AsyncStorage.setItem('autoUserName', userName);
         navigation.navigate('SelectProfile');
       },
       (error) => {
@@ -39,13 +42,47 @@ export default function LoginScreen({navigation}) {
 
   const autoLoginToggle = () => {
     if (autoLogin) {
-      AsyncStorage.setItem('autologin', 'false');
+      AsyncStorage.setItem('autoLogin', 'false');
       setAutoLogin(false);
     } else {
-      AsyncStorage.setItem('autologin', 'true');
+      AsyncStorage.setItem('autoLogin', 'true');
       setAutoLogin(true);
     }
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('autoLogin').then((val) => {
+        const temp = JSON.parse(val);
+        setStoreId(temp);
+      });
+    }, []),
+  );
+
+  const setUserNameToggle = () => {
+    console.log(storeId);
+    if (storeId) {
+      AsyncStorage.setItem('autoUser', 'false');
+      setStoreId(false);
+    } else {
+      AsyncStorage.setItem('autoUser', 'true');
+      setStoreId(true);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('autouser').then((val) => {
+        const bool = JSON.parse(val);
+        console.log('@@@@@@', bool);
+        setStoreId(bool);
+      });
+      AsyncStorage.getItem('autoUserName').then((name) => {
+        console.log('!!!!!!', name);
+        setUserName(name);
+      });
+    }, []),
+  );
 
   return (
     <AuthBackGround>
@@ -97,7 +134,7 @@ export default function LoginScreen({navigation}) {
           <View style={styles.checkOption}>
             <CheckBox
               value={storeId}
-              onValueChange={setStoreId}
+              onValueChange={setUserNameToggle}
               style={styles.checkBox}
             />
             <Text style={styles.label}>아이디 저장</Text>
