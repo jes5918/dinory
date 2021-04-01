@@ -9,6 +9,7 @@ import {
   PermissionsAndroid,
   Dimensions,
 } from 'react-native';
+import AlertModal from '../../components/elements/AlertModal';
 
 // Import Image Picker
 // import ImagePicker from 'react-native-image-picker';
@@ -18,7 +19,27 @@ import Layout from '../../components/elements/Layout';
 const bgurl = require('../../assets/images/background3.png');
 
 const SelectImage = ({setSelectImage}) => {
-  const [filePath, setFilePath] = useState({});
+  const [cameraCancel, setCameraCancel] = useState(false);
+  const [galleryCancel, setGalleryCancel] = useState(false);
+  const closeModal = (e) => {
+    if (e === 1) {
+      setTimeout(() => {
+        setCameraCancel(false);
+      }, 2000);
+    } else if (e === 2) {
+      setTimeout(() => {
+        setGalleryCancel(false);
+      }, 2000);
+    }
+  };
+  const changeModalState = (e) => {
+    if (e === 1) {
+      setCameraCancel(false);
+    } else if (e === 2) {
+      setGalleryCancel(false);
+    }
+  };
+
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
       try {
@@ -70,7 +91,7 @@ const SelectImage = ({setSelectImage}) => {
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, (response) => {
         if (response.didCancel) {
-          alert('사진 찍기 취소!');
+          setCameraCancel(true);
           return;
         } else if (response.errorCode == 'camera_unavailable') {
           alert('Camera not available on device');
@@ -82,6 +103,7 @@ const SelectImage = ({setSelectImage}) => {
           alert(response.errorMessage);
           return;
         }
+        setSelectImage(response);
       });
     }
   };
@@ -93,7 +115,7 @@ const SelectImage = ({setSelectImage}) => {
     };
     launchImageLibrary(options, (response) => {
       if (response.didCancel) {
-        alert('사진 올리기 취소!');
+        setGalleryCancel(true);
         return;
       } else if (response.errorCode == 'camera_unavailable') {
         alert('Camera not available on device');
@@ -145,6 +167,22 @@ const SelectImage = ({setSelectImage}) => {
           <Text style={styles.textStyle}>사진 가져오기</Text>
         </TouchableOpacity>
       </View>
+      <AlertModal
+        modalVisible={cameraCancel}
+        onHandleCloseModal={() => changeModalState(1)}
+        text={'사진찍기가 취소 됐어요.'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModal(1)}
+      />
+      <AlertModal
+        modalVisible={galleryCancel}
+        onHandleCloseModal={() => changeModalState(2)}
+        text={'사진 선택이 취소 됐어요.'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModal(2)}
+      />
     </Layout>
   );
 };
