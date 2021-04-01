@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, Button, ScrollView} from 'react-native';
+import {View, Text, Button, ScrollView} from 'react-native';
 
 export default function NavIcon({navigation}) {
   return (
@@ -8,11 +8,6 @@ export default function NavIcon({navigation}) {
       <Button
         title="HomeScreen"
         onPress={() => navigation.navigate('HomeScreen')}
-      />
-      <Text> </Text>
-      <Button
-        title="LoginScreen"
-        onPress={() => navigation.navigate('LoginScreen')}
       />
       <Text> </Text>
       <Button

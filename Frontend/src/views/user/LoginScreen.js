@@ -26,22 +26,24 @@ export default function LoginScreen({navigation}) {
   const [pmodalVisible, setpModalVisible] = useState(false);
 
   const chkPW = (password) => {
-    let cnt = 0;
-    let digit = false;
-    let upper = false;
-    let lower = false;
-    for (let index = 0; index < password.length; index++) {
-      const letter = password[index];
-      if (letter.isdigit && !digit) {
-        cnt += 1;
-      }
-    }
+    chk1 = /^[a-zA-Z0-9]{8,20}$/;
+    chk2 = /[a-z]/;
+    chk3 = /[A-Z]/;
+    chk4 = /\d/;
+
+    return chk1.test(password) &&
+      chk2.test(password) &&
+      chk3.test(password) &&
+      chk4.test(password)
+      ? true
+      : false;
   };
   const LoginHandler = async () => {
-    // if (!chkPW(userPassword)) {
-    //   return;
-    // }
-    chkPW(userPassword);
+    if (!chkPW(userPassword)) {
+      pchangeModalState();
+      return;
+    }
+    console.log(chkPW(userPassword));
     let loginForm = new FormData();
     loginForm.append('username', userName);
     loginForm.append('password', userPassword);
@@ -110,7 +112,6 @@ export default function LoginScreen({navigation}) {
         });
     }, []),
   );
-
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
