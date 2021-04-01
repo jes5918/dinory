@@ -71,7 +71,6 @@ export default function ModifyPassword({navigation, route}) {
       return false;
     } else if (pw.search(/\s/) !== -1) {
       dchangeModalState();
-
       return false;
     } else {
       return true;

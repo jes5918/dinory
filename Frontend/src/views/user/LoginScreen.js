@@ -82,32 +82,38 @@ export default function LoginScreen({navigation}) {
     useCallback(() => {
       AsyncStorage.getItem('autoLogin').then((val) => {
         const temp = JSON.parse(val);
-        setStoreId(temp);
+        setAutoLogin(temp);
       });
     }, []),
   );
 
   const setUserNameToggle = () => {
+    console.log('asd', storeId);
     if (storeId) {
-      AsyncStorage.setItem('autoUser', 'false');
+      AsyncStorage.setItem('autoUser', JSON.stringify(false));
       setStoreId(false);
     } else {
-      AsyncStorage.setItem('autoUser', 'true');
+      AsyncStorage.setItem('autoUser', JSON.stringify(true));
       setStoreId(true);
     }
   };
 
   useFocusEffect(
     useCallback(() => {
-      AsyncStorage.getItem('autouser').then((val) => {
+      AsyncStorage.getItem('autoUser').then((val) => {
         const bool = JSON.parse(val);
         setStoreId(bool);
       });
-      AsyncStorage.getItem('autoUserName').then((name) => {
-        setUserName(name);
-      });
+      AsyncStorage.getItem('autoUserName')
+        .then((name) => {
+          setUserName(name);
+        })
+        .catch(() => {
+          setUserName('');
+        });
     }, []),
   );
+
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
