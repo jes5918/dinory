@@ -48,7 +48,7 @@ function PassWordUpdate() {
         setModalVisible(!modalVisible);
       },
       (err) => {
-        console.error(err);
+        console.log('PassWordUpdate.js 에러', err);
       },
     );
   };

@@ -130,6 +130,7 @@ function DiaryList({route}) {
   useEffect(() => {
     fetchNotesByMonth(profilePK, fetchYear, fetchMonth);
     fetchNotesByYear(profilePK);
+    console.log('출력해보자 : ', profilePK, fetchMonth, fetchYear);
   }, [profilePK, fetchYear, fetchMonth]);
 
   return (
