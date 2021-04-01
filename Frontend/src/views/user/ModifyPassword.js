@@ -24,7 +24,6 @@ const layoutWidth = windowWidth * 0.3718;
 const layoutHeight = windowHeight * 0.755;
 
 export default function ModifyPassword({navigation, route}) {
-  const [modalVisible, setModalVisible] = useState(false);
   const [userWritePassword, setUserWritePassword] = useState('');
   const [userCheckPassword, setUserCheckPassword] = useState('');
   const [modalVisible, setModalVisible] = useState(false);

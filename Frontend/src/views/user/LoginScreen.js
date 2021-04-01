@@ -110,7 +110,6 @@ export default function LoginScreen({navigation}) {
         });
     }, []),
   );
-
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
