@@ -92,7 +92,7 @@ export default function HomeScreen({navigation, route}) {
         <View style={styles.view_logo}>
           <Image
             style={styles.logoImage}
-            source={require('../../assets/images/logo.png')}
+            source={require('../../assets/images/logo_ver2.png')}
           />
         </View>
         <View>
