@@ -11,12 +11,12 @@ import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import DiaryListFooter from '../../components/diary/DiaryListFooter';
 import DiaryFooterImage from '../../components/diary/DiaryFooterImage';
-import getNotesByDay from '../../api/diary/getNotesByDay';
+import {getNotesByDay, getNotesByOneDay} from '../../api/diary/getNotesByDay';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 const image = require('../../assets/images/background1.png');
 
-const baseURL = 'https://j4b105.p.ssafy.io';
+const baseURL = 'https://j4b105.p.ssafy.io/api';
 
 const Diary = ({data}) => {
   return (
