@@ -174,7 +174,9 @@ export default function Main() {
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles.menuBtn}
-              onPress={() => navigation.navigate('DiaryList')}>
+              onPress={() =>
+                navigation.navigate('DiaryList', {profilePK: child})
+              }>
               <Text style={[styles.innerText, {color: '#199CDC'}]}>
                 일기 목록
               </Text>
@@ -231,6 +233,7 @@ export default function Main() {
             onPress={() =>
               navigation.navigate('PinAuthentication', {
                 connetedRoute: 'ParentSetting',
+                profilePK: child,
               })
             }>
             <MaterialIcons style={styles.mainIcon} name={'settings'} />

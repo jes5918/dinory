@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FB537B',
   },
   alertText: {
-    fontSize: windowWidth * 0.019,
+    fontSize: windowWidth * 0.017,
     color: '#707070',
     fontFamily: 'NotoSansKR-Bold',
     // backgroundColor: 'red',

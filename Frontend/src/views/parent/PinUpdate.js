@@ -8,7 +8,7 @@ import BasicButton from '../../components/elements/BasicButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
-import changePincode from '../../api/accounts/settings';
+import {changePincode} from '../../api/accounts/settings';
 
 // static variable
 const backgroundImage = require('../../assets/images/background2.png');
@@ -22,6 +22,7 @@ const marginBottom = windowHeight * 0.06;
 function PinUpdate() {
   const navigation = useNavigation();
 
+  const [oldPinCode, setOldPinCode] = useState('');
   const [pinCode, setPinCode] = useState('');
   const [pinCodeCheck, setPinCodeCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -34,24 +35,18 @@ function PinUpdate() {
     } else {
       setAlertForEnter(false);
     }
-    let user_pk = '';
-    await AsyncStorage.getItem('user_pk').then((storedUserPK) => {
-      user_pk = storedUserPK;
-    });
-    await AsyncStorage.getItem('pin_code').then((oldPinCode) =>
-      changePincode(
-        user_pk,
-        {
-          old_pincode: oldPinCode,
-          pin_code: pinCode,
-        },
-        (res) => {
-          setModalVisible(!modalVisible);
-        },
-        (err) => {
-          console.error(err);
-        },
-      ),
+
+    const pinCodeForm = new FormData();
+    pinCodeForm.append('old_pincode', oldPinCode);
+    pinCodeForm.append('pin_code', pinCode);
+    changePincode(
+      pinCodeForm,
+      (res) => {
+        setModalVisible(!modalVisible);
+      },
+      (err) => {
+        console.error(err);
+      },
     );
   };
 
@@ -101,6 +96,15 @@ function PinUpdate() {
             <Text style={styles.mainText}>핀 번호 변경</Text>
           </View>
           <View style={styles.mainMid}>
+            <AuthTextInput
+              setFunction={setOldPinCode}
+              width={inputWidth}
+              height={inputHeight}
+              marginRight={0}
+              marginBottom={marginBottom}
+              text={'현재 핀 번호를 입력해주세요.'}
+              secureTextEntry={true}
+            />
             <AuthTextInput
               setFunction={setPinCode}
               width={inputWidth}
@@ -159,7 +163,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     width: windowWidth * 0.372, // 476
-    height: windowHeight * 0.754, // 642
+    height: windowHeight * 0.854, // 642
     borderRadius: 50,
     elevation: 7,
     paddingTop: windowHeight * 0.043, // 32
@@ -191,7 +195,7 @@ const styles = StyleSheet.create({
     color: '#707070',
     width: windowWidth * 0.25,
     marginTop: windowHeight * 0.01,
-    marginBottom: windowHeight * 0.06,
+    marginBottom: windowHeight * 0.04,
     paddingLeft: 12,
   },
 });
