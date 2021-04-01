@@ -198,7 +198,7 @@ export default function ChildSetting() {
                           setIschangeBirth(false),
                           setIschangePic(false),
                         ]}
-                        value={originName}
+                        value={childNName}
                         onChangeText={(text) => setChildNName(text)}
                       />
                       <Text style={styles.myInfo}>입니다</Text>
