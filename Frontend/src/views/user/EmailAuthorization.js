@@ -33,7 +33,7 @@ export default function EmailAuthorization({navigation}) {
             //인증 번호 전송
             emailAuthForm,
             (res) => {
-              setUserTicket(res.data['id']);
+              setUserTicket(res.data.id);
               // console.log(res);
               //번호표 저장
             },
