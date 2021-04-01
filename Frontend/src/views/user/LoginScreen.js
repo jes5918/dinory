@@ -9,6 +9,7 @@ import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
 import {useFocusEffect} from '@react-navigation/core';
+import AlertModal from '../../components/elements/AlertModal';
 
 // static variable
 const windowSize = Dimensions.get('window');
@@ -21,8 +22,28 @@ export default function LoginScreen({navigation}) {
   const [userPassword, setUserPassword] = useState('');
   const [autoLogin, setAutoLogin] = useState(false);
   const [storeId, setStoreId] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [dmodalVisible, setdModalVisible] = useState(false);
+  const [pmodalVisible, setpModalVisible] = useState(false);
 
+  const chkPW = (password) => {
+    let cnt = 0;
+    let digit = false;
+    let upper = false;
+    let lower = false;
+    for (let index = 0; index < password.length; index++) {
+      const letter = password[index];
+      console.log('대문자 검사기 개발 중 :', letter); // 현재 개발 중
+      if (letter.isdigit && !digit) {
+        cnt += 1;
+      }
+    }
+  };
   const LoginHandler = async () => {
+    // if (!chkPW(userPassword)) {
+    //   return;
+    // }
+    chkPW(userPassword);
     let loginForm = new FormData();
     loginForm.append('username', userName);
     loginForm.append('password', userPassword);
@@ -33,13 +54,15 @@ export default function LoginScreen({navigation}) {
           AsyncStorage.removeItem('jwt');
         }
         await AsyncStorage.setItem('jwt', res.data.token);
-        alert('로그인 되었습니다.');
+        changeModalState();
         AsyncStorage.setItem('jwt', res.data.token);
         AsyncStorage.setItem('autoUserName', userName);
-        navigation.navigate('SelectProfile');
+        setTimeout(() => {
+          navigation.navigate('SelectProfile');
+        }, 1500);
       },
       (error) => {
-        alert('비밀번호가 잘못되었습니다');
+        dchangeModalState();
         console.log(error);
       },
     );
@@ -88,7 +111,30 @@ export default function LoginScreen({navigation}) {
       });
     }, []),
   );
-
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1500);
+  };
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+  const dcloseModal = () => {
+    setTimeout(() => {
+      setdModalVisible(!dmodalVisible);
+    }, 2000);
+  };
+  const dchangeModalState = () => {
+    setdModalVisible(!dmodalVisible);
+  };
+  const pcloseModal = () => {
+    setTimeout(() => {
+      setpModalVisible(!pmodalVisible);
+    }, 2000);
+  };
+  const pchangeModalState = () => {
+    setpModalVisible(!pmodalVisible);
+  };
   return (
     <AuthBackGround>
       <Header logoHeader={true} />
@@ -158,6 +204,30 @@ export default function LoginScreen({navigation}) {
             onHandlePress={() => LoginHandler()}
           />
         </View>
+        <AlertModal
+          modalVisible={modalVisible}
+          onHandleCloseModal={() => changeModalState()}
+          text={'로그인 되었습니다.'}
+          iconName={'smileo'}
+          color={'#A0A0FF'}
+          setTimeFunction={() => closeModal()}
+        />
+        <AlertModal
+          modalVisible={dmodalVisible}
+          onHandleCloseModal={() => dchangeModalState()}
+          text={'아이디 또는 비밀번호를 확인해주세요'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => dcloseModal()}
+        />
+        <AlertModal
+          modalVisible={pmodalVisible}
+          onHandleCloseModal={() => pchangeModalState()}
+          text={'비밀번호는 영어 대,소문자 + 숫자로 구성된 8자리 이상입니다!'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => pcloseModal()}
+        />
       </View>
     </AuthBackGround>
   );

@@ -11,6 +11,11 @@ export default function NavIcon({navigation}) {
       />
       <Text> </Text>
       <Button
+        title="LoginScreen"
+        onPress={() => navigation.navigate('LoginScreen')}
+      />
+      <Text> </Text>
+      <Button
         title="SelectProfile"
         onPress={() => navigation.navigate('SelectProfile')}
       />

@@ -16,7 +16,7 @@ import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
-
+import AlertModal from '../../components/elements/AlertModal';
 // static variable
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
@@ -28,6 +28,9 @@ export default function PinCreate({navigation}) {
   const [userPinNumber, setUserPinNumber] = useState('');
   const [userPinNumberchk, setUserPinNumberchk] = useState('');
   const [buttonChk, setButtonChk] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [dmodalVisible, setdModalVisible] = useState(false);
+  const [bmodalVisible, setbModalVisible] = useState(false);
   const AsyncStorageChecker = async () => {
     if (await AsyncStorage.getItem('username')) {
       AsyncStorage.removeItem('username');
@@ -82,19 +85,47 @@ export default function PinCreate({navigation}) {
         pinAuthForm,
         (res) => {
           const token = res.data.token;
+          console.log(pinAuthForm);
           AsyncStorage.removeItem('jwt');
           AsyncStorage.setItem('jwt', token);
-          alert('회원가입 되었습니다.');
-          navigation.navigate('SelectProfile');
+          changeModalState();
+          setTimeout(() => {
+            navigation.navigate('SelectProfile');
+          }, 2000);
         },
         (error) => {
-          alert('ERROR');
           console.log(error);
+          console.log(1);
+          dchangeModalState();
         },
       );
     } else {
-      alert('핀 번호가 일치하지않습니다.');
+      bchangeModalState();
     }
+  };
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1500);
+  };
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+  const dcloseModal = () => {
+    setTimeout(() => {
+      setdModalVisible(!dmodalVisible);
+    }, 2000);
+  };
+  const dchangeModalState = () => {
+    setdModalVisible(!dmodalVisible);
+  };
+  const bcloseModal = () => {
+    setTimeout(() => {
+      setbModalVisible(!bmodalVisible);
+    }, 2000);
+  };
+  const bchangeModalState = () => {
+    setbModalVisible(!bmodalVisible);
   };
   return (
     <AuthBackGround>
@@ -150,6 +181,30 @@ export default function PinCreate({navigation}) {
             }}
           />
         </View>
+        <AlertModal
+          modalVisible={modalVisible}
+          onHandleCloseModal={() => changeModalState()}
+          text={'회원가입 되었습니다.'}
+          iconName={'smileo'}
+          color={'#A0A0FF'}
+          setTimeFunction={() => closeModal()}
+        />
+        <AlertModal
+          modalVisible={dmodalVisible}
+          onHandleCloseModal={() => dchangeModalState()}
+          text={'핀 번호가 일치하지않습니다.'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => dcloseModal()}
+        />
+        <AlertModal
+          modalVisible={bmodalVisible}
+          onHandleCloseModal={() => bchangeModalState()}
+          text={'숫자 6자리로 입력해주세요.'}
+          iconName={'smileo'}
+          color={'#A0A0FF'}
+          setTimeFunction={() => bcloseModal()}
+        />
       </View>
     </AuthBackGround>
   );
