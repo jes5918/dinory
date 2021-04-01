@@ -115,7 +115,6 @@ export default function ChildSetting() {
           }
         },
         (err) => {
-          console.log(err);
           fchangeModalState();
         },
       );

@@ -45,12 +45,9 @@ export default function SelectProfile({navigation, route}) {
     useCallback(() => {
       getChildProfile(
         (res) => {
-          console.log(res);
           setChildrenInfo(res.data);
         },
-        (error) => {
-          console.log(error);
-        },
+        (error) => {},
       );
     }, []),
   );

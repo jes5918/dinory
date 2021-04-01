@@ -45,14 +45,7 @@ function ParentSetting({route}) {
         index: 0,
         routes: [{name: 'HomeScreen'}],
       });
-    } catch (e) {
-      console.log('AsyncStorage Remove Keys Fail : ', e);
-    }
-
-    console.log(
-      'AsyncStorage Remove Keys Done(다음 키들을 삭제했습니다.) : ',
-      willRemovedKeys,
-    );
+    } catch (e) {}
   };
 
   const deleteProfile = async () => {
@@ -62,26 +55,15 @@ function ParentSetting({route}) {
       setProfileDelete(!profileDelete);
       await AsyncStorage.multiRemove(willRemovedKeys);
       navigation.navigate('SelectProfile'); // 프로필이 아예 없는 경우의 로직 구현 필요
-    } catch (e) {
-      console.log('AsyncStorage Remove Keys Fail : ', e);
-    }
-
-    console.log(
-      'AsyncStorage Remove Keys Done(다음 키들을 삭제했습니다.) : ',
-      willRemovedKeys,
-    );
+    } catch (e) {}
   };
 
   const fetchRemoveProfile = async () => {
     if (profilePK) {
       removeChildProfile(
         profilePK,
-        (res) => {
-          console.log('프로필이 정상적으로 삭제되었습니다.');
-        },
-        (e) => {
-          console.error('프로필 삭제에서 에러가 발생했습니다. : ', e);
-        },
+        (res) => {},
+        (e) => {},
       );
     } else {
       console.error(

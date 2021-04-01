@@ -30,13 +30,11 @@ export default function SingupSCreen({navigation}) {
       idCheckForm,
       (res) => {
         const idcheck = res.data;
-        console.log(idcheck);
         setIdAvailable(true);
         changeModalState();
       },
       (error) => {
         dchangeModalState();
-        console.log(error);
       },
     );
   };

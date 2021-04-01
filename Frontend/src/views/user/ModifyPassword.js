@@ -31,7 +31,6 @@ export default function ModifyPassword({navigation, route}) {
   const userID = route.params.user_ID;
 
   const submitHandler = async () => {
-    console.log(!chkPW(userWritePassword));
     if (!chkPW(userWritePassword) && !chkPW(userCheckPassword)) {
       return;
     }
@@ -50,7 +49,6 @@ export default function ModifyPassword({navigation, route}) {
       },
       (error) => {
         dchangeModalState();
-        console.log(error);
       },
     );
   };
@@ -60,11 +58,6 @@ export default function ModifyPassword({navigation, route}) {
     const eng = pw.search(/[a-zA-Z]/gi);
     const ENG = pw.search(/[A-Z]/gi);
     const spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-    console.log('num :', num);
-    console.log('eng :', eng);
-    console.log('ENG :', ENG);
-    console.log('spe :', spe);
-    console.log(1);
     if (pw.length < 8 || pw.length > 20) {
       dchangeModalState();
 
