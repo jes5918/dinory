@@ -38,7 +38,6 @@ export default function SearchPassword({navigation}) {
       },
       (error) => {
         fchangeModalState();
-        console.log(error);
       },
     );
   };
@@ -54,7 +53,6 @@ export default function SearchPassword({navigation}) {
       },
       (error) => {
         dchangeModalState();
-        console.log(error);
       },
     );
   };

@@ -60,7 +60,6 @@ export default function HomeScreen({navigation, route}) {
   const AutologinMount = () => {
     // 1.  디바이스에서 토큰을 받아옴
     AsyncStorage.getItem('jwt').then((value) => {
-      console.log(value);
       const accessToken = value;
       if (accessToken !== null && accessToken.length > 100) {
         // 토큰값이 널이 아니고 100자 이상이라면
@@ -77,16 +76,6 @@ export default function HomeScreen({navigation, route}) {
               CurrentToken,
               (res) => {
                 const RefreshToken = res.data.token;
-                AsyncStorage.getAllKeys((err, keys) => {
-                  AsyncStorage.multiGet(keys, (err, stores) => {
-                    stores.map((result, i, store) => {
-                      // get at each store's key/value so you can work with it
-                      let key = store[i][0];
-                      let value = store[i][1];
-                      console.log('@@@@@@@', key + ' : ' + value);
-                    });
-                  });
-                });
                 AsyncStorage.removeItem('jwt');
                 AsyncStorage.setItem('jwt', RefreshToken);
                 changeModalState();
@@ -94,18 +83,15 @@ export default function HomeScreen({navigation, route}) {
                 // 디바이스에 리프레쉬 토큰 저장 후 이동
               },
               (error) => {
-                console.log('리프레쉬 탈락222', error);
                 navigation.navigate('LoginScreen');
               },
             );
           },
           (error) => {
-            console.log('유효성 탈락222', error);
             navigation.navigate('LoginScreen');
           },
         );
       } else {
-        console.log('토큰이 없다');
       }
     });
   };

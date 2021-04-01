@@ -45,7 +45,6 @@ function PinAuthentication({route}) {
       },
       (err) => {
         setAlertForEnter(!alertForEnter);
-        console.log(err);
       },
     );
   };

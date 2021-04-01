@@ -58,14 +58,7 @@ export default function Main() {
       setLogoutModal(!logoutModal);
       await AsyncStorage.multiRemove(willRemovedKeys);
       navigation.navigate('HomeScreen');
-    } catch (e) {
-      console.log('AsyncStorage Remove Keys Fail : ', e);
-    }
-
-    console.log(
-      'AsyncStorage Remove Keys Done(다음 키들을 삭제했습니다.) : ',
-      willRemovedKeys,
-    );
+    } catch (e) {}
   };
 
   const onHandleLogout = () => {
@@ -94,7 +87,6 @@ export default function Main() {
 
   const transformImage = (num) => {
     let Src = '';
-    console.log(num);
     switch (String(num)) {
       case '0':
         Src = require('../assets/images/character1.png');

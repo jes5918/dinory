@@ -32,7 +32,6 @@ export default function LoginScreen({navigation}) {
     let lower = false;
     for (let index = 0; index < password.length; index++) {
       const letter = password[index];
-      console.log('대문자 검사기 개발 중 :', letter); // 현재 개발 중
       if (letter.isdigit && !digit) {
         cnt += 1;
       }
@@ -63,7 +62,6 @@ export default function LoginScreen({navigation}) {
       },
       (error) => {
         dchangeModalState();
-        console.log(error);
       },
     );
   };
@@ -88,7 +86,6 @@ export default function LoginScreen({navigation}) {
   );
 
   const setUserNameToggle = () => {
-    console.log('asd', storeId);
     if (storeId) {
       AsyncStorage.setItem('autoUser', JSON.stringify(false));
       setStoreId(false);

@@ -61,9 +61,6 @@ function DiaryDetail({route}) {
   };
 
   const fetchNotesByOneDay = (child, year, month) => {
-    console.log(
-      `fetchNotesByOneDay : child - ${child}, year - ${year}, month - ${month}`,
-    );
     getNotesByOneDay(
       {
         child,
@@ -72,7 +69,6 @@ function DiaryDetail({route}) {
       },
       (res) => {
         setDataJustOneDay(() => res.data); // 일단 하나 받는 걸로 고정.
-        console.log('fetchNotesByOneDay : ', res.data);
       },
       (err) => {
         console.error(err);
