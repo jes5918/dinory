@@ -23,8 +23,9 @@ export default function Logo() {
 
 const styles = StyleSheet.create({
   logoBtn: {
+    position: 'absolute',
     justifyContent: 'center',
-    alignSelf: 'center',
+    left: width * 0.4,
     width: width * 0.18,
     height: height * 0.12,
   },

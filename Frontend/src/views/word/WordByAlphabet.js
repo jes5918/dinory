@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Header from '../../components/elements/Header';
 import FlipCard from '../../components/elements/FlipCard';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getListbyAlphabet} from '../../api/word/readWord';
 import {StyleSheet, View, Dimensions, ScrollView, Text} from 'react-native';
 
@@ -11,9 +12,20 @@ const height = dimensions.height;
 
 export default function WordByAlphabet({route}) {
   const url = require('../../assets/images/background1.png');
-  const [listByAlpha, setListByAlpha] = useState();
   const alphabet = route.params.selectAlpha;
-  const child = '10'; // 임시
+  const [listByAlpha, setListByAlpha] = useState();
+  const [child, setChild] = useState('');
+
+  const getProfileInfo = useCallback(async () => {
+    await AsyncStorage.getItem('profile').then((profile) => {
+      const data = JSON.parse(profile);
+      setChild(data.profile_pk);
+    });
+  }, []);
+
+  useEffect(() => {
+    getProfileInfo();
+  }, [getProfileInfo]);
 
   useEffect(() => {
     getListbyAlphabet(
