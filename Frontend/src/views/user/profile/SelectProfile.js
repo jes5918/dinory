@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
 import ContentTitle from '../../../components/elements/ContentTitle';
@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SelectProfileButton from '../../../components/authorization/SelectProfileButton';
 import BasicButton from '../../../components/elements/BasicButton';
 import Header from '../../../components/elements/Header';
+import {useFocusEffect} from '@react-navigation/core';
 
 // static variable
 const windowSize = Dimensions.get('window');
@@ -39,6 +40,7 @@ export default function SelectProfile({navigation}) {
     }
     return Src;
   };
+<<<<<<< HEAD
 
   useEffect(() => {
     getChildProfile(
@@ -50,6 +52,21 @@ export default function SelectProfile({navigation}) {
       },
     );
   }, []);
+=======
+  useFocusEffect(
+    useCallback(() => {
+      getChildProfile(
+        (res) => {
+          console.log(res);
+          setChildrenInfo(res.data);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    }, []),
+  );
+>>>>>>> 47bf32d ([fix/FE] : api instance header 변경)
 
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>

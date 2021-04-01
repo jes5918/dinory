@@ -21,7 +21,7 @@ const height = dimensions.height;
 
 export default function AvatarProfile({navigation, route}) {
   const imageSrc = require('../../../assets/images/background2.png');
-  const [imgNumber, setImgNumber] = useState(0);
+  const [imgNumber, setImgNumber] = useState(-1);
   const [modalVisible, setModalVisible] = useState(false);
   const [fmodalVisible, setfModalVisible] = useState(false);
 
@@ -31,7 +31,8 @@ export default function AvatarProfile({navigation, route}) {
   };
 
   const CreateProfile = () => {
-    if (imgNumber !== 0) {
+    console.log(imgNumber);
+    if (imgNumber !== -1) {
       let ProfileInfo = new FormData();
       ProfileInfo.append('name', route.params.ProfileName);
       ProfileInfo.append('year', route.params.ProfileYear);
