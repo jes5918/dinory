@@ -21,6 +21,7 @@ function ArrowButton({onHandlePress}) {
 
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
+const windowHeight = windowSize.height; // 1280
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +32,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 1000,
     padding: 10,
+    paddingHorizontal: windowWidth * 0.0078125,
+    paddingVertical: windowHeight * 0.0130208,
   },
   arrowIcon: {
     color: 'white',
