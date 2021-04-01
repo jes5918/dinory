@@ -28,10 +28,12 @@ export default function ModifyPassword({navigation, route}) {
   const [userCheckPassword, setUserCheckPassword] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
+  const [pmodalVisible, setpModalVisible] = useState(false);
   const userID = route.params.user_ID;
 
   const submitHandler = async () => {
     if (!chkPW(userWritePassword) && !chkPW(userCheckPassword)) {
+      pchangeModalState();
       return;
     }
     let ChangePasswordForm = new FormData();
@@ -53,21 +55,17 @@ export default function ModifyPassword({navigation, route}) {
     );
   };
   const chkPW = (password) => {
-    const pw = password;
-    const num = pw.search(/[0-9]/g);
-    const eng = pw.search(/[a-zA-Z]/gi);
-    const ENG = pw.search(/[A-Z]/gi);
-    const spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-    if (pw.length < 8 || pw.length > 20) {
-      dchangeModalState();
+    chk1 = /^[a-zA-Z0-9]{8,20}$/;
+    chk2 = /[a-z]/;
+    chk3 = /[A-Z]/;
+    chk4 = /\d/;
 
-      return false;
-    } else if (pw.search(/\s/) !== -1) {
-      dchangeModalState();
-      return false;
-    } else {
-      return true;
-    }
+    return chk1.test(password) &&
+      chk2.test(password) &&
+      chk3.test(password) &&
+      chk4.test(password)
+      ? true
+      : false;
   };
   const closeModal = () => {
     setTimeout(() => {
@@ -84,6 +82,14 @@ export default function ModifyPassword({navigation, route}) {
   };
   const dchangeModalState = () => {
     setdModalVisible(!dmodalVisible);
+  };
+  const pcloseModal = () => {
+    setTimeout(() => {
+      setpModalVisible(!pmodalVisible);
+    }, 2000);
+  };
+  const pchangeModalState = () => {
+    setpModalVisible(!pmodalVisible);
   };
   return (
     <AuthBackGround>
@@ -153,6 +159,14 @@ export default function ModifyPassword({navigation, route}) {
           iconName={'frowno'}
           color={'#FF0000'}
           setTimeFunction={() => dcloseModal()}
+        />
+        <AlertModal
+          modalVisible={pmodalVisible}
+          onHandleCloseModal={() => pchangeModalState()}
+          text={'비밀번호는 영어 대,소문자 + 숫자로 구성된 8자리 이상입니다!'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => pcloseModal()}
         />
       </View>
     </AuthBackGround>
