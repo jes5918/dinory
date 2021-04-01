@@ -14,7 +14,7 @@ export default function Logo() {
       style={styles.logoBtn}
       onPress={() => navigation.navigate('Main')}>
       <Image
-        source={require('../../assets/images/logo.png')}
+        source={require('../../assets/images/logo_ver2.png')}
         style={styles.logo}
       />
     </TouchableOpacity>
@@ -26,11 +26,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     left: width * 0.4,
-    width: width * 0.18,
-    height: height * 0.12,
+    width: width * 0.2,
+    height: height * 0.18,
+    // backgroundColor: 'red',
   },
   logo: {
-    resizeMode: 'center',
+    resizeMode: 'contain',
     alignSelf: 'center',
     width: width * 0.18,
   },
