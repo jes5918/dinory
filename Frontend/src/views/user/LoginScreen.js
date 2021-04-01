@@ -19,6 +19,7 @@ const windowHeight = windowSize.height; // 768
 export default function LoginScreen({navigation}) {
   const [checkBoxColor, setCheckBoxColor] = useState(true);
   const [userName, setUserName] = useState('');
+  const [storeId, setStoreId] = useState(false);
   const [userPassword, setUserPassword] = useState('');
   const [autoLogin, setAutoLogin] = useState(false);
   const [storeId, setStoreId] = useState(false);
@@ -47,6 +48,7 @@ export default function LoginScreen({navigation}) {
     let loginForm = new FormData();
     loginForm.append('username', userName);
     loginForm.append('password', userPassword);
+
     loginInstance(
       loginForm,
       async (res) => {
@@ -88,7 +90,6 @@ export default function LoginScreen({navigation}) {
   );
 
   const setUserNameToggle = () => {
-    console.log(storeId);
     if (storeId) {
       AsyncStorage.setItem('autoUser', 'false');
       setStoreId(false);
@@ -102,11 +103,9 @@ export default function LoginScreen({navigation}) {
     useCallback(() => {
       AsyncStorage.getItem('autouser').then((val) => {
         const bool = JSON.parse(val);
-        console.log('@@@@@@', bool);
         setStoreId(bool);
       });
       AsyncStorage.getItem('autoUserName').then((name) => {
-        console.log('!!!!!!', name);
         setUserName(name);
       });
     }, []),
@@ -148,6 +147,7 @@ export default function LoginScreen({navigation}) {
             width={windowWidth * 0.3}
             height={windowHeight * 0.08}
             size={18}
+            value={userName}
             setFunction={setUserName}
             secureTextEntry={false}
             autoFocus={false}
@@ -177,7 +177,7 @@ export default function LoginScreen({navigation}) {
           <View style={styles.checkOption}>
             <CheckBox
               value={autoLogin}
-              onValueChange={setAutoLogin}
+              onValueChange={autoLoginToggle}
               style={styles.checkBox}
             />
             <Text style={styles.label}>자동 로그인</Text>

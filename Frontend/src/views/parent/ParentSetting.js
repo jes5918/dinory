@@ -35,7 +35,7 @@ function ParentSetting() {
   const navigation = useNavigation();
 
   const executeLogout = async () => {
-    const willRemovedKeys = ['jwt', 'profile'];
+    const willRemovedKeys = ['jwt', 'profile', 'autoLogin'];
 
     try {
       setLogoutModal(!logoutModal);
