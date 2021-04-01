@@ -63,11 +63,11 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: 24,
+    fontSize: windowWidth * 0.01875,
     textAlign: 'center',
   },
   arrowIcon: {
-    fontSize: 60,
+    fontSize: windowWidth * 0.046875,
   },
 });
 

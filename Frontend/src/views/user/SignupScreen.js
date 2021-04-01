@@ -156,10 +156,11 @@ export default function SingupSCreen({navigation, route}) {
             autoFocus={false}
           />
           <Text style={styles.text_Pin}>
-            * 비밀번호는 대소문자(영어), 숫자 조합 8자리로 구성해야 합니다
+            * 비밀번호는 대소문자(영어), 숫자 조합 8자리 이상으로 구성해야
+            합니다
           </Text>
           <AuthTextInput
-            marginBottom={windowHeight * 0.02}
+            marginBottom={windowHeight * 0.05}
             text={'비밀번호를 한 번 더 입력해주세요'}
             width={windowWidth * 0.38}
             height={windowHeight * 0.08}
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: windowWidth * 0.4984,
-    height: windowHeight * 0.803,
+    height: windowHeight * 0.853,
     borderRadius: 30,
     elevation: 7,
   },
@@ -248,6 +249,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
   },
   view: {
     justifyContent: 'center',
@@ -256,14 +258,15 @@ const styles = StyleSheet.create({
     marginBottom: windowHeight * 0.043 * 2,
   },
   viewBottom: {
-    marginTop: windowHeight * 0.043 * 1.5,
-    marginBottom: windowHeight * 0.043 * 1,
+    marginTop: windowHeight * 0.03,
+    marginBottom: windowHeight * 0.043,
   },
   text_Input_Button: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: windowWidth * 0.38,
+    position: 'relative',
   },
   text_Pin: {
     fontSize: 18,
@@ -276,5 +279,8 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 18,
     alignSelf: 'flex-start',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
   },
 });
