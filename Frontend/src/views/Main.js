@@ -1,9 +1,11 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Logo from '../components/elements/Logo';
 import Header from '../components/elements/Header';
 import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AlertModal from '../components/elements/AlertModal';
+import SelectModal from '../components/elements/SelectModal';
 import {
   StyleSheet,
   View,
@@ -19,7 +21,7 @@ const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
-export default function Main(props) {
+export default function Main() {
   // 2차 배포 때 구현 예정
   // let onSound = true;
   // const stopAndPlay = () => {
@@ -34,7 +36,11 @@ export default function Main(props) {
   const url = require('../assets/images/background4.png');
   const navigation = useNavigation();
   const [child, setChild] = useState('');
+  const [backGroundCharacterImage, setBackGroundCharacterImage] = useState('');
+  const [logoutModal, setLogoutModal] = useState(false);
+  const [logoutInfoModal, setLogoutInfoModal] = useState(false);
 
+  // 자녀 고유넘버 가져오기
   useFocusEffect(
     useCallback(() => {
       AsyncStorage.getItem('profile').then((profile) => {
@@ -44,6 +50,82 @@ export default function Main(props) {
     }, []),
   );
 
+  // 로그아웃
+  const executeLogout = async () => {
+    const willRemovedKeys = ['jwt', 'profile'];
+
+    try {
+      setLogoutModal(!logoutModal);
+      await AsyncStorage.multiRemove(willRemovedKeys);
+      navigation.navigate('HomeScreen');
+    } catch (e) {
+      console.log('AsyncStorage Remove Keys Fail : ', e);
+    }
+
+    console.log(
+      'AsyncStorage Remove Keys Done(다음 키들을 삭제했습니다.) : ',
+      willRemovedKeys,
+    );
+  };
+
+  const onHandleLogout = () => {
+    setLogoutModal(!logoutModal);
+  };
+
+  const onHandlePressAllowLogout = async () => {
+    await executeLogout();
+  };
+
+  const onHandlePressRefuseLogout = () => {
+    setLogoutModal(!logoutModal);
+  };
+
+  // 로그아웃 완료에 대한 안내.
+  const logoutCompleteInfomationTimeModal = () => {
+    setTimeout(() => {
+      setLogoutInfoModal(!logoutInfoModal);
+    }, 1000);
+  };
+
+  const logoutCompleteInfomationCloseModal = () => {
+    setLogoutInfoModal(!logoutInfoModal);
+  };
+  // <===========================================
+
+  const transformImage = (num) => {
+    let Src = '';
+    console.log(num);
+    switch (String(num)) {
+      case '0':
+        Src = require('../assets/images/character1.png');
+        break;
+      case '1':
+        Src = require('../assets/images/character2.png');
+        break;
+      case '2':
+        Src = require('../assets/images/character3.png');
+        break;
+      case '3':
+        Src = require('../assets/images/character4.png');
+        break;
+      default:
+        Src = require('../assets/images/character5.png');
+        break;
+    }
+    return Src;
+  };
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('profile').then((profile) => {
+        const data = JSON.parse(profile);
+        setChild(data.profile_pk);
+        const src = transformImage(data.profile_image);
+        setBackGroundCharacterImage(src);
+      });
+    }, []),
+  );
+
+  //
   // 2차 배포 때 구현 예정 : 일기작성 여부에 따른 페이징 처리(작성 X : 튜토리얼 / 작성 O : 일기작성)
   // const checkDidTutorial = () => {
   //   if (didTutorial(child)) {
@@ -53,13 +135,30 @@ export default function Main(props) {
   //   }
   // };
   const checkDidTutorial = () => {
-    navigation.navigate('DiaryWriteTutorial');
+    navigation.navigate('Diary');
   };
 
   return (
     <View style={styles.container}>
+      <SelectModal
+        modalVisible={logoutModal}
+        alertText={'정말 로그아웃 하시겠습니까?'}
+        refuseText={'취소'}
+        allowText={'로그아웃'}
+        onHandlePressAllow={onHandlePressAllowLogout}
+        onHandlePressRefuse={onHandlePressRefuseLogout}
+        secondText={'자동 로그인을 한 경우, 해제됩니다.'}
+      />
+      <AlertModal
+        modalVisible={logoutInfoModal}
+        onHandleCloseModal={() => logoutCompleteInfomationCloseModal()}
+        text={'로그아웃이 완료되었습니다.'}
+        iconName={'warning'}
+        color={'#ffcc00'}
+        setTimeFunction={() => logoutCompleteInfomationTimeModal()}
+      />
       <BackgroundAbsolute imageSrc={url}>
-        <Header>
+        <Header onHandlePress={() => onHandleLogout()}>
           <Logo />
         </Header>
         <View style={styles.innerContainer}>
@@ -96,7 +195,10 @@ export default function Main(props) {
             </TouchableOpacity>
           </View>
           <Image
-            source={require('../assets/images/character4.png')}
+            source={
+              backGroundCharacterImage ||
+              require('../assets/images/character4.png')
+            }
             style={styles.characterImage}
           />
         </View>
@@ -121,7 +223,6 @@ export default function Main(props) {
           {/* <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-              props.setSoundSetting(!onSound);
             }}>
             <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
           </TouchableOpacity> */}
