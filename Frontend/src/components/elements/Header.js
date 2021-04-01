@@ -9,7 +9,7 @@ const LogoImage = () => {
   return (
     <View style={styles.logo}>
       <Image
-        source={require('../../assets/images/logo.png')}
+        source={require('../../assets/images/logo_ver2.png')}
         style={styles.logoImage}
       />
     </View>
@@ -48,10 +48,11 @@ const styles = StyleSheet.create({
     left: 0,
   },
   logo: {},
+
   logoImage: {
     resizeMode: 'contain',
     width: windowWidth * 0.25, //595
-    height: windowHeight * 0.08, //101
+    height: windowHeight * 0.1, //101
   },
 });
 
