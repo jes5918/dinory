@@ -1,6 +1,6 @@
 // basic
 import React, {useState} from 'react';
-import {StyleSheet, View, Dimensions, Image} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 
 // axios
 import {createChildProfile} from '../../../api/accounts/childSettings';
@@ -9,10 +9,10 @@ import {createChildProfile} from '../../../api/accounts/childSettings';
 import Layout from '../../../components/elements/Layout';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
 import ContentTitle from '../../../components/elements/ContentTitle';
-import ArrowProfileButton from '../../../components/authorization/ArrowProfileButton';
-import ArrowButton from '../../../components/elements/ArrowButton';
 import DinoButton from '../../../components/elements/DinoButton';
+import Header from '../../../components/elements/Header';
 import AlertModal from '../../../components/elements/AlertModal';
+import RoundButton from '../../../components/elements/RoundButton';
 
 // 화면세팅
 const dimensions = Dimensions.get('window');
@@ -77,119 +77,76 @@ export default function AvatarProfile({navigation, route}) {
 
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
-      <View style={styles.start}>
-        <View>
-          <ArrowButton onHandlePress={() => navigation.goBack()} />
-        </View>
-        <View style={styles.logo}>
-          <Image
-            source={require('../../../assets/images/logo_ver2.png')}
-            style={styles.logo}
-          />
-        </View>
-      </View>
+      <Header logoHeader={true} />
       <View style={styles.body}>
-        <View style={styles.view}>
-          <ContentTitle title={'아바타를 선택하세요'} />
-        </View>
-        <View>
-          <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
-            <View style={styles.body}>
-              <View style={styles.selectDino}>
-                <DinoButton
-                  imgSrc={require('../../../assets/images/character1.png')}
-                  widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(0)}
-                />
-                <DinoButton
-                  imgSrc={require('../../../assets/images/character2.png')}
-                  widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(1)}
-                />
-                <DinoButton
-                  imgSrc={require('../../../assets/images/character3.png')}
-                  widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(2)}
-                />
-                <DinoButton
-                  imgSrc={require('../../../assets/images/character4.png')}
-                  widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(3)}
-                />
-                <DinoButton
-                  imgSrc={require('../../../assets/images/character5.png')}
-                  widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(4)}
-                />
-              </View>
-            </View>
-            <View style={styles.marginBottom}>
-              <ArrowProfileButton
-                onHandlePress={() => {
-                  CreateProfile();
-                }}
-              />
-            </View>
-            <AlertModal
-              modalVisible={modalVisible}
-              onHandleCloseModal={() => changeModalState()}
-              text={'프로필이 생성되었습니다'}
-              iconName={'smileo'}
-              color={'#A0A0FF'}
-              setTimeFunction={() => closeModal()}
+        <ContentTitle title={'아바타를 선택하세요'} />
+        <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
+          <View style={styles.selectDino}>
+            <DinoButton
+              imgSrc={require('../../../assets/images/character1.png')}
+              widthProps={width * 0.08}
+              onHandlePress={() => selectNumber(0)}
             />
-            <AlertModal
-              modalVisible={fmodalVisible}
-              onHandleCloseModal={() => fchangeModalState()}
-              text={'프로필을 선택해주세요!'}
-              iconName={'frowno'}
-              color={'#FF0000'}
-              setTimeFunction={() => fcloseModal()}
+            <DinoButton
+              imgSrc={require('../../../assets/images/character2.png')}
+              widthProps={width * 0.08}
+              onHandlePress={() => selectNumber(1)}
             />
-          </Layout>
-        </View>
+            <DinoButton
+              imgSrc={require('../../../assets/images/character3.png')}
+              widthProps={width * 0.08}
+              onHandlePress={() => selectNumber(2)}
+            />
+            <DinoButton
+              imgSrc={require('../../../assets/images/character4.png')}
+              widthProps={width * 0.08}
+              onHandlePress={() => selectNumber(3)}
+            />
+            <DinoButton
+              imgSrc={require('../../../assets/images/character5.png')}
+              widthProps={width * 0.08}
+              onHandlePress={() => selectNumber(4)}
+            />
+          </View>
+          <RoundButton
+            arrow={true}
+            onHandlePress={() => {
+              CreateProfile();
+            }}
+          />
+          <AlertModal
+            modalVisible={modalVisible}
+            onHandleCloseModal={() => changeModalState()}
+            text={'프로필이 생성되었습니다'}
+            iconName={'smileo'}
+            color={'#A0A0FF'}
+            setTimeFunction={() => closeModal()}
+          />
+          <AlertModal
+            modalVisible={fmodalVisible}
+            onHandleCloseModal={() => fchangeModalState()}
+            text={'프로필을 선택해주세요!'}
+            iconName={'frowno'}
+            color={'#FF0000'}
+            setTimeFunction={() => fcloseModal()}
+          />
+        </Layout>
       </View>
-      <View style={styles.end} />
     </BackgroundAbsolute>
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  start: {
-    flex: 1.5,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  logo: {
-    width: 220, //595
-    height: undefined, //101
-    aspectRatio: 300 / 100,
-  },
-  view: {
-    marginBottom: 26,
-    zIndex: 3,
-  },
   body: {
-    flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  end: {
-    flex: 1,
-  },
-  marginBottom: {
-    marginBottom: 50,
+    paddingTop: height * 0.14,
   },
   selectDino: {
     display: 'flex',
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    marginBottom: height * 0.11,
+    width: '90%',
   },
 });
