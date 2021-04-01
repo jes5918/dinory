@@ -2,19 +2,21 @@ import {AuthorizationInstance} from '../index.js';
 
 const instance = AuthorizationInstance();
 
-export default function getNotesByDay(params, success, fail) {
+function getNotesByDay(params, success, fail) {
   instance
-    .get('notes/diary/', {
+    .get('notes/diary/total/daily/', {
       params: {
-        child: (params && params.child) || child,
-        year: (params && params.year) || year,
-        month: (params && params.month) || month,
-        date: (params && params.date) || date,
+        child: (params && params.child) || params.child,
+        year: (params && params.year) || params.year,
+        month: (params && params.month) || params.month,
+        date: (params && params.date) || params.date,
       },
     })
     .then(success)
     .catch(fail);
 }
+
+export {getNotesByDay};
 
 // date 구하기
 // ==========================
