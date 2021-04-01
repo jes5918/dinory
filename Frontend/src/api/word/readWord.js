@@ -6,8 +6,8 @@ function getListbyAlphabet(params, success, fail) {
   instance
     .get('word/', {
       params: {
-        child: params && params.child,
-        alphabet: params && params.alphabet,
+        child: Object.keys(params).length !== 0 && params.child,
+        alphabet: Object.keys(params).length !== 0 && params.alphabet,
       },
     })
     .then(success)
@@ -18,7 +18,7 @@ function getWordDetail(params, success, fail) {
   instance
     .get('words/absolute/', {
       params: {
-        child: params && params.child,
+        child: Object.keys(params).length !== 0 && params.child,
       },
     })
     .then(success)
