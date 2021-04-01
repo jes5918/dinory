@@ -13,6 +13,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Text,
+  BackHandler,
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/core';
 // import {didTutorial} from '../api/diary/checkTutorial';
@@ -22,6 +23,19 @@ const width = dimensions.width;
 const height = dimensions.height;
 
 export default function Main() {
+  useEffect(() => {
+    const backAction = () => {
+      onHandleLogout();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   // 2차 배포 때 구현 예정
   // let onSound = true;
   // const stopAndPlay = () => {
