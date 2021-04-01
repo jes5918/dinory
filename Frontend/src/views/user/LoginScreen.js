@@ -31,7 +31,7 @@ export default function LoginScreen({navigation}) {
         navigation.navigate('SelectProfile');
       },
       (error) => {
-        alert('비밀번호가 잘못되었습니다');
+        alert('입력하신 내용을 확인해주세요');
         console.log(error);
       },
     );
