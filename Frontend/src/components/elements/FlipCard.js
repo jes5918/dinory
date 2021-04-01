@@ -7,18 +7,40 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getWordDetail} from '../../api/word/readWord';
+import {useFocusEffect} from '@react-navigation/core';
 
 //  english : 영어 단어, korean: 뜻, pos(part of speech): 품사
 export default function FlipCard({english, korean, pos}) {
   const animationvalue = useMemo(() => new Animated.Value(0), []);
   const [wordDetail, setWordDetail] = useState();
-  const child = '10'; //임시
+  const [child, setChild] = useState('');
   let temp = 0;
 
   animationvalue.addListener((e) => {
     temp = e.value;
   });
+
+  // const getProfileInfo = useCallback(async () => {
+  //   await AsyncStorage.getItem('profile').then((profile) => {
+  //     const data = JSON.parse(profile);
+  //     setChild(data.profile_pk);
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   getProfileInfo();
+  // }, [getProfileInfo]);
+
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('profile').then((profile) => {
+        const data = JSON.parse(profile);
+        setChild(data.profile_pk);
+      });
+    }, []),
+  );
 
   const frontflipRange = animationvalue.interpolate({
     inputRange: [0, 180],
@@ -62,7 +84,7 @@ export default function FlipCard({english, korean, pos}) {
         useNativeDriver: true,
       }).start();
     }
-  }, [temp, animationvalue, english]);
+  }, [temp, animationvalue, english, child]);
 
   return (
     <TouchableOpacity
