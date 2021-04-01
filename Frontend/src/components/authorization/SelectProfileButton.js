@@ -28,27 +28,29 @@ export default function SelectProfileButton({
       onPress={() =>
         onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
       }>
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: checkCharacterImage(imageUri),
-            width: widthProps * 1.2 || width * 0.11,
-            height: widthProps * 1.2 || width * 0.11,
-          },
-        ]}>
-        <Image
-          source={imageSrc}
+      <>
+        <View
           style={[
-            styles.characterImage,
+            styles.container,
             {
-              width: widthProps || width * 0.09,
-              height: widthProps || width * 0.09,
+              backgroundColor: checkCharacterImage(imageUri),
+              width: widthProps * 1.2 || width * 0.11,
+              height: widthProps * 1.2 || width * 0.11,
             },
-          ]}
-        />
-      </View>
-      {Name && <Text style={styles.nameText}>{Name}</Text>}
+          ]}>
+          <Image
+            source={imageSrc}
+            style={[
+              styles.characterImage,
+              {
+                width: widthProps || width * 0.09,
+                height: widthProps || width * 0.09,
+              },
+            ]}
+          />
+        </View>
+        {Name && <Text style={styles.nameText}>{Name}</Text>}
+      </>
     </TouchableOpacity>
   );
 }
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 1000,
     elevation: 7,
-    marginHorizontal: width * 0.01,
+    marginHorizontal: width * 0.02,
   },
   characterImage: {
     resizeMode: 'contain',
@@ -87,11 +89,6 @@ const styles = StyleSheet.create({
     fontFamily: 'HoonPinkpungchaR',
     alignSelf: 'center',
     fontSize: height * 0.05,
-  },
-  nullNameText: {
-    fontFamily: 'HoonPinkpungchaR',
-    alignSelf: 'center',
-    fontSize: 100,
-    backgroundColor: 'red',
+    margin: height * 0.02,
   },
 });
