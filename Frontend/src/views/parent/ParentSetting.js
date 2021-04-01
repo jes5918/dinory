@@ -206,7 +206,7 @@ function ParentSetting() {
         color={'#ffcc00'}
         setTimeFunction={() => profileDeleteInfomationTimeModal()}
       />
-      <BackgroundAbsolute style={styles.container} imageSrc={url}>
+      <BackgroundAbsolute imageSrc={url}>
         <Header />
         <Layout
           style={styles.mainContainer}

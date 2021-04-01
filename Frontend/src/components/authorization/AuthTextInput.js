@@ -49,7 +49,7 @@ export default function AuthTextInput({
 }
 const styles = StyleSheet.create({
   textInput: {
-    fontFamily: 'NotoSansKR-Bold',
+    fontFamily: 'NotoSansKR-Regular',
     backgroundColor: '#E8E8E8',
     borderRadius: 14,
     elevation: 7,
