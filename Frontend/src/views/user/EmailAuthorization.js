@@ -1,24 +1,11 @@
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  StyleSheet,
-  Text,
-  Button,
-  View,
-  TextInput,
-  ImageBackground,
-  Dimensions,
-  Image,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {
   confirmEmail,
   TransmitCodeToEmail,
   confirmEmailCode,
-  duflicationCheckID,
 } from '../../api/accounts/signup';
-import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
@@ -104,9 +91,7 @@ export default function EmailAuthorization({navigation}) {
             />
             <BasicButton
               text="중복확인"
-              customFontSize={18}
-              paddingHorizon={0}
-              paddingVertical={11}
+              customFontSize={windowHeight * 0.025}
               btnWidth={windowHeight * 0.15}
               btnHeight={windowHeight * 0.08}
               borderRadius={10}
@@ -128,9 +113,7 @@ export default function EmailAuthorization({navigation}) {
             />
             <BasicButton
               text="인증"
-              customFontSize={18}
-              paddingHorizon={17}
-              paddingVertical={16}
+              customFontSize={windowHeight * 0.025}
               btnWidth={windowHeight * 0.15}
               btnHeight={windowHeight * 0.08}
               borderRadius={10}
@@ -188,7 +171,6 @@ const styles = StyleSheet.create({
     fontSize: windowHeight * 0.02,
     color: '#0A82FF',
     position: 'absolute',
-    // textAlign: 'center',
     right: windowWidth * 0.01,
   },
 });
