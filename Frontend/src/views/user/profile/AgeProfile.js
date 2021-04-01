@@ -72,7 +72,7 @@ export default function AgeProfile({navigation, route}) {
         </View>
         <View style={styles.logo}>
           <Image
-            source={require('../../../assets/images/logo.png')}
+            source={require('../../../assets/images/logo_ver2.png')}
             style={styles.logo}
           />
         </View>
