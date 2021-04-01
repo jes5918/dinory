@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {
@@ -20,7 +20,6 @@ export default function EmailAuthorization({navigation}) {
   const [userWriteEmail, setUserWriteEmail] = useState('');
   const [userWriteCode, setUserWriteCode] = useState('');
   const [userTicket, setUserTicket] = useState(0);
-  const [randomAuthCode, setRandomAuthCode] = useState('');
   const Authenticate = async () => {
     if (userWriteEmail.length > 8) {
       let emailAuthForm = new FormData();
@@ -35,6 +34,7 @@ export default function EmailAuthorization({navigation}) {
             emailAuthForm,
             (res) => {
               setUserTicket(res.data['id']);
+              // console.log(res);
               //번호표 저장
             },
             (error) => {
@@ -57,6 +57,7 @@ export default function EmailAuthorization({navigation}) {
         ConfirmForm,
         (res) => {
           AsyncStorage.setItem('email', userWriteEmail);
+          console.log(res);
           alert('인증이 완료되었습니다');
           navigation.navigate('SignupScreen');
         },
@@ -67,21 +68,22 @@ export default function EmailAuthorization({navigation}) {
       );
     }
   };
+
   return (
     <AuthBackGround>
       <Header logoHeader={true} />
       <View style={styles.container}>
         <View style={styles.view}>
-          <AuthTitle title={' 이메일 인증'} />
+          <AuthTitle title={'이메일 인증'} />
         </View>
-        <View>
+        <View style={styles.bottomContainer}>
           <View style={styles.text_Input_Button}>
             <AuthTextInput
               marginRight={15}
               text={'이메일을 입력하세요'}
               width={windowWidth * 0.3}
               height={windowHeight * 0.08}
-              size={18}
+              size={windowHeight * 0.025}
               setFunction={setUserWriteEmail}
               keyboardType={'email-address'}
               secureTextEntry={false}
@@ -106,7 +108,7 @@ export default function EmailAuthorization({navigation}) {
               text={'인증번호를 입력하세요'}
               width={windowWidth * 0.3}
               height={windowHeight * 0.08}
-              size={18}
+              size={windowHeight * 0.025}
               setFunction={setUserWriteCode}
               autoFocus={false}
               secureTextEntry={true}
@@ -122,18 +124,13 @@ export default function EmailAuthorization({navigation}) {
               onHandlePress={() => ConfirmCode()}
             />
           </View>
-          <View
-            style={{
-              flex: 0.5,
-              marginLeft: 40,
-              fontSize: 18,
-              justifyContent: 'flex-start',
-            }}>
-            {randomAuthCode !== userWriteCode ? (
-              <Text style={{color: '#FF0000'}}>
-                * 인증코드가 일치하지않습니다.
-              </Text>
-            ) : null}
+          <View style={styles.footerContainer}>
+            <Text style={styles.footerText}> 이미 아이디가 있나요?</Text>
+            <Text
+              style={styles.linkText}
+              onPress={() => navigation.navigate('LoginScreen')}>
+              로그인
+            </Text>
           </View>
         </View>
       </View>
@@ -147,7 +144,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'flex-start',
     width: windowWidth * 0.4984,
     height: windowHeight * 0.603,
     borderRadius: 30,
@@ -156,17 +152,30 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: windowHeight * 0.043 * 2,
-    marginBottom: windowHeight * 0.043 * 4,
-  },
-  text: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: '#707070',
   },
   text_Input_Button: {
     flexDirection: 'row',
     marginBottom: windowHeight * 0.043,
+  },
+  footerContainer: {
+    flex: 0.5,
+    flexDirection: 'row',
+  },
+  footerText: {
+    fontFamily: 'NotoSansKR-Bold',
+    fontSize: windowHeight * 0.02,
+    color: '#8c8c8c',
+    textAlign: 'left',
+  },
+  bottomContainer: {
+    flex: 1.5,
+  },
+  linkText: {
+    fontFamily: 'NotoSansKR-Bold',
+    fontSize: windowHeight * 0.02,
+    color: '#0A82FF',
+    position: 'absolute',
+    // textAlign: 'center',
+    right: windowWidth * 0.01,
   },
 });

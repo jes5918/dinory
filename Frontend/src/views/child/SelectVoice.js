@@ -105,27 +105,27 @@ export default function SelectVoice() {
             title={'원하는 목소리를 선택해주세요'}
             btnText={'변경완료'}
             onHandlePressC1={() => {
-              soundf.setVolume(0.2);
+              soundf.setVolume(0.5);
               soundOn(1);
               soundf.play();
             }}
             onHandlePressC2={() => {
-              sounds.setVolume(0.2);
+              sounds.setVolume(0.5);
               soundOn(2);
               sounds.play();
             }}
             onHandlePressC3={() => {
-              soundt.setVolume(0.2);
+              soundt.setVolume(0.5);
               soundOn(3);
               soundt.play();
             }}
             onHandlePressC4={() => {
-              soundfo.setVolume(0.2);
+              soundfo.setVolume(0.5);
               soundOn(4);
               soundfo.play();
             }}
             onHandlePressC5={() => {
-              soundfi.setVolume(0.2);
+              soundfi.setVolume(0.5);
               soundOn(5);
               soundfi.play();
             }}
