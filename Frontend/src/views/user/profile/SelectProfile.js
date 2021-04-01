@@ -40,6 +40,7 @@ export default function SelectProfile({navigation, route}) {
     }
     return Src;
   };
+
   useFocusEffect(
     useCallback(() => {
       getChildProfile(
