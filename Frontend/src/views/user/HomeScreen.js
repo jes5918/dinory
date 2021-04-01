@@ -1,158 +1,217 @@
-import React, {Component, useEffect, useState} from 'react';
-import {validateToken, refreshToken} from '../../api/accounts/login';
-import {
-  StyleSheet,
-  Text,
-  Button,
-  View,
-  ImageBackground,
-  Dimensions,
-  Image,
-  ScrollView,
-} from 'react-native';
-import Layout from '../../components/elements/Layout';
-import BasicButton from '../../components/elements/BasicButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useCallback, useState} from 'react';
+import {StyleSheet, View, Dimensions, Text} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
+import {loginInstance} from '../../api/accounts/login';
+import BasicButton from '../../components/elements/BasicButton';
+import Header from '../../components/elements/Header';
+import AuthBackGround from '../../components/authorization/AuthBackGround';
+import AuthTextInput from '../../components/authorization/AuthTextInput';
+import AuthTitle from '../../components/authorization/AuthTitle';
+import {useFocusEffect} from '@react-navigation/core';
 
-// static
+// static variable
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
-const windowHeight = windowSize.height; // 768 //752
-const layoutWidth = windowWidth * 0.5;
-const layoutHeight = windowHeight * 0.708;
+const windowHeight = windowSize.height; // 768
 
-export default function HomeScreen({navigation}) {
-  const [AutoLoginState, setAutoLoginState] = useState(false);
-  const AutoLoginCheck = () => {
-    AsyncStorage.getItem('AutoLogin').then((value) => {
-      console.log('자동로그인');
-    });
-  };
-  const Autologin = async () => {
-    AutoLoginCheck();
-    // 1.  디바이스에서 토큰을 받아옴
-    await AsyncStorage.getItem('jwt').then((value) => {
-      if (value !== null && value.length > 100) {
-        // 토큰값이 널이 아니고 100자 이상이라면
-        let CurrentTokenCheck = new FormData();
-        CurrentTokenCheck.append('token', value);
-        // 유효성 검사 준비
-        validateToken(
-          CurrentTokenCheck,
-          (res) => {
-            // 유효성 검사를 패스한 현재 토큰을 리프레쉬할 준비
-            const CurrentToken = new FormData();
-            CurrentToken.append('token', res.data.token);
-            refreshToken(
-              CurrentToken,
-              (res) => {
-                const RefreshToken = res.data.token;
+export default function LoginScreen({navigation}) {
+  const [userName, setUserName] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [autoLogin, setAutoLogin] = useState(false);
+  const [storeId, setStoreId] = useState(false);
 
-                AsyncStorage.removeItem('jwt');
-                AsyncStorage.setItem('jwt', RefreshToken);
-                navigation.navigate('SelectProfile');
-                // 디바이스에 리프레쉬 토큰 저장 후 이동
-              },
-              (error) => {
-                console.log('리프레쉬 탈락', error);
-                navigation.navigate('LoginScreen');
-              },
-            );
-          },
-          (error) => {
-            console.log('유효성 탈락', error);
-            navigation.navigate('LoginScreen');
-          },
-        );
-      } else {
-        console.log('자동로그인 미설정');
-        navigation.navigate('LoginScreen');
-      }
-    });
+  const LoginHandler = async () => {
+    let loginForm = new FormData();
+    loginForm.append('username', userName);
+    loginForm.append('password', userPassword);
+    loginInstance(
+      loginForm,
+      (res) => {
+        alert('로그인 되었습니다.');
+        AsyncStorage.setItem('jwt', res.data.token);
+        AsyncStorage.setItem('autoUserName', userName);
+        navigation.navigate('SelectProfile');
+      },
+      (error) => {
+        alert('입력하신 내용을 확인해주세요');
+        console.log(error);
+      },
+    );
   };
+
+  const autoLoginToggle = () => {
+    if (autoLogin) {
+      AsyncStorage.setItem('autoLogin', 'false');
+      setAutoLogin(false);
+    } else {
+      AsyncStorage.setItem('autoLogin', 'true');
+      setAutoLogin(true);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('autoLogin').then((val) => {
+        const temp = JSON.parse(val);
+        setStoreId(temp);
+      });
+    }, []),
+  );
+
+  const setUserNameToggle = () => {
+    console.log(storeId);
+    if (storeId) {
+      AsyncStorage.setItem('autoUser', 'false');
+      setStoreId(false);
+    } else {
+      AsyncStorage.setItem('autoUser', 'true');
+      setStoreId(true);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('autouser').then((val) => {
+        const bool = JSON.parse(val);
+        console.log('@@@@@@', bool);
+        setStoreId(bool);
+      });
+      AsyncStorage.getItem('autoUserName').then((name) => {
+        console.log('!!!!!!', name);
+        setUserName(name);
+      });
+    }, []),
+  );
+
   return (
-    <View style={styles.scroll}>
-      <ImageBackground
-        source={require('../../assets/images/background5.png')}
-        style={styles.container}>
-        <View style={styles.view_logo}>
-          <Image
-            style={styles.logoImage}
-            source={require('../../assets/images/logo.png')}
+    <AuthBackGround>
+      <Header logoHeader={true} />
+      <View style={styles.container}>
+        <View style={styles.view}>
+          <AuthTitle title={'로그인'} />
+        </View>
+        <View style={styles.view}>
+          <AuthTextInput
+            text={'아이디를 입력하세요'}
+            width={windowWidth * 0.3}
+            height={windowHeight * 0.08}
+            size={18}
+            setFunction={setUserName}
+            secureTextEntry={false}
+            autoFocus={false}
+            marginBottom={windowHeight * 0.043}
+          />
+          <AuthTextInput
+            text={'비밀번호를 입력해주세요'}
+            width={windowWidth * 0.3}
+            height={windowHeight * 0.08}
+            size={18}
+            setFunction={setUserPassword}
+            secureTextEntry={true}
+            autoFocus={false}
           />
         </View>
-        <View>
-          <Layout width={layoutWidth} height={layoutHeight} opacity={0}>
-            <View style={styles.body}>
-              <View style={styles.view}>
-                <View style={styles.button_mg}>
-                  <BasicButton
-                    text={'회원가입'}
-                    customFontSize={24}
-                    paddingHorizon={24}
-                    paddingVertical={11}
-                    btnWidth={336}
-                    btnHeight={73}
-                    borderRadius={14}
-                    onHandlePress={() =>
-                      navigation.navigate('EmailAuthorization')
-                    }
-                  />
-                </View>
-                <View style={styles.button_mg}>
-                  <BasicButton
-                    text={'로그인'}
-                    customFontSize={24}
-                    paddingHorizon={24}
-                    paddingVertical={11}
-                    btnWidth={336}
-                    btnHeight={73}
-                    borderRadius={14}
-                    onHandlePress={() => Autologin()}
-                  />
-                </View>
-              </View>
-            </View>
-          </Layout>
+        <View style={styles.password}>
+          <Text>비밀번호를 잃어버리셨나요? </Text>
+          <Text
+            style={{color: 'blue'}}
+            onPress={() => {
+              navigation.navigate('SearchPassword');
+            }}>
+            비밀번호 찾기
+          </Text>
         </View>
-      </ImageBackground>
-    </View>
+        <View style={styles.start}>
+          <View style={styles.checkOption}>
+            <CheckBox
+              value={autoLogin}
+              onValueChange={autoLoginToggle}
+              style={styles.checkBox}
+            />
+            <Text style={styles.label}>자동 로그인</Text>
+          </View>
+          <View style={styles.checkOption}>
+            <CheckBox
+              value={storeId}
+              onValueChange={setUserNameToggle}
+              style={styles.checkBox}
+            />
+            <Text style={styles.label}>아이디 저장</Text>
+          </View>
+        </View>
+        <View style={styles.view}>
+          <BasicButton
+            text="로그인"
+            customFontSize={24}
+            paddingHorizon={24}
+            paddingVertical={11}
+            btnWidth={windowWidth * 0.3}
+            btnHeight={windowHeight * 0.08}
+            borderRadius={14}
+            margin={10}
+            onHandlePress={() => LoginHandler()}
+          />
+        </View>
+      </View>
+    </AuthBackGround>
   );
 }
 
 const styles = StyleSheet.create({
-  scroll: {
-    flex: 1,
-  },
   container: {
-    flex: 1,
-    resizeMode: 'contain',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    width: windowWidth * 0.4,
+    height: windowHeight * 0.803,
+    borderRadius: 30,
+    elevation: 7,
   },
   view: {
     flex: 1,
-    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  view_logo: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
+  text: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#707070',
+  },
+  start: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: windowHeight * 0.2,
+    width: windowWidth * 0.3,
+    marginTop: windowHeight * 0.043 * 2,
   },
-  button_mg: {
-    margin: 32,
+  password: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: windowWidth * 0.29,
+    marginTop: windowHeight * 0.043 * 2,
   },
-  logoImage: {
-    marginTop: windowHeight * 0.3,
-    width: windowWidth * 0.4, //595
-    height: windowHeight * 0.17, //101
-    resizeMode: 'contain',
+  label: {
+    fontSize: 18,
+    color: '#707070',
   },
-  body: {
-    flex: 4,
+  logo: {
+    width: 220, //595
+    height: undefined, //101
+    aspectRatio: 300 / 100,
+  },
+  checkOption: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: windowWidth * 0.05,
+  },
+  checkBox: {
+    fontSize: 30,
   },
 });
