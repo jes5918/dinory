@@ -16,8 +16,6 @@ import AlertModal from '../../components/elements/AlertModal';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Layout from '../../components/elements/Layout';
 
-const bgurl = require('../../assets/images/background3.png');
-
 const SelectImage = ({setSelectImage}) => {
   const [cameraCancel, setCameraCancel] = useState(false);
   const [galleryCancel, setGalleryCancel] = useState(false);
@@ -53,7 +51,7 @@ const SelectImage = ({setSelectImage}) => {
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
+        // console.warn(err);
         return false;
       }
     } else return true;
@@ -72,7 +70,7 @@ const SelectImage = ({setSelectImage}) => {
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
+        // console.warn(err);
         alert('Write permission err', err);
       }
       return false;

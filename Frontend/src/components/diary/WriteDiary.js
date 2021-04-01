@@ -47,8 +47,7 @@ export default function WriteDiary({
                   display: 'flex',
                   flexDirection: 'row',
                   justifyContent: 'flex-start',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
+                  alignItems: 'flex-start',
                   marginVertical: screenHeight * 0.01,
                 }}>
                 <Image
@@ -59,26 +58,34 @@ export default function WriteDiary({
                     resizeMode: 'contain',
                     marginRight: screenHeight * 0.01,
                   }}></Image>
-                <Text style={[styles.text, {color: 'red'}]}>{temp.text}</Text>
-                <MaterialIcons
-                  style={[
-                    styles.text,
-                    {color: 'red', marginHorizontal: screenHeight * 0.01},
-                  ]}
-                  name={'arrowright'}
-                />
-                <Text
-                  style={[
-                    styles.text,
-                    {
-                      color: 'red',
-                      borderColor: 'red',
-                      borderBottomWidth: 2,
-                      backgroundColor: 'yellow',
-                    },
-                  ]}>
-                  {temp.correct}
-                </Text>
+                <View
+                  style={{
+                    width: screenWidth * 0.23,
+                    flexWrap: 'wrap',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <Text style={[styles.text, {color: 'red'}]}>{temp.text}</Text>
+                  <MaterialIcons
+                    style={[
+                      styles.text,
+                      {color: 'red', marginHorizontal: screenHeight * 0.01},
+                    ]}
+                    name={'arrowright'}
+                  />
+                  <Text
+                    style={[
+                      styles.text,
+                      {
+                        color: 'red',
+                        borderColor: 'red',
+                        borderBottomWidth: 2,
+                        backgroundColor: 'yellow',
+                      },
+                    ]}>
+                    {temp.correct}
+                  </Text>
+                </View>
               </View>
             );
           })}
@@ -224,6 +231,7 @@ const styles = StyleSheet.create({
     fontFamily: 'HoonPinkpungchaR',
     fontSize: screenWidth * 0.02,
     color: 'black',
+    marginVertical: screenHeight * 0.006,
   },
   textIndex: {
     fontFamily: 'HoonPinkpungchaR',
