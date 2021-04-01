@@ -16,8 +16,7 @@ import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
-
-// static variable
+import AlertModal from '../../components/elements/AlertModal'; // static variable
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
@@ -25,9 +24,19 @@ const layoutWidth = windowWidth * 0.3718;
 const layoutHeight = windowHeight * 0.755;
 
 export default function ModifyPassword({navigation, route}) {
+  const [modalVisible, setModalVisible] = useState(false);
   const [userWritePassword, setUserWritePassword] = useState('');
   const [userCheckPassword, setUserCheckPassword] = useState('');
   const userID = route.params.user_ID;
+
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1500);
+  };
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
   const submitHandler = async () => {
     let ChangePasswordForm = new FormData();
     ChangePasswordForm.append('password', userWritePassword);
@@ -37,8 +46,10 @@ export default function ModifyPassword({navigation, route}) {
       userID,
       ChangePasswordForm,
       (res) => {
-        alert('비밀번호가 변경 되었습니다.');
-        navigation.navigate('LoginScreen');
+        changeModalState();
+        setTimeout(() => {
+          navigation.navigate('LoginScreen');
+        }, 2000);
       },
       (error) => {
         alert('ERROR');
@@ -99,6 +110,14 @@ export default function ModifyPassword({navigation, route}) {
             }}
           />
         </View>
+        <AlertModal
+          modalVisible={modalVisible}
+          onHandleCloseModal={() => changeModalState()}
+          text={'비밀번호가 수정되었어요!'}
+          iconName={'smileo'}
+          color={'#A0A0FF'}
+          setTimeFunction={() => closeModal()}
+        />
       </View>
     </AuthBackGround>
   );
