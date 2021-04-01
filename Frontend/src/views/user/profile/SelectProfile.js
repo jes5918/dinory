@@ -8,8 +8,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SelectProfileButton from '../../../components/authorization/SelectProfileButton';
 import BasicButton from '../../../components/elements/BasicButton';
 import Header from '../../../components/elements/Header';
+import SelectModal from '../../../components/elements/SelectModal';
 import {useFocusEffect} from '@react-navigation/core';
-
 // static variable
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width;
@@ -18,6 +18,7 @@ const windowHeight = windowSize.height; // 752
 export default function SelectProfile({navigation, route}) {
   const [childrenInfo, setChildrenInfo] = useState(null);
   const imageSrc = require('../../../assets/images/background2.png');
+  const [logoutModal, setLogoutModal] = useState(false);
 
   const transformImage = (num) => {
     let Src = '';
@@ -52,9 +53,43 @@ export default function SelectProfile({navigation, route}) {
     }, []),
   );
 
+  const executeLogout = async () => {
+    const willRemovedKeys = ['jwt', 'profile', 'autoLogin'];
+
+    try {
+      setLogoutModal(!logoutModal);
+      await AsyncStorage.multiRemove(willRemovedKeys);
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'HomeScreen'}],
+      });
+    } catch (e) {}
+  };
+
+  const onHandleLogout = () => {
+    setLogoutModal(!logoutModal);
+  };
+
+  const onHandlePressAllowLogout = async () => {
+    await executeLogout();
+  };
+
+  const onHandlePressRefuseLogout = () => {
+    setLogoutModal(!logoutModal);
+  };
+
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
-      <Header logoHeader={true} />
+      <SelectModal
+        modalVisible={logoutModal}
+        alertText={'정말 로그아웃 하시겠습니까?'}
+        refuseText={'취소'}
+        allowText={'로그아웃'}
+        onHandlePressAllow={onHandlePressAllowLogout}
+        onHandlePressRefuse={onHandlePressRefuseLogout}
+        secondText={'자동 로그인을 한 경우, 해제됩니다.'}
+      />
+      <Header onHandlePress={onHandleLogout} logoHeader={true} />
       <View style={styles.body}>
         <ContentTitle title={'프로필을 선택하세요'} />
         <Layout
