@@ -4,29 +4,14 @@ const instance = AuthorizationInstance();
 
 export function getNotesByYear(params, success, fail) {
   instance
-    .get('notes/diary/total/', {
-      params: {child: (params && params.child) || child},
-    })
+    .get('notes/', {params: {child: (params && params.child) || child}})
     .then(success)
     .catch(fail);
 }
 
 export function getNotesByMonth(params, success, fail) {
   instance
-    .get('notes/diary/total/monthly/', {
-      params: {
-        child: (params && params.child) || child,
-        year: (params && params.year) || year,
-        month: (params && params.month) || month,
-      },
-    })
-    .then(success)
-    .catch(fail);
-}
-
-export function getNotesByOneDay(params, success, fail) {
-  instance
-    .get('notes/diary/', {
+    .get('notes/', {
       params: {
         child: (params && params.child) || child,
         year: (params && params.year) || year,
