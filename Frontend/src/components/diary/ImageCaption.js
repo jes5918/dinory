@@ -27,9 +27,9 @@ export default function ImageCaption({
       />
       <BasicButton
         text={'단어 추가하기 / 일기 쓰기'}
-        btnWidth={width * 0.3}
+        btnWidth={width * 0.43}
         fontHoonPink={true}
-        customFontSize={height * 0.04}
+        customFontSize={width * 0.02}
         onHandlePress={() => onHandlePress()}
       />
     </View>
