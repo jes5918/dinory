@@ -187,7 +187,7 @@ function ParentSetting({route}) {
         setTimeFunction={() => profileDeleteInfomationTimeModal()}
       />
       <BackgroundAbsolute imageSrc={url}>
-        <Header />
+        <Header onHandlePress={() => navigation.navigate('Main')} />
         <Layout
           style={styles.mainContainer}
           width={windowWidth * 0.336}

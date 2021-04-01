@@ -116,22 +116,22 @@ export default function SelectVoice() {
             btnText={'변경완료'}
             onHandlePressC1={() => {
               soundf.setVolume(0.5);
-              soundOn(1);
+              soundOn(0);
               soundf.play();
             }}
             onHandlePressC2={() => {
               sounds.setVolume(0.5);
-              soundOn(2);
+              soundOn(1);
               sounds.play();
             }}
             onHandlePressC3={() => {
               soundt.setVolume(0.5);
-              soundOn(3);
+              soundOn(2);
               soundt.play();
             }}
             onHandlePressC4={() => {
               soundfo.setVolume(0.5);
-              soundOn(4);
+              soundOn(3);
               soundfo.play();
             }}
             onHandlePressBasic={() => submitVoice()}
