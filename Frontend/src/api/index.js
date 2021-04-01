@@ -28,6 +28,7 @@ function AuthorizationInstance() {
   //   instance.defaults.headers.common.Authorization = `jwt ${accessToken}`;
   //   instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
   // });
+
   return instance;
 }
 
