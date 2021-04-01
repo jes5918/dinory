@@ -4,7 +4,7 @@ const instance = AuthorizationInstance();
 
 export default function getNotesByDay(params, success, fail) {
   instance
-    .get('notes/diary/total/daily/', {
+    .get('notes/diary/', {
       params: {
         child: (params && params.child) || child,
         year: (params && params.year) || year,
