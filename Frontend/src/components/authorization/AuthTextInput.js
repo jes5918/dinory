@@ -1,5 +1,9 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, ImageBackground, ScrollView, TextInput} from 'react-native';
+import React from 'react';
+import {StyleSheet, TextInput, Dimensions} from 'react-native';
+
+const dimensions = Dimensions.get('window');
+const windowHeight = dimensions.height;
+
 export default function AuthTextInput({
   text,
   width,
@@ -25,6 +29,7 @@ export default function AuthTextInput({
           marginBottom: marginBottom,
           margin,
           marginRight: marginRight,
+          fontFamily: 'NotoSansKR-Bold',
         },
       ]}
       secureTextEntry={secureTextEntry}
@@ -44,9 +49,12 @@ export default function AuthTextInput({
 }
 const styles = StyleSheet.create({
   textInput: {
+    fontFamily: 'NotoSansKR-Bold',
     backgroundColor: '#E8E8E8',
     borderRadius: 14,
-    padding: 16,
     elevation: 7,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingHorizontal: windowHeight * 0.03,
   },
 });
