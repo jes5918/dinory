@@ -35,7 +35,6 @@ export default function SearchPassword({navigation}) {
         setUserTicket(res.data.id);
         setVisibleState(false);
         setCodeInputState(true);
-        alert('인증번호를  보냈습니다.');
       },
       (error) => {
         fchangeModalState();
@@ -69,11 +68,11 @@ export default function SearchPassword({navigation}) {
   };
   const dcloseModal = () => {
     setTimeout(() => {
-      setfModalVisible(!dmodalVisible);
+      setdModalVisible(!dmodalVisible);
     }, 2000);
   };
   const dchangeModalState = () => {
-    setfModalVisible(!dmodalVisible);
+    setdModalVisible(!dmodalVisible);
   };
   return (
     <AuthBackGround>
@@ -151,7 +150,7 @@ export default function SearchPassword({navigation}) {
           setTimeFunction={() => fcloseModal()}
         />
         <AlertModal
-          modalVisible={fmodalVisible}
+          modalVisible={dmodalVisible}
           onHandleCloseModal={() => dchangeModalState()}
           text={'인증코드가 틀렸습니다!'}
           iconName={'frowno'}

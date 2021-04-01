@@ -24,20 +24,17 @@ const layoutWidth = windowWidth * 0.3718;
 const layoutHeight = windowHeight * 0.755;
 
 export default function ModifyPassword({navigation, route}) {
-  const [modalVisible, setModalVisible] = useState(false);
   const [userWritePassword, setUserWritePassword] = useState('');
   const [userCheckPassword, setUserCheckPassword] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [dmodalVisible, setdModalVisible] = useState(false);
   const userID = route.params.user_ID;
 
-  const closeModal = () => {
-    setTimeout(() => {
-      setModalVisible(!modalVisible);
-    }, 1500);
-  };
-  const changeModalState = () => {
-    setModalVisible(!modalVisible);
-  };
   const submitHandler = async () => {
+    console.log(!chkPW(userWritePassword));
+    if (!chkPW(userWritePassword) && !chkPW(userCheckPassword)) {
+      return;
+    }
     let ChangePasswordForm = new FormData();
     ChangePasswordForm.append('password', userWritePassword);
     ChangePasswordForm.append('password_confirmation', userCheckPassword);
@@ -52,10 +49,49 @@ export default function ModifyPassword({navigation, route}) {
         }, 2000);
       },
       (error) => {
-        alert('ERROR');
+        dchangeModalState();
         console.log(error);
       },
     );
+  };
+  const chkPW = (password) => {
+    const pw = password;
+    const num = pw.search(/[0-9]/g);
+    const eng = pw.search(/[a-zA-Z]/gi);
+    const ENG = pw.search(/[A-Z]/gi);
+    const spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+    console.log('num :', num);
+    console.log('eng :', eng);
+    console.log('ENG :', ENG);
+    console.log('spe :', spe);
+    console.log(1);
+    if (pw.length < 8 || pw.length > 20) {
+      dchangeModalState();
+
+      return false;
+    } else if (pw.search(/\s/) !== -1) {
+      dchangeModalState();
+
+      return false;
+    } else {
+      return true;
+    }
+  };
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1500);
+  };
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+  const dcloseModal = () => {
+    setTimeout(() => {
+      setdModalVisible(!dmodalVisible);
+    }, 2000);
+  };
+  const dchangeModalState = () => {
+    setdModalVisible(!dmodalVisible);
   };
   return (
     <AuthBackGround>
@@ -117,6 +153,14 @@ export default function ModifyPassword({navigation, route}) {
           iconName={'smileo'}
           color={'#A0A0FF'}
           setTimeFunction={() => closeModal()}
+        />
+        <AlertModal
+          modalVisible={dmodalVisible}
+          onHandleCloseModal={() => dchangeModalState()}
+          text={'비밀번호를 형식에 맞춰 작성하세요!'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => dcloseModal()}
         />
       </View>
     </AuthBackGround>
