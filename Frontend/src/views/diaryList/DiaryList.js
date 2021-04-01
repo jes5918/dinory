@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation, useFocusEffect} from '@react-navigation/core';
 import useDeepCompareEffect from 'use-deep-compare-effect';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
@@ -79,11 +80,9 @@ function DiaryList() {
   // states
   const [dataByMonth, setDataByMonth] = useState();
   const [dataByYear, setDataByYear] = useState();
-  const [information, setInformation] = useState({
-    child: 10,
-    year: 2021,
-    month: '02',
-  });
+  const [fetchYear, setFetchYear] = useState();
+  const [fetchMonth, setFetchMonth] = useState();
+  const [profilePK, setProfilePK] = useState();
 
   const navigation = useNavigation();
 
@@ -94,17 +93,17 @@ function DiaryList() {
     navigation.navigate('DiaryDetail', {
       ...params,
       diary: diariesByDay,
+      profilePK: profilePK,
     });
   };
 
   const onHandleSelectMonth = ({year, month}) => {
     const newMonth = String(month).length === 1 ? '0' + String(month) : month;
-    setInformation((prev) => {
-      return {...prev, year, month: newMonth};
-    });
+    setFetchYear(year);
+    setFetchMonth(newMonth);
   };
 
-  const fetchNotesByMonth = ({child, year, month}) => {
+  const fetchNotesByMonth = (child, year, month) => {
     getNotesByMonth(
       {child, year, month},
       (res) => {
@@ -116,9 +115,9 @@ function DiaryList() {
     );
   };
 
-  const fetchNotesByDay = ({child, year, month, date}) => {
+  const fetchNotesByYear = (child) => {
     getNotesByYear(
-      {child, year, month, date},
+      child,
       (res) => {
         setDataByYear(() => res.data);
       },
@@ -128,14 +127,24 @@ function DiaryList() {
     );
   };
 
+  const getProfilePK = useCallback(async () => {
+    await AsyncStorage.getItem('profile').then((profile) => {
+      const data = JSON.parse(profile);
+      setProfilePK(data.profile_pk);
+    });
+  }, []);
+
   // componentDidMount
-  useDeepCompareEffect(() => {
-    fetchNotesByMonth(information);
-  }, [information]);
+  useFocusEffect(() => {
+    getProfilePK();
+  });
 
   useEffect(() => {
-    fetchNotesByDay({child: 10}); // Redux로 현재 로그인한 유저의 프로필 ID를 받아서 넘겨야한다.
-  }, []);
+    if (profilePK) {
+      fetchNotesByMonth(profilePK, fetchYear, fetchMonth);
+      fetchNotesByYear(profilePK);
+    }
+  }, [profilePK, fetchYear, fetchMonth]);
 
   return (
     <View style={styles.container}>

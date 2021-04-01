@@ -40,7 +40,7 @@ export function getNotesByDay(params, success, fail) {
 
 export function getNotesByOneDay(params, success, fail) {
   instance
-    .get('notes/diary/', {
+    .get('notes/diary/monthly/', {
       params: {
         child: Object.keys(params).length !== 0 && params.child,
         year: Object.keys(params).length !== 0 && params.year,
