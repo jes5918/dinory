@@ -1,19 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Dimensions,
-  Image,
-  KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
 import Layout from '../../../components/elements/Layout';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
 import ContentTitle from '../../../components/elements/ContentTitle';
-import ArrowProfileButton from '../../../components/authorization/ArrowProfileButton';
-import ArrowButton from '../../../components/elements/ArrowButton';
+import RoundButton from '../../../components/elements/RoundButton';
 import DialButton from '../../../components/elements/DialButton';
+import Header from '../../../components/elements/Header';
 import AlertModal from '../../../components/elements/AlertModal';
 
 const dimensions = Dimensions.get('window');
@@ -66,110 +64,76 @@ export default function AgeProfile({navigation, route}) {
   };
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
-      <View style={styles.start}>
-        <View>
-          <ArrowButton onHandlePress={() => navigation.goBack()} />
-        </View>
-        <View style={styles.logo}>
-          <Image
-            source={require('../../../assets/images/logo_ver2.png')}
-            style={styles.logo}
-          />
-        </View>
-      </View>
-      <KeyboardAvoidingView style={styles.body} behavior={'height'}>
-        <KeyboardAvoidingView style={styles.view} behavior={'height'}>
-          <ContentTitle title={'태어난 연도를 선택해주세요'} />
-        </KeyboardAvoidingView>
-        <View>
-          <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
-            <View style={styles.innerContext}>
-              {isChangeBirth && (
-                <DialButton // 민호체크
-                  size={width * 0.06}
-                  verMargin={height * 0.02}
-                  horMargin={width * 0.01}
-                  deleteSize={width * 0.04}
-                  inputFunc={dialFunction}
-                />
-              )}
-            </View>
-            <View style={styles.bottomWrapper}>
-              <View style={styles.inLine}>
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  onPress={() => [setIschangeBirth(true)]}>
-                  <View
-                    style={styles.birthContainer}
-                    onPress={() => [setIschangeBirth(true)]}>
-                    <Text style={styles.birthText}>{childBirth}</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <ArrowProfileButton
-                onHandlePress={() => {
-                  next();
-                }}
+      <Header logoHeader={true} />
+      <View style={styles.body}>
+        <ContentTitle title={'태어난 연도를 선택해주세요'} />
+        <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
+          <View style={styles.innerContext}>
+            {isChangeBirth && (
+              <DialButton // 민호체크
+                size={width * 0.06}
+                verMargin={height * 0.02}
+                horMargin={width * 0.01}
+                deleteSize={width * 0.04}
+                inputFunc={dialFunction}
               />
+            )}
+          </View>
+          <View style={styles.bottomWrapper}>
+            <View style={styles.inLine}>
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => [setIschangeBirth(true)]}>
+                <View
+                  style={styles.birthContainer}
+                  onPress={() => [setIschangeBirth(true)]}>
+                  <Text style={styles.birthText}>{childBirth}</Text>
+                </View>
+              </TouchableOpacity>
             </View>
-            <AlertModal
-              modalVisible={bmodalVisible}
-              onHandleCloseModal={() => bchangeModalState()}
-              text={'태어난 년도를 다시 확인해볼까요?'}
-              iconName={'frowno'}
-              color={'#FF0000'}
-              setTimeFunction={() => bcloseModal()}
+            <RoundButton
+              arrow={true}
+              onHandlePress={() => {
+                next();
+              }}
             />
-          </Layout>
-        </View>
-      </KeyboardAvoidingView>
-      <View style={styles.end} />
+          </View>
+          <AlertModal
+            modalVisible={bmodalVisible}
+            onHandleCloseModal={() => bchangeModalState()}
+            text={'태어난 년도를 다시 확인해볼까요?'}
+            iconName={'frowno'}
+            color={'#FF0000'}
+            setTimeFunction={() => bcloseModal()}
+          />
+        </Layout>
+      </View>
     </BackgroundAbsolute>
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  start: {
-    flex: 1.5,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  logo: {
-    width: 220, //595
-    height: undefined, //101
-    aspectRatio: 300 / 100,
-  },
-  view: {
-    marginBottom: 26,
-  },
   body: {
-    flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  end: {
-    flex: 1,
+    paddingTop: height * 0.14,
   },
   inLine: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: width * 0.03,
   },
   birthContainer: {
-    width: width * 0.1,
-    height: height * 0.08,
+    width: width * 0.18,
+    height: height * 0.1,
     backgroundColor: '#fff',
-    borderRadius: 20,
+    borderRadius: 15,
     elevation: 7,
     justifyContent: 'center',
   },
   birthText: {
     textAlign: 'center',
     fontSize: height * 0.04,
+    fontFamily: 'HoonPinkpungchaR',
   },
   bottomWrapper: {
     display: 'flex',
