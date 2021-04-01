@@ -17,12 +17,10 @@ const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
 
 export default function LoginScreen({navigation}) {
-  const [checkBoxColor, setCheckBoxColor] = useState(true);
   const [userName, setUserName] = useState('');
   const [storeId, setStoreId] = useState(false);
   const [userPassword, setUserPassword] = useState('');
   const [autoLogin, setAutoLogin] = useState(false);
-  const [storeId, setStoreId] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
   const [pmodalVisible, setpModalVisible] = useState(false);
