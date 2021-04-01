@@ -2,20 +2,49 @@ import {AuthorizationInstance} from '../index.js';
 
 const instance = AuthorizationInstance();
 
-export function getNotesByYear(params, success, fail) {
+export function getNotesByYear(child, success, fail) {
   instance
-    .get('notes/', {params: {child: (params && params.child) || child}})
+    .get('notes/diary/total/', {
+      params: {child},
+    })
     .then(success)
     .catch(fail);
 }
 
 export function getNotesByMonth(params, success, fail) {
   instance
-    .get('notes/', {
+    .get('notes/diary/total/monthly/', {
       params: {
-        child: (params && params.child) || child,
-        year: (params && params.year) || year,
-        month: (params && params.month) || month,
+        child: Object.keys(params).length !== 0 && params.child,
+        year: Object.keys(params).length !== 0 && params.year,
+        month: Object.keys(params).length !== 0 && params.month,
+      },
+    })
+    .then(success)
+    .catch(fail);
+}
+
+export function getNotesByDay(params, success, fail) {
+  instance
+    .get('notes/diary/total/daily/', {
+      params: {
+        child: Object.keys(params).length !== 0 && params.child,
+        year: Object.keys(params).length !== 0 && params.year,
+        month: Object.keys(params).length !== 0 && params.month,
+        date: Object.keys(params).length !== 0 && params.date,
+      },
+    })
+    .then(success)
+    .catch(fail);
+}
+
+export function getNotesByOneDay(params, success, fail) {
+  instance
+    .get('notes/diary/', {
+      params: {
+        child: Object.keys(params).length !== 0 && params.child,
+        year: Object.keys(params).length !== 0 && params.year,
+        month: Object.keys(params).length !== 0 && params.month,
       },
     })
     .then(success)
@@ -36,9 +65,3 @@ const makeMonth = (text) => {
   }
   return newText;
 };
-
-const child = 10; // 임시
-const year = String(today.getFullYear());
-const month = makeMonth(textMonth);
-const date = String(today.getDay());
-// ==========================

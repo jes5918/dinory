@@ -26,7 +26,7 @@ const egg = require('../../assets/images/egg.png');
 const character = require('../../assets/images/character2.png');
 
 // static variables
-const baseURL = 'https://j4b105.p.ssafy.io/';
+const baseURL = 'https://j4b105.p.ssafy.io/api';
 
 // 일기 조회 컴포넌트 구조(페이지는 header, body, footer로 나눔)
 // |- DiaryList : 렌더링할 컴포넌트
