@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground, StyleSheet} from 'react-native';
+import {ImageBackground, Dimensions, StyleSheet} from 'react-native';
 
 function BackgroundAbsolute({imageSrc, children}) {
   return (
@@ -9,15 +9,18 @@ function BackgroundAbsolute({imageSrc, children}) {
   );
 }
 
+const dimension = Dimensions.get('window');
+const windowWidth = dimension.width;
+const windowHeight = dimension.height;
+
 const styles = StyleSheet.create({
   backgroundImage: {
-    position: 'relative',
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
-    display: 'flex',
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    width: windowWidth,
+    height: windowHeight,
+    resizeMode: 'stretch',
   },
 });
 

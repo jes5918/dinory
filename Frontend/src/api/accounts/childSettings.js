@@ -1,5 +1,4 @@
 import {AuthorizationInstance} from '../index.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 const instance = AuthorizationInstance();
 
 function getChildProfile(success, fail) {
