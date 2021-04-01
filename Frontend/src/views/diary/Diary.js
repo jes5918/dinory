@@ -256,7 +256,6 @@ export default function Diary() {
         setGrammarchecked(true);
       },
       (err) => {
-        console.log(err.response.data.error);
         if (err.response.data.error === '한글은 작성할 수 없습니다') {
           setSpinner(false);
           setKoreanWarnModalVisible(true);

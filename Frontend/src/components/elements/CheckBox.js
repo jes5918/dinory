@@ -76,11 +76,7 @@ export default function CheckBox({
     onHandleFlipCard();
   }, [onHandleFlipCard]);
 
-  const sound = new Sound(baseUrl + soundUrl, Sound.MAIN_BUNDLE, (error) => {
-    if (error) {
-      console.log('failed to load the sound', error);
-    }
-  });
+  const sound = new Sound(baseUrl + soundUrl, Sound.MAIN_BUNDLE, (error) => {});
 
   return (
     <View style={[styles.box, {width: textEnWidth}]}>

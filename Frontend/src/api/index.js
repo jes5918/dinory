@@ -17,8 +17,6 @@ const getToken = async () => {
   } catch (e) {
     console.error(e);
   }
-
-  console.log('Done.');
 };
 
 function createInstance() {

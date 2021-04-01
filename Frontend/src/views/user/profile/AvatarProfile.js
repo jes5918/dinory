@@ -31,7 +31,6 @@ export default function AvatarProfile({navigation, route}) {
   };
 
   const CreateProfile = () => {
-    console.log(imgNumber);
     if (imgNumber !== -1) {
       let ProfileInfo = new FormData();
       ProfileInfo.append('name', route.params.ProfileName);
@@ -40,15 +39,13 @@ export default function AvatarProfile({navigation, route}) {
       createChildProfile(
         ProfileInfo,
         (res) => {
-          console.log(res.data);
           changeModalState();
           setTimeout(() => {
             navigation.navigate('SelectProfile');
           }, 1500);
         },
         (error) => {
-          console.log(error);
-          alert('axios 에러남 확인해주세요.');
+          alert('서버에러 다시 시도해주세요.');
         },
       );
     } else {

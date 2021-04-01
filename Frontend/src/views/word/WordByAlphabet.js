@@ -33,9 +33,7 @@ export default function WordByAlphabet({route}) {
         (res) => {
           setListByAlpha(() => res.data);
         },
-        (err) => {
-          console.log(err);
-        },
+        (err) => {},
       );
     }
   }, [child, alphabet]);
