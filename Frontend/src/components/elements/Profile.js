@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
@@ -8,7 +8,7 @@ import {
   Image,
   View,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation, useFocusEffect} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -19,37 +19,31 @@ export default function Profile() {
   const [childName, setChildName] = useState('');
   const [childCharacter, setChildCharacter] = useState('');
 
-  const getProfileInfo = useCallback(async () => {
-    await AsyncStorage.getItem('profile').then((profile) => {
-      const data = JSON.parse(profile);
-      setChildName(data.profile_name);
-      const characterImageSrc = transformImage(data.profile_image);
-      setChildCharacter(characterImageSrc);
-      // 에러남 확인 필요
-      // setChildCharacter("require('../../assets/images/background1.png')");
-      // console.log('profile.js : ', childName);
-      // console.log('profile.js : ', childCharacter);
-    });
-  }, []);
-  // }, [childName, childCharacter]);
-
-  useEffect(() => {
-    getProfileInfo();
-  }, [getProfileInfo]);
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('profile').then((profile) => {
+        const data = JSON.parse(profile);
+        setChildName(data.profile_name);
+        const characterImageSrc = transformImage(data.profile_image);
+        setChildCharacter(characterImageSrc);
+      });
+    }, []),
+  );
 
   const transformImage = (num) => {
     let Src = '';
+    console.log(num);
     switch (String(num)) {
-      case '1':
+      case '0':
         Src = require('../../assets/images/character1.png');
         break;
-      case '2':
+      case '1':
         Src = require('../../assets/images/character2.png');
         break;
-      case '3':
+      case '2':
         Src = require('../../assets/images/character3.png');
         break;
-      case '4':
+      case '3':
         Src = require('../../assets/images/character4.png');
         break;
       default:

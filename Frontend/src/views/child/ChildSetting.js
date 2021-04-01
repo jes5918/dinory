@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   StyleSheet,
   View,
@@ -20,7 +20,7 @@ import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertModal from '../../components/elements/AlertModal';
 
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation, useFocusEffect} from '@react-navigation/core';
 import {editChildProfile} from '../../api/accounts/childSettings';
 
 const dimensions = Dimensions.get('window');
@@ -39,25 +39,21 @@ export default function ChildSetting() {
   const [dinoPicNum, setDinoPicNum] = useState('');
   const [originName, setOriginName] = useState(originName);
   const [child, setChild] = useState('');
+  const [voiceNum, setVoiceNum] = useState('');
 
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
   // const child = '10'; // 임시값
 
   let dinoArray = {
-    1: require('../../assets/images/character1.png'),
-    2: require('../../assets/images/character2.png'),
-    3: require('../../assets/images/character3.png'),
-    4: require('../../assets/images/character4.png'),
-    5: require('../../assets/images/character5.png'),
+    0: require('../../assets/images/character1.png'),
+    1: require('../../assets/images/character2.png'),
+    2: require('../../assets/images/character3.png'),
+    3: require('../../assets/images/character4.png'),
+    4: require('../../assets/images/character5.png'),
   };
 
   let dinoPic = dinoArray[dinoPicNum];
-  // const imgUri = Image.resolveAssetSource(dinoPic).uri;
-  // 체크 해야함
-  // console.log("ChildSetting.js : "dinoPic);
-  // console.log("ChildSetting.js : "dinoPicNum);
-  // 생년입력(민호체크)
   let today = new Date();
   let year = today.getFullYear();
 
@@ -89,19 +85,23 @@ export default function ChildSetting() {
         'name',
         childNName !== '' ? String(childNName) : originName,
       );
-      formData.append('year');
-      // 받아오는게 없어서 에러남. 나중에 수정
-      // formData.append('img', dinoPicNum !== 0 ? Number(dinoPicNum) : originPic);
+      formData.append('year', childBirth);
+      formData.append('img', dinoPicNum);
       console.log(formData);
+
       editChildProfile(
         child,
         formData,
         (res) => {
           if (res.status === 201) {
-            AsyncStorage.removeItem('ProfileName');
-            AsyncStorage.removeItem('ProfileYear');
-            AsyncStorage.setItem('ProfileName', String(childNName));
-            AsyncStorage.setItem('ProfileYear', String(childBirth));
+            const profileData = {
+              profile_pk: child,
+              profile_image: dinoPicNum,
+              profile_name: childNName,
+              profile_year: childBirth,
+              voice_pk: voiceNum,
+            };
+            AsyncStorage.mergeItem('profile', JSON.stringify(profileData));
             changeModalState();
             setTimeout(() => {
               navigation.navigate('Main');
@@ -144,36 +144,18 @@ export default function ChildSetting() {
     setbModalVisible(!bmodalVisible);
   };
 
-  // 로컬스토리지 정보 추출
-  // AsyncStorage.getItem('ProfileName', (err, result) => {
-  //   if ('ProfileName' !== null) {
-  //     setOriginName(result);
-  //   } else {
-  //     console.log(err);
-  //   }
-  // });
-  AsyncStorage.getItem('profile').then((profile) => {
-    const data = JSON.parse(profile);
-    setChild(data.profile_pk);
-    setOriginName(data.profile_name);
-    // setOriginPic(data.profile_image);
-  });
-  useEffect(() => {
-    // useEffect(() => {
-    //   AsyncStorage.getItem('ProfileYear', (err, result) => {
-    //     if ('ProfileYear' !== null) {
-    //       setChildBirth(result);
-    //     } else {
-    //       console.log(err);
-    //     }
-    //   });
-    // }, []);
-    AsyncStorage.getItem('profile').then((profile) => {
-      const data = JSON.parse(profile);
-      setChildBirth(data.profile_year);
-    });
-  }, []);
-  // AsyncStorage.getAllKeys().then(console.log);
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('profile').then((profile) => {
+        const data = JSON.parse(profile);
+        setChild(data.profile_pk);
+        setOriginName(data.profile_name);
+        setDinoPicNum(data.profile_image);
+        setChildBirth(String(data.profile_year));
+        setVoiceNum(data.voice_pk);
+      });
+    }, []),
+  );
 
   return (
     <View style={styles.container}>
@@ -202,7 +184,7 @@ export default function ChildSetting() {
                           setIschangeBirth(false),
                           setIschangePic(false),
                         ]}
-                        value={childNName}
+                        value={originName}
                         onChangeText={(text) => setChildNName(text)}
                       />
                       <Text style={styles.myInfo}>입니다</Text>
