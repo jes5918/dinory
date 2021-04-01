@@ -3,6 +3,7 @@ import Header from '../../components/elements/Header';
 import FlipCard from '../../components/elements/FlipCard';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/core';
 import {getListbyAlphabet} from '../../api/word/readWord';
 import {StyleSheet, View, Dimensions, ScrollView, Text} from 'react-native';
 
@@ -16,16 +17,16 @@ export default function WordByAlphabet({route}) {
   const [listByAlpha, setListByAlpha] = useState();
   const [child, setChild] = useState('');
 
-  const getProfileInfo = useCallback(async () => {
-    await AsyncStorage.getItem('profile').then((profile) => {
-      const data = JSON.parse(profile);
-      setChild(data.profile_pk);
-    });
-  }, []);
-
-  useEffect(() => {
-    getProfileInfo();
-  }, [getProfileInfo]);
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('profile').then((profile) => {
+        const data = JSON.parse(profile);
+        setChild(data.profile_pk);
+        let jwt = data.token;
+        console.log(jwt);
+      });
+    }, []),
+  );
 
   useEffect(() => {
     getListbyAlphabet(
