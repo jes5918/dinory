@@ -23,7 +23,8 @@ export default function Profile() {
     await AsyncStorage.getItem('profile').then((profile) => {
       const data = JSON.parse(profile);
       setChildName(data.profile_name);
-      setChildCharacter(data.profile_image);
+      const characterImageSrc = transformImage(data.profile_image);
+      setChildCharacter(characterImageSrc);
       // 에러남 확인 필요
       // setChildCharacter("require('../../assets/images/background1.png')");
       // console.log('profile.js : ', childName);
@@ -35,6 +36,28 @@ export default function Profile() {
   useEffect(() => {
     getProfileInfo();
   }, [getProfileInfo]);
+
+  const transformImage = (num) => {
+    let Src = '';
+    switch (String(num)) {
+      case '1':
+        Src = require('../../assets/images/character1.png');
+        break;
+      case '2':
+        Src = require('../../assets/images/character2.png');
+        break;
+      case '3':
+        Src = require('../../assets/images/character3.png');
+        break;
+      case '4':
+        Src = require('../../assets/images/character4.png');
+        break;
+      default:
+        Src = require('../../assets/images/character5.png');
+        break;
+    }
+    return Src;
+  };
 
   return (
     <TouchableOpacity
