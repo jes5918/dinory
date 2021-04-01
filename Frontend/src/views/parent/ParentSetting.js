@@ -6,11 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import {
-  useNavigation,
-  StackActions,
-  NavigationAction,
-} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {removeChildProfile} from '../../api/accounts/childSettings';
 
@@ -30,7 +26,8 @@ const windowHeight = windowSize.height; // 752
 // 현재 스토리지에 있는 키
 // ['jwt', 'user_pk', 'profile'];
 
-function ParentSetting() {
+function ParentSetting({route}) {
+  const {profilePK} = route.params;
   const [logoutModal, setLogoutModal] = useState(false);
   const [profileDelete, setProfileDelete] = useState(false);
   const [updateInfoModal, setUpdateInfoModal] = useState(false);
@@ -76,15 +73,9 @@ function ParentSetting() {
   };
 
   const fetchRemoveProfile = async () => {
-    let profile_pk = '';
-    await AsyncStorage.getItem('profile').then((profile) => {
-      const data = JSON.parse(profile);
-      profile_pk = data.profile_pk;
-    });
-
-    if (profile_pk) {
+    if (profilePK) {
       removeChildProfile(
-        profile_pk,
+        profilePK,
         (res) => {
           console.log('프로필이 정상적으로 삭제되었습니다.');
         },
@@ -245,6 +236,12 @@ function ParentSetting() {
             <Text style={styles.mainText}>비밀번호 변경</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => navigation.navigate('SelectProfile')}
+            activeOpacity={0.7}
+            style={styles.mainButton}>
+            <Text style={styles.mainText}>다른 프로필로 변경</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => onHandleProfileDelete()}
             activeOpacity={0.7}
             style={styles.mainButton}>
@@ -288,7 +285,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: windowHeight * 0.032,
+    paddingVertical: windowHeight * 0.026,
   },
   mainText: {
     color: '#707070',
