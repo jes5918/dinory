@@ -101,27 +101,27 @@ export default function AvatarProfile({navigation, route}) {
                 <DinoButton
                   imgSrc={require('../../../assets/images/character1.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(1)}
+                  onHandlePress={() => selectNumber(0)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character2.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(2)}
+                  onHandlePress={() => selectNumber(1)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character3.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(3)}
+                  onHandlePress={() => selectNumber(2)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character4.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(4)}
+                  onHandlePress={() => selectNumber(3)}
                 />
                 <DinoButton
                   imgSrc={require('../../../assets/images/character5.png')}
                   widthProps={width * 0.08}
-                  onHandlePress={() => selectNumber(5)}
+                  onHandlePress={() => selectNumber(4)}
                 />
               </View>
             </View>

@@ -64,7 +64,7 @@ export default function NameProfile({navigation}) {
   const fcloseModal = () => {
     setTimeout(() => {
       setfModalVisible(!fmodalVisible);
-    }, 2000);
+    }, 1500);
   };
 
   const changeModalState = () => {
@@ -74,7 +74,7 @@ export default function NameProfile({navigation}) {
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
-    }, 2000);
+    }, 1500);
   };
 
   return (

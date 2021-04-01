@@ -25,20 +25,28 @@ export default function LoginScreen({navigation}) {
     loginForm.append('password', userPassword);
     loginInstance(
       loginForm,
-      async (res) => {
-        if (await AsyncStorage.getItem('jwt')) {
-          AsyncStorage.removeItem('jwt');
-        }
-        await AsyncStorage.setItem('jwt', res.data.token);
+      (res) => {
         alert('로그인 되었습니다.');
+        AsyncStorage.setItem('jwt', res.data.token);
         navigation.navigate('SelectProfile');
       },
       (error) => {
-        alert('비밀번호가 잘못되었습니다');
+        alert('입력하신 내용을 확인해주세요');
         console.log(error);
       },
     );
   };
+
+  const autoLoginToggle = () => {
+    if (autoLogin) {
+      AsyncStorage.setItem('autologin', 'false');
+      setAutoLogin(false);
+    } else {
+      AsyncStorage.setItem('autologin', 'true');
+      setAutoLogin(true);
+    }
+  };
+
   return (
     <AuthBackGround>
       <Header logoHeader={true} />
@@ -81,7 +89,7 @@ export default function LoginScreen({navigation}) {
           <View style={styles.checkOption}>
             <CheckBox
               value={autoLogin}
-              onValueChange={setAutoLogin}
+              onValueChange={autoLoginToggle}
               style={styles.checkBox}
             />
             <Text style={styles.label}>자동 로그인</Text>
