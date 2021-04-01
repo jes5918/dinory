@@ -1,5 +1,11 @@
-import React, {useCallback, useState} from 'react';
-import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  BackHandler,
+} from 'react-native';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
 import ContentTitle from '../../../components/elements/ContentTitle';
 import Layout from '../../../components/elements/Layout';
@@ -19,6 +25,20 @@ export default function SelectProfile({navigation, route}) {
   const [childrenInfo, setChildrenInfo] = useState(null);
   const imageSrc = require('../../../assets/images/background2.png');
   const [logoutModal, setLogoutModal] = useState(false);
+
+  useEffect(() => {
+    const backAction = () => {
+      onHandleLogout();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   const transformImage = (num) => {
     let Src = '';

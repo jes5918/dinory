@@ -77,7 +77,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HomeScreen" headerMode="none">
-        <Stack.Screen name="Home" component={NavIcon} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen
           name="EmailAuthorization"
@@ -87,16 +86,22 @@ const App = () => {
         <Stack.Screen name="LoadingSec" component={LoadingSec} />
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
         <Stack.Screen name="PinScreen" component={PinCreate} />
-        <Stack.Screen name="SelectProfile" component={SelectProfile} />
+        <Stack.Screen
+          name="SelectProfile"
+          component={SelectProfile}
+          options={{gestureEnabled: true}}
+        />
         <Stack.Screen name="NameProfile" component={NameProfile} />
         <Stack.Screen name="AgeProfile" component={AgeProfile} />
         <Stack.Screen name="AvatarProfile" component={AvatarProfile} />
         <Stack.Screen name="SearchPassword" component={SearchPassword} />
         <Stack.Screen name="ModifyPassword" component={ModifyPassword} />
-        <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="ImageCaption" component={ImageCaption} />
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{gestureEnabled: true}}
+        />
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
-        <Stack.Screen name="SelectImage" component={SelectImage} />
         <Stack.Screen name="DiaryList" component={DiaryList} />
         <Stack.Screen name="SelectVoice" component={SelectVoice} />
         <Stack.Screen name="SelectLayout" component={SelectLayout} />
@@ -106,10 +111,6 @@ const App = () => {
         <Stack.Screen name="Word" component={Word} />
         <Stack.Screen name="WordByAlphabet" component={WordByAlphabet} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
-        <Stack.Screen
-          name="DiaryWriteTutorial"
-          component={DiaryWriteTutorial}
-        />
         <Stack.Screen name="PassWordUpdate" component={PassWordUpdate} />
         <Stack.Screen name="PinUpdate" component={PinUpdate} />
         <Stack.Screen name="PinAuthentication" component={PinAuthentication} />
