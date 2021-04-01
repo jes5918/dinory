@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
 import ContentTitle from '../../../components/elements/ContentTitle';
@@ -8,30 +8,29 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SelectProfileButton from '../../../components/authorization/SelectProfileButton';
 import BasicButton from '../../../components/elements/BasicButton';
 import Header from '../../../components/elements/Header';
-import {useFocusEffect} from '@react-navigation/core';
 
 // static variable
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width;
 const windowHeight = windowSize.height; // 752
 
-export default function SelectProfile({navigation, route}) {
+export default function SelectProfile({navigation}) {
   const [childrenInfo, setChildrenInfo] = useState(null);
   const imageSrc = require('../../../assets/images/background2.png');
 
   const transformImage = (num) => {
     let Src = '';
     switch (String(num)) {
-      case '0':
+      case '1':
         Src = require('../../../assets/images/character1.png');
         break;
-      case '1':
+      case '2':
         Src = require('../../../assets/images/character2.png');
         break;
-      case '2':
+      case '3':
         Src = require('../../../assets/images/character3.png');
         break;
-      case '3':
+      case '4':
         Src = require('../../../assets/images/character4.png');
         break;
       default:
@@ -40,19 +39,17 @@ export default function SelectProfile({navigation, route}) {
     }
     return Src;
   };
-  useFocusEffect(
-    useCallback(() => {
-      getChildProfile(
-        (res) => {
-          console.log(res);
-          setChildrenInfo(res.data);
-        },
-        (error) => {
-          console.log(error);
-        },
-      );
-    }, []),
-  );
+
+  useEffect(() => {
+    getChildProfile(
+      (res) => {
+        setChildrenInfo(res.data);
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+  }, []);
 
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
@@ -78,7 +75,7 @@ export default function SelectProfile({navigation, route}) {
                         profile_year: year,
                         voice_pk: voice,
                       };
-                      AsyncStorage.mergeItem(
+                      AsyncStorage.setItem(
                         'profile',
                         JSON.stringify(profileData),
                       );

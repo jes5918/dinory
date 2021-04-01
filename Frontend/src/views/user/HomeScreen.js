@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {validateToken, refreshToken} from '../../api/accounts/login';
 import {
   StyleSheet,
@@ -32,6 +32,7 @@ const getAllKeys = async () => {
   console.log('getAllKeys : ', allKeys);
   outputAsyncStorage(allKeys);
 };
+
 const outputAsyncStorage = async (keyArray) => {
   if (keyArray) {
     for (let key of keyArray) {
@@ -42,79 +43,56 @@ const outputAsyncStorage = async (keyArray) => {
   }
 };
 
-export default function HomeScreen({navigation, route}) {
-  useEffect(() => {
-    console.log('하이');
-    AsyncStorage.getItem('autologin').then((value) => {
-      if (JSON.parse(value) === true) {
-        AutologinMount();
-      } else {
-        console.log('자동로그인 미설정 마운트 확인');
-      }
+export default function HomeScreen({navigation}) {
+  // getAllKeys();
+  const [AutoLoginState, setAutoLoginState] = useState(false);
+  const AutoLoginCheck = () => {
+    AsyncStorage.getItem('AutoLogin').then((value) => {
+      console.log('자동로그인');
     });
-  }, []);
-
-  const AutologinMount = () => {
-    AsyncStorage.getItem('autologin').then((value) => {
-      const booleanValue = JSON.parse(value);
-      console.log('autologin', booleanValue);
-      if (booleanValue === true) {
-        // 1.  디바이스에서 토큰을 받아옴
-        AsyncStorage.getItem('jwt').then((value) => {
-          console.log(value);
-          const accessToken = value;
-          if (accessToken !== null && accessToken.length > 100) {
-            // 토큰값이 널이 아니고 100자 이상이라면
-            let CurrentTokenCheck = new FormData();
-            CurrentTokenCheck.append('token', accessToken);
-            // 유효성 검사 준비
-            validateToken(
-              CurrentTokenCheck,
+  };
+  const Autologin = async () => {
+    AutoLoginCheck();
+    // 1.  디바이스에서 토큰을 받아옴
+    await AsyncStorage.getItem('jwt').then((value) => {
+      if (value !== null && value.length > 100) {
+        // 토큰값이 널이 아니고 100자 이상이라면
+        let CurrentTokenCheck = new FormData();
+        CurrentTokenCheck.append('token', value);
+        // 유효성 검사 준비
+        validateToken(
+          CurrentTokenCheck,
+          (res) => {
+            // 유효성 검사를 패스한 현재 토큰을 리프레쉬할 준비
+            const CurrentToken = new FormData();
+            CurrentToken.append('token', res.data.token);
+            refreshToken(
+              CurrentToken,
               (res) => {
-                // 유효성 검사를 패스한 현재 토큰을 리프레쉬할 준비
-                const CurrentToken = new FormData();
-                CurrentToken.append('token', res.data.token);
-                refreshToken(
-                  CurrentToken,
-                  (res) => {
-                    const RefreshToken = res.data.token;
-                    AsyncStorage.getAllKeys((err, keys) => {
-                      AsyncStorage.multiGet(keys, (err, stores) => {
-                        stores.map((result, i, store) => {
-                          // get at each store's key/value so you can work with it
-                          let key = store[i][0];
-                          let value = store[i][1];
-                          console.log('@@@@@@@', key + ' : ' + value);
-                        });
-                      });
-                    });
-                    AsyncStorage.removeItem('jwt');
-                    AsyncStorage.setItem('jwt', RefreshToken);
-                    alert('자동로그인 되었습니다.');
-                    navigation.navigate('Main');
-                    // 디바이스에 리프레쉬 토큰 저장 후 이동
-                  },
-                  (error) => {
-                    console.log('리프레쉬 탈락222', error);
-                    navigation.navigate('LoginScreen');
-                  },
-                );
+                const RefreshToken = res.data.token;
+
+                AsyncStorage.removeItem('jwt');
+                AsyncStorage.setItem('jwt', RefreshToken);
+                navigation.navigate('SelectProfile');
+                // 디바이스에 리프레쉬 토큰 저장 후 이동
               },
               (error) => {
-                console.log('유효성 탈락222', error);
+                console.log('리프레쉬 탈락', error);
                 navigation.navigate('LoginScreen');
               },
             );
-          } else {
-            console.log('토큰이 없다');
-          }
-        });
+          },
+          (error) => {
+            console.log('유효성 탈락', error);
+            navigation.navigate('LoginScreen');
+          },
+        );
       } else {
         console.log('자동로그인 미설정');
+        navigation.navigate('LoginScreen');
       }
     });
   };
-
   return (
     <View style={styles.scroll}>
       <ImageBackground
@@ -153,7 +131,7 @@ export default function HomeScreen({navigation, route}) {
                     btnWidth={336}
                     btnHeight={73}
                     borderRadius={14}
-                    onHandlePress={() => navigation.navigate('LoginScreen')}
+                    onHandlePress={() => Autologin()}
                   />
                 </View>
               </View>
