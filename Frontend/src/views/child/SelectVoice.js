@@ -58,12 +58,16 @@ export default function SelectVoice() {
   };
   const submitVoice = () => {
     const formData = new FormData();
-    formData.append('voice', voice);
+    formData.append('voice', Number(voice));
     editChildVoice(
       child,
       formData,
       (res) => {
         if (res.status === 200) {
+          const profileData = {
+            voice_pk: voice,
+          };
+          AsyncStorage.mergeItem('profile', JSON.stringify(profileData));
           changeModalState();
           setTimeout(() => {
             navigation.navigate('Main');
@@ -73,6 +77,7 @@ export default function SelectVoice() {
         }
       },
       (err) => {
+        console.log('selectVoice error : ', err);
         noChangeModalState();
       },
     );
