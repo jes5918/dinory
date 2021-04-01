@@ -44,7 +44,7 @@ const outputAsyncStorage = async (keyArray) => {
 };
 
 export default function HomeScreen({navigation}) {
-  // getAllKeys();
+  getAllKeys();
   const [AutoLoginState, setAutoLoginState] = useState(false);
   const AutoLoginCheck = () => {
     AsyncStorage.getItem('AutoLogin').then((value) => {
