@@ -63,7 +63,7 @@ function PinUpdate() {
     setTimeout(() => {
       setModalVisible(!modalVisible);
       navigation.navigate('Main');
-    }, 1000);
+    }, 1500);
   };
 
   const changeModalStateForEnter = () => {
@@ -73,7 +73,7 @@ function PinUpdate() {
   const closeModalForEnter = () => {
     setTimeout(() => {
       setAlertForEnter(!alertForEnter);
-    }, 1000);
+    }, 1500);
   };
 
   return (

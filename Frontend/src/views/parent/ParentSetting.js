@@ -6,7 +6,11 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import {
+  useNavigation,
+  StackActions,
+  NavigationAction,
+} from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {removeChildProfile} from '../../api/accounts/childSettings';
 
@@ -40,7 +44,10 @@ function ParentSetting() {
     try {
       setLogoutModal(!logoutModal);
       await AsyncStorage.multiRemove(willRemovedKeys);
-      navigation.navigate('HomeScreen');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'HomeScreen'}],
+      });
     } catch (e) {
       console.log('AsyncStorage Remove Keys Fail : ', e);
     }
