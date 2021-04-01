@@ -64,6 +64,7 @@ export default function LoginScreen({navigation}) {
       },
       (error) => {
         dchangeModalState();
+        console.log(error);
       },
     );
   };
@@ -88,6 +89,7 @@ export default function LoginScreen({navigation}) {
   );
 
   const setUserNameToggle = () => {
+    console.log('asd', storeId);
     if (storeId) {
       AsyncStorage.setItem('autoUser', JSON.stringify(false));
       setStoreId(false);

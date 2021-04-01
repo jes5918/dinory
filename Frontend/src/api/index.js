@@ -40,7 +40,6 @@ function AuthorizationInstance() {
       config.headers = {
         Authorization: token,
       };
-
       return config;
     },
     function (error) {
