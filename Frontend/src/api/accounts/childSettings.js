@@ -29,6 +29,12 @@ function editChildVoice(child, voice, success, fail) {
   instance.put(path, voice).then(success).catch(fail);
 }
 
+// 아이 계정 삭제
+function removeChildProfile(child, success, fail) {
+  let path = `accounts/child/setting/delete/?child=${child}`;
+  instance.delete(path).then(success).catch(fail);
+}
+
 // function deleteChildProfile(child_pk, profileInfo, success, fail) {
 //   instance
 //     .delete(`child/setting/${child_pk}`, profileInfo)
@@ -42,4 +48,5 @@ export {
   editChildProfile,
   editChildVoice,
   // editChildProfile,
+  removeChildProfile,
 };
