@@ -16,12 +16,14 @@ export default function WordByAlphabet({route}) {
   const alphabet = route.params.selectAlpha;
   const [listByAlpha, setListByAlpha] = useState();
   const [child, setChild] = useState('');
+  const [voiceNum, setVoiceNum] = useState('');
 
   useFocusEffect(
     useCallback(() => {
       AsyncStorage.getItem('profile').then((profile) => {
         const data = JSON.parse(profile);
         setChild(data.profile_pk);
+        setVoiceNum(data.voice_pk);
       });
     }, []),
   );
@@ -54,6 +56,7 @@ export default function WordByAlphabet({route}) {
                       english={props.content}
                       korean={props.mean}
                       pos={props.part}
+                      voiceNum={voiceNum}
                     />
                   </View>
                 );

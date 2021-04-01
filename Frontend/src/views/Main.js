@@ -44,8 +44,7 @@ export default function Main() {
   useFocusEffect(
     useCallback(() => {
       AsyncStorage.getItem('profile').then((profile) => {
-        const data = JSON.parse(profile);
-        setChild(data.profile_pk);
+        setChild(JSON.parse(profile).profile_pk);
       });
     }, []),
   );
@@ -109,9 +108,8 @@ export default function Main() {
   useFocusEffect(
     useCallback(() => {
       AsyncStorage.getItem('profile').then((profile) => {
-        const data = JSON.parse(profile);
-        setChild(data.profile_pk);
-        const src = transformImage(data.profile_image);
+        setChild(JSON.parse(profile).profile_pk);
+        const src = transformImage(JSON.parse(profile).profile_image);
         setBackGroundCharacterImage(src);
       });
     }, []),

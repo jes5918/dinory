@@ -159,7 +159,6 @@ export default function Diary() {
           setCurrentPage(3);
         }
       });
-      ///////////////
     } else {
       setWordSaveSpinner(false);
       setTrylater(true);
