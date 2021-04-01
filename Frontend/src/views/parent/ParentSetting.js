@@ -66,7 +66,7 @@ function ParentSetting({route}) {
         (e) => {},
       );
     } else {
-      console.error(
+      console.log(
         '문제: AsyncStorage에서 프로필 ID를 못 불러왔습니다.(ParentSetting.js를 확인해주세요.)',
       );
     }
