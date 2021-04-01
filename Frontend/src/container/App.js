@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Sound from 'react-native-sound';
@@ -19,7 +19,7 @@ import LoadingSec from '../components/elements/LoadingSec';
 import ImageCaption from '../components/diary/ImageCaption';
 import SelectImage from '../components/diary/SelectImage';
 import SelectLayout from '../components/elements/SelectLayout';
-import GrammarCheck from '../components/diary/GrammarCheck';
+// import GrammarCheck from '../components/diary/GrammarCheck';
 
 // view
 import Main from '../views/Main';
@@ -64,15 +64,16 @@ const App = () => {
     sound.play();
     sound.setNumberOfLoops(-1);
   });
-  let [soundSetting, setSoundSetting] = useState(true);
+  // let [soundSetting, setSoundSetting] = useState(true);
 
-  // const ref = useRef(setSoundSetting);
-  if (soundSetting) {
-    console.log(soundSetting);
-    sound.play();
-  } else {
-    sound.pause();
-  }
+  // 배경음 Mute/Play 2차 배포 개발 예정
+  // let [soundSetting, setSoundSetting] = useState(true);
+  // if (soundSetting) {
+  //   sound.play();
+  //   console.log(soundSetting);
+  // } else {
+  //   sound.pause();
+  // }
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" headerMode="none">
@@ -92,11 +93,7 @@ const App = () => {
         <Stack.Screen name="AvatarProfile" component={AvatarProfile} />
         <Stack.Screen name="SearchPassword" component={SearchPassword} />
         <Stack.Screen name="ModifyPassword" component={ModifyPassword} />
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={(setSoundSetting = {setSoundSetting})}
-        />
+        <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="ImageCaption" component={ImageCaption} />
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
         <Stack.Screen name="SelectImage" component={SelectImage} />
