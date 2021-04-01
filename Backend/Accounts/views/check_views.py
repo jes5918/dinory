@@ -1,6 +1,8 @@
 # 중복조회, 일치 조회 
 from ..models import User
 
+from django.contrib.auth.hashers import check_password
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -14,7 +16,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 def pin_check(request):
     pin_code = User.objects.filter(username=request.user).values('pin_code')[0]['pin_code']
     input_pin = request.data.get('pin_code')
-    if pin_code == input_pin:
+    if check_password(input_pin, pin_code):
         return Response({'success' : '핀 번호가 일치합니다.'}, status=status.HTTP_200_OK)
     else:
         return Response({'error' : '핀 번호가 일치하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
