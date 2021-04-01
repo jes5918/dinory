@@ -29,7 +29,7 @@ export default function ImageCaption({
         text={'단어 추가하기 / 일기 쓰기'}
         btnWidth={width * 0.43}
         fontHoonPink={true}
-        customFontSize={width * 0.02}
+        customFontSize={width * 0.0234375}
         onHandlePress={() => onHandlePress()}
       />
     </View>

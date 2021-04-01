@@ -23,10 +23,10 @@ function BasicButton({
       style={[
         styles.container,
         {
-          paddingLeft: paddingHorizon || 11,
-          paddingRight: paddingHorizon || 11,
-          paddingBottom: paddingVertical || 11,
-          paddingTop: paddingVertical || 11,
+          paddingLeft: paddingHorizon || windowWidth * 0.00859375,
+          paddingRight: paddingHorizon || windowWidth * 0.00859375,
+          paddingBottom: paddingVertical || windowHeight * 0.014323,
+          paddingTop: paddingVertical || windowHeight * 0.014323,
           backgroundColor: backgroundColor || '#FB537B',
           width: btnWidth || windowWidth * 0.4,
           height: btnHeight || windowHeight * 0.08,
@@ -38,7 +38,7 @@ function BasicButton({
         style={[
           styles.text,
           {
-            fontSize: customFontSize || 24,
+            fontSize: customFontSize || windowWidth * 0.01875,
             fontFamily: fontHoonPink ? 'HoonPinkpungchaR' : 'NotoSansKR-Bold',
           },
         ]}>
