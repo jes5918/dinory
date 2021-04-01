@@ -28,31 +28,47 @@ function PassWordUpdate() {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [alertForEnter, setAlertForEnter] = useState(false);
-
   const onHandleSubmit = async () => {
     // validation 로직
-    if (password.length < 8 || password !== passwordCheck) {
+    if (
+      password.length < 8 ||
+      password !== passwordCheck ||
+      password == oldPassword ||
+      !chkPW(password)
+    ) {
       setAlertForEnter(true);
       return;
     } else {
       setAlertForEnter(false);
     }
-
+    console.log(2);
     const newPasswordForm = new FormData();
     newPasswordForm.append('old_password', oldPassword);
     newPasswordForm.append('password', password);
-    newPasswordForm.append('new_password_confirmation', passwordCheck);
+    newPasswordForm.append('password_confirmation', passwordCheck);
     changePassword(
       newPasswordForm,
       (res) => {
-        setModalVisible(!modalVisible);
+        changeModalState();
       },
       (err) => {
         console.log('PassWordUpdate.js 에러', err);
       },
     );
   };
+  const chkPW = (password) => {
+    let chk1 = /^[a-zA-Z0-9]{8,20}$/;
+    let chk2 = /[a-z]/;
+    let chk3 = /[A-Z]/;
+    let chk4 = /\d/;
 
+    return chk1.test(password) &&
+      chk2.test(password) &&
+      chk3.test(password) &&
+      chk4.test(password)
+      ? true
+      : false;
+  };
   const changeModalState = () => {
     setModalVisible(!modalVisible);
   };
