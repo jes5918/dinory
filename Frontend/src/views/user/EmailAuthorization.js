@@ -11,6 +11,7 @@ import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
+import AlertModal from '../../components/elements/AlertModal';
 
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
@@ -20,6 +21,10 @@ export default function EmailAuthorization({navigation}) {
   const [userWriteEmail, setUserWriteEmail] = useState('');
   const [userWriteCode, setUserWriteCode] = useState('');
   const [userTicket, setUserTicket] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [dmodalVisible, setdModalVisible] = useState(false);
+  const [bmodalVisible, setbModalVisible] = useState(false);
+  const [cmodalVisible, setcModalVisible] = useState(false);
   const Authenticate = async () => {
     if (userWriteEmail.length > 8) {
       let emailAuthForm = new FormData();
@@ -34,6 +39,7 @@ export default function EmailAuthorization({navigation}) {
             emailAuthForm,
             (res) => {
               setUserTicket(res.data.id);
+              bchangeModalState();
               // console.log(res);
               //번호표 저장
             },
@@ -43,11 +49,12 @@ export default function EmailAuthorization({navigation}) {
           );
         },
         (error) => {
-          console.log(error);
+          cchangeModalState();
         },
       );
     }
   };
+
   const ConfirmCode = () => {
     if (userWriteCode.length > 0) {
       const ConfirmForm = new FormData();
@@ -58,17 +65,48 @@ export default function EmailAuthorization({navigation}) {
         (res) => {
           AsyncStorage.setItem('email', userWriteEmail);
           console.log(res);
-          alert('인증이 완료되었습니다');
+          changeModalState();
           navigation.navigate('SignupScreen');
         },
         (error) => {
           console.log(error);
-          alert('인증번호가 틀렸습니다.');
+          dchangeModalState();
         },
       );
     }
   };
-
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1500);
+  };
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+  const dcloseModal = () => {
+    setTimeout(() => {
+      setdModalVisible(!dmodalVisible);
+    }, 2000);
+  };
+  const dchangeModalState = () => {
+    setdModalVisible(!dmodalVisible);
+  };
+  const bcloseModal = () => {
+    setTimeout(() => {
+      setbModalVisible(!bmodalVisible);
+    }, 1500);
+  };
+  const bchangeModalState = () => {
+    setbModalVisible(!bmodalVisible);
+  };
+  const ccloseModal = () => {
+    setTimeout(() => {
+      setcModalVisible(!cmodalVisible);
+    }, 1500);
+  };
+  const cchangeModalState = () => {
+    setcModalVisible(!cmodalVisible);
+  };
   return (
     <AuthBackGround>
       <Header logoHeader={true} />
@@ -129,6 +167,38 @@ export default function EmailAuthorization({navigation}) {
             </Text>
           </View>
         </View>
+        <AlertModal
+          modalVisible={modalVisible}
+          onHandleCloseModal={() => changeModalState()}
+          text={'인증이 완료되었습니다!'}
+          iconName={'smileo'}
+          color={'#A0A0FF'}
+          setTimeFunction={() => closeModal()}
+        />
+        <AlertModal
+          modalVisible={dmodalVisible}
+          onHandleCloseModal={() => dchangeModalState()}
+          text={'인증번호가 틀렸습니다!'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => dcloseModal()}
+        />
+        <AlertModal
+          modalVisible={bmodalVisible}
+          onHandleCloseModal={() => bchangeModalState()}
+          text={'인증번호를 보냈습니다'}
+          iconName={'smileo'}
+          color={'#A0A0FF'}
+          setTimeFunction={() => bcloseModal()}
+        />
+        <AlertModal
+          modalVisible={cmodalVisible}
+          onHandleCloseModal={() => cchangeModalState()}
+          text={'이미 등록된 이메일입니다'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => ccloseModal()}
+        />
       </View>
     </AuthBackGround>
   );

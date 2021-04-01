@@ -16,8 +16,7 @@ import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
-
-// static variable
+import AlertModal from '../../components/elements/AlertModal'; // static variable
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
@@ -27,8 +26,15 @@ const layoutHeight = windowHeight * 0.755;
 export default function ModifyPassword({navigation, route}) {
   const [userWritePassword, setUserWritePassword] = useState('');
   const [userCheckPassword, setUserCheckPassword] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [dmodalVisible, setdModalVisible] = useState(false);
   const userID = route.params.user_ID;
+
   const submitHandler = async () => {
+    console.log(!chkPW(userWritePassword));
+    if (!chkPW(userWritePassword) && !chkPW(userCheckPassword)) {
+      return;
+    }
     let ChangePasswordForm = new FormData();
     ChangePasswordForm.append('password', userWritePassword);
     ChangePasswordForm.append('password_confirmation', userCheckPassword);
@@ -37,14 +43,55 @@ export default function ModifyPassword({navigation, route}) {
       userID,
       ChangePasswordForm,
       (res) => {
-        alert('비밀번호가 변경 되었습니다.');
-        navigation.navigate('LoginScreen');
+        changeModalState();
+        setTimeout(() => {
+          navigation.navigate('LoginScreen');
+        }, 2000);
       },
       (error) => {
-        alert('ERROR');
+        dchangeModalState();
         console.log(error);
       },
     );
+  };
+  const chkPW = (password) => {
+    const pw = password;
+    const num = pw.search(/[0-9]/g);
+    const eng = pw.search(/[a-zA-Z]/gi);
+    const ENG = pw.search(/[A-Z]/gi);
+    const spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+    console.log('num :', num);
+    console.log('eng :', eng);
+    console.log('ENG :', ENG);
+    console.log('spe :', spe);
+    console.log(1);
+    if (pw.length < 8 || pw.length > 20) {
+      dchangeModalState();
+
+      return false;
+    } else if (pw.search(/\s/) !== -1) {
+      dchangeModalState();
+
+      return false;
+    } else {
+      return true;
+    }
+  };
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1500);
+  };
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
+  };
+  const dcloseModal = () => {
+    setTimeout(() => {
+      setdModalVisible(!dmodalVisible);
+    }, 2000);
+  };
+  const dchangeModalState = () => {
+    setdModalVisible(!dmodalVisible);
   };
   return (
     <AuthBackGround>
@@ -99,6 +146,22 @@ export default function ModifyPassword({navigation, route}) {
             }}
           />
         </View>
+        <AlertModal
+          modalVisible={modalVisible}
+          onHandleCloseModal={() => changeModalState()}
+          text={'비밀번호가 수정되었어요!'}
+          iconName={'smileo'}
+          color={'#A0A0FF'}
+          setTimeFunction={() => closeModal()}
+        />
+        <AlertModal
+          modalVisible={dmodalVisible}
+          onHandleCloseModal={() => dchangeModalState()}
+          text={'비밀번호를 형식에 맞춰 작성하세요!'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => dcloseModal()}
+        />
       </View>
     </AuthBackGround>
   );
