@@ -42,8 +42,9 @@ const outputAsyncStorage = async (keyArray) => {
   }
 };
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({navigation, route}) {
   useEffect(() => {
+    console.log('하이');
     AsyncStorage.getItem('autologin').then((value) => {
       if (JSON.parse(value) === true) {
         AutologinMount();
@@ -90,11 +91,7 @@ export default function HomeScreen({navigation}) {
                     AsyncStorage.removeItem('jwt');
                     AsyncStorage.setItem('jwt', RefreshToken);
                     alert('자동로그인 되었습니다.');
-<<<<<<< HEAD
                     navigation.navigate('Main');
-=======
-                    navigation.navigate('SelectProfile');
->>>>>>> 31a651c ([fix/FE] : 로그인 자동로그인 fix)
                     // 디바이스에 리프레쉬 토큰 저장 후 이동
                   },
                   (error) => {
