@@ -9,7 +9,7 @@ import BasicButton from '../../components/elements/BasicButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
-import changePassword from '../../api/accounts/settings';
+import {changePassword} from '../../api/accounts/settings';
 
 // static variable
 const backgroundImage = require('../../assets/images/background2.png');
@@ -23,6 +23,7 @@ const marginBottom = windowHeight * 0.06;
 function PassWordUpdate() {
   const navigation = useNavigation();
 
+  const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -37,24 +38,18 @@ function PassWordUpdate() {
       setAlertForEnter(false);
     }
 
-    let child_pk = '';
-    await AsyncStorage.getItem('child_pk').then((childPk) => {
-      child_pk = childPk;
-    });
-    await AsyncStorage.getItem('password').then((oldPassword) =>
-      changePassword(
-        child_pk,
-        {
-          password: password,
-          password_confirmation: passwordCheck,
-        },
-        (res) => {
-          setModalVisible(!modalVisible);
-        },
-        (err) => {
-          console.error(err);
-        },
-      ),
+    const newPasswordForm = new FormData();
+    newPasswordForm.append('old_password', oldPassword);
+    newPasswordForm.append('password', password);
+    newPasswordForm.append('new_password_confirmation', passwordCheck);
+    changePassword(
+      newPasswordForm,
+      (res) => {
+        setModalVisible(!modalVisible);
+      },
+      (err) => {
+        console.error(err);
+      },
     );
   };
 
@@ -104,6 +99,15 @@ function PassWordUpdate() {
             <Text style={styles.mainText}>비밀번호 변경</Text>
           </View>
           <View style={styles.mainMid}>
+            <AuthTextInput
+              setFunction={setOldPassword}
+              width={inputWidth}
+              height={inputHeight}
+              marginRight={0}
+              marginBottom={marginBottom}
+              text={'현재 비밀번호를 입력해주세요.'}
+              secureTextEntry={true}
+            />
             <AuthTextInput
               setFunction={setPassword}
               width={inputWidth}
@@ -163,7 +167,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     width: windowWidth * 0.372, // 476
-    height: windowHeight * 0.754, // 642
+    height: windowHeight * 0.854, // 642
     borderRadius: 50,
     elevation: 7,
     paddingTop: windowHeight * 0.043, // 32
@@ -195,7 +199,7 @@ const styles = StyleSheet.create({
     color: '#707070',
     width: windowWidth * 0.25,
     marginTop: windowHeight * 0.01,
-    marginBottom: windowHeight * 0.06,
+    marginBottom: windowHeight * 0.04,
     paddingLeft: 12,
   },
 });

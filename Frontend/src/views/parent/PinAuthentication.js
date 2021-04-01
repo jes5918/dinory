@@ -18,7 +18,7 @@ const inputWidth = windowWidth * 0.2625;
 const inputHeight = windowHeight * 0.077;
 
 function PinAuthentication({route}) {
-  const {connetedRoute} = route.params;
+  const {connetedRoute, profilePK} = route.params;
   const navigation = useNavigation();
 
   const [pinCode, setPinCode] = useState('');
@@ -35,18 +35,17 @@ function PinAuthentication({route}) {
       setAlertForEnter(false);
     }
 
-    console.log('pinCode : ', pinCode);
     const pinInfo = new FormData();
     pinInfo.append('pin_code', pinCode);
     checkPincode(
       pinInfo,
       (res) => {
         setModalVisible(!modalVisible);
-        navigation.navigate(connetedRoute);
+        navigation.navigate(connetedRoute, {profilePK: profilePK});
       },
       (err) => {
         setAlertForEnter(!alertForEnter);
-        console.error(err);
+        console.log(err);
       },
     );
   };

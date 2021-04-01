@@ -75,14 +75,14 @@ const MainCardComponent = ({
 };
 
 // DiaryList : 전체를 렌더링하는 React Function Component입니다.
-function DiaryList() {
+function DiaryList({route}) {
   // childID를 props로 받지 않고 Redux에 있는 데이터를 조회한다.
   // states
   const [dataByMonth, setDataByMonth] = useState();
   const [dataByYear, setDataByYear] = useState();
   const [fetchYear, setFetchYear] = useState();
   const [fetchMonth, setFetchMonth] = useState();
-  const [profilePK, setProfilePK] = useState();
+  const {profilePK} = route.params;
 
   const navigation = useNavigation();
 
@@ -127,23 +127,9 @@ function DiaryList() {
     );
   };
 
-  const getProfilePK = useCallback(async () => {
-    await AsyncStorage.getItem('profile').then((profile) => {
-      const data = JSON.parse(profile);
-      setProfilePK(data.profile_pk);
-    });
-  }, []);
-
-  // componentDidMount
-  useFocusEffect(() => {
-    getProfilePK();
-  });
-
   useEffect(() => {
-    if (profilePK) {
-      fetchNotesByMonth(profilePK, fetchYear, fetchMonth);
-      fetchNotesByYear(profilePK);
-    }
+    fetchNotesByMonth(profilePK, fetchYear, fetchMonth);
+    fetchNotesByYear(profilePK);
   }, [profilePK, fetchYear, fetchMonth]);
 
   return (
@@ -177,7 +163,6 @@ function DiaryList() {
           <Image style={styles.character} source={character} />
           <View style={styles.line} />
         </View>
-        {/* {dataByYear && <DiaryListFooter></DiaryListFooter>} */}
         <DiaryListFooter>
           {dataByYear &&
             dataByYear.map((data) => {
