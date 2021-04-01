@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
+import AlertModal from '../../components/elements/AlertModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/core';
 
@@ -45,20 +46,14 @@ const layoutHeight = windowHeight * 0.708;
 
 export default function HomeScreen({navigation, route}) {
   // getAllKeys();
-
+  const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
-    console.log('하이');
     AsyncStorage.getItem('autoLogin')
       .then((value) => {
         return JSON.parse(value);
       })
       .then((res) => {
-        console.log(res);
-        if (res) {
-          AutologinMount();
-        } else {
-          console.log('자동로그인 미설정 마운트 확인');
-        }
+        AutologinMount();
       });
   }, []);
 
@@ -94,7 +89,7 @@ export default function HomeScreen({navigation, route}) {
                 });
                 AsyncStorage.removeItem('jwt');
                 AsyncStorage.setItem('jwt', RefreshToken);
-                alert('자동로그인 되었습니다.');
+                changeModalState();
                 navigation.navigate('Main');
                 // 디바이스에 리프레쉬 토큰 저장 후 이동
               },
@@ -113,6 +108,15 @@ export default function HomeScreen({navigation, route}) {
         console.log('토큰이 없다');
       }
     });
+  };
+
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 1500);
+  };
+  const changeModalState = () => {
+    setModalVisible(!modalVisible);
   };
 
   return (
@@ -158,6 +162,14 @@ export default function HomeScreen({navigation, route}) {
                 </View>
               </View>
             </View>
+            <AlertModal
+              modalVisible={modalVisible}
+              onHandleCloseModal={() => changeModalState()}
+              text={'로그인 되었습니다.'}
+              iconName={'smileo'}
+              color={'#A0A0FF'}
+              setTimeFunction={() => closeModal()}
+            />
           </Layout>
         </View>
       </ImageBackground>
