@@ -1,24 +1,11 @@
 import React, {Component, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  StyleSheet,
-  Text,
-  Button,
-  View,
-  TextInput,
-  ImageBackground,
-  Dimensions,
-  Image,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {
   confirmEmail,
   TransmitCodeToEmail,
   confirmEmailCode,
-  duflicationCheckID,
 } from '../../api/accounts/signup';
-import Layout from '../../components/elements/Layout';
 import BasicButton from '../../components/elements/BasicButton';
 import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
