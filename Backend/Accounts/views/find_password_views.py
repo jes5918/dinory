@@ -28,7 +28,7 @@ def password_find(request):
     address = request.data.get('email')
     username = request.data.get('username')
     if not User.objects.filter(username=username, email=address).exists():
-        return Response({'error' : '유효하지 않은 회원정보입니다.'})
+        return Response({'error' : '유효하지 않은 회원정보입니다.'}, status=status.HTTP_400_BAD_REQUEST)
     code = ''
     for _ in range(6):
         num = random.randint(0, 9)
