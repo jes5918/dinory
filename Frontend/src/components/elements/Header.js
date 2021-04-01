@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Dimensions, Image, StyleSheet} from 'react-native';
+import {View, Dimensions, Image, StyleSheet, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 import ArrowButton from './ArrowButton';
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
   logo: {},
   logoImage: {
     resizeMode: 'contain',
-    width: windowWidth * 0.12, //595
-    height: windowHeight * 0.09, //101
+    width: windowWidth * 0.25, //595
+    height: windowHeight * 0.08, //101
   },
 });
 

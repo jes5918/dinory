@@ -11,11 +11,16 @@ export default function AuthBackGround({children}) {
 }
 
 const dimension = Dimensions.get('window');
+const windowWidth = dimension.width;
+const windowHeight = dimension.height;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: windowWidth,
+    height: windowHeight,
+    resizeMode: 'stretch',
   },
 });

@@ -35,21 +35,19 @@ const Diary = ({data}) => {
 };
 
 function DiaryDetail({route, navigation}) {
-  const {year, month, date, diary} = route.params;
+  let {year, month, date, diary, profilePK} = route.params;
   const [dataByDay, setDataByDay] = useState();
-  const [information, setInformation] = useState({year, month, date});
+  const [dataJustOneDay, setDataJustOneDay] = useState();
+  const [selectedDate, setSelectedDate] = useState();
 
-  const onHandleSelectDay = ({year, month, date}) => {
-    const newMonth = String(month).length === 1 ? '0' + String(month) : month;
-    setInformation((prev) => {
-      return {...prev, year, month: newMonth, date};
-    });
+  const onHandleSelectDay = (clickedDate) => {
+    setSelectedDate(clickedDate);
   };
 
-  const fetchNotesByDay = ({child, year, month, date}) => {
+  const fetchNotesByDay = (child, year, month, date) => {
     getNotesByDay(
       {
-        child: '10',
+        child,
         year,
         month: String(month).length === 1 ? '0' + String(month) : month,
         date,
@@ -63,21 +61,40 @@ function DiaryDetail({route, navigation}) {
     );
   };
 
-  useDeepCompareEffect(() => {
-    fetchNotesByDay(information);
-  }, [information]);
+  const fetchNotesByOneDay = (child, year, month) => {
+    console.log(
+      `fetchNotesByOneDay : child - ${child}, year - ${year}, month - ${month}`,
+    );
+    getNotesByOneDay(
+      {
+        child,
+        year,
+        month: String(month).length === 1 ? '0' + String(month) : month,
+      },
+      (res) => {
+        setDataJustOneDay(() => res.data); // 일단 하나 받는 걸로 고정.
+        console.log('fetchNotesByOneDay : ', res.data);
+      },
+      (err) => {
+        console.error(err);
+      },
+    );
+  };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    let tempDate = selectedDate || date;
+    fetchNotesByDay(profilePK, year, month, tempDate);
+    fetchNotesByOneDay(profilePK, year, month);
+  }, [profilePK, year, month, date, selectedDate]);
 
   return (
     <View style={styles.container}>
       <BackgroundAbsolute imageSrc={image}>
         <Header>
           <View style={styles.headerContainer}>
-            <Text
-              style={
-                styles.headerText
-              }>{`${information.year}년 ${information.month}월 ${information.date}일`}</Text>
+            <Text style={styles.headerText}>{`${year}년 ${month}월 ${
+              selectedDate || date
+            }일`}</Text>
           </View>
         </Header>
         <View style={styles.body}>
@@ -97,22 +114,16 @@ function DiaryDetail({route, navigation}) {
           </ScrollView>
         </View>
         <DiaryListFooter>
-          {diary &&
-            diary.map((data) => {
+          {dataJustOneDay &&
+            dataJustOneDay.map((data) => {
               return (
                 <DiaryFooterImage
                   key={data.id}
                   year={data.year}
-                  month={data.month}
+                  month={month}
                   date={data.date}
                   image={baseURL + data.img}
-                  onHandlePress={() =>
-                    onHandleSelectDay({
-                      year: data.year,
-                      month: data.month,
-                      date: data.date,
-                    })
-                  }
+                  onHandlePress={() => onHandleSelectDay(data.date)}
                 />
               );
             })}
