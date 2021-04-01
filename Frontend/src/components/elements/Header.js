@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Dimensions, Image, StyleSheet, Text} from 'react-native';
+import {View, Dimensions, Image, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 import ArrowButton from './ArrowButton';
@@ -16,11 +16,15 @@ const LogoImage = () => {
   );
 };
 
-function Header({children, logoHeader}) {
+function Header({children, logoHeader, onHandlePress}) {
   const navigation = useNavigation();
   return (
     <View style={styles.header}>
-      <ArrowButton onHandlePress={() => navigation.goBack()} />
+      <ArrowButton
+        onHandlePress={() =>
+          onHandlePress ? onHandlePress() : navigation.goBack()
+        }
+      />
       {children}
       {logoHeader ? <LogoImage /> : <Profile />}
     </View>

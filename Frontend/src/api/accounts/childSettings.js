@@ -40,6 +40,5 @@ export {
   createChildProfile,
   editChildProfile,
   editChildVoice,
-  // editChildProfile,
   removeChildProfile,
 };
