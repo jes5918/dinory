@@ -76,7 +76,7 @@ const App = () => {
   // }
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" headerMode="none">
+      <Stack.Navigator initialRouteName="HomeScreen" headerMode="none">
         <Stack.Screen name="Home" component={NavIcon} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen

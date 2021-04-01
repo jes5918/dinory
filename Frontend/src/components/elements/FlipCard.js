@@ -10,9 +10,10 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getWordDetail} from '../../api/word/readWord';
 import {useFocusEffect} from '@react-navigation/core';
+import Sound from 'react-native-sound';
 
 //  english : 영어 단어, korean: 뜻, pos(part of speech): 품사
-export default function FlipCard({english, korean, pos}) {
+export default function FlipCard({english, korean, pos, voiceNum}) {
   const animationvalue = useMemo(() => new Animated.Value(0), []);
   const [wordDetail, setWordDetail] = useState();
   const [child, setChild] = useState('');
@@ -59,7 +60,19 @@ export default function FlipCard({english, korean, pos}) {
     transform: [{rotateY: backflipRange}],
   };
 
+  const baseUrl = 'https://j4b105.p.ssafy.io/api';
+  const sound = new Sound(
+    baseUrl +
+      '/media/tts_basic/' +
+      `${String(voiceNum)}` +
+      `${english}` +
+      '.wav',
+    Sound.MAIN_BUNDLE,
+    (error) => {},
+  );
+
   const flip = useCallback(() => {
+    sound.play();
     if (temp < 90) {
       getWordDetail(
         {child: child, word: english},

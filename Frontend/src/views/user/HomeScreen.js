@@ -58,7 +58,7 @@ export default function HomeScreen({navigation, route}) {
                 AsyncStorage.removeItem('jwt');
                 AsyncStorage.setItem('jwt', RefreshToken);
                 changeModalState();
-                navigation.navigate('Main');
+                navigation.navigate('SelectProfile');
                 // 디바이스에 리프레쉬 토큰 저장 후 이동
               },
               (error) => {
