@@ -3,7 +3,6 @@ import {Text, View, StyleSheet, Animated, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Sound from 'react-native-sound';
-const windowWidth = Dimensions.get('window').width;
 
 export default function CheckBox({
   textEn,
@@ -155,6 +154,7 @@ export default function CheckBox({
   );
 }
 
+const windowWidth = Dimensions.get('window').width; // 1280
 const windowHeight = Dimensions.get('window').height; // 768
 
 const styles = StyleSheet.create({
@@ -172,10 +172,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingLeft: windowWidth * 0.0125,
+    paddingRight: windowWidth * 0.0125,
+    paddingTop: windowHeight * 0.011,
+    paddingBottom: windowHeight * 0.011,
     fontFamily: 'HoonPinkpungchaR',
     backfaceVisibility: 'hidden',
     position: 'absolute',
@@ -188,12 +188,12 @@ const styles = StyleSheet.create({
   },
   check: {
     color: '#19DC4D',
-    fontSize: 14,
+    fontSize: windowWidth * 0.011,
   },
   checkRound: {
-    width: 24,
-    height: 24,
-    borderWidth: 2,
+    width: windowWidth * 0.01875,
+    height: windowHeight * 0.03125,
+    borderWidth: windowWidth * 0.0015625,
     borderColor: '#DBDBDB',
     borderRadius: 1000,
     backgroundColor: 'white',
@@ -210,27 +210,25 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'black',
-    fontSize: 18,
+    fontSize: windowWidth * 0.0140625,
     fontFamily: 'HoonPinkpungchaR',
-    marginLeft: 12,
+    marginLeft: windowWidth * 0.01875,
   },
   volume: {
-    marginLeft: 12,
     height: windowHeight * 0.05,
-    width: windowWidth * 0.02,
+    width: windowWidth * 0.04,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    borderTopRightRadius: 50,
+    borderBottomRightRadius: 50,
   },
   volumeIcon: {
-    fontSize: 20,
+    fontSize: windowWidth * 0.015625,
   },
   back: {
     backgroundColor: 'white',
     position: 'absolute',
     top: 0,
-  },
-  button: {
-    fontSize: 100,
   },
 });
