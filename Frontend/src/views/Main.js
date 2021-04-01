@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Logo from '../components/elements/Logo';
 import Header from '../components/elements/Header';
 import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   View,
@@ -12,14 +13,15 @@ import {
   Text,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-import {didTutorial} from '../api/diary/checkTutorial';
+// import {didTutorial} from '../api/diary/checkTutorial';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
 export default function Main(props) {
-  let onSound = true;
+  // 2차 배포 때 구현 예정
+  // let onSound = true;
   // const stopAndPlay = () => {
   //   if (onSound) {
   //     console.log(onSound);
@@ -31,17 +33,25 @@ export default function Main(props) {
   // };
   const url = require('../assets/images/background4.png');
   const navigation = useNavigation();
+  const [child, setChild] = useState('');
 
-  // child 임시값 지정
-  const child = 10;
+  useEffect(() => {
+    AsyncStorage.getItem('profile').then((profile) => {
+      const data = JSON.parse(profile);
+      setChild(data.profile_pk);
+    });
+  }, []);
 
-  // 일기작성 여부에 따른 페이징 처리(작성 X : 튜토리얼 / 작성 O : 일기작성)
+  // 2차 배포 때 구현 예정 : 일기작성 여부에 따른 페이징 처리(작성 X : 튜토리얼 / 작성 O : 일기작성)
+  // const checkDidTutorial = () => {
+  //   if (didTutorial(child)) {
+  //     navigation.navigate('Diary');
+  //   } else {
+  //     navigation.navigate('DiaryWriteTutorial');
+  //   }
+  // };
   const checkDidTutorial = () => {
-    if (didTutorial(child)) {
-      navigation.navigate('Diary');
-    } else {
-      navigation.navigate('DiaryWriteTutorial');
-    }
+    navigation.navigate('DiaryWriteTutorial');
   };
 
   return (
@@ -106,13 +116,13 @@ export default function Main(props) {
               name={'replay'}
             />
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
               props.setSoundSetting(!onSound);
             }}>
             <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => navigation.navigate('ParentSetting')}>
@@ -169,6 +179,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     justifyContent: 'flex-end',
-    left: width * 0.35,
+    left: width * 0.4,
   },
 });

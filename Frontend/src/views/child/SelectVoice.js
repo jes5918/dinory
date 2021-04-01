@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import SelectLayout from '../../components/elements/SelectLayout';
 import Header from '../../components/elements/Header';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
@@ -9,6 +9,7 @@ import voiceThr from '../../assets/sound/2hellonicetomeetyou.wav';
 import voiceFou from '../../assets/sound/3hellonicetomeetyou.wav';
 import voiceFiv from '../../assets/sound/4hellonicetomeetyou.wav';
 import AlertModal from '../../components/elements/AlertModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {editChildVoice} from '../../api/accounts/childSettings';
 import {StyleSheet, View, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
@@ -19,9 +20,9 @@ const height = dimensions.height;
 export default function SelectVoice() {
   const [modalVisible, setModalVisible] = useState(false);
   const [fmodalVisible, setfModalVisible] = useState(false);
+  const [child, setChild] = useState('');
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
-  const child = '10'; // 임시
   let voice = '';
 
   let soundf = new Sound(voiceOne, Sound.MAIN_BUNDLE, (error) => {
@@ -44,6 +45,17 @@ export default function SelectVoice() {
     if (error) {
     }
   });
+
+  const getProfileInfo = useCallback(async () => {
+    await AsyncStorage.getItem('profile').then((profile) => {
+      const data = JSON.parse(profile);
+      setChild(data.profile_pk);
+    });
+  }, []);
+
+  useEffect(() => {
+    getProfileInfo();
+  }, [getProfileInfo]);
 
   const soundOn = (num) => {
     voice = num;
