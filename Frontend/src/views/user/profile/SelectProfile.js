@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Image, Dimensions, ScrollView} from 'react-native';
-// import SelectLayout from '../../../components/elements/SelectLayout';
+import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
-import ArrowButton from '../../../components/elements/ArrowButton';
 import ContentTitle from '../../../components/elements/ContentTitle';
 import Layout from '../../../components/elements/Layout';
 import {getChildProfile} from '../../../api/accounts/childSettings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SelectProfileButton from '../../../components/authorization/SelectProfileButton';
 import BasicButton from '../../../components/elements/BasicButton';
+import Header from '../../../components/elements/Header';
 
 // static variable
 const windowSize = Dimensions.get('window');
@@ -18,6 +17,28 @@ const windowHeight = windowSize.height; // 752
 export default function SelectProfile({navigation}) {
   const [childrenInfo, setChildrenInfo] = useState(null);
   const imageSrc = require('../../../assets/images/background2.png');
+
+  const transformImage = (num) => {
+    let Src = '';
+    switch (String(num)) {
+      case '1':
+        Src = require('../../../assets/images/character1.png');
+        break;
+      case '2':
+        Src = require('../../../assets/images/character2.png');
+        break;
+      case '3':
+        Src = require('../../../assets/images/character3.png');
+        break;
+      case '4':
+        Src = require('../../../assets/images/character4.png');
+        break;
+      default:
+        Src = require('../../../assets/images/character5.png');
+        break;
+    }
+    return Src;
+  };
 
   useEffect(() => {
     getChildProfile(
@@ -32,111 +53,78 @@ export default function SelectProfile({navigation}) {
 
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
-      <View style={styles.start}>
-        <View>
-          <ArrowButton onHandlePress={() => navigation.goBack()} />
-        </View>
-        <View style={styles.logo}>
-          <Image
-            source={require('../../../assets/images/logo.png')}
-            style={styles.logo}
-          />
-        </View>
-      </View>
+      <Header logoHeader={true} />
       <View style={styles.body}>
-        <View style={styles.view}>
-          <ContentTitle title={'프로필을 선택하세요'} />
-        </View>
-        <View>
-          <Layout
-            width={windowWidth * 0.8}
-            height={windowHeight * 0.6}
-            opacity={0.8}>
-            <ScrollView
-              showsHorizontalScrollIndicator={false}
-              horizontal={true}
-              style={styles.bodyCardContainer}>
-              {childrenInfo &&
-                childrenInfo.map((profile) => {
-                  const {id, img, name, voice, year} = profile;
-                  const onButtonClick = () => {
-                    const profileData = {
-                      profile_pk: id,
-                      profile_image: img,
-                      profile_name: name,
-                      profile_year: year,
-                      voice_pk: voice,
+        <ContentTitle title={'프로필을 선택하세요'} />
+        <Layout
+          width={windowWidth * 0.8}
+          height={windowHeight * 0.6}
+          opacity={0.8}>
+          <View>
+            <View style={styles.bodyCardContainer}>
+              <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+                {childrenInfo &&
+                  childrenInfo.map((profile) => {
+                    const {id, img, name, voice, year} = profile;
+                    const profileImg = transformImage(img);
+                    const onButtonClick = () => {
+                      const profileData = {
+                        profile_pk: id,
+                        profile_image: img,
+                        profile_name: name,
+                        profile_year: year,
+                        voice_pk: voice,
+                      };
+                      AsyncStorage.setItem(
+                        'profile',
+                        JSON.stringify(profileData),
+                      );
+                      navigation.navigate('Main');
                     };
-                    AsyncStorage.setItem(
-                      'profile',
-                      JSON.stringify(profileData),
+                    return (
+                      <View key={id}>
+                        <SelectProfileButton
+                          imageSrc={profileImg}
+                          Name={name}
+                          onHandlePress={onButtonClick}
+                        />
+                      </View>
                     );
-                    navigation.navigate('Main');
-                  };
-                  return (
-                    <View key={id}>
-                      <SelectProfileButton
-                        imageSrc={profileImg}
-                        Name={name}
-                        onHandlePress={onButtonClick}
-                      />
-                    </View>
-                  );
-                })}
-            </ScrollView>
-            <BasicButton
-              text={'프로필 추가하기'}
-              customFontSize={32}
-              onHandlePress={() => {
-                navigation.navigate('NameProfile');
-              }}
-              margin={30}
-            />
-          </Layout>
-        </View>
+                  })}
+              </ScrollView>
+            </View>
+            <View style={styles.btn}>
+              <BasicButton
+                text={'프로필 추가하기'}
+                btnWidth={windowWidth * 0.26}
+                onHandlePress={() => {
+                  navigation.navigate('NameProfile');
+                }}
+              />
+            </View>
+          </View>
+        </Layout>
       </View>
-      <View style={styles.end} />
     </BackgroundAbsolute>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  start: {
-    flex: 1.5,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  logo: {
-    width: 220, //595
-    height: undefined, //101
-    aspectRatio: 300 / 100,
-  },
-  view: {
-    marginBottom: 26,
-    zIndex: 3,
-  },
   body: {
-    // flexDirection: 'row',
-    flex: 4,
-    justifyContent: 'center',
+    flex: 6,
     alignItems: 'center',
-  },
-  end: {
-    flex: 1,
+    marginTop: windowHeight * 0.17,
   },
   bodyCardContainer: {
-    backgroundColor: 'transparent',
-    width: '100%',
-    height: 'auto',
-    display: 'flex',
+    flex: 9,
     flexDirection: 'row',
-    zIndex: 100,
-    paddingLeft: windowWidth * 0.12,
+    paddingHorizontal: windowWidth * 0.05,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btn: {
+    flex: 2.5,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 });
