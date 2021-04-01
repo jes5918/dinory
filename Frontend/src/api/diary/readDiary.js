@@ -12,12 +12,20 @@ export function getNotesByYear(child, success, fail) {
 }
 
 export function getNotesByMonth(params, success, fail) {
+  console.log(
+    'today year: ',
+    Object.keys(params).length !== 0 && (params.year || todayYear),
+  );
+  console.log(
+    'today month: ',
+    Object.keys(params).length !== 0 && (params.month || todayMonth),
+  );
   instance
     .get('notes/diary/total/monthly/', {
       params: {
         child: Object.keys(params).length !== 0 && params.child,
-        year: Object.keys(params).length !== 0 && params.year,
-        month: Object.keys(params).length !== 0 && params.month,
+        year: Object.keys(params).length !== 0 && (params.year || todayYear),
+        month: Object.keys(params).length !== 0 && (params.month || todayMonth),
       },
     })
     .then(success)
@@ -65,3 +73,6 @@ const makeMonth = (text) => {
   }
   return newText;
 };
+
+const todayMonth = makeMonth(textMonth);
+const todayYear = today.getFullYear();
