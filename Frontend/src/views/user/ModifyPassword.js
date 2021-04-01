@@ -55,10 +55,10 @@ export default function ModifyPassword({navigation, route}) {
     );
   };
   const chkPW = (password) => {
-    chk1 = /^[a-zA-Z0-9]{8,20}$/;
-    chk2 = /[a-z]/;
-    chk3 = /[A-Z]/;
-    chk4 = /\d/;
+    const chk1 = /^[a-zA-Z0-9]{8,20}$/;
+    const chk2 = /[a-z]/;
+    const chk3 = /[A-Z]/;
+    const chk4 = /\d/;
 
     return chk1.test(password) &&
       chk2.test(password) &&

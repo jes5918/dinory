@@ -18,6 +18,8 @@ function RoundButton({text, arrow, onHandlePress, color, styleProps}) {
                 borderWidth: arrow ? 0 : 6,
                 padding: arrow ? 4 : 10,
                 backgroundColor: color ? color : '#FB537B',
+                width: arrow ? windowWidth * 0.06 : windowWidth * 0.08,
+                height: arrow ? windowWidth * 0.06 : windowWidth * 0.08,
               },
               styleProps,
             ]
@@ -27,6 +29,8 @@ function RoundButton({text, arrow, onHandlePress, color, styleProps}) {
                 borderWidth: arrow ? 0 : 6,
                 padding: arrow ? 4 : 10,
                 backgroundColor: color ? color : '#FB537B',
+                width: arrow ? windowWidth * 0.06 : windowWidth * 0.08,
+                height: arrow ? windowWidth * 0.06 : windowWidth * 0.08,
               },
             ]
       }>
@@ -52,8 +56,6 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     backgroundColor: '#FB537B',
-    width: windowWidth * 0.08,
-    height: windowWidth * 0.08,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 1000,
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   arrowIcon: {
-    fontSize: windowWidth * 0.046875,
+    fontSize: windowWidth * 0.04,
   },
 });
 
