@@ -21,63 +21,23 @@ import AlertModal from '../../components/elements/AlertModal';
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
-const layoutWidth = windowWidth * 0.3718;
-const layoutHeight = windowHeight * 0.755;
 
-export default function PinCreate({navigation}) {
+export default function PinCreate({navigation, route}) {
   const [userPinNumber, setUserPinNumber] = useState('');
   const [userPinNumberchk, setUserPinNumberchk] = useState('');
-  const [buttonChk, setButtonChk] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
   const [bmodalVisible, setbModalVisible] = useState(false);
-  const AsyncStorageChecker = async () => {
-    if (await AsyncStorage.getItem('username')) {
-      AsyncStorage.removeItem('username');
-    }
-    if (await AsyncStorage.getItem('password')) {
-      AsyncStorage.removeItem('password');
-    }
-    if (await AsyncStorage.getItem('password_confirmation')) {
-      AsyncStorage.removeItem('password_confirmation');
-    }
-    if (await AsyncStorage.getItem('email')) {
-      AsyncStorage.removeItem('email');
-    }
-    if (await AsyncStorage.getItem('pin_code')) {
-      AsyncStorage.removeItem('pin_code');
-    }
-    if (await AsyncStorage.getItem('userpin_code_confirmationname')) {
-      AsyncStorage.removeItem('pin_code_confirmation');
-    }
-  };
+  const UserInfo = route.params.userInfo;
   const submitHandler = async () => {
     if (userPinNumber.length === 6) {
-      AsyncStorage.getAllKeys((value) => {});
-      AsyncStorage.setItem('pin_code', userPinNumber);
-      AsyncStorage.setItem('pin_code_confirmation', userPinNumberchk);
       let pinAuthForm = new FormData();
-      await AsyncStorage.getItem('username').then((username) => {
-        pinAuthForm.append('username', username);
-      });
-      await AsyncStorage.getItem('password').then((password) => {
-        pinAuthForm.append('password', password);
-      });
-      await AsyncStorage.getItem('password_confirmation').then(
-        (password_confirmation) => {
-          pinAuthForm.append('password_confirmation', password_confirmation);
-        },
-      );
-      await AsyncStorage.getItem('email').then((email) => {
-        pinAuthForm.append('email', email);
-        pinAuthForm.append('pin_code', userPinNumber);
-        pinAuthForm.append('pin_code_confirmation', userPinNumberchk);
-      });
-      await AsyncStorage.removeItem('email');
-      await AsyncStorage.removeItem('username');
-      await AsyncStorage.removeItem('password');
-      await AsyncStorage.removeItem('password_confirmation');
-      await AsyncStorage.removeItem('ProfileName');
+      pinAuthForm.append('username', UserInfo.user_name);
+      pinAuthForm.append('password', UserInfo.user_Pass);
+      pinAuthForm.append('password_confirmation', UserInfo.user_Passchk);
+      pinAuthForm.append('email', UserInfo.user_email);
+      pinAuthForm.append('pin_code', userPinNumber);
+      pinAuthForm.append('pin_code_confirmation', userPinNumberchk);
 
       signupInstance(
         pinAuthForm,
@@ -170,7 +130,6 @@ export default function PinCreate({navigation}) {
             btnWidth={windowWidth * 0.3}
             btnHeight={windowHeight * 0.08}
             borderRadius={14}
-            disabled={buttonChk}
             onHandlePress={() => {
               submitHandler();
             }}

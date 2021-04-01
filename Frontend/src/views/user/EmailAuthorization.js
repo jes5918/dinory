@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {
   confirmEmail,
@@ -29,8 +28,6 @@ export default function EmailAuthorization({navigation}) {
     if (userWriteEmail.length > 8) {
       let emailAuthForm = new FormData();
       emailAuthForm.append('email', userWriteEmail);
-      await AsyncStorage.setItem('email', userWriteEmail);
-      // 이메일 중복 확인!
       confirmEmail(
         emailAuthForm,
         (res) => {
@@ -60,9 +57,8 @@ export default function EmailAuthorization({navigation}) {
       confirmEmailCode(
         ConfirmForm,
         (res) => {
-          AsyncStorage.setItem('email', userWriteEmail);
           changeModalState();
-          navigation.navigate('SignupScreen');
+          navigation.navigate('SignupScreen', {email: userWriteEmail});
         },
         (error) => {
           dchangeModalState();
