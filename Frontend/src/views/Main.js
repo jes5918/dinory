@@ -6,6 +6,8 @@ import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertModal from '../components/elements/AlertModal';
 import SelectModal from '../components/elements/SelectModal';
+import Sound from 'react-native-sound';
+import BGM from '../assets/sound/bgm.mp3';
 import {
   StyleSheet,
   View,
@@ -14,6 +16,7 @@ import {
   TouchableOpacity,
   Text,
   BackHandler,
+  AppState,
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/core';
 // import {didTutorial} from '../api/diary/checkTutorial';
@@ -22,7 +25,22 @@ const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
+let sound = new Sound(BGM, (error) => {
+  if (error) {
+    console.log('bgm 재생 실패');
+  }
+  sound.setVolume(0.1);
+  sound.setNumberOfLoops(-1);
+});
 export default function Main() {
+  const url = require('../assets/images/background4.png');
+  const navigation = useNavigation();
+  const [child, setChild] = useState('');
+  const [backGroundCharacterImage, setBackGroundCharacterImage] = useState('');
+  const [logoutModal, setLogoutModal] = useState(false);
+  const [logoutInfoModal, setLogoutInfoModal] = useState(false);
+  const [soundSetting, setSoundSetting] = useState(true);
+
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
@@ -35,23 +53,6 @@ export default function Main() {
         BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     }, []),
   );
-  // 2차 배포 때 구현 예정
-  // let onSound = true;
-  // const stopAndPlay = () => {
-  //   if (onSound) {
-  //     console.log(onSound);
-  //     ound.play();
-  //   } else {
-  //     console.log(onSound);
-  //     ound.pause();
-  //   }
-  // };
-  const url = require('../assets/images/background4.png');
-  const navigation = useNavigation();
-  const [child, setChild] = useState('');
-  const [backGroundCharacterImage, setBackGroundCharacterImage] = useState('');
-  const [logoutModal, setLogoutModal] = useState(false);
-  const [logoutInfoModal, setLogoutInfoModal] = useState(false);
 
   // 자녀 고유넘버 가져오기
   useFocusEffect(
@@ -141,6 +142,46 @@ export default function Main() {
     navigation.navigate('Diary');
   };
 
+  // 사운드 설정
+  const [appState, setAppState] = useState(AppState.currentState);
+  const handleAppStateChange = (state) => {
+    setAppState(state);
+  };
+  useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange);
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange);
+    };
+  }, []);
+  useEffect(() => {
+    console.log(appState);
+    if (appState === 'active') {
+      if (soundSetting && !sound.isPlaying) {
+        console.log('1');
+        console.log(soundSetting);
+        sound.play();
+      } else if (soundSetting && sound.isPlaying) {
+        console.log('2');
+        console.log(soundSetting);
+        sound.pause();
+        sound.play();
+        // return;
+      } else if (!soundSetting && !sound.isPlaying) {
+        console.log('3');
+        console.log(soundSetting);
+        return;
+      } else {
+        console.log('4');
+        console.log(soundSetting);
+        sound.stop();
+        sound.pause();
+      }
+    } else {
+      sound.stop();
+      sound.pause();
+    }
+  });
+  // 사운드 설정 종료
   return (
     <View style={styles.container}>
       <SelectModal
@@ -157,7 +198,7 @@ export default function Main() {
         onHandleCloseModal={() => logoutCompleteInfomationCloseModal()}
         text={'로그아웃이 완료되었습니다.'}
         iconName={'warning'}
-        color={'green'}
+        color={'#ffcc00'}
         setTimeFunction={() => logoutCompleteInfomationTimeModal()}
       />
       <BackgroundAbsolute imageSrc={url}>
@@ -225,12 +266,13 @@ export default function Main() {
               name={'replay'}
             />
           </TouchableOpacity>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
+              setSoundSetting(!soundSetting);
             }}>
             <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() =>
