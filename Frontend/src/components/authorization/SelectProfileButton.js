@@ -18,6 +18,7 @@ export default function SelectProfileButton({
   onHandlePress,
   widthProps,
   effectDisalbe,
+  active,
 }) {
   const imageUri = Image.resolveAssetSource(imageSrc).uri;
 
@@ -31,7 +32,7 @@ export default function SelectProfileButton({
       <>
         <View
           style={[
-            styles.container,
+            active ? styles.container : styles.containerPress,
             {
               backgroundColor: checkCharacterImage(imageUri),
               width: widthProps * 1.2 || width * 0.11,
@@ -81,6 +82,15 @@ const styles = StyleSheet.create({
     borderRadius: 1000,
     elevation: 7,
     marginHorizontal: width * 0.02,
+  },
+  containerPress: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 1000,
+    elevation: 7,
+    marginHorizontal: width * 0.02,
+    elevation: 5,
   },
   characterImage: {
     resizeMode: 'contain',
