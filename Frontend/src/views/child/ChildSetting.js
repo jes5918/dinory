@@ -7,7 +7,6 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  // Image,
 } from 'react-native';
 import Header from '../../components/elements/Header';
 import ContentTitle from '../../components/elements/ContentTitle';
@@ -43,7 +42,6 @@ export default function ChildSetting() {
 
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
-  // const child = '10'; // 임시값
 
   let dinoArray = {
     0: require('../../assets/images/character1.png'),
