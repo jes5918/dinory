@@ -10,11 +10,12 @@ import voiceFou from '../../assets/sound/3hellonicetomeetyou.wav';
 import AlertModal from '../../components/elements/AlertModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {editChildVoice} from '../../api/accounts/childSettings';
-import {StyleSheet, View, Dimensions} from 'react-native';
+import {StyleSheet, View, Dimensions, Image, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
 const height = dimensions.height;
+const width = dimensions.width;
 
 export default function SelectVoice() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -174,5 +175,6 @@ const styles = StyleSheet.create({
     flex: 6,
     alignItems: 'center',
     marginTop: height * 0.17,
+    backgroundColor: '#000000',
   },
 });

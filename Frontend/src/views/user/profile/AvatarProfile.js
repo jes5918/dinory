@@ -1,6 +1,6 @@
 // basic
 import React, {useState} from 'react';
-import {StyleSheet, View, Dimensions} from 'react-native';
+import {StyleSheet, View, Dimensions, Image} from 'react-native';
 
 // axios
 import {createChildProfile} from '../../../api/accounts/childSettings';
@@ -81,6 +81,48 @@ export default function AvatarProfile({navigation, route}) {
       <View style={styles.body}>
         <ContentTitle title={'아바타를 선택하세요'} />
         <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
+          <View style={styles.crownWrapper}>
+            {imgNumber === 0 ? (
+              <Image
+                style={styles.crownImage}
+                source={require('../../../assets/images/crown.png')}
+              />
+            ) : (
+              <View style={styles.null}></View>
+            )}
+            {imgNumber === 1 ? (
+              <Image
+                style={styles.crownImage}
+                source={require('../../../assets/images/crown.png')}
+              />
+            ) : (
+              <View style={styles.null}></View>
+            )}
+            {imgNumber === 2 ? (
+              <Image
+                style={styles.crownImage}
+                source={require('../../../assets/images/crown.png')}
+              />
+            ) : (
+              <View style={styles.null}></View>
+            )}
+            {imgNumber === 3 ? (
+              <Image
+                style={styles.crownImage}
+                source={require('../../../assets/images/crown.png')}
+              />
+            ) : (
+              <View style={styles.null}></View>
+            )}
+            {imgNumber === 4 ? (
+              <Image
+                style={styles.crownImage}
+                source={require('../../../assets/images/crown.png')}
+              />
+            ) : (
+              <View style={styles.null}></View>
+            )}
+          </View>
           <View style={styles.selectDino}>
             <DinoButton
               imgSrc={require('../../../assets/images/character1.png')}
@@ -148,5 +190,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: height * 0.11,
     width: '90%',
+  },
+  crownWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '90%',
+  },
+  crownImage: {
+    width: width * 0.13,
+    height: height * 0.13,
+  },
+  null: {
+    width: width * 0.13,
+    height: height * 0.13,
   },
 });

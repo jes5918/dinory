@@ -36,6 +36,7 @@ export default function DinoButton({
   onHandlePress,
   widthProps,
   effectDisalbe,
+  active,
 }) {
   const imageUri = Image.resolveAssetSource(imgSrc).uri;
 
@@ -79,6 +80,14 @@ const styles = StyleSheet.create({
     borderRadius: 1000,
     elevation: 7,
     marginHorizontal: width * 0.01,
+  },
+  containerPress: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 1000,
+    elevation: 7,
+    marginHorizontal: width * 0.02,
   },
   characterImage: {
     resizeMode: 'contain',
