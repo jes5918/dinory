@@ -6,18 +6,16 @@
  * @flow strict-local
  */
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import Sound from 'react-native-sound';
-import BGM from '../assets/sound/BunnyHopQuincasMoreira.mp3';
 
 // components
-import NavIcon from '../components/elements/NavIcon';
+// import NavIcon from '../components/elements/NavIcon';
 // import WriteDiary from '../components/diary/WriteDiary';
 import LoadingSec from '../components/elements/LoadingSec';
-import ImageCaption from '../components/diary/ImageCaption';
-import SelectImage from '../components/diary/SelectImage';
+// import ImageCaption from '../components/diary/ImageCaption';
+// import SelectImage from '../components/diary/SelectImage';
 import SelectLayout from '../components/elements/SelectLayout';
 // import GrammarCheck from '../components/diary/GrammarCheck';
 
@@ -43,7 +41,7 @@ import ChildSetting from '../views/child/ChildSetting';
 import Diary from '../views/diary/Diary';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
-import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
+// import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
 import DiaryDetail from '../views/diaryList/DiaryDetail';
 import PassWordUpdate from '../views/parent/PassWordUpdate';
 import PinUpdate from '../views/parent/PinUpdate';
@@ -52,28 +50,6 @@ import PinAuthentication from '../views/parent/PinAuthentication';
 const Stack = createStackNavigator();
 
 const App = () => {
-  // 배경음
-  useEffect(() => {
-    return () => {
-      sound.release();
-      sound.pause();
-    };
-  });
-  let sound = new Sound(BGM, (error) => {
-    sound.setVolume(0.1);
-    sound.play();
-    sound.setNumberOfLoops(-1);
-  });
-  // let [soundSetting, setSoundSetting] = useState(true);
-
-  // 배경음 Mute/Play 2차 배포 개발 예정
-  // let [soundSetting, setSoundSetting] = useState(true);
-  // if (soundSetting) {
-  //   sound.play();
-  //   console.log(soundSetting);
-  // } else {
-  //   sound.pause();
-  // }
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HomeScreen" headerMode="none">
