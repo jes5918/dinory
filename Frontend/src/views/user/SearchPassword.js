@@ -144,7 +144,7 @@ export default function SearchPassword({navigation}) {
           onHandleCloseModal={() => fchangeModalState()}
           text={'등록된 회원정보가 없습니다!'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => fcloseModal()}
         />
         <AlertModal
@@ -152,7 +152,7 @@ export default function SearchPassword({navigation}) {
           onHandleCloseModal={() => dchangeModalState()}
           text={'인증코드가 틀렸습니다!'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => dcloseModal()}
         />
       </View>

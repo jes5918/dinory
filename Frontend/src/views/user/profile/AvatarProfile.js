@@ -161,7 +161,7 @@ export default function AvatarProfile({navigation, route}) {
             onHandleCloseModal={() => changeModalState()}
             text={'프로필이 생성되었습니다'}
             iconName={'smileo'}
-            color={'#A0A0FF'}
+            color={'green'}
             setTimeFunction={() => closeModal()}
           />
           <AlertModal
@@ -169,7 +169,7 @@ export default function AvatarProfile({navigation, route}) {
             onHandleCloseModal={() => fchangeModalState()}
             text={'프로필을 선택해주세요!'}
             iconName={'frowno'}
-            color={'#FF0000'}
+            color={'red'}
             setTimeFunction={() => fcloseModal()}
           />
         </Layout>

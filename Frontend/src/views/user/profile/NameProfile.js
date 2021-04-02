@@ -98,7 +98,7 @@ export default function NameProfile({navigation}) {
             onHandleCloseModal={() => fchangeModalState()}
             text={'이름을 입력해주세요(공백 금지)'}
             iconName={'frowno'}
-            color={'#FF0000'}
+            color={'red'}
             setTimeFunction={() => fcloseModal()}
           />
           <AlertModal
@@ -106,7 +106,7 @@ export default function NameProfile({navigation}) {
             onHandleCloseModal={() => changeModalState()}
             text={'특수문자는 사용할 수 없습니다.'}
             iconName={'frowno'}
-            color={'#A0A0FF'}
+            color={'red'}
             setTimeFunction={() => closeModal()}
           />
         </Layout>

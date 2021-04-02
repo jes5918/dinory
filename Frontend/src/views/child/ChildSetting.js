@@ -267,7 +267,7 @@ export default function ChildSetting() {
                     onHandleCloseModal={() => changeModalState()}
                     text={'내 정보가 수정되었어요!'}
                     iconName={'smileo'}
-                    color={'#A0A0FF'}
+                    color={'green'}
                     setTimeFunction={() => closeModal()}
                   />
                   <AlertModal
@@ -275,7 +275,7 @@ export default function ChildSetting() {
                     onHandleCloseModal={() => fchangeModalState()}
                     text={'다시 시도해주세요!'}
                     iconName={'frowno'}
-                    color={'#FF0000'}
+                    color={'red'}
                     setTimeFunction={() => fcloseModal()}
                   />
                   <AlertModal
@@ -283,7 +283,7 @@ export default function ChildSetting() {
                     onHandleCloseModal={() => bchangeModalState()}
                     text={'태어난 년도를 다시 확인해볼까요?'}
                     iconName={'frowno'}
-                    color={'#FF0000'}
+                    color={'red'}
                     setTimeFunction={() => bcloseModal()}
                   />
                 </Layout>

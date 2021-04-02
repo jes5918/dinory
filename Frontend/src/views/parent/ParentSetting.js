@@ -175,7 +175,7 @@ function ParentSetting({route}) {
         onHandleCloseModal={() => logoutCompleteInfomationCloseModal()}
         text={'로그아웃이 완료되었습니다.'}
         iconName={'warning'}
-        color={'#ffcc00'}
+        color={'green'}
         setTimeFunction={() => logoutCompleteInfomationTimeModal()}
       />
       <AlertModal
@@ -183,7 +183,7 @@ function ParentSetting({route}) {
         onHandleCloseModal={() => profileDeleteInfomationCloseModal()}
         text={'프로필이 삭제되었습니다.'}
         iconName={'warning'}
-        color={'#ffcc00'}
+        color={'green'}
         setTimeFunction={() => profileDeleteInfomationTimeModal()}
       />
       <BackgroundAbsolute imageSrc={url}>
