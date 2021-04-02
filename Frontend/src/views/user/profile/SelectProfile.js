@@ -15,7 +15,7 @@ import SelectProfileButton from '../../../components/authorization/SelectProfile
 import BasicButton from '../../../components/elements/BasicButton';
 import Header from '../../../components/elements/Header';
 import SelectModal from '../../../components/elements/SelectModal';
-import {useFocusEffect} from '@react-navigation/core';
+import {useNavigation, useFocusEffect} from '@react-navigation/core';
 // static variable
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width;
@@ -26,19 +26,18 @@ export default function SelectProfile({navigation, route}) {
   const imageSrc = require('../../../assets/images/background2.png');
   const [logoutModal, setLogoutModal] = useState(false);
 
-  useEffect(() => {
-    const backAction = () => {
-      onHandleLogout();
-      return true;
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        onHandleLogout();
+        return true;
+      };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-
-    return () => backHandler.remove();
-  }, []);
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
 
   const transformImage = (num) => {
     let Src = '';
