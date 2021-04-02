@@ -51,6 +51,10 @@ stop_word = set(stopwords.words('english'))
 @permission_classes([IsAuthenticated])
 def diary_create(request):
     child = get_object_or_404(Child, parent=request.user, pk=request.GET.get('child'))
+    diary_title = request.data.get('title')
+    for content in diary_title:
+        if ord('ㄱ') <= ord(content) <= ord('힣'):
+            return Response({'error' : '한글은 작성할 수 없습니다'}, status=status.HTTP_400_BAD_REQUEST)
     diary_content = request.data.get('content')
     for content in diary_content:
         if ord('ㄱ') <= ord(content) <= ord('힣'):
