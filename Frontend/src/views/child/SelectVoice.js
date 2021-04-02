@@ -141,7 +141,7 @@ export default function SelectVoice() {
             onHandleCloseModal={() => changeModalState()}
             text={'목소리가 변경되었어요!'}
             iconName={'smileo'}
-            color={'#A0A0FF'}
+            color={'green'}
             setTimeFunction={() => closeModal()}
           />
           <AlertModal
@@ -149,7 +149,7 @@ export default function SelectVoice() {
             onHandleCloseModal={() => fchangeModalState()}
             text={'다시 시도해주세요!'}
             iconName={'frowno'}
-            color={'#FF0000'}
+            color={'red'}
             setTimeFunction={() => fcloseModal()}
           />
           <AlertModal
@@ -157,7 +157,7 @@ export default function SelectVoice() {
             onHandleCloseModal={() => noChangeModalState()}
             text={'목소리를 선택해주세요!'}
             iconName={'frowno'}
-            color={'#FF0000'}
+            color={'red'}
             setTimeFunction={() => noCloseModal()}
           />
         </View>

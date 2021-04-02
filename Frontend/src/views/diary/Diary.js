@@ -1,24 +1,10 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  Dimensions,
-  ActivityIndicator,
-} from 'react-native';
+import {ImageBackground, StyleSheet, Dimensions} from 'react-native';
 import {useFocusEffect} from '@react-navigation/core';
-
 import UploadPhoto from '../../components/diary/diaryPage/UploadPhoto';
 import ShowICresult from '../../components/diary/diaryPage/ShowICresult';
 import CreateDiary from '../../components/diary/diaryPage/CreateDiary';
-
-import WriteDiary from '../../components/diary/WriteDiary';
-import ArrowButton from '../../components/elements/ArrowButton';
 import LoadingSec from '../../components/elements/LoadingSec';
-import AlertModal from '../../components/elements/AlertModal';
-import SelectModal from '../../components/elements/SelectModal';
-
 import {
   createDiary,
   imageCaptioning,
@@ -26,8 +12,6 @@ import {
   grammarCheck,
 } from '../../api/diary/writeDiary';
 import {useNavigation} from '@react-navigation/core';
-import MaterialIcons from 'react-native-vector-icons/AntDesign';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import DiraryAgainTutorial from '../../views/diary/DiraryAgainTutorial';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -66,7 +50,6 @@ export default function Diary() {
   const [selectImage, setSelectImage] = useState(false);
   const [captionWords, setCaptionWords] = useState(false);
   const [somethignwrong, setSomethignwrong] = useState(false);
-
   const [modalVisible, setModalVisible] = useState(false);
   const [koreanWarnModalVisible, setKoreanWarnModalVisible] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -384,26 +367,5 @@ const styles = StyleSheet.create({
     zIndex: 1,
     width: width,
     height: height,
-  },
-  arrowBtnBox: {
-    position: 'absolute',
-    width: 'auto',
-    height: 'auto',
-    overflow: 'visible',
-    top: height * 0.02,
-    left: '2%',
-    zIndex: 999,
-  },
-  mainIconBox: {
-    zIndex: 999,
-    position: 'absolute',
-    top: height * 0.02,
-    right: '2%',
-    width: width * 0.05,
-    height: width * 0.05,
-  },
-  mainIcon: {
-    color: '#fff',
-    fontSize: width * 0.04,
   },
 });

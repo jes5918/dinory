@@ -213,7 +213,7 @@ export default function LoginScreen({navigation}) {
           onHandleCloseModal={() => changeModalState()}
           text={'로그인 되었습니다.'}
           iconName={'smileo'}
-          color={'#A0A0FF'}
+          color={'green'}
           setTimeFunction={() => closeModal()}
         />
         <AlertModal
@@ -221,7 +221,7 @@ export default function LoginScreen({navigation}) {
           onHandleCloseModal={() => dchangeModalState()}
           text={'아이디 또는 비밀번호를 확인해주세요'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => dcloseModal()}
         />
         <AlertModal
@@ -229,7 +229,7 @@ export default function LoginScreen({navigation}) {
           onHandleCloseModal={() => pchangeModalState()}
           text={'비밀번호는 영어 대,소문자 + 숫자로 구성된 8자리 이상입니다!'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => pcloseModal()}
         />
       </View>

@@ -192,7 +192,7 @@ export default function SingupSCreen({navigation, route}) {
           onHandleCloseModal={() => changeModalState()}
           text={'사용가능한 아이디입니다.'}
           iconName={'smileo'}
-          color={'#A0A0FF'}
+          color={'green'}
           setTimeFunction={() => closeModal()}
         />
         <AlertModal
@@ -200,7 +200,7 @@ export default function SingupSCreen({navigation, route}) {
           onHandleCloseModal={() => dchangeModalState()}
           text={'존재하는 아이디입니다.'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => dcloseModal()}
         />
         <AlertModal
@@ -208,15 +208,15 @@ export default function SingupSCreen({navigation, route}) {
           onHandleCloseModal={() => bchangeModalState()}
           text={'비밀번호가 일치하지않습니다.'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => bcloseModal()}
         />
         <AlertModal
           modalVisible={cmodalVisible}
           onHandleCloseModal={() => cchangeModalState()}
-          text={'아이디 중복확인 하세요'}
+          text={'아이디 중복확인을 해주세요.'}
           iconName={'smileo'}
-          color={'#A0A0FF'}
+          color={'red'}
           setTimeFunction={() => ccloseModal()}
         />
         <AlertModal
@@ -224,7 +224,7 @@ export default function SingupSCreen({navigation, route}) {
           onHandleCloseModal={() => pchangeModalState()}
           text={'비밀번호는 영어 대,소문자 + 숫자로 구성된 8자리 이상입니다!'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => pcloseModal()}
         />
       </View>
