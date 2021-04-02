@@ -134,7 +134,11 @@ const SelectImage = ({setSelectImage}) => {
   const layoutHeight = dimensions.height * 0.5;
 
   return (
-    <Layout width={700} height={500} opacity={0.9} styleProps={{zIndex: 10}}>
+    <Layout
+      width={'60%'}
+      height={'65%'}
+      opacity={0.9}
+      styleProps={{zIndex: 10}}>
       <View style={[styles.container]}>
         <TouchableOpacity
           activeOpacity={0.7}
@@ -231,11 +235,6 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
 
-  imageStyle: {
-    width: 400,
-    height: 400,
-    margin: 5,
-  },
   container: {
     width: '100%',
     flex: 1,
