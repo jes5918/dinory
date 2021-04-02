@@ -15,7 +15,6 @@ import {useNavigation} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
 const height = dimensions.height;
-const width = dimensions.width;
 
 export default function SelectVoice() {
   const [modalVisible, setModalVisible] = useState(false);
