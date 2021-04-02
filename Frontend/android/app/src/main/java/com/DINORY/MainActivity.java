@@ -1,4 +1,4 @@
-package com.frontend;
+package com.DINORY;
 
 import com.facebook.react.ReactActivity;
 
