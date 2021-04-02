@@ -23,19 +23,18 @@ const width = dimensions.width;
 const height = dimensions.height;
 
 export default function Main() {
-  useEffect(() => {
-    const backAction = () => {
-      onHandleLogout();
-      return true;
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp();
+        return true;
+      };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-
-    return () => backHandler.remove();
-  }, []);
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
   // 2차 배포 때 구현 예정
   // let onSound = true;
   // const stopAndPlay = () => {
