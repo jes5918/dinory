@@ -89,7 +89,7 @@ const App = () => {
         <Stack.Screen
           name="SelectProfile"
           component={SelectProfile}
-          options={{gestureEnabled: true}}
+          options={{gestureEnabled: false}}
         />
         <Stack.Screen name="NameProfile" component={NameProfile} />
         <Stack.Screen name="AgeProfile" component={AgeProfile} />
@@ -99,7 +99,7 @@ const App = () => {
         <Stack.Screen
           name="Main"
           component={Main}
-          options={{gestureEnabled: true}}
+          options={{gestureEnabled: false}}
         />
         <Stack.Screen name="ParentSetting" component={ParentSetting} />
         <Stack.Screen name="DiaryList" component={DiaryList} />
