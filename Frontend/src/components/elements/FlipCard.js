@@ -1,79 +1,197 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useMemo} from 'react';
 import {
   Animated,
   StyleSheet,
   View,
   Text,
-  Button,
-  TouchableHighlight,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    bckgroundColor: '#fff',
-  },
-  card: {
-    width: '50%',
-    height: '50%',
-    transform: [{rotateY: '180deg'}],
-  },
-  card2: {
-    width: '50%',
-    height: '50%',
-    transform: [{rotateY: '0deg'}],
-  },
-  front: {
-    // position: 'absolute',
-    backgroundColor: 'pink',
-    // backfaceVisibility: 'hidden',
-  },
-  back: {
-    // position: 'absolute',
-    backgroundColor: 'blue',
-    transform: [{rotateY: '180deg'}],
-    // backfaceVisibility: 'hidden',
-  },
-});
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getWordDetail} from '../../api/word/readWord';
+import {useFocusEffect} from '@react-navigation/core';
+import Sound from 'react-native-sound';
 
-export default function FlipCard() {
-  const [temp, settemp] = useState(false);
-  const flip = () => {
-    if (!temp) {
-      settemp(true);
-    } else {
-      settemp(false);
-    }
+//  english : 영어 단어, korean: 뜻, pos(part of speech): 품사
+export default function FlipCard({english, korean, pos, voiceNum}) {
+  const animationvalue = useMemo(() => new Animated.Value(0), []);
+  const [wordDetail, setWordDetail] = useState();
+  const [child, setChild] = useState('');
+  let temp = 0;
+
+  animationvalue.addListener((e) => {
+    temp = e.value;
+  });
+
+  // const getProfileInfo = useCallback(async () => {
+  //   await AsyncStorage.getItem('profile').then((profile) => {
+  //     const data = JSON.parse(profile);
+  //     setChild(data.profile_pk);
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   getProfileInfo();
+  // }, [getProfileInfo]);
+
+  useFocusEffect(
+    useCallback(() => {
+      AsyncStorage.getItem('profile').then((profile) => {
+        const data = JSON.parse(profile);
+        setChild(data.profile_pk);
+      });
+    }, []),
+  );
+
+  const frontflipRange = animationvalue.interpolate({
+    inputRange: [0, 180],
+    outputRange: ['0deg', '180deg'],
+  });
+  const backflipRange = animationvalue.interpolate({
+    inputRange: [0, 180],
+    outputRange: ['180deg', '360deg'],
+  });
+
+  const transformFront = {
+    transform: [{rotateY: frontflipRange}],
   };
-  return (
-    <Animated.View style={styles.container}>
-      <TouchableOpacity onPress={() => flip()}>
-        <Animated.View title="apple" style={temp ? styles.card : styles.card2}>
-          <Animated.View style={styles.front}>
-            <Text>APPLE</Text>
-          </Animated.View>
-          <Animated.View style={styles.back}>
-            <Text>사과</Text>
-          </Animated.View>
-        </Animated.View>
-      </TouchableOpacity>
-    </Animated.View>
 
+  const transformBack = {
+    transform: [{rotateY: backflipRange}],
+  };
+
+  const baseUrl = 'https://j4b105.p.ssafy.io/api';
+  const sound = new Sound(
+    baseUrl +
+      '/media/tts_basic/' +
+      `${String(voiceNum)}` +
+      `${english}` +
+      '.wav',
+    Sound.MAIN_BUNDLE,
+    (error) => {},
+  );
+
+  const flip = useCallback(() => {
+    sound.play();
+    if (temp < 90) {
+      getWordDetail(
+        {child: child, word: english},
+        (res) => {
+          let result = res.data.sentence;
+          let selectedResult = result.replace('<b>', '').replace('</b>', '');
+          setWordDetail(() => selectedResult);
+        },
+        (err) => {},
+      );
+      Animated.timing(animationvalue, {
+        toValue: 180,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(animationvalue, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [temp, animationvalue, english, child]);
+
+  return (
+    <TouchableOpacity
+      style={[styles.card]}
+      onPress={() => flip()}
+      activeOpacity={1}>
+      <Animated.View style={[transformFront, styles.front]}>
+        <Text style={[styles.word]}>{english}</Text>
+      </Animated.View>
+      <Animated.View style={[transformBack, styles.back]}>
+        <View style={[styles.backWordBox]}>
+          <Text style={[styles.word]}>{korean}</Text>
+          <Text style={[styles.wordClass]}>{pos}</Text>
+        </View>
+        <View style={styles.backSentenceBox}>
+          <Text style={[styles.wordSentence]}>{wordDetail}</Text>
+        </View>
+      </Animated.View>
+    </TouchableOpacity>
   );
 }
 
-{
-  /* <div class="container">
-  <div class="card" onclick="flip(event)">
-    <div class="front">
-      <h1>APPLE</h1>
-      <p> Here is some additional text</p>
-    </div>
-    <div class="back">
-      <h1>사과</h1>
-    </div>
-  </div>
-</div>; */
-}
+const dimensions = Dimensions.get('window');
+const screenWidth = dimensions.width;
+const screenHeight = dimensions.height;
+const cardWidth = screenWidth * 0.2;
+const cardHeight = screenHeight * 0.4;
+
+const styles = StyleSheet.create({
+  card: {
+    position: 'relative',
+    backgroundColor: 'transparent',
+    width: cardWidth,
+    height: cardHeight,
+    elevation: 5,
+  },
+  front: {
+    position: 'absolute',
+    width: cardWidth,
+    height: cardHeight,
+    backgroundColor: '#f0859f',
+    backfaceVisibility: 'hidden',
+    borderRadius: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  back: {
+    position: 'absolute',
+    width: cardWidth,
+    height: cardHeight,
+    backgroundColor: '#76b0e9',
+    backfaceVisibility: 'hidden',
+    borderRadius: 30,
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '5%',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+
+  word: {
+    fontSize: cardWidth * 0.15,
+    color: 'white',
+    fontWeight: 'bold',
+    fontFamily: 'HoonPinkpungchaR',
+  },
+  wordClass: {
+    fontSize: cardWidth * 0.1,
+    color: 'white',
+    fontFamily: 'HoonPinkpungchaR',
+  },
+  wordSentence: {
+    fontFamily: 'HoonPinkpungchaR',
+    fontSize: cardWidth * 0.08,
+    fontWeight: '500',
+  },
+  backWordBox: {
+    width: '100%',
+    height: '45%',
+    display: 'flex',
+    padding: cardHeight * 0.05,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  backSentenceBox: {
+    width: '100%',
+    height: '45%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 30,
+    padding: cardWidth * 0.06,
+  },
+});
