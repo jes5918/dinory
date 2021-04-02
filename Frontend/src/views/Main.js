@@ -157,7 +157,7 @@ export default function Main() {
         onHandleCloseModal={() => logoutCompleteInfomationCloseModal()}
         text={'로그아웃이 완료되었습니다.'}
         iconName={'warning'}
-        color={'#ffcc00'}
+        color={'green'}
         setTimeFunction={() => logoutCompleteInfomationTimeModal()}
       />
       <BackgroundAbsolute imageSrc={url}>

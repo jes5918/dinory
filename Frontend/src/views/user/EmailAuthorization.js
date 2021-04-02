@@ -163,7 +163,7 @@ export default function EmailAuthorization({navigation}) {
           onHandleCloseModal={() => changeModalState()}
           text={'인증이 완료되었습니다!'}
           iconName={'smileo'}
-          color={'#A0A0FF'}
+          color={'#green'}
           setTimeFunction={() => closeModal()}
         />
         <AlertModal
@@ -171,7 +171,7 @@ export default function EmailAuthorization({navigation}) {
           onHandleCloseModal={() => dchangeModalState()}
           text={'인증번호가 틀렸습니다!'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => dcloseModal()}
         />
         <AlertModal
@@ -179,7 +179,7 @@ export default function EmailAuthorization({navigation}) {
           onHandleCloseModal={() => bchangeModalState()}
           text={'인증번호를 보냈습니다'}
           iconName={'smileo'}
-          color={'#A0A0FF'}
+          color={'green'}
           setTimeFunction={() => bcloseModal()}
         />
         <AlertModal
@@ -187,7 +187,7 @@ export default function EmailAuthorization({navigation}) {
           onHandleCloseModal={() => cchangeModalState()}
           text={'이미 등록된 이메일입니다'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => ccloseModal()}
         />
       </View>

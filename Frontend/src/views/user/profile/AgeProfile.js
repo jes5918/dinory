@@ -103,7 +103,7 @@ export default function AgeProfile({navigation, route}) {
             onHandleCloseModal={() => bchangeModalState()}
             text={'태어난 년도를 다시 확인해볼까요?'}
             iconName={'frowno'}
-            color={'#FF0000'}
+            color={'red'}
             setTimeFunction={() => bcloseModal()}
           />
         </Layout>
