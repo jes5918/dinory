@@ -132,7 +132,7 @@ export default function HomeScreen({navigation, route}) {
               onHandleCloseModal={() => changeModalState()}
               text={'로그인 되었습니다.'}
               iconName={'smileo'}
-              color={'#A0A0FF'}
+              color={'green'}
               setTimeFunction={() => closeModal()}
             />
           </Layout>

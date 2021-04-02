@@ -140,7 +140,7 @@ export default function PinCreate({navigation, route}) {
           onHandleCloseModal={() => changeModalState()}
           text={'회원가입 되었습니다.'}
           iconName={'smileo'}
-          color={'#A0A0FF'}
+          color={'green'}
           setTimeFunction={() => closeModal()}
         />
         <AlertModal
@@ -148,7 +148,7 @@ export default function PinCreate({navigation, route}) {
           onHandleCloseModal={() => dchangeModalState()}
           text={'핀 번호가 일치하지않습니다.'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => dcloseModal()}
         />
         <AlertModal
@@ -156,7 +156,7 @@ export default function PinCreate({navigation, route}) {
           onHandleCloseModal={() => bchangeModalState()}
           text={'숫자 6자리로 입력해주세요.'}
           iconName={'smileo'}
-          color={'#A0A0FF'}
+          color={'red'}
           setTimeFunction={() => bcloseModal()}
         />
       </View>
