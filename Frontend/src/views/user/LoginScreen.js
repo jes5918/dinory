@@ -29,28 +29,9 @@ export default function LoginScreen({navigation}) {
   const [autoLogin, setAutoLogin] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
-  const [pmodalVisible, setpModalVisible] = useState(false);
 
-  const chkPW = (password) => {
-    let chk1 = /^[a-zA-Z0-9]{8,20}$/;
-    let chk2 = /[a-z]/;
-    let chk3 = /[A-Z]/;
-    let chk4 = /\d/;
-
-    return chk1.test(password) &&
-      chk2.test(password) &&
-      chk3.test(password) &&
-      chk4.test(password)
-      ? true
-      : false;
-  };
   const LoginHandler = async () => {
     if (userName.length !== 0 && userPassword.length !== 0) {
-      if (!chkPW(userPassword)) {
-        pchangeModalState();
-        return;
-      }
-      console.log(chkPW(userPassword));
       let loginForm = new FormData();
       loginForm.append('username', userName);
       loginForm.append('password', userPassword);
@@ -140,14 +121,6 @@ export default function LoginScreen({navigation}) {
   const dchangeModalState = () => {
     setdModalVisible(!dmodalVisible);
   };
-  const pcloseModal = () => {
-    setTimeout(() => {
-      setpModalVisible(!pmodalVisible);
-    }, 2000);
-  };
-  const pchangeModalState = () => {
-    setpModalVisible(!pmodalVisible);
-  };
   return (
     <AuthBackGround>
       <Header logoHeader={true} />
@@ -229,14 +202,6 @@ export default function LoginScreen({navigation}) {
           iconName={'frowno'}
           color={'red'}
           setTimeFunction={() => dcloseModal()}
-        />
-        <AlertModal
-          modalVisible={pmodalVisible}
-          onHandleCloseModal={() => pchangeModalState()}
-          text={'비밀번호는 영어 대,소문자 + 숫자로 구성된 8자리 이상입니다!'}
-          iconName={'frowno'}
-          color={'red'}
-          setTimeFunction={() => pcloseModal()}
         />
       </View>
     </AuthBackGround>

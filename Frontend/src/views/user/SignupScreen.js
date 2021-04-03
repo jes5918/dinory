@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     position: 'absolute',
     bottom: 0,
-    left: 0,
+    left: 10,
     fontFamily: 'NotoSansKR-Bold',
   },
 });

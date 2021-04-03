@@ -36,6 +36,11 @@ export default function NameProfile({navigation}) {
       fchangeModalState();
       return;
     }
+    let number_pattern = /[0-9]/g;
+    if (number_pattern.test(Name) === true) {
+      changeModalState();
+      return;
+    }
 
     let special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 
@@ -104,7 +109,7 @@ export default function NameProfile({navigation}) {
           <AlertModal
             modalVisible={modalVisible}
             onHandleCloseModal={() => changeModalState()}
-            text={'특수문자는 사용할 수 없습니다.'}
+            text={'숫자 또는 특수문자는 사용할 수 없습니다.'}
             iconName={'frowno'}
             color={'red'}
             setTimeFunction={() => closeModal()}
