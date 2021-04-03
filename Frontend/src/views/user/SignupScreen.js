@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Text, View, Dimensions, ScrollView} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+// components
 import {duflicationCheckID} from '../../api/accounts/signup';
 import BasicButton from '../../components/elements/BasicButton';
 import Header from '../../components/elements/Header';
@@ -40,10 +45,10 @@ export default function SingupSCreen({navigation, route}) {
     );
   };
   const chkPW = (password) => {
-    chk1 = /^[a-zA-Z0-9]{8,20}$/;
-    chk2 = /[a-z]/;
-    chk3 = /[A-Z]/;
-    chk4 = /\d/;
+    let chk1 = /^[a-zA-Z0-9]{8,20}$/;
+    let chk2 = /[a-z]/;
+    let chk3 = /[A-Z]/;
+    let chk4 = /\d/;
 
     return chk1.test(password) &&
       chk2.test(password) &&
@@ -118,17 +123,15 @@ export default function SingupSCreen({navigation, route}) {
     <AuthBackGround>
       <Header logoHeader={true} />
       <View style={styles.container}>
-        <View style={styles.view}>
-          <AuthTitle title={'회원가입'} />
-        </View>
+        <AuthTitle marginBottom={hp(5)} title={'회원가입'} />
         <View style={styles.body}>
           <View style={styles.text_Input_Button}>
             <AuthTextInput
-              marginBottom={windowHeight * 0.043}
+              marginBottom={hp(5)}
               text={'아이디를 입력해주세요'}
-              width={windowWidth * 0.285}
-              height={windowHeight * 0.08}
-              size={18}
+              width={wp(28)}
+              height={hp(8)}
+              size={hp(2.8)}
               setFunction={setUserName}
               secureTextEntry={false}
               autoFocus={false}
@@ -139,8 +142,8 @@ export default function SingupSCreen({navigation, route}) {
               customFontSize={18}
               paddingHorizon={0}
               paddingVertical={16}
-              btnWidth={111}
-              btnHeight={windowHeight * 0.08}
+              btnWidth={wp(9)}
+              btnHeight={hp(8)}
               borderRadius={14}
               onHandlePress={() => idCheck()}
             />
@@ -148,9 +151,9 @@ export default function SingupSCreen({navigation, route}) {
           <AuthTextInput
             marginBottom={windowHeight * 0.02}
             text={'비밀번호를 입력해주세요'}
-            width={windowWidth * 0.38}
-            height={windowHeight * 0.08}
-            size={18}
+            width={wp(38)}
+            height={hp(8)}
+            size={hp(2.8)}
             setFunction={setUserPassword}
             secureTextEntry={true}
             autoFocus={false}
@@ -160,11 +163,11 @@ export default function SingupSCreen({navigation, route}) {
             합니다
           </Text>
           <AuthTextInput
-            marginBottom={windowHeight * 0.05}
+            marginBottom={hp(5)}
             text={'비밀번호를 한 번 더 입력해주세요'}
-            width={windowWidth * 0.38}
-            height={windowHeight * 0.08}
-            size={18}
+            width={wp(38)}
+            height={hp(8)}
+            size={hp(2.8)}
             setFunction={setUserPasswordchk}
             secureTextEntry={true}
             autoFocus={false}
@@ -178,11 +181,11 @@ export default function SingupSCreen({navigation, route}) {
         <View style={styles.viewBottom}>
           <BasicButton
             text="다음"
-            customFontSize={24}
-            paddingHorizon={11}
-            paddingVertical={24}
-            btnWidth={windowWidth * 0.38}
-            btnHeight={windowHeight * 0.08}
+            customFontSize={hp(3.5)}
+            paddingHorizon={wp(2)}
+            paddingVertical={hp(3)}
+            btnWidth={wp(38)}
+            btnHeight={hp(8)}
             borderRadius={14}
             onHandlePress={() => SubmitHandler()}
           />
@@ -239,10 +242,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    width: windowWidth * 0.4984,
-    height: windowHeight * 0.853,
+    minWidth: wp(50),
+    minHeight: hp(80),
     borderRadius: 30,
     elevation: 7,
+    paddingVertical: hp('5%'),
   },
   body: {
     display: 'flex',

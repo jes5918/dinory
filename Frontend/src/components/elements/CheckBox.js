@@ -160,11 +160,11 @@ const windowHeight = Dimensions.get('window').height; // 768
 const styles = StyleSheet.create({
   box: {
     position: 'relative',
-    height: windowHeight * 0.05,
-    margin: 5,
+    minHeight: windowHeight * 0.07,
+    margin: windowWidth * 0.005,
   },
   container: {
-    height: windowHeight * 0.05,
+    minHeight: windowHeight * 0.07,
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.25)',
     borderRadius: 50,
@@ -191,8 +191,8 @@ const styles = StyleSheet.create({
     fontSize: windowWidth * 0.011,
   },
   checkRound: {
-    width: windowWidth * 0.01875,
-    height: windowHeight * 0.03125,
+    width: windowWidth * 0.02,
+    height: windowWidth * 0.02,
     borderWidth: windowWidth * 0.0015625,
     borderColor: '#DBDBDB',
     borderRadius: 1000,
