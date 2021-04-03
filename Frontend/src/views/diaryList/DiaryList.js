@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useNavigation, useFocusEffect} from '@react-navigation/core';
-import useDeepCompareEffect from 'use-deep-compare-effect';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/core';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 // components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
@@ -21,21 +23,12 @@ import DiaryFooterImage from '../../components/diary/DiaryFooterImage';
 // data request
 import {getNotesByMonth, getNotesByYear} from '../../api/diary/readDiary';
 
-// image source
+// static variables
 const url = require('../../assets/images/background1.png');
 const egg = require('../../assets/images/egg.png');
 const character = require('../../assets/images/character2.png');
-
-// static variables
 const baseURL = 'https://j4b105.p.ssafy.io/api';
 
-// 일기 조회 컴포넌트 구조(페이지는 header, body, footer로 나눔)
-// |- DiaryList : 렌더링할 컴포넌트
-//    |- MainCardComponent : body에 들어가는 날짜, 달걀, 카드
-//        |- CardComponent : MainCardComponent에 들어가는 카드
-//    |- FooterImage : footer에 들어가는 날짜, 이미지
-
-// CardComponent : 일기 제목 텍스트, 이미지가 있는 컴포넌트입니다.
 const CardComponent = ({diaryText, diaryImage, onHandlePress}) => {
   return (
     <TouchableOpacity
@@ -50,7 +43,6 @@ const CardComponent = ({diaryText, diaryImage, onHandlePress}) => {
   );
 };
 
-// MainCardComponent : 날짜 부분, Egg 이미지, CardComponent를 포함하는 컴포넌트입니다.
 const MainCardComponent = ({
   diaryText,
   diaryImage,
@@ -74,10 +66,7 @@ const MainCardComponent = ({
   );
 };
 
-// DiaryList : 전체를 렌더링하는 React Function Component입니다.
 function DiaryList({route}) {
-  // childID를 props로 받지 않고 Redux에 있는 데이터를 조회한다.
-  // states
   const [dataByMonth, setDataByMonth] = useState();
   const [dataByYear, setDataByYear] = useState();
   const [fetchYear, setFetchYear] = useState();
@@ -130,7 +119,6 @@ function DiaryList({route}) {
   useEffect(() => {
     fetchNotesByMonth(profilePK, fetchYear, fetchMonth);
     fetchNotesByYear(profilePK);
-    console.log('출력해보자 : ', profilePK, fetchMonth, fetchYear);
   }, [profilePK, fetchYear, fetchMonth]);
 
   return (
@@ -205,9 +193,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     marginTop: windowHeight * 0.1,
   },
-  text: {
-    fontSize: 40,
-  },
   bodyCardContainer: {
     backgroundColor: 'transparent',
     width: '100%',
@@ -247,6 +232,7 @@ const styles = StyleSheet.create({
   mainEgg: {
     width: windowWidth * 0.031,
     height: windowHeight * 0.061,
+    resizeMode: 'contain',
   },
   line: {
     width: windowWidth,
@@ -254,7 +240,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ED6D48',
     position: 'absolute',
     top: windowHeight * 0.1,
-    // left: windowWidth * 0.06,
     zIndex: 0,
   },
   character: {
@@ -264,6 +249,7 @@ const styles = StyleSheet.create({
     top: windowHeight * 0.02,
     left: windowWidth * 0.015,
     zIndex: 100,
+    resizeMode: 'contain',
   },
 
   cardContainer: {
@@ -278,7 +264,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: windowWidth * 0.0235,
     paddingVertical: windowHeight * 0.0266,
-    marginTop: 10,
+    marginTop: hp(1.5),
   },
   cardText: {
     fontFamily: 'HoonPinkpungchaR',

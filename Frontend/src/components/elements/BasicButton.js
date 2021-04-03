@@ -55,8 +55,6 @@ const windowHeight = windowSize.height;
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    width: windowWidth * 0.4,
-    height: windowHeight * 0.08,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
