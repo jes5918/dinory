@@ -217,9 +217,9 @@ export default function SingupSCreen({navigation, route}) {
         <AlertModal
           modalVisible={cmodalVisible}
           onHandleCloseModal={() => cchangeModalState()}
-          text={'아이디 중복확인 하세요'}
+          text={'아이디 중복확인을 해주세요!'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => ccloseModal()}
         />
         <AlertModal
