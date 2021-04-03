@@ -10,7 +10,7 @@ import voiceFou from '../../assets/sound/3hellonicetomeetyou.wav';
 import AlertModal from '../../components/elements/AlertModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {editChildVoice} from '../../api/accounts/childSettings';
-import {StyleSheet, View, Dimensions, Image, Text} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 const dimensions = Dimensions.get('window');
