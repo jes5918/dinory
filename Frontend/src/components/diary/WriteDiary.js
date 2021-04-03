@@ -58,7 +58,8 @@ export default function WriteDiary({
                     height: screenWidth * 0.02,
                     resizeMode: 'contain',
                     marginRight: screenHeight * 0.01,
-                  }}></Image>
+                  }}
+                />
                 <View
                   style={{
                     width: screenWidth * 0.23,
@@ -99,7 +100,8 @@ export default function WriteDiary({
             resizeMode: 'contain',
             height: screenHeight * 0.13,
             marginVertical: screenHeight * 0.01,
-          }}></Image>
+          }}
+        />
       )}
     </View>
   );
@@ -115,7 +117,9 @@ export default function WriteDiary({
                 ref={titleInput}
                 style={[styles.TitleInput]}
                 autoCompleteType={'off'}
-                onChange={(e) => onHandleChangeTitle(e)}></TextInput>
+                placeholder={'여기를 터치하세요!'}
+                onChange={(e) => onHandleChangeTitle(e)}
+              />
             </View>
             <TextInput
               style={[styles.contentInput]}
@@ -123,7 +127,9 @@ export default function WriteDiary({
               autoFocus={true}
               value={content}
               autoCompleteType={'off'}
-              onChange={(e) => onHandleChangeContent(e)}></TextInput>
+              placeholder={'여기를 터치하세요!'}
+              onChange={(e) => onHandleChangeContent(e)}
+            />
           </ScrollView>
           {grammarchecked && grammar}
         </View>
@@ -158,7 +164,8 @@ export default function WriteDiary({
       </View>
       <WordList
         words={wordList}
-        onHandleChangeTemp={(e) => onHandleChangeTemp(e)}></WordList>
+        onHandleChangeTemp={(e) => onHandleChangeTemp(e)}
+      />
     </KeyboardAvoidingView>
   );
 }
@@ -181,9 +188,8 @@ const styles = StyleSheet.create({
   correctList: {
     marginHorizontal: 10,
     paddingVertical: screenHeight * 0.02,
-    paddingHorizontal: screenWidth * 0.017,
+    paddingHorizontal: screenWidth * 0.015,
     width: '100%',
-    paddingHorizontal: screenHeight * 0.015,
   },
   buttonPosition: {
     width: 'auto',
@@ -285,7 +291,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
     elevation: 5,
     marginVertical: 15,
   },

@@ -7,14 +7,20 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+//components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import DiaryListFooter from '../../components/diary/DiaryListFooter';
 import DiaryFooterImage from '../../components/diary/DiaryFooterImage';
 import {getNotesByDay, getNotesByOneDay} from '../../api/diary/readDiary';
 
+// static variable
 const image = require('../../assets/images/background1.png');
-
 const baseURL = 'https://j4b105.p.ssafy.io/api';
 
 const Diary = ({data}) => {
@@ -68,11 +74,9 @@ function DiaryDetail({route}) {
         month: String(month).length === 1 ? '0' + String(month) : month,
       },
       (res) => {
-        setDataJustOneDay(() => res.data); // 일단 하나 받는 걸로 고정.
+        setDataJustOneDay(() => res.data);
       },
-      (err) => {
-        console.error(err);
-      },
+      (err) => {},
     );
   };
 
@@ -189,6 +193,7 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.3,
     height: windowWidth * 0.3,
     borderRadius: 30,
+    resizeMode: 'contain',
   },
   mainBox: {
     display: 'flex',
@@ -215,7 +220,6 @@ const styles = StyleSheet.create({
   },
   contentText: {
     fontFamily: 'HoonPinkpungchaR',
-    // fontSize: windowWidth * 0.014, // 18
     fontSize: windowWidth * 0.017, // 18
     lineHeight: windowHeight * 0.05,
     textDecorationLine: 'underline',

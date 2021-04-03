@@ -108,7 +108,7 @@ export default function EmailAuthorization({navigation}) {
         <View style={styles.bottomContainer}>
           <View style={styles.text_Input_Button}>
             <AuthTextInput
-              marginRight={15}
+              marginRight={windowWidth * 0.01}
               text={'이메일을 입력하세요'}
               width={windowWidth * 0.3}
               height={windowHeight * 0.08}
@@ -131,7 +131,7 @@ export default function EmailAuthorization({navigation}) {
           </View>
           <View style={styles.text_Input_Button}>
             <AuthTextInput
-              marginRight={15}
+              marginRight={windowWidth * 0.01}
               text={'인증번호를 입력하세요'}
               width={windowWidth * 0.3}
               height={windowHeight * 0.08}
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontFamily: 'NotoSansKR-Bold',
-    fontSize: windowHeight * 0.02,
+    fontSize: windowHeight * 0.025,
     color: '#8c8c8c',
     textAlign: 'left',
   },
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   },
   linkText: {
     fontFamily: 'NotoSansKR-Bold',
-    fontSize: windowHeight * 0.02,
+    fontSize: windowHeight * 0.025,
     color: '#0A82FF',
     position: 'absolute',
     right: windowWidth * 0.01,
