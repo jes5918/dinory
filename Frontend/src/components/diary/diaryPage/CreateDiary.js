@@ -37,6 +37,7 @@ export default function CreateDiary({
   title,
   onHandleChangeTitle,
   onHandleChangeContent,
+  titleInput,
 }) {
   const navigation = useNavigation();
   const bgurl = require('../../../assets/images/background4.png');
@@ -69,6 +70,7 @@ export default function CreateDiary({
         onHandleSaveDiary={() => openConfirmSave()}
         grammarchecked={grammarchecked}
         checkData={checkData}
+        titleInput={titleInput}
       />
       <AlertModal
         modalVisible={koreanWarnModalVisible}
