@@ -163,7 +163,7 @@ export default function EmailAuthorization({navigation}) {
           onHandleCloseModal={() => changeModalState()}
           text={'인증이 완료되었습니다!'}
           iconName={'smileo'}
-          color={'#green'}
+          color={'green'}
           setTimeFunction={() => closeModal()}
         />
         <AlertModal
