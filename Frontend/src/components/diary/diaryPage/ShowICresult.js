@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import ArrowButton from '../../elements/ArrowButton';
 import AlertModal from '../../elements/AlertModal';
+import SelectModal from '../../elements/SelectModal';
 import ImageCaption from '../ImageCaption';
 import MaterialIcons from 'react-native-vector-icons/AntDesign';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -26,10 +27,16 @@ export default function ShowICresult({
   trylater,
 }) {
   const bgurl = require('../../../assets/images/background4.png');
+  const navigation = useNavigation();
+  const [quit, setQuit] = useState(false);
+
+  const toggleQuit = () => {
+    setQuit(false);
+  };
   return (
     <ImageBackground source={bgurl} style={styles.bgBox}>
       <View style={styles.arrowBtnBox}>
-        <ArrowButton onHandlePress={() => onHandleGoback()} />
+        <ArrowButton onHandlePress={() => setQuit(true)} />
       </View>
       <View style={styles.mainIconBox}>
         <TouchableOpacity
@@ -68,6 +75,18 @@ export default function ShowICresult({
         iconName={'exclamationcircle'}
         color={'red'}
         setTimeFunction={() => closeModal(8)}
+      />
+      <SelectModal
+        modalVisible={quit}
+        alertText={'지금 나가면 저장되지 않아요.'}
+        secondText={'정말 나가시겠어요?'}
+        refuseText={'취소'}
+        allowText={'나가기'}
+        onHandlePressAllow={() => {
+          setQuit(false);
+          onHandleGoback();
+        }}
+        onHandlePressRefuse={() => toggleQuit()}
       />
     </ImageBackground>
   );

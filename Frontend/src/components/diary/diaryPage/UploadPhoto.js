@@ -15,6 +15,7 @@ export default function UploadPhoto({
   changeModalState,
   closeModal,
   modalVisible,
+  onHandleGoback,
 }) {
   const bgurl = require('../../../assets/images/background4.png');
   const navigation = useNavigation();
@@ -27,7 +28,7 @@ export default function UploadPhoto({
   return (
     <ImageBackground source={bgurl} style={styles.bgBox}>
       <View style={styles.arrowBtnBox}>
-        <ArrowButton onHandlePress={() => setQuit(true)} />
+        <ArrowButton onHandlePress={() => navigation.goBack()} />
       </View>
       <View style={styles.mainIconBox}>
         <TouchableOpacity
@@ -50,18 +51,6 @@ export default function UploadPhoto({
         iconName={'exclamationcircle'}
         color={'red'}
         setTimeFunction={() => closeModal(1)}
-      />
-      <SelectModal
-        modalVisible={quit}
-        alertText={'지금 나가면 저장되지 않아요.'}
-        secondText={'정말 나가시겠어요?'}
-        refuseText={'취소'}
-        allowText={'나가기'}
-        onHandlePressAllow={() => {
-          setQuit(false);
-          navigation.navigate('Main');
-        }}
-        onHandlePressRefuse={() => toggleQuit()}
       />
     </ImageBackground>
   );
