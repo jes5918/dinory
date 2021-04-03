@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState, useCallback, useRef} from 'react';
 import {ImageBackground, StyleSheet, Dimensions} from 'react-native';
 import {useFocusEffect} from '@react-navigation/core';
 import UploadPhoto from '../../components/diary/diaryPage/UploadPhoto';
@@ -14,6 +14,7 @@ import {
 import {useNavigation} from '@react-navigation/core';
 import DiraryAgainTutorial from '../../views/diary/DiraryAgainTutorial';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {debounce} from 'lodash';
 
 ///////날짜
 const date = new Date();
@@ -43,6 +44,8 @@ const year = String(date.getFullYear());
 const month = makeMonth(textMonth);
 const day = makeDate(textDate);
 
+const debounceSomethingFunc = debounce(() => {}, 300);
+
 export default function Diary() {
   const navigation = useNavigation();
   const bgurl = require('../../assets/images/background4.png');
@@ -55,8 +58,6 @@ export default function Diary() {
   const [success, setSuccess] = useState(false);
   const [trylater, setTrylater] = useState(false);
   const [confirmSave, setConfirmSave] = useState(false);
-  const [title, setTitle] = useState('');
-  const [diaryContent, setDiaryContent] = useState('');
   const [tempPagenum, setTempPagenum] = useState(false);
   const [grammarchecked, setGrammarchecked] = useState(false);
   const [checkData, setCheckData] = useState('');
@@ -67,7 +68,18 @@ export default function Diary() {
   const [tryagain, setTryagain] = useState(false);
   const [checkNull, setCheckNull] = useState(false);
   const [wordSaveSpinner, setWordSaveSpinner] = useState(false);
-
+  const [title, setTitle] = useState('');
+  const [diaryContent, setDiaryContent] = useState('');
+  const titleInput = useRef();
+  const contentInput = useRef();
+  const titleChange = (e) => {
+    setTitle(e.nativeEvent.text);
+    debounceSomethingFunc();
+  };
+  const contentChange = (e) => {
+    setDiaryContent(e.nativeEvent.text);
+    debounceSomethingFunc();
+  };
   const closeModal = (e) => {
     if (e === 1) {
       setTimeout(() => {
@@ -209,7 +221,7 @@ export default function Diary() {
     if (diaryContent && title) {
       setSpinner(true);
       const formData = new FormData();
-      formData.append('text', title + ' ' + diaryContent);
+      formData.append('text', title + '\n' + diaryContent);
       grammarCheck(
         formData,
         (res) => {
@@ -283,13 +295,6 @@ export default function Diary() {
     }
   };
 
-  const onHandleChangeTitle = (e) => {
-    setTitle(e.nativeEvent.text);
-  };
-
-  const onHandleChangeContent = (e) => {
-    setDiaryContent(e.nativeEvent.text);
-  };
   const propsSetSelectImage = (e) => {
     setSelectImage(e);
   };
@@ -350,8 +355,9 @@ export default function Diary() {
         captionWords={captionWords}
         diaryContent={diaryContent}
         title={title}
-        onHandleChangeTitle={(e) => onHandleChangeTitle(e)}
-        onHandleChangeContent={(e) => onHandleChangeContent(e)}
+        titleInput={titleInput}
+        onHandleChangeTitle={(e) => titleChange(e)}
+        onHandleChangeContent={(e) => contentChange(e)}
       />
     );
   }
