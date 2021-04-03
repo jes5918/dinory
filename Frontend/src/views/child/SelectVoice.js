@@ -174,6 +174,6 @@ const styles = StyleSheet.create({
     flex: 6,
     alignItems: 'center',
     marginTop: height * 0.17,
-    backgroundColor: '#000000',
+    backgroundColor: 'transparent',
   },
 });
