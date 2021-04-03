@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import {
 
 import WordList from './WordList';
 import MaterialIcons from 'react-native-vector-icons/AntDesign';
+import {useFocusEffect} from '@react-navigation/core';
 
 export default function WriteDiary({
   wordList,
@@ -29,8 +30,14 @@ export default function WriteDiary({
 }) {
   const imgIcon = require('../../assets/images/egg.png');
   const imgPerfect = require('../../assets/images/character5.png');
+  const [savedTitle, setSavedTitle] = useState('');
   const arrText = ['문', '법', '체', '크'];
   const arrText2 = ['저', '장'];
+  useFocusEffect(
+    useCallback(() => {
+      setSavedTitle(content);
+    }, []),
+  );
   const grammar = (
     <View style={[styles.grammarBox]}>
       {checkData && checkData.length ? (
@@ -105,6 +112,7 @@ export default function WriteDiary({
       )}
     </View>
   );
+
   return (
     <KeyboardAvoidingView behavior={'height'} style={[styles.container]}>
       <View style={[styles.wrapper]}>
@@ -113,7 +121,6 @@ export default function WriteDiary({
             <View style={[styles.titleBox]}>
               <Text style={[styles.text]}>제목 :</Text>
               <TextInput
-                value={title}
                 ref={titleInput}
                 style={[styles.TitleInput]}
                 autoCompleteType={'off'}
@@ -124,8 +131,6 @@ export default function WriteDiary({
             <TextInput
               style={[styles.contentInput]}
               multiline
-              autoFocus={true}
-              value={content}
               autoCompleteType={'off'}
               placeholder={'여기를 터치하세요!'}
               onChange={(e) => onHandleChangeContent(e)}
