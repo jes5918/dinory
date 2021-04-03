@@ -24,6 +24,7 @@ export default function AvatarProfile({navigation, route}) {
   const [imgNumber, setImgNumber] = useState(-1);
   const [modalVisible, setModalVisible] = useState(false);
   const [fmodalVisible, setfModalVisible] = useState(false);
+  const [emodalVisible, seteModalVisible] = useState(false);
 
   // 프로필 사진 고르기
   const selectNumber = (num) => {
@@ -45,7 +46,7 @@ export default function AvatarProfile({navigation, route}) {
           }, 1500);
         },
         (error) => {
-          alert('서버에러 다시 시도해주세요.');
+          echangeModalState();
         },
       );
     } else {
@@ -73,6 +74,15 @@ export default function AvatarProfile({navigation, route}) {
 
   const fchangeModalState = () => {
     setfModalVisible(!fmodalVisible);
+  };
+  const ecloseModal = () => {
+    setTimeout(() => {
+      seteModalVisible(!emodalVisible);
+    }, 2000);
+  };
+
+  const echangeModalState = () => {
+    seteModalVisible(!emodalVisible);
   };
 
   return (
@@ -167,10 +177,18 @@ export default function AvatarProfile({navigation, route}) {
           <AlertModal
             modalVisible={fmodalVisible}
             onHandleCloseModal={() => fchangeModalState()}
-            text={'프로필을 선택해주세요!'}
+            text={'아바타를 선택해주세요!'}
             iconName={'frowno'}
             color={'red'}
             setTimeFunction={() => fcloseModal()}
+          />
+          <AlertModal
+            modalVisible={emodalVisible}
+            onHandleCloseModal={() => echangeModalState()}
+            text={'이미 등록된 프로필이 존재합니다!'}
+            iconName={'frowno'}
+            color={'red'}
+            setTimeFunction={() => ecloseModal()}
           />
         </Layout>
       </View>
