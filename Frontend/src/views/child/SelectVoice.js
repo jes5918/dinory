@@ -23,7 +23,7 @@ export default function SelectVoice() {
   const [child, setChild] = useState('');
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
-  let voice = '';
+  const [imgNumber, setImageNumber] = useState(-1);
 
   let soundf = new Sound(voiceOne, Sound.MAIN_BUNDLE, (error) => {
     if (error) {
@@ -55,6 +55,7 @@ export default function SelectVoice() {
 
   const soundOn = (num) => {
     voice = num;
+    setImageNumber(num);
   };
   const submitVoice = () => {
     const formData = new FormData();
@@ -114,6 +115,7 @@ export default function SelectVoice() {
           <SelectLayout
             title={'원하는 목소리를 선택해주세요'}
             btnText={'변경완료'}
+            imgNumber={imgNumber}
             onHandlePressC1={() => {
               soundf.setVolume(0.5);
               soundOn(0);

@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ActivityIndicator,
+} from 'react-native';
 import {
   confirmEmail,
   TransmitCodeToEmail,
@@ -11,6 +17,7 @@ import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
 import AlertModal from '../../components/elements/AlertModal';
+import CountDown from 'react-native-countdown-component';
 
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
@@ -20,14 +27,21 @@ export default function EmailAuthorization({navigation}) {
   const [userWriteEmail, setUserWriteEmail] = useState('');
   const [userWriteCode, setUserWriteCode] = useState('');
   const [userTicket, setUserTicket] = useState(0);
+  const [spinner, setSpinner] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
   const [bmodalVisible, setbModalVisible] = useState(false);
   const [cmodalVisible, setcModalVisible] = useState(false);
   const [emodalVisible, seteModalVisible] = useState(false);
   const [fmodalVisible, setfModalVisible] = useState(false);
+  const [gmodalVisible, setgModalVisible] = useState(false);
+  const [showToClock, setShowtoClock] = useState(false);
+  const [initialState, setinitialState] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const Authenticate = async () => {
     if (userWriteEmail.length > 8) {
+      setSpinner(true);
+      setShowtoClock(false);
       let emailAuthForm = new FormData();
       emailAuthForm.append('email', userWriteEmail);
       confirmEmail(
@@ -37,15 +51,22 @@ export default function EmailAuthorization({navigation}) {
             //인증 번호 전송
             emailAuthForm,
             (res) => {
+              setShowtoClock(true);
+              setSpinner(false);
+              setDisabled(false);
+              setShowtoClock(true);
               setUserTicket(res.data.id);
               bchangeModalState();
               //번호표 저장
             },
-            (error) => {},
+            (error) => {
+              setSpinner(false);
+            },
           );
         },
         (error) => {
           cchangeModalState();
+          setSpinner(false);
         },
       );
     } else {
@@ -70,6 +91,10 @@ export default function EmailAuthorization({navigation}) {
     } else {
       fchangeModalState();
     }
+  };
+  const OnFinishedTimer = () => {
+    gchangeModalState();
+    setDisabled(true);
   };
   const closeModal = () => {
     setTimeout(() => {
@@ -119,6 +144,14 @@ export default function EmailAuthorization({navigation}) {
   const fchangeModalState = () => {
     setfModalVisible(!fmodalVisible);
   };
+  const gcloseModal = () => {
+    setTimeout(() => {
+      setgModalVisible(!gmodalVisible);
+    }, 1500);
+  };
+  const gchangeModalState = () => {
+    setgModalVisible(!gmodalVisible);
+  };
   return (
     <AuthBackGround>
       <Header logoHeader={true} />
@@ -162,14 +195,36 @@ export default function EmailAuthorization({navigation}) {
               secureTextEntry={true}
             />
             <BasicButton
-              text="인증"
+              text="확인"
               customFontSize={windowHeight * 0.025}
               btnWidth={windowHeight * 0.15}
               btnHeight={windowHeight * 0.08}
               borderRadius={10}
               onHandlePress={() => ConfirmCode()}
+              disabled={disabled}
             />
           </View>
+          {showToClock ? (
+            <View style={styles.timer}>
+              <Text style={styles.timerText}>남은시간 :</Text>
+              <CountDown
+                style={styles.counter}
+                until={300}
+                size={windowHeight * 0.025}
+                separatorStyle={{color: 'red'}}
+                digitStyle={{backgroundColor: '#FFF'}}
+                digitTxtStyle={{color: 'red'}}
+                timeToShow={['M', 'S']}
+                timeLabels={{m: null, s: null}}
+                showSeparator
+                onFinish={() => {
+                  OnFinishedTimer();
+                }}
+              />
+            </View>
+          ) : (
+            <View style={{flex: 0.2}}></View>
+          )}
           <View style={styles.footerContainer}>
             <Text style={styles.footerText}> 이미 아이디가 있나요?</Text>
             <Text
@@ -227,6 +282,26 @@ export default function EmailAuthorization({navigation}) {
           color={'#FF0000'}
           setTimeFunction={() => fcloseModal()}
         />
+        <AlertModal
+          modalVisible={gmodalVisible}
+          onHandleCloseModal={() => gchangeModalState()}
+          text={'인증시간이 만료되었습니다'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => gcloseModal()}
+        />
+        <ActivityIndicator
+          size="large"
+          color="#FB537B"
+          style={{
+            zIndex: 999,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignSelf: 'center',
+            top: windowHeight * 0.5,
+          }}
+          animating={spinner}
+        />
       </View>
     </AuthBackGround>
   );
@@ -249,7 +324,7 @@ const styles = StyleSheet.create({
   },
   text_Input_Button: {
     flexDirection: 'row',
-    marginBottom: windowHeight * 0.043,
+    marginBottom: windowHeight * 0.04,
   },
   footerContainer: {
     flex: 0.5,
@@ -270,5 +345,22 @@ const styles = StyleSheet.create({
     color: '#0A82FF',
     position: 'absolute',
     right: windowWidth * 0.01,
+  },
+  counter: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  timerText: {
+    color: 'red',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    fontFamily: 'NotoSansKR-Bold',
+    marginRight: windowWidth * 0.01,
+    fontSize: windowHeight * 0.025,
+  },
+  timer: {
+    flex: 0.2,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
