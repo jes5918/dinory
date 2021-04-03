@@ -24,6 +24,8 @@ export default function EmailAuthorization({navigation}) {
   const [dmodalVisible, setdModalVisible] = useState(false);
   const [bmodalVisible, setbModalVisible] = useState(false);
   const [cmodalVisible, setcModalVisible] = useState(false);
+  const [emodalVisible, seteModalVisible] = useState(false);
+  const [fmodalVisible, setfModalVisible] = useState(false);
   const Authenticate = async () => {
     if (userWriteEmail.length > 8) {
       let emailAuthForm = new FormData();
@@ -46,9 +48,10 @@ export default function EmailAuthorization({navigation}) {
           cchangeModalState();
         },
       );
+    } else {
+      echangeModalState();
     }
   };
-
   const ConfirmCode = () => {
     if (userWriteCode.length > 0) {
       const ConfirmForm = new FormData();
@@ -64,6 +67,8 @@ export default function EmailAuthorization({navigation}) {
           dchangeModalState();
         },
       );
+    } else {
+      fchangeModalState();
     }
   };
   const closeModal = () => {
@@ -98,6 +103,22 @@ export default function EmailAuthorization({navigation}) {
   const cchangeModalState = () => {
     setcModalVisible(!cmodalVisible);
   };
+  const ecloseModal = () => {
+    setTimeout(() => {
+      seteModalVisible(!emodalVisible);
+    }, 1500);
+  };
+  const echangeModalState = () => {
+    seteModalVisible(!emodalVisible);
+  };
+  const fcloseModal = () => {
+    setTimeout(() => {
+      setfModalVisible(!fmodalVisible);
+    }, 1500);
+  };
+  const fchangeModalState = () => {
+    setfModalVisible(!fmodalVisible);
+  };
   return (
     <AuthBackGround>
       <Header logoHeader={true} />
@@ -119,7 +140,7 @@ export default function EmailAuthorization({navigation}) {
               autoFocus={true}
             />
             <BasicButton
-              text="중복확인"
+              text="인증하기"
               customFontSize={windowHeight * 0.025}
               btnWidth={windowHeight * 0.15}
               btnHeight={windowHeight * 0.08}
@@ -189,6 +210,22 @@ export default function EmailAuthorization({navigation}) {
           iconName={'frowno'}
           color={'red'}
           setTimeFunction={() => ccloseModal()}
+        />
+        <AlertModal
+          modalVisible={emodalVisible}
+          onHandleCloseModal={() => echangeModalState()}
+          text={'이메일을 작성해주세요'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => ecloseModal()}
+        />
+        <AlertModal
+          modalVisible={fmodalVisible}
+          onHandleCloseModal={() => fchangeModalState()}
+          text={'인증번호를 작성해주세요'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => fcloseModal()}
         />
       </View>
     </AuthBackGround>

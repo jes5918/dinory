@@ -153,8 +153,8 @@ export default function PinCreate({navigation, route}) {
           modalVisible={bmodalVisible}
           onHandleCloseModal={() => bchangeModalState()}
           text={'숫자 6자리로 입력해주세요.'}
-          iconName={'smileo'}
-          color={'red'}
+          iconName={'frowno'}
+          color={'#FF0000'}
           setTimeFunction={() => bcloseModal()}
         />
       </View>
@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
     width: wp(30),
     color: '#707070',
     marginBottom: hp(5),
+    fontFamily: 'NotoSansKR-Bold',
   },
   view: {
     justifyContent: 'center',
@@ -206,5 +207,6 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: hp(2.25),
     alignSelf: 'flex-start',
+    fontFamily: 'NotoSansKR-Bold',
   },
 });

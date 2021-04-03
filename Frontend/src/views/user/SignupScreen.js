@@ -217,9 +217,9 @@ export default function SingupSCreen({navigation, route}) {
         <AlertModal
           modalVisible={cmodalVisible}
           onHandleCloseModal={() => cchangeModalState()}
-          text={'아이디 중복확인을 해주세요.'}
-          iconName={'smileo'}
-          color={'red'}
+          text={'아이디 중복확인 하세요'}
+          iconName={'frowno'}
+          color={'#FF0000'}
           setTimeFunction={() => ccloseModal()}
         />
         <AlertModal
@@ -278,6 +278,7 @@ const styles = StyleSheet.create({
     color: '#707070',
     alignSelf: 'flex-start',
     marginBottom: windowHeight * 0.02,
+    fontFamily: 'NotoSansKR-Bold',
   },
   alertMessage: {
     color: 'red',
@@ -286,5 +287,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 0,
+    fontFamily: 'NotoSansKR-Bold',
   },
 });
