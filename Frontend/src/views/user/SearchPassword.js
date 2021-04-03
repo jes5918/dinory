@@ -16,7 +16,6 @@ const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
 
 export default function SearchPassword({navigation}) {
-  const [checkBoxColor, setCheckBoxColor] = useState(true);
   const [userWriteEmail, setUserWriteEmail] = useState('');
   const [userWriteName, setUserWriteName] = useState('');
   const [userTicket, setUserTicket] = useState('');
@@ -25,21 +24,26 @@ export default function SearchPassword({navigation}) {
   const [userWriteCode, setUserWriteCode] = useState('');
   const [fmodalVisible, setfModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
+  const [emodalVisible, seteModalVisible] = useState(false);
   const AuthenticateEmail = async () => {
-    let PasswordForm = new FormData();
-    PasswordForm.append('email', userWriteEmail);
-    PasswordForm.append('username', userWriteName);
-    sendEmailForPW(
-      PasswordForm,
-      (res) => {
-        setUserTicket(res.data.id);
-        setVisibleState(false);
-        setCodeInputState(true);
-      },
-      (error) => {
-        fchangeModalState();
-      },
-    );
+    if (userWriteEmail.length > 0 && userWriteName.length > 0) {
+      let PasswordForm = new FormData();
+      PasswordForm.append('email', userWriteEmail);
+      PasswordForm.append('username', userWriteName);
+      sendEmailForPW(
+        PasswordForm,
+        (res) => {
+          setUserTicket(res.data.id);
+          setVisibleState(false);
+          setCodeInputState(true);
+        },
+        (error) => {
+          fchangeModalState();
+        },
+      );
+    } else {
+      echangeModalState();
+    }
   };
   const AuthenticateCode = () => {
     let CodeForm = new FormData();
@@ -71,6 +75,14 @@ export default function SearchPassword({navigation}) {
   };
   const dchangeModalState = () => {
     setdModalVisible(!dmodalVisible);
+  };
+  const ecloseModal = () => {
+    setTimeout(() => {
+      seteModalVisible(!emodalVisible);
+    }, 2000);
+  };
+  const echangeModalState = () => {
+    seteModalVisible(!emodalVisible);
   };
   return (
     <AuthBackGround>
@@ -155,6 +167,14 @@ export default function SearchPassword({navigation}) {
           color={'red'}
           setTimeFunction={() => dcloseModal()}
         />
+        <AlertModal
+          modalVisible={emodalVisible}
+          onHandleCloseModal={() => echangeModalState()}
+          text={'이메일과 아이디를 모두 작성해주세요!'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => ecloseModal()}
+        />
       </View>
     </AuthBackGround>
   );
@@ -181,6 +201,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     color: '#707070',
+    fontFamily: 'NotoSansKR-Bold',
   },
   start: {
     display: 'flex',
@@ -193,6 +214,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     color: '#707070',
+    fontFamily: 'NotoSansKR-Bold',
   },
   logo: {
     width: 220, //595
