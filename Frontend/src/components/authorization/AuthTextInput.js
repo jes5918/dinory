@@ -1,5 +1,9 @@
 import React from 'react';
 import {StyleSheet, TextInput, Dimensions} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const dimensions = Dimensions.get('window');
 const windowHeight = dimensions.height;
@@ -16,20 +20,17 @@ export default function AuthTextInput({
   keyboardType,
   marginBottom,
   marginRight,
-  margin,
 }) {
   return (
     <TextInput
       style={[
         styles.textInput,
         {
-          width: width || 274,
-          height: height || 58,
-          fontSize: size || 18,
+          width: width,
+          height: height,
+          fontSize: size,
           marginBottom: marginBottom,
-          margin,
           marginRight: marginRight,
-          fontFamily: 'NotoSansKR-Bold',
         },
       ]}
       secureTextEntry={secureTextEntry}
@@ -49,12 +50,10 @@ export default function AuthTextInput({
 }
 const styles = StyleSheet.create({
   textInput: {
-    fontFamily: 'NotoSansKR-Regular',
     backgroundColor: '#E8E8E8',
     borderRadius: 14,
     elevation: 7,
-    paddingTop: 0,
-    paddingBottom: 0,
-    paddingHorizontal: windowHeight * 0.03,
+    paddingLeft: wp('1%'),
+    paddingVertical: wp('1%'),
   },
 });
