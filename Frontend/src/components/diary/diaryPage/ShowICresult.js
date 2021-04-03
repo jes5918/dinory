@@ -35,7 +35,7 @@ export default function ShowICresult({
   return (
     <ImageBackground source={bgurl} style={styles.bgBox}>
       <View style={styles.arrowBtnBox}>
-        <ArrowButton onHandlePress={() => setQuit(true)} />
+        <ArrowButton onHandlePress={() => onHandleGoback()} />
       </View>
       <View style={styles.mainIconBox}>
         <TouchableOpacity
@@ -74,18 +74,6 @@ export default function ShowICresult({
         iconName={'exclamationcircle'}
         color={'red'}
         setTimeFunction={() => closeModal(8)}
-      />
-      <SelectModal
-        modalVisible={quit}
-        alertText={'지금 나가면 저장되지 않아요.'}
-        secondText={'정말 나가시겠어요?'}
-        refuseText={'취소'}
-        allowText={'나가기'}
-        onHandlePressAllow={() => {
-          setQuit(false);
-          onHandleGoback();
-        }}
-        onHandlePressRefuse={() => toggleQuit()}
       />
     </ImageBackground>
   );
