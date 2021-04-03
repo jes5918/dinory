@@ -25,6 +25,7 @@ export default function WriteDiary({
   checkData,
   title,
   content,
+  titleInput,
 }) {
   const imgIcon = require('../../assets/images/egg.png');
   const imgPerfect = require('../../assets/images/character5.png');
@@ -111,6 +112,7 @@ export default function WriteDiary({
               <Text style={[styles.text]}>제목 :</Text>
               <TextInput
                 value={title}
+                ref={titleInput}
                 style={[styles.TitleInput]}
                 autoCompleteType={'off'}
                 onChange={(e) => onHandleChangeTitle(e)}></TextInput>
@@ -118,6 +120,7 @@ export default function WriteDiary({
             <TextInput
               style={[styles.contentInput]}
               multiline
+              autoFocus={true}
               value={content}
               autoCompleteType={'off'}
               onChange={(e) => onHandleChangeContent(e)}></TextInput>

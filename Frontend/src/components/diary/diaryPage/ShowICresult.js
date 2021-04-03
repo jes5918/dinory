@@ -27,7 +27,6 @@ export default function ShowICresult({
   trylater,
 }) {
   const bgurl = require('../../../assets/images/background4.png');
-  const navigation = useNavigation();
   const [quit, setQuit] = useState(false);
 
   const toggleQuit = () => {
