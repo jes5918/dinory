@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-  createRef,
-} from 'react';
+import React, {useEffect, useState, useCallback, useRef} from 'react';
 import {ImageBackground, StyleSheet, Dimensions} from 'react-native';
 import {useFocusEffect} from '@react-navigation/core';
 import UploadPhoto from '../../components/diary/diaryPage/UploadPhoto';
@@ -49,6 +43,9 @@ const makeMonth = (text) => {
 const year = String(date.getFullYear());
 const month = makeMonth(textMonth);
 const day = makeDate(textDate);
+
+const debounceSomethingFunc = debounce(() => {}, 300);
+
 export default function Diary() {
   const navigation = useNavigation();
   const bgurl = require('../../assets/images/background4.png');
@@ -75,27 +72,14 @@ export default function Diary() {
   const [diaryContent, setDiaryContent] = useState('');
   const titleInput = useRef();
   const contentInput = useRef();
-  const debounceSomethingFunc = debounce((value) => {
-    setTitle(value);
-  }, 300);
-  const debounceSomethingFunct = debounce((value) => {
-    setDiaryContent(value);
-  }, 300);
   const titleChange = (e) => {
-    debounceSomethingFunc(e.nativeEvent.text);
+    setTitle(e.nativeEvent.text);
+    debounceSomethingFunc();
   };
   const contentChange = (e) => {
-    debounceSomethingFunct(e.nativeEvent.text);
+    setDiaryContent(e.nativeEvent.text);
+    debounceSomethingFunc();
   };
-
-  const onHandleClear = () => {
-    setTitle('');
-    setDiaryContent('');
-    setGrammarchecked(false);
-    setCheckData(false);
-    gotoBack();
-  };
-
   const closeModal = (e) => {
     if (e === 1) {
       setTimeout(() => {
@@ -324,8 +308,17 @@ export default function Diary() {
         PsetSelectImage={propsSetSelectImage}
         changeModalState={(e) => changeModalState(e)}
         closeModal={(e) => closeModal(e)}
-        modalVisible={modalVisible}
-      />
+        modalVisible={modalVisible}>
+        <View
+          style={{
+            width: width,
+            height: height,
+            backgroundColor: 'black',
+            position: 'absolute',
+            zIndex: 10,
+            opacity: 0.6,
+          }}></View>
+      </UploadPhoto>
     );
   } else if (currentPage === 0) {
     return (
@@ -374,7 +367,6 @@ export default function Diary() {
         titleInput={titleInput}
         onHandleChangeTitle={(e) => titleChange(e)}
         onHandleChangeContent={(e) => contentChange(e)}
-        onHandleClear={() => onHandleClear()}
       />
     );
   }

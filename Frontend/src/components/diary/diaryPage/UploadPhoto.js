@@ -15,17 +15,14 @@ export default function UploadPhoto({
   changeModalState,
   closeModal,
   modalVisible,
+  child,
 }) {
   const bgurl = require('../../../assets/images/background4.png');
   const navigation = useNavigation();
-  const [quit, setQuit] = useState(false);
-
-  const toggleQuit = () => {
-    setQuit(false);
-  };
 
   return (
     <ImageBackground source={bgurl} style={styles.bgBox}>
+      {child}
       <View style={styles.arrowBtnBox}>
         <ArrowButton onHandlePress={() => navigation.goBack()} />
       </View>

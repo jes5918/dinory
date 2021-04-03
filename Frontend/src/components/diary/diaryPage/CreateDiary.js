@@ -38,13 +38,19 @@ export default function CreateDiary({
   onHandleChangeTitle,
   onHandleChangeContent,
   titleInput,
+  onHandleClear,
 }) {
   const navigation = useNavigation();
   const bgurl = require('../../../assets/images/background4.png');
+  const [quit, setQuit] = useState(false);
+  const toggleQuit = () => {
+    setQuit(false);
+  };
+
   return (
     <ImageBackground source={bgurl} style={styles.bgBox}>
       <View style={styles.arrowBtnBox}>
-        <ArrowButton onHandlePress={() => onHandleGoback()} />
+        <ArrowButton onHandlePress={() => setQuit(true)} />
       </View>
       <View style={styles.mainIconBox}>
         <TouchableOpacity
@@ -130,6 +136,18 @@ export default function CreateDiary({
           top: height * 0.5,
         }}
         animating={spinner}
+      />
+      <SelectModal
+        modalVisible={quit}
+        alertText={'지금 나가면 저장되지 않아요.'}
+        secondText={'정말 나가시겠어요?'}
+        refuseText={'취소'}
+        allowText={'나가기'}
+        onHandlePressAllow={() => {
+          setQuit(false);
+          onHandleClear();
+        }}
+        onHandlePressRefuse={() => toggleQuit()}
       />
     </ImageBackground>
   );
