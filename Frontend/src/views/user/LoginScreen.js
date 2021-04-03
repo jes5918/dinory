@@ -45,34 +45,38 @@ export default function LoginScreen({navigation}) {
       : false;
   };
   const LoginHandler = async () => {
-    if (!chkPW(userPassword)) {
-      pchangeModalState();
-      return;
-    }
-    console.log(chkPW(userPassword));
-    let loginForm = new FormData();
-    loginForm.append('username', userName);
-    loginForm.append('password', userPassword);
+    if (userName.length !== 0 && userPassword.length !== 0) {
+      if (!chkPW(userPassword)) {
+        pchangeModalState();
+        return;
+      }
+      console.log(chkPW(userPassword));
+      let loginForm = new FormData();
+      loginForm.append('username', userName);
+      loginForm.append('password', userPassword);
 
-    loginInstance(
-      loginForm,
-      async (res) => {
-        if (await AsyncStorage.getItem('jwt')) {
-          AsyncStorage.removeItem('jwt');
-        }
-        await AsyncStorage.setItem('jwt', res.data.token);
-        changeModalState();
-        AsyncStorage.setItem('jwt', res.data.token);
-        AsyncStorage.setItem('autoUserName', userName);
-        setTimeout(() => {
-          navigation.navigate('SelectProfile');
-        }, 1500);
-      },
-      (error) => {
-        dchangeModalState();
-        console.log(error);
-      },
-    );
+      loginInstance(
+        loginForm,
+        async (res) => {
+          if (await AsyncStorage.getItem('jwt')) {
+            AsyncStorage.removeItem('jwt');
+          }
+          await AsyncStorage.setItem('jwt', res.data.token);
+          changeModalState();
+          AsyncStorage.setItem('jwt', res.data.token);
+          AsyncStorage.setItem('autoUserName', userName);
+          setTimeout(() => {
+            navigation.navigate('SelectProfile');
+          }, 1500);
+        },
+        (error) => {
+          dchangeModalState();
+          console.log(error);
+        },
+      );
+    } else {
+      dchangeModalState();
+    }
   };
 
   const autoLoginToggle = () => {
@@ -171,7 +175,9 @@ export default function LoginScreen({navigation}) {
           marginBottom={hp(5)}
         />
         <View style={styles.textContainer}>
-          <Text style={styles.infoText}>비밀번호를 잃어버리셨나요? </Text>
+          <Text style={[styles.infoText, {color: 'grey'}]}>
+            비밀번호를 잃어버리셨나요?{' '}
+          </Text>
           <Text
             style={[styles.infoText, {color: 'blue'}]}
             onPress={() => {
@@ -252,6 +258,7 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: hp(2.5),
+    fontFamily: 'NotoSansKR-Bold',
   },
   optionContainer: {
     display: 'flex',
@@ -271,6 +278,10 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: hp(2.8),
     color: '#707070',
+    fontFamily: 'NotoSansKR-Bold',
+  },
+  text: {
+    fontFamily: 'NotoSansKR-Bold',
   },
   optionBox: {
     display: 'flex',

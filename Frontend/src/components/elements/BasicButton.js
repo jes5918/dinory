@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   text: {
+    fontFamily: 'NotoSansKR-Bold',
     color: 'white',
   },
 });
