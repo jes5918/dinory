@@ -77,10 +77,10 @@ export default function NameProfile({navigation}) {
         <ContentTitle title={'이름을 입력해주세요'} />
         <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
           <ProfileTextInput
-            text={'한글 또는 영어로 입력해주세요'}
+            text={'한글 또는 영어로 입력해주세요.'}
             width={width * 0.375}
             height={height * 0.1}
-            size={32}
+            size={height * 0.042}
             autoFocus={false}
             setFunction={setName}
             elevation={3}
