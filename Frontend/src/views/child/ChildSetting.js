@@ -62,7 +62,7 @@ export default function ChildSetting() {
         if (childBirth.length <= 3) {
           setChildBirth(childBirth.concat(data));
         } else {
-          bchangeModalState();
+          changeModalState(3);
         }
       } else {
         setChildBirth(childBirth.slice(0, -1));
@@ -73,12 +73,20 @@ export default function ChildSetting() {
       }
     }
   };
-
   // 변경요청
   const submitChangeInfo = () => {
-    if (childBirth >= year || childBirth <= 1900) {
-      bchangeModalState();
+    if ((childBirth >= year || childBirth <= year - 100) && childBirth !== '') {
+      changeModalState(3);
     } else if (childBirth < year && childBirth > 1900) {
+      mkFormdata();
+    } else {
+      setChildBirth(originBirth);
+      mkFormdata();
+    }
+  };
+
+  const mkFormdata = () => {
+    setTimeout(() => {
       const formData = new FormData();
       formData.append(
         'name',
@@ -86,7 +94,12 @@ export default function ChildSetting() {
           ? childNName
           : originName,
       );
-      formData.append('year', childBirth);
+      formData.append(
+        'year',
+        childBirth !== originBirth && childBirth.length !== 0
+          ? childBirth
+          : originBirth,
+      );
       formData.append('img', dinoPicNum);
 
       editChildProfile(
@@ -101,50 +114,48 @@ export default function ChildSetting() {
                 childNName !== originName && childNName.length !== 0
                   ? childNName
                   : originName,
-              profile_year: childBirth,
+              profile_year:
+                childBirth !== originBirth && childBirth.length !== 0
+                  ? childBirth
+                  : originBirth,
               voice_pk: voiceNum,
             };
             AsyncStorage.mergeItem('profile', JSON.stringify(profileData));
-            changeModalState();
+            changeModalState(1);
             setTimeout(() => {
               navigation.navigate('Main');
             }, 2000);
           } else {
-            fchangeModalState();
+            changeModalState(2);
           }
         },
         (err) => {
           console.log('childsetting err : ', err);
-          fchangeModalState();
+          changeModalState(2);
         },
       );
-    }
+    }, 1000);
   };
-
   // 상태 변경
-  const closeModal = () => {
+  const closeModal = (num) => {
     setTimeout(() => {
-      setModalVisible(!modalVisible);
+      if (num === 1) {
+        setModalVisible(!modalVisible);
+      } else if (num === 2) {
+        setfModalVisible(!fmodalVisible);
+      } else if (num === 3) {
+        setbModalVisible(!bmodalVisible);
+      }
     }, 1500);
   };
-  const changeModalState = () => {
-    setModalVisible(!modalVisible);
-  };
-  const fcloseModal = () => {
-    setTimeout(() => {
+  const changeModalState = (num) => {
+    if (num === 1) {
+      setModalVisible(!modalVisible);
+    } else if (num === 2) {
       setfModalVisible(!fmodalVisible);
-    }, 2000);
-  };
-  const fchangeModalState = () => {
-    setfModalVisible(!fmodalVisible);
-  };
-  const bcloseModal = () => {
-    setTimeout(() => {
+    } else if (num === 3) {
       setbModalVisible(!bmodalVisible);
-    }, 2000);
-  };
-  const bchangeModalState = () => {
-    setbModalVisible(!bmodalVisible);
+    }
   };
 
   useFocusEffect(
@@ -154,7 +165,6 @@ export default function ChildSetting() {
         setChild(data.profile_pk);
         setOriginName(data.profile_name);
         setDinoPicNum(data.profile_image);
-        // setChildBirth(String(data.profile_year));
         setOriginBirth(String(data.profile_year));
         setVoiceNum(data.voice_pk);
       });
@@ -273,27 +283,27 @@ export default function ChildSetting() {
                   </View>
                   <AlertModal
                     modalVisible={modalVisible}
-                    onHandleCloseModal={() => changeModalState()}
+                    onHandleCloseModal={() => changeModalState(1)}
                     text={'내 정보가 수정되었어요!'}
                     iconName={'smileo'}
                     color={'green'}
-                    setTimeFunction={() => closeModal()}
+                    setTimeFunction={() => closeModal(1)}
                   />
                   <AlertModal
                     modalVisible={fmodalVisible}
-                    onHandleCloseModal={() => fchangeModalState()}
+                    onHandleCloseModal={() => changeModalState(2)}
                     text={'다시 시도해주세요!'}
                     iconName={'frowno'}
                     color={'red'}
-                    setTimeFunction={() => fcloseModal()}
+                    setTimeFunction={() => closeModal(2)}
                   />
                   <AlertModal
                     modalVisible={bmodalVisible}
-                    onHandleCloseModal={() => bchangeModalState()}
+                    onHandleCloseModal={() => changeModalState(3)}
                     text={'태어난 년도를 다시 확인해볼까요?'}
                     iconName={'frowno'}
                     color={'red'}
-                    setTimeFunction={() => bcloseModal()}
+                    setTimeFunction={() => closeModal(3)}
                   />
                 </Layout>
               </View>
