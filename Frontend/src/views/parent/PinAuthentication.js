@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
+// components
 import AlertModal from '../../components/elements/AlertModal';
 import BasicButton from '../../components/elements/BasicButton';
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
@@ -39,11 +44,10 @@ function PinAuthentication({route}) {
     pinInfo.append('pin_code', pinCode);
     checkPincode(
       pinInfo,
-      (res) => {
+      () => {
         setModalVisible(!modalVisible);
-        navigation.navigate(connetedRoute, {profilePK: profilePK});
       },
-      (err) => {
+      () => {
         setAlertForEnter(!alertForEnter);
       },
     );
@@ -56,6 +60,7 @@ function PinAuthentication({route}) {
   const closeModal = () => {
     setTimeout(() => {
       setModalVisible(!modalVisible);
+      navigation.navigate(connetedRoute, {profilePK: profilePK});
     }, 1500);
   };
 
@@ -96,10 +101,9 @@ function PinAuthentication({route}) {
           <View style={styles.mainMid}>
             <AuthTextInput
               setFunction={setPinCode}
-              width={inputWidth}
-              height={inputHeight}
-              marginRight={0}
-              marginBottom={0}
+              width={wp(30)}
+              height={hp(8)}
+              size={hp(2.8)}
               text={'핀 번호를 입력하세요.'}
               secureTextEntry={true}
             />
@@ -111,8 +115,8 @@ function PinAuthentication({route}) {
             <BasicButton
               text="인증"
               customFontSize={windowWidth * 0.01875} // 24
-              btnWidth={windowWidth * 0.2625} // 336
-              btnHeight={windowHeight * 0.077} // 58
+              btnWidth={wp(30)} // 336
+              btnHeight={hp(8)} // 58
               borderRadius={14}
               onHandlePress={onHandleSubmit}
             />
@@ -137,8 +141,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'white',
-    width: windowWidth * 0.372, // 476
-    height: windowHeight * 0.58, // 642
+    minWidth: windowWidth * 0.372, // 476
+    minHeight: windowHeight * 0.58, // 642
     borderRadius: 50,
     elevation: 7,
     paddingTop: windowHeight * 0.043, // 32
@@ -158,15 +162,8 @@ const styles = StyleSheet.create({
     marginTop: windowHeight * 0.043, //64
     marginBottom: windowHeight * 0.043, //64
   },
-  alertMessage: {
-    position: 'absolute',
-    color: '#FF3120',
-    fontSize: 18,
-    fontFamily: 'NotoSansKR-Bold',
-    bottom: 0,
-  },
   infoText: {
-    fontSize: 14,
+    fontSize: hp(2.5),
     color: '#707070',
     width: windowWidth * 0.26,
     marginTop: windowHeight * 0.02,

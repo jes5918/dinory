@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'black',
-    fontSize: windowWidth * 0.0140625,
+    fontSize: windowWidth * 0.017,
     fontFamily: 'HoonPinkpungchaR',
     marginLeft: windowWidth * 0.01875,
   },

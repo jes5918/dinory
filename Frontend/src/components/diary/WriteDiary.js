@@ -10,6 +10,10 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import WordList from './WordList';
 import MaterialIcons from 'react-native-vector-icons/AntDesign';
@@ -191,7 +195,7 @@ const styles = StyleSheet.create({
     paddingVertical: screenHeight * 0.025,
   },
   correctList: {
-    marginHorizontal: 10,
+    marginHorizontal: wp(0.8),
     paddingVertical: screenHeight * 0.02,
     paddingHorizontal: screenWidth * 0.015,
     width: '100%',
@@ -199,11 +203,11 @@ const styles = StyleSheet.create({
   buttonPosition: {
     width: 'auto',
     height: 'auto',
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    paddingHorizontal: wp(1.2),
+    paddingVertical: hp(1.4),
     backgroundColor: '#FB537B',
-    borderTopRightRadius: 30,
-    borderBottomRightRadius: 30,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
     elevation: 5,
     display: 'flex',
     flexDirection: 'column',
@@ -213,11 +217,11 @@ const styles = StyleSheet.create({
   buttonPosition2: {
     width: 'auto',
     height: 'auto',
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    paddingHorizontal: wp(1.2),
+    paddingVertical: hp(1.4),
     backgroundColor: '#76b0e9',
-    borderTopRightRadius: 30,
-    borderBottomRightRadius: 30,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
     elevation: 5,
     display: 'flex',
     flexDirection: 'column',
@@ -261,23 +265,23 @@ const styles = StyleSheet.create({
     fontSize: screenWidth * 0.02,
     borderBottomWidth: 2,
     borderColor: 'gray',
-    paddingHorizontal: 10,
-    marginBottom: 10,
+    paddingHorizontal: wp(0.8),
+    marginBottom: hp(1.4),
   },
   contentInput: {
     width: '100%',
     fontFamily: 'HoonPinkpungchaR',
     fontSize: screenWidth * 0.02,
     borderRadius: 30,
-    paddingHorizontal: 10,
+    paddingHorizontal: wp(0.8),
   },
   textInputBox: {
     borderWidth: 2,
     borderColor: 'gray',
     borderRadius: 30,
     height: '100%',
-    marginHorizontal: 10,
-    paddingHorizontal: 10,
+    marginHorizontal: wp(0.8),
+    paddingHorizontal: wp(0.8),
     width: '40%',
   },
   container: {
@@ -297,7 +301,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     elevation: 5,
-    marginVertical: 15,
+    marginVertical: hp(2),
   },
   wrapper: {
     width: '100%',
