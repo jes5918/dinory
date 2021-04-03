@@ -15,7 +15,6 @@ export default function UploadPhoto({
   changeModalState,
   closeModal,
   modalVisible,
-  onHandleGoback,
 }) {
   const bgurl = require('../../../assets/images/background4.png');
   const navigation = useNavigation();
