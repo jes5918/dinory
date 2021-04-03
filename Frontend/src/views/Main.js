@@ -1,5 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Logo from '../components/elements/Logo';
 import Header from '../components/elements/Header';
 import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
@@ -154,25 +155,16 @@ export default function Main() {
     };
   }, []);
   useEffect(() => {
-    console.log(appState);
     if (appState === 'active') {
       if (soundSetting && !sound.isPlaying) {
-        console.log('1');
-        console.log(soundSetting);
         sound.play();
       } else if (soundSetting && sound.isPlaying) {
-        console.log('2');
-        console.log(soundSetting);
         sound.pause();
         sound.play();
         // return;
       } else if (!soundSetting && !sound.isPlaying) {
-        console.log('3');
-        console.log(soundSetting);
         return;
       } else {
-        console.log('4');
-        console.log(soundSetting);
         sound.stop();
         sound.pause();
       }
@@ -206,7 +198,7 @@ export default function Main() {
           <Logo />
         </Header>
         <View style={styles.innerContainer}>
-          <View>
+          <View style={styles.menuContainer}>
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles.menuBtn}
@@ -237,6 +229,14 @@ export default function Main() {
               onPress={() => navigation.navigate('SelectVoice')}>
               <Text style={[styles.innerText, {color: '#F66833'}]}>
                 목소리 변경
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.menuBtn}
+              onPress={() => navigation.navigate('ChildSetting')}>
+              <Text style={[styles.innerText, {color: '#8F7CEE'}]}>
+                나의 정보 변경
               </Text>
             </TouchableOpacity>
           </View>
@@ -281,7 +281,10 @@ export default function Main() {
                 profilePK: child,
               })
             }>
-            <MaterialIcons style={styles.mainIcon} name={'settings'} />
+            <MaterialCommunityIcons
+              style={styles.mainIcon}
+              name={'account-lock'}
+            />
           </TouchableOpacity>
         </View>
       </BackgroundAbsolute>
@@ -301,25 +304,24 @@ const styles = StyleSheet.create({
   },
   menuBtn: {
     width: width * 0.3,
-    height: 'auto',
+    height: height * 0.1,
     borderRadius: 50,
     backgroundColor: '#EEE',
-    marginVertical: height * 0.015,
+    marginVertical: height * 0.01,
     paddingVertical: height * 0.04,
     elevation: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   innerContainer: {
     flex: 5,
     flexDirection: 'row',
     marginHorizontal: width * 0.17,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: height * 0.17,
   },
   innerText: {
-    textAlign: 'center',
-    justifyContent: 'center',
-    textAlignVertical: 'center',
     fontFamily: 'HoonPinkpungchaR',
     fontSize: width * 0.022,
   },
@@ -335,5 +337,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: width * 0.02,
     justifyContent: 'flex-end',
     left: width * 0.4,
+  },
+  menuContainer: {
+    marginTop: height * 0.15,
   },
 });

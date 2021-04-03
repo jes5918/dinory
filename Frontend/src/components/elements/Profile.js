@@ -16,6 +16,7 @@ const height = dimensions.height;
 
 export default function Profile() {
   const navigation = useNavigation();
+  const [child, setChild] = useState('');
   const [childName, setChildName] = useState('');
   const [childCharacter, setChildCharacter] = useState('');
 
@@ -24,6 +25,7 @@ export default function Profile() {
       AsyncStorage.getItem('profile').then((profile) => {
         const data = JSON.parse(profile);
         setChildName(data.profile_name);
+        setChild(data.profile_pk);
         const characterImageSrc = transformImage(data.profile_image);
         setChildCharacter(characterImageSrc);
       });
@@ -56,7 +58,12 @@ export default function Profile() {
     <TouchableOpacity
       style={styles.container}
       activeOpacity={0.7}
-      onPress={() => navigation.navigate('ChildSetting')}>
+      onPress={() => {
+        navigation.navigate('PinAuthentication', {
+          connetedRoute: 'SelectProfile',
+          profilePK: child,
+        });
+      }}>
       <Text style={styles.childName}>{childName}</Text>
       <View style={styles.characterOutside}>
         <View style={styles.characterContainer}>
