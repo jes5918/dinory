@@ -37,6 +37,7 @@ export default function ChildSetting() {
   const [childBirth, setChildBirth] = useState('');
   const [dinoPicNum, setDinoPicNum] = useState('');
   const [originName, setOriginName] = useState('');
+  const [originBirth, setOriginBirth] = useState('');
   const [child, setChild] = useState('');
   const [voiceNum, setVoiceNum] = useState('');
 
@@ -153,7 +154,8 @@ export default function ChildSetting() {
         setChild(data.profile_pk);
         setOriginName(data.profile_name);
         setDinoPicNum(data.profile_image);
-        setChildBirth(String(data.profile_year));
+        // setChildBirth(String(data.profile_year));
+        setOriginBirth(String(data.profile_year));
         setVoiceNum(data.voice_pk);
       });
     }, []),
@@ -206,7 +208,14 @@ export default function ChildSetting() {
                             setIschangeBirth(true),
                             setIschangePic(false),
                           ]}>
-                          <Text style={styles.birthText}>{childBirth}</Text>
+                          {childBirth.length === 0 ? (
+                            <Text
+                              style={[styles.birthText, {color: '#6e6e6e'}]}>
+                              {originBirth}
+                            </Text>
+                          ) : (
+                            <Text style={styles.birthText}>{childBirth}</Text>
+                          )}
                         </View>
                       </TouchableOpacity>
                       <Text style={styles.myInfo}>년에 태어났구요</Text>
