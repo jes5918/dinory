@@ -70,22 +70,22 @@ export default function AgeProfile({navigation, route}) {
         <ContentTitle title={'태어난 연도를 선택해주세요'} />
         <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
           <View style={styles.colContainer}>
-            <View>
-              {isChangeBirth && (
+            {isChangeBirth && (
+              <View style={styles.rowContainer}>
                 <DialButton
-                  size={width * 0.075}
+                  size={width * 0.055}
                   verMargin={height * 0.02}
                   horMargin={width * 0.005}
                   deleteSize={width * 0.04}
                   inputFunc={dialFunction}
                 />
-              )}
-            </View>
+              </View>
+            )}
             <View style={styles.rowContainer}>
               <View style={styles.inLine}>
                 <Text style={styles.myInfo}>저는 </Text>
                 <TouchableOpacity
-                  activeOpacity={0.9}
+                  activeOpacity={0.7}
                   onPress={() => [setIschangeBirth(true)]}>
                   <View style={styles.birthContainer}>
                     {isChangeBirth && (
@@ -136,9 +136,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
+    marginVertical: height * 0.01,
   },
   birthContainer: {
-    width: width * 0.18,
+    width: width * 0.15,
     height: height * 0.1,
     backgroundColor: '#fff',
     borderRadius: 15,
@@ -147,25 +148,27 @@ const styles = StyleSheet.create({
   },
   birthText: {
     textAlign: 'center',
-    fontSize: height * 0.07,
+    fontSize: height * 0.06,
     color: '#FB537B',
     fontFamily: 'HoonPinkpungchaR',
   },
   myInfo: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: height * 0.1,
+    fontSize: height * 0.06,
     marginHorizontal: height * 0.015,
     textAlign: 'center',
   },
   colContainer: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
   },
   rowContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    width: width * 0.35,
   },
   babyDino: {
     height: height * 0.3,
