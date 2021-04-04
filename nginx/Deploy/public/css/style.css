@@ -94,7 +94,7 @@ hr {
   transition: all 1.3s ease;
   transform: translateY(-85px);
 }
-docke
+
 #menu a.navbar-brand {
   font-family: 'fontHun', sans-serif;
   font-size: 32px;
@@ -108,7 +108,7 @@ docke
   width: 130px;
   position: absolute;
   /* top: -15%; */
-  left: 20%;
+  left: 8%;
 }
 #menu.navbar-default .navbar-nav > li > a {
   font-family: 'fontHun', sans-serif;
@@ -408,7 +408,7 @@ header .intro-text {
 }
 #about p {
   line-height: 32px;
-  font-size: 18px;
+  font-size: 20px;
   word-break: keep-all;
   margin: 30px 0;
 }
@@ -460,6 +460,7 @@ header .intro-text {
   padding: 100px 0;
   background-color: #e0eef4;
 }
+
 .portfolio-item {
   margin: 20px -5px 0px -5px;
   box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.3);
