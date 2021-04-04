@@ -37,8 +37,8 @@ export const Navigation = (props) => {
             <span className='icon-bar'></span>{' '}
             <span className='icon-bar'></span>{' '}
           </button>
-          <a className='navbar-brand page-scroll' href='#page-top'>
-            DINORY
+          <a className='page-scroll navbar-left' href='#page-top'>
+            <img className='logo' src='img/logo1.png' alt='' />
           </a>{' '}
         </div>
 
@@ -62,29 +62,14 @@ export const Navigation = (props) => {
                 services
               </a>
             </li>
-            {/* <li>
-              <a href='#services' className='page-scroll'>
-                Services
-              </a>
-            </li> */}
             <li>
               <a href='#portfolio' className='page-scroll'>
                 Gallery
               </a>
             </li>
             <li>
-              <a href='#testimonials' className='page-scroll'>
-                Testimonials
-              </a>
-            </li>
-            <li>
               <a href='#team' className='page-scroll'>
                 Team
-              </a>
-            </li>
-            <li>
-              <a href='#contact' className='page-scroll'>
-                Contact
               </a>
             </li>
           </ul>

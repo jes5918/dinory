@@ -4,13 +4,21 @@ export const Features = (props) => {
   return (
     <div id='features' className='text-center'>
       <div className='container'>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '1065',
+            height: '600',
+            boxShadow: '8px 8px 16px 8px rgba(0, 0, 0, 0.4)',
+          }}
+        >
           <ReactPlayer
             url='https://youtu.be/_xLlMHapcX4'
-            playing='true'
-            volume='0.8'
-            width='1065'
-            height='600'
+            // playing='true'
+            width='100%'
+            height='100%'
             controls='true'
           />
         </div>
