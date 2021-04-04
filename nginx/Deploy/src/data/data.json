@@ -84,24 +84,34 @@
   ],
   "Team": [
     {
-      "img": "img/team/01.jpg",
-      "name": "John Doe",
-      "job": "Director"
+      "img": "img/team/01.png",
+      "name": "명도균",
+      "job": "Director, PM, Frontend"
     },
     {
-      "img": "img/team/02.jpg",
-      "name": "Mike Doe",
-      "job": "Senior Designer"
+      "img": "img/team/02.png",
+      "name": "전의수",
+      "job": "Frontend, Backend(AI)"
     },
     {
-      "img": "img/team/03.jpg",
-      "name": "Jane Doe",
-      "job": "Senior Designer"
+      "img": "img/team/03.png",
+      "name": "장수민",
+      "job": "Backend(DB), DevOps"
     },
     {
-      "img": "img/team/04.jpg",
-      "name": "Karen Doe",
-      "job": "Project Manager"
+      "img": "img/team/04.png",
+      "name": "유진우",
+      "job": "Frontend, Git Master, Design"
+    },
+    {
+      "img": "img/team/05.png",
+      "name": "윤지해",
+      "job": "Frontend, JIRA, QA, Design"
+    },
+    {
+      "img": "img/team/06.png",
+      "name": "신민호",
+      "job": "Frontend, PPT"
     }
   ],
   "Contact": {
