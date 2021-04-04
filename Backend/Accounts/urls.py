@@ -14,6 +14,7 @@ urlpatterns = [
     path('check/pin/', check_views.pin_check),
     path('check/user/', check_views.user_check),
     path('check/email/', check_views.email_check),
+    path('check/child/', check_views.child_check),
 
     # 이메일 인증
     path('send/email/', email_confirm_views.email_code),
