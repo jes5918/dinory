@@ -1,5 +1,6 @@
 # 중복조회, 일치 조회 
-from ..models import User
+import re
+from ..models import User, Child
 
 from django.contrib.auth.hashers import check_password
 
@@ -9,6 +10,10 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
+def isHangul(text):
+    encText = text
+    hanCount = len(re.findall(u'[\u3130-\u318F\uAC00-\uD7A3]+', encText))
+    return hanCount == len(text)
 
 @api_view(['POST'])
 @authentication_classes([JSONWebTokenAuthentication])
@@ -37,3 +42,15 @@ def user_check(request):
         return Response({'error' : '존재하는 아이디입니다.'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'success' : '사용가능한 아이디입니다.'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def child_check(request):
+    name = request.data.get('name')
+    if not name.isalpha() and not isHangul(name):
+        return Response({'error' : '이름은 한글이나 영어만 입력 가능합니다.'}, status=status.HTTP_400_BAD_REQUEST)
+    if Child.objects.filter(parent=request.user, name=name).exists():
+        return Response({'error' : '중복된 이름입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'success' : '사용 가능한 이름입니다.'}, status=status.HTTP_200_OK)

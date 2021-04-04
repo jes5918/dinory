@@ -87,3 +87,4 @@ def user_delete(request):
     user = get_object_or_404(User, pk=request.user.pk)
     user.delete()
     return Response({'success' : '유저가 삭제되었습니다.'}, status=status.HTTP_200_OK)
+    

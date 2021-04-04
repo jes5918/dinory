@@ -48,7 +48,7 @@ def diary_read_total_daily(request):
     month = request.GET.get('month')
     date = request.GET.get('date')
     notes = get_object_or_404(Note, child=child, year=year, month=month)
-    diary = Diary.objects.filter(note=notes, date=date)
+    diary = Diary.objects.filter(note=notes, date=date).order_by('-id')
     serializer = DailyDiarySerializer(diary, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -73,7 +73,7 @@ def diary_read_monthly(request):
     year = request.GET.get('year')
     month = request.GET.get('month')
     note = get_object_or_404(Note, child=child, year=year, month=month)
-    diaries = Diary.objects.filter(note=note)
+    diaries = Diary.objects.filter(note=note).order_by('-date')
     days = []
     diary_data = []
     for diary in diaries:
