@@ -9,7 +9,10 @@ import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
 import AlertModal from '../../components/elements/AlertModal';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 // static variable
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
@@ -96,7 +99,7 @@ export default function SearchPassword({navigation}) {
             text={'이메일을 입력하세요'}
             width={windowWidth * 0.3}
             height={windowHeight * 0.08}
-            size={18}
+            size={hp(2.8)}
             setFunction={setUserWriteEmail}
             secureTextEntry={false}
             autoFocus={false}
@@ -106,7 +109,7 @@ export default function SearchPassword({navigation}) {
             text={'아이디를 입력해주세요'}
             width={windowWidth * 0.3}
             height={windowHeight * 0.08}
-            size={18}
+            size={hp(2.8)}
             setFunction={setUserWriteName}
             secureTextEntry={false}
             autoFocus={false}
@@ -133,7 +136,7 @@ export default function SearchPassword({navigation}) {
               text={'인증코드를 입력해주세요'}
               width={windowWidth * 0.3}
               height={windowHeight * 0.08}
-              size={18}
+              size={hp(2.8)}
               setFunction={setUserWriteCode}
               secureTextEntry={true}
               autoFocus={false}
