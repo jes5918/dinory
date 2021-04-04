@@ -130,7 +130,7 @@ export default function SearchPassword({navigation}) {
           <View style={styles.view}>
             <BasicButton
               text="본인인증"
-              customFontSize={24}
+              customFontSize={hp(2.8)}
               paddingHorizon={24}
               paddingVertical={11}
               btnWidth={windowWidth * 0.3}
@@ -154,8 +154,8 @@ export default function SearchPassword({navigation}) {
             />
             <BasicButton
               text="확인"
-              customFontSize={24}
-              paddingHorizon={24}
+              customFontSize={windowHeight * 0.025}
+              paddingHorizon={hp(3.5)}
               paddingVertical={11}
               btnWidth={windowWidth * 0.3}
               btnHeight={windowHeight * 0.08}
