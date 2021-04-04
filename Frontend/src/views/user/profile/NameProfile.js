@@ -7,7 +7,7 @@ import RoundButton from '../../../components/elements/RoundButton';
 import ProfileTextInput from '../../../components/authorization/ProfileTextInput';
 import Header from '../../../components/elements/Header';
 import AlertModal from '../../../components/elements/AlertModal';
-
+import {checkProfileName} from '../../../api/accounts/childSettings';
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
@@ -17,6 +17,7 @@ export default function NameProfile({navigation}) {
   const [fmodalVisible, setfModalVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [Name, setName] = useState('');
+  const [emodalVisible, seteModalVisible] = useState(false);
 
   // 다음화면
   const next = () => {
@@ -48,10 +49,19 @@ export default function NameProfile({navigation}) {
       changeModalState();
       return;
     }
-
-    navigation.navigate('AgeProfile', {
-      ProfileName: Name,
-    });
+    let ProfileName = new FormData();
+    ProfileName.append('name', Name);
+    checkProfileName(
+      ProfileName,
+      (res) => {
+        navigation.navigate('AgeProfile', {
+          ProfileName: Name,
+        });
+      },
+      (error) => {
+        echangeModalState();
+      },
+    );
   };
 
   // 모달 상태변화
@@ -74,7 +84,15 @@ export default function NameProfile({navigation}) {
       setModalVisible(!modalVisible);
     }, 1500);
   };
+  const ecloseModal = () => {
+    setTimeout(() => {
+      seteModalVisible(!emodalVisible);
+    }, 2000);
+  };
 
+  const echangeModalState = () => {
+    seteModalVisible(!emodalVisible);
+  };
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
       <Header logoHeader={true} />
@@ -113,6 +131,14 @@ export default function NameProfile({navigation}) {
             iconName={'frowno'}
             color={'red'}
             setTimeFunction={() => closeModal()}
+          />
+          <AlertModal
+            modalVisible={emodalVisible}
+            onHandleCloseModal={() => echangeModalState()}
+            text={'이미 등록된 프로필이 존재합니다!'}
+            iconName={'frowno'}
+            color={'red'}
+            setTimeFunction={() => ecloseModal()}
           />
         </Layout>
       </View>

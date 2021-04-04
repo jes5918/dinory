@@ -14,6 +14,7 @@ import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
 import AlertModal from '../../components/elements/AlertModal';
+import {getPixelSizeForLayoutSize} from 'react-native/Libraries/Utilities/PixelRatio';
 
 // static variable
 const windowSize = Dimensions.get('window');
@@ -180,7 +181,6 @@ const styles = StyleSheet.create({
     width: wp(30),
     color: '#707070',
     marginBottom: hp(5),
-    fontFamily: 'NotoSansKR-Bold',
   },
   view: {
     justifyContent: 'center',
@@ -207,6 +207,6 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: hp(2.25),
     alignSelf: 'flex-start',
-    fontFamily: 'NotoSansKR-Bold',
+    marginVertical: hp(2),
   },
 });
