@@ -30,6 +30,10 @@ const Diary = ({data}) => {
     <View style={styles.bodyContainer}>
       <Image style={styles.image} source={{uri: data && baseURL + data.img}} />
       <View style={styles.mainBox}>
+        <Image
+          style={styles.imageBack}
+          source={require('../../assets/images/logo_ver2.png')}
+        />
         <View style={styles.mainContainer}>
           <Text style={styles.mainText}>제목 : {data && data.title}</Text>
         </View>
@@ -184,7 +188,7 @@ const styles = StyleSheet.create({
   bodyContainer: {
     width: windowWidth * 0.7,
     height: windowHeight * 0.55,
-    backgroundColor: 'white',
+    backgroundColor: '#fffff0',
     borderRadius: 30,
     display: 'flex',
     flexDirection: 'row',
@@ -227,6 +231,14 @@ const styles = StyleSheet.create({
     fontSize: windowWidth * 0.017, // 18
     lineHeight: windowHeight * 0.05,
     textDecorationLine: 'underline',
+  },
+  imageBack: {
+    position: 'absolute',
+    width: windowWidth * 0.26,
+    height: null,
+    aspectRatio: 400 / 150,
+    top: windowHeight * 0.3,
+    opacity: 0.1,
   },
 });
 

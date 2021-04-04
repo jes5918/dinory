@@ -86,6 +86,7 @@ export default function EmailAuthorization({navigation}) {
         (res) => {
           changeModalState();
           setPause(false);
+          setShowtoClock(false);
           navigation.navigate('SignupScreen', {email: userWriteEmail});
         },
         (error) => {
@@ -237,6 +238,7 @@ export default function EmailAuthorization({navigation}) {
               onPress={() => {
                 navigation.navigate('LoginScreen');
                 setPause(false);
+                setShowtoClock(false);
               }}>
               로그인
             </Text>

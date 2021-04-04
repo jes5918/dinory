@@ -139,7 +139,7 @@ export default function SingupSCreen({navigation, route}) {
 
             <BasicButton
               text="중복확인"
-              customFontSize={18}
+              customFontSize={hp(2.8)}
               paddingHorizon={0}
               paddingVertical={16}
               btnWidth={wp(9)}
