@@ -54,7 +54,9 @@ export default function AgeProfile({navigation, route}) {
   };
 
   const next = () => {
-    if (childBirth >= 1990 && childBirth <= 2020) {
+    const date = new Date();
+    const thisYear = date.getFullYear();
+    if (childBirth >= (thisYear-100) && childBirth <= thisYear) {
       navigation.navigate('AvatarProfile', {
         ...route.params,
         ProfileYear: childBirth,
