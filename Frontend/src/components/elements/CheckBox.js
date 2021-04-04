@@ -212,11 +212,11 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: windowWidth * 0.017,
     fontFamily: 'HoonPinkpungchaR',
-    marginLeft: windowWidth * 0.01875,
+    marginLeft: windowWidth * 0.013,
   },
   volume: {
     height: windowHeight * 0.05,
-    width: windowWidth * 0.04,
+    width: windowWidth * 0.034,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

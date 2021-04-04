@@ -46,5 +46,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: '1.5%',
     elevation: 5,
+    zIndex: 15,
   },
 });

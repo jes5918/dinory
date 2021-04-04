@@ -314,6 +314,9 @@ export default function Diary() {
   const propsSetSelectImage = (e) => {
     setSelectImage(e);
   };
+  const gotoMain = () => {
+    navigation.goBack();
+  };
 
   if (currentPage < 0) {
     return <DiraryAgainTutorial onhandleEnd={() => tutorialToggle()} />;
@@ -325,6 +328,7 @@ export default function Diary() {
         changeModalState={(e) => changeModalState(e)}
         closeModal={(e) => closeModal(e)}
         modalVisible={modalVisible}
+        onHandleArrow={() => gotoMain()}
       />
     );
   } else if (currentPage === 0) {

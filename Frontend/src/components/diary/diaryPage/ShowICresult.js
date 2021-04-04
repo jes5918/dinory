@@ -25,6 +25,7 @@ export default function ShowICresult({
   captionWords,
   wordSaveSpinner,
   trylater,
+  children,
 }) {
   const bgurl = require('../../../assets/images/background4.png');
   const [quit, setQuit] = useState(false);
@@ -34,6 +35,7 @@ export default function ShowICresult({
   };
   return (
     <ImageBackground source={bgurl} style={styles.bgBox}>
+      {children}
       <View style={styles.arrowBtnBox}>
         <ArrowButton onHandlePress={() => onHandleGoback()} />
       </View>
@@ -98,10 +100,10 @@ const styles = StyleSheet.create({
     overflow: 'visible',
     top: height * 0.02,
     left: '2%',
-    zIndex: 999,
+    zIndex: 33,
   },
   mainIconBox: {
-    zIndex: 999,
+    zIndex: 5,
     position: 'absolute',
     top: height * 0.02,
     right: '2%',

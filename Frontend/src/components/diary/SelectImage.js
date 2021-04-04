@@ -138,7 +138,7 @@ const SelectImage = ({setSelectImage}) => {
       width={'60%'}
       height={'65%'}
       opacity={0.9}
-      styleProps={{zIndex: 10}}>
+      styleProps={{zIndex: 13}}>
       <View style={[styles.container]}>
         <TouchableOpacity
           activeOpacity={0.7}
