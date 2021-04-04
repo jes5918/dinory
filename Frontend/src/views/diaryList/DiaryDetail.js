@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -44,6 +46,7 @@ function DiaryDetail({route}) {
   const [dataByDay, setDataByDay] = useState();
   const [dataJustOneDay, setDataJustOneDay] = useState();
   const [selectedDate, setSelectedDate] = useState();
+  const scrollRef = useRef();
 
   const onHandleSelectDay = (clickedDate) => {
     setSelectedDate(clickedDate);
@@ -58,7 +61,7 @@ function DiaryDetail({route}) {
         date,
       },
       (res) => {
-        setDataByDay(() => res.data); // 일단 하나 받는 걸로 고정.
+        setDataByDay(() => res.data);
       },
       (err) => {
         console.error(err);
@@ -80,6 +83,13 @@ function DiaryDetail({route}) {
     );
   };
 
+  const renderItem = ({item}) => <Diary data={item} />;
+
+  // 보류: 2021-04-04
+  const scrollToIndex = (moveToIndex) => {
+    scrollRef.current.scrollToIndex({animated: true, index: moveToIndex});
+  };
+
   useEffect(() => {
     let tempDate = selectedDate || date;
     fetchNotesByDay(profilePK, year, month, tempDate);
@@ -97,20 +107,22 @@ function DiaryDetail({route}) {
           </View>
         </Header>
         <View style={styles.body}>
-          <ScrollView
-            horizontal={true}
-            contentContainerStyle={[
-              {
-                paddingLeft: windowWidth * 0.14,
-                paddingRight: windowWidth * 0.1,
-              },
-            ]}
-            style={styles.bodyCardContainer}>
-            {dataByDay &&
-              dataByDay.map((data) => {
-                return <Diary data={data} key={data.id} />;
+          {dataByDay && (
+            <FlatList
+              contentContainerStyle={{paddingLeft: windowWidth * 0.15}}
+              windowSize={2}
+              ref={scrollRef}
+              data={dataByDay}
+              renderItem={renderItem}
+              keyExtractor={(item, index) => index.toString()}
+              horizontal={true}
+              getItemLayout={(item, index) => ({
+                length: windowWidth * 0.7,
+                offset: windowWidth * 0.7 * index,
+                index,
               })}
-          </ScrollView>
+            />
+          )}
         </View>
         <DiaryListFooter>
           {dataJustOneDay &&
@@ -180,14 +192,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 24,
     marginRight: windowWidth * 0.14,
-  },
-  bodyCardContainer: {
-    backgroundColor: 'transparent',
-    width: '100%',
-    height: 'auto',
-    display: 'flex',
-    flexDirection: 'row',
-    zIndex: 100,
   },
   image: {
     width: windowWidth * 0.3,

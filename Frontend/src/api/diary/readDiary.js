@@ -12,14 +12,6 @@ export function getNotesByYear(child, success, fail) {
 }
 
 export function getNotesByMonth(params, success, fail) {
-  console.log(
-    'today year: ',
-    Object.keys(params).length !== 0 && (params.year || todayYear),
-  );
-  console.log(
-    'today month: ',
-    Object.keys(params).length !== 0 && (params.month || todayMonth),
-  );
   instance
     .get('notes/diary/total/monthly/', {
       params: {
