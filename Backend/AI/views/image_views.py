@@ -18,10 +18,11 @@ import azure.cognitiveservices.speech as speechsdk
 import xml.etree.ElementTree as ET
 import uuid
 import requests
+import os.path
 
 @api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def image_caption(request):
     voice_num = int(request.data.get('num'))
     if voice_num == 4:
@@ -99,10 +100,13 @@ def image_caption(request):
                 
                 # Checks result.
                 if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+                    stream.save_to_wav_file(stream_path)
                     for i in range(4):
-                        stream_path = mediaROOTURL+ '/tts_basic/' + str(i) + tag.name + '.wav'
-                        stream.save_to_wav_file(stream_path)
-                    print("complete")
+                        if i == voice_num:
+                            continue
+                        stream_path2 = mediaROOTURL+ '/tts_basic/' + str(i) + tag.name + '.wav'
+                        if not os.path.isfile(stream_path2):
+                            stream.save_to_wav_file(stream_path2)
                 elif result.reason == speechsdk.ResultReason.Canceled:
                     cancellation_details = result.cancellation_details
                     print("Speech synthesis canceled: {}".format(cancellation_details.reason))
