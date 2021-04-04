@@ -1,6 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react';
-import {StyleSheet, View, Dimensions, Text} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {sendEmailForPW, confirmEmailForPW} from '../../api/accounts/login';
 import BasicButton from '../../components/elements/BasicButton';
@@ -28,8 +34,10 @@ export default function SearchPassword({navigation}) {
   const [fmodalVisible, setfModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
   const [emodalVisible, seteModalVisible] = useState(false);
+  const [spinner, setSpinner] = useState(false);
   const AuthenticateEmail = async () => {
     if (userWriteEmail.length > 0 && userWriteName.length > 0) {
+      setSpinner(true);
       let PasswordForm = new FormData();
       PasswordForm.append('email', userWriteEmail);
       PasswordForm.append('username', userWriteName);
@@ -37,15 +45,18 @@ export default function SearchPassword({navigation}) {
         PasswordForm,
         (res) => {
           setUserTicket(res.data.id);
+          setSpinner(false);
           setVisibleState(false);
           setCodeInputState(true);
         },
         (error) => {
           fchangeModalState();
+          setSpinner(false);
         },
       );
     } else {
       echangeModalState();
+      setSpinner(false);
     }
   };
   const AuthenticateCode = () => {
@@ -178,6 +189,18 @@ export default function SearchPassword({navigation}) {
           color={'#FF0000'}
           setTimeFunction={() => ecloseModal()}
         />
+        <ActivityIndicator
+          size="large"
+          color="#FB537B"
+          style={{
+            zIndex: 999,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignSelf: 'center',
+            top: windowHeight * 0.5,
+          }}
+          animating={spinner}
+        />
       </View>
     </AuthBackGround>
   );
@@ -204,7 +227,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     color: '#707070',
-    fontFamily: 'NotoSansKR-Bold',
   },
   start: {
     display: 'flex',
@@ -217,7 +239,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     color: '#707070',
-    fontFamily: 'NotoSansKR-Bold',
   },
   logo: {
     width: 220, //595
