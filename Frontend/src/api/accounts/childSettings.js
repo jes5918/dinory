@@ -28,6 +28,10 @@ function removeChildProfile(child, success, fail) {
   instance.delete(path).then(success).catch(fail);
 }
 
+function checkProfileName(profileName, success, fail) {
+  instance.post(`accounts/check/child/`, profileName).then(success).catch(fail);
+}
+
 // function deleteChildProfile(child_pk, profileInfo, success, fail) {
 //   instance
 //     .delete(`child/setting/${child_pk}`, profileInfo)
@@ -41,4 +45,5 @@ export {
   editChildProfile,
   editChildVoice,
   removeChildProfile,
+  checkProfileName,
 };

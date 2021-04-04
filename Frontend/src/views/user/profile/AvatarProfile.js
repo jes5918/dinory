@@ -185,7 +185,7 @@ export default function AvatarProfile({navigation, route}) {
           <AlertModal
             modalVisible={emodalVisible}
             onHandleCloseModal={() => echangeModalState()}
-            text={'이미 등록된 프로필이 존재합니다!'}
+            text={'프로필에 입력이 잘못되었거나 서버가 불안정합니다!'}
             iconName={'frowno'}
             color={'red'}
             setTimeFunction={() => ecloseModal()}

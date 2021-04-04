@@ -147,18 +147,7 @@ export default function LoginScreen({navigation}) {
           autoFocus={false}
           marginBottom={hp(5)}
         />
-        <View style={styles.textContainer}>
-          <Text style={[styles.infoText, {color: 'grey'}]}>
-            비밀번호를 잃어버리셨나요?{' '}
-          </Text>
-          <Text
-            style={[styles.infoText, {color: 'blue'}]}
-            onPress={() => {
-              navigation.navigate('SearchPassword');
-            }}>
-            비밀번호 찾기
-          </Text>
-        </View>
+
         <View style={styles.optionContainer}>
           <View style={styles.optionBox}>
             <CheckBox
@@ -176,6 +165,18 @@ export default function LoginScreen({navigation}) {
             />
             <Text style={styles.optionText}>아이디 저장</Text>
           </View>
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={[styles.infoText, {color: 'grey'}]}>
+            비밀번호를 잃어버리셨나요?{' '}
+          </Text>
+          <Text
+            style={[styles.infoText, {color: 'blue'}]}
+            onPress={() => {
+              navigation.navigate('SearchPassword');
+            }}>
+            비밀번호 찾기
+          </Text>
         </View>
         <BasicButton
           text="로그인"
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: hp(2.5),
-    fontFamily: 'NotoSansKR-Bold',
+    marginTop: hp(5),
   },
   optionContainer: {
     display: 'flex',
@@ -243,11 +244,8 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: hp(2.8),
     color: '#707070',
-    fontFamily: 'NotoSansKR-Bold',
   },
-  text: {
-    fontFamily: 'NotoSansKR-Bold',
-  },
+  text: {},
   optionBox: {
     display: 'flex',
     flexDirection: 'row',
