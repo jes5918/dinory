@@ -93,8 +93,8 @@ def diary_stat(request):
     child_cnt = []
     total_age_child = []
     user_child_cnt = []
-
     children = Child.objects.filter(year=child.year)
+    user_child = Child.objects.filter(parent=request.user)
     for _ in range(12):
         if Note.objects.filter(child=child, year=year, month=month).exists():
             note = get_object_or_404(Note, child=child, year=year, month=month)
@@ -107,7 +107,7 @@ def diary_stat(request):
         cnt = 0
         for ch in children:
             if Note.objects.filter(child=ch, year=year, month=month).exists():
-                note = get_object_or_404(Note, child=child, year=year, month=month)
+                note = get_object_or_404(Note, child=ch, year=year, month=month)
                 data += note.count
                 cnt += 1
         if cnt == 0:
@@ -119,10 +119,11 @@ def diary_stat(request):
             
         data = 0
         cnt = 0
-        if Note.objects.filter(user=request.user, year=year, month=month).exists():
-            note = get_object_or_404(Note, user=request.user, year=year, month=month)
-            data += note.count
-            cnt += 1
+        for ch in user_child:
+            if Note.objects.filter(child=ch, year=year, month=month).exists():
+                note = get_object_or_404(Note, child=ch, year=year, month=month)
+                data += note.count
+                cnt += 1
         if cnt == 0:
             ans = 0
         else:
