@@ -24,6 +24,9 @@ export const Navigation = (props) => {
       }
     >
       <div className='container'>
+        <a className='page-scroll navbar-left' href='#page-top'>
+          <img className='logo' src='img/logo1.png' alt='' />
+        </a>{' '}
         <div className='navbar-header'>
           <button
             type='button'
@@ -41,11 +44,13 @@ export const Navigation = (props) => {
             <img className='logo' src='img/logo1.png' alt='' />
           </a>{' '}
         </div>
-
         <div
           className='collapse navbar-collapse'
           id='bs-example-navbar-collapse-1'
         >
+          <a className='page-scroll navbar-left' href='#page-top'>
+            <img className='logo' src='img/logo1.png' alt='' />
+          </a>{' '}
           <ul className='nav navbar-nav navbar-right'>
             <li>
               <a href='#header' className='page-scroll'>
