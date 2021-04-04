@@ -135,7 +135,7 @@ export default function ModifyPassword({navigation, route}) {
         <View style={styles.view}>
           <BasicButton
             text="변경"
-            customFontSize={24}
+            customFontSize={hp(3.5)}
             paddingHorizon={0}
             paddingVertical={11}
             btnWidth={windowWidth * 0.3}
