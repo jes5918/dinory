@@ -395,7 +395,7 @@ export default function DiaryMainTutorial() {
               justifyContent: 'center',
               alignItems: 'flex-start',
               padding: width * 0.01,
-              height: height * 0.25,
+              height: height * 0.35,
               paddingHorizontal: width * 0.04,
               zIndex: 15,
             }}>
