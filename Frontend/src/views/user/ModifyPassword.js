@@ -123,7 +123,6 @@ export default function ModifyPassword({navigation, route}) {
           />
           {userWritePassword.length < 8 ? (
             <Text style={styles.alertMessage}>
-              {' '}
               대,소문자 영어+숫자로 8자리 이상 적 어주세요.
             </Text>
           ) : null}
@@ -190,14 +189,12 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 40,
-    fontFamily: 'NotoSansKR-Bold',
     fontWeight: 'bold',
     color: '#707070',
   },
   text_Pin: {
     fontSize: 18,
     width: windowWidth * 0.3,
-    fontFamily: 'NotoSansKR-Bold',
     color: '#707070',
   },
   view: {
@@ -216,7 +213,6 @@ const styles = StyleSheet.create({
   alertMessage: {
     color: 'red',
     fontSize: 18,
-    fontFamily: 'NotoSansKR-Bold',
     marginBottom: windowHeight * 0.043,
     marginTop: windowHeight * 0.02,
     alignSelf: 'flex-start',
