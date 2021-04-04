@@ -19,7 +19,12 @@ export const Contact = (props) => {
     e.preventDefault();
     console.log(name, email, message);
     emailjs
-      .sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target, 'YOUR_USER_ID')
+      .sendForm(
+        'service_5awvwyi',
+        'template_9lxhla8',
+        e.target,
+        'user_8lWYcjwJxn4pnGwVb79TJ'
+      )
       .then(
         (result) => {
           console.log(result.text);
@@ -39,8 +44,9 @@ export const Contact = (props) => {
               <div className='section-title'>
                 <h2>Get In Touch</h2>
                 <p>
-                  Please fill out the form below to send us an email and we will
-                  get back to you as soon as possible.
+                  DINORY의 사용에 궁금증이 있거나 문의하실 내용이 있으시면
+                  아래의 폼을 통해서 이메일을 작성해주세요. 빠르게
+                  답장해드리도록 하겠습니다!.
                 </p>
               </div>
               <form name='sentMessage' validate onSubmit={handleSubmit}>
@@ -100,7 +106,7 @@ export const Contact = (props) => {
                 <span>
                   <i className='fa fa-map-marker'></i> Address
                 </span>
-                {props.data ? props.data.address : 'loading'}
+                Hanbit Apartment in Eoeun-dong, Yuseong-gu, Daejeon, Korea
               </p>
             </div>
             <div className='contact-item'>
@@ -108,7 +114,7 @@ export const Contact = (props) => {
                 <span>
                   <i className='fa fa-phone'></i> Phone
                 </span>{' '}
-                {props.data ? props.data.phone : 'loading'}
+                +82 10 6639 xxxx
               </p>
             </div>
             <div className='contact-item'>
@@ -116,11 +122,11 @@ export const Contact = (props) => {
                 <span>
                   <i className='fa fa-envelope-o'></i> Email
                 </span>{' '}
-                {props.data ? props.data.email : 'loading'}
+                dinory.develop@gmail.com
               </p>
             </div>
           </div>
-          <div className='col-md-12'>
+          {/* <div className='col-md-12'>
             <div className='row'>
               <div className='social'>
                 <ul>
@@ -142,7 +148,7 @@ export const Contact = (props) => {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div id='footer'>
