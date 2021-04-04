@@ -39,6 +39,7 @@ import SelectVoice from '../views/child/SelectVoice';
 import MainTutorial from '../views/MainTutorial';
 import ChildSetting from '../views/child/ChildSetting';
 import Diary from '../views/diary/Diary';
+import DiaryMainTutorial from '../views/diary/DiaryMainTutorial';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
 // import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
@@ -90,6 +91,7 @@ const App = () => {
         <Stack.Screen name="PassWordUpdate" component={PassWordUpdate} />
         <Stack.Screen name="PinUpdate" component={PinUpdate} />
         <Stack.Screen name="PinAuthentication" component={PinAuthentication} />
+        <Stack.Screen name="DiaryMainTutorial" component={DiaryMainTutorial} />
       </Stack.Navigator>
     </NavigationContainer>
   );
