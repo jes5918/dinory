@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     padding: '1.5%',
+    zIndex: 13,
   },
 
   img: {
@@ -67,5 +68,6 @@ const styles = StyleSheet.create({
     fontSize: width * 0.035,
     fontFamily: 'HoonPinkpungchaR',
     color: 'white',
+    zIndex: 15,
   },
 });

@@ -20,7 +20,7 @@ import {
   AppState,
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/core';
-// import {didTutorial} from '../api/diary/checkTutorial';
+import {didTutorial} from '../api/diary/checkTutorial';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -132,15 +132,22 @@ export default function Main() {
 
   //
   // 2차 배포 때 구현 예정 : 일기작성 여부에 따른 페이징 처리(작성 X : 튜토리얼 / 작성 O : 일기작성)
-  // const checkDidTutorial = () => {
-  //   if (didTutorial(child)) {
-  //     navigation.navigate('Diary');
-  //   } else {
-  //     navigation.navigate('DiaryWriteTutorial');
-  //   }
-  // };
   const checkDidTutorial = () => {
-    navigation.navigate('Diary');
+    didTutorial(
+      child,
+      (res) => {
+        console.log(res.data.tutorial);
+        if (res.data.tutorial) {
+          navigation.navigate('DiaryMainTutorial');
+        } else {
+          navigation.navigate('Diary');
+        }
+      },
+      (err) => {
+        console.error(err);
+        navigation.navigate('Diary');
+      },
+    );
   };
 
   // 사운드 설정
