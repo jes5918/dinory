@@ -62,16 +62,17 @@ export default function Intro({gotoNext}) {
             justifyContent: 'center',
             alignItems: 'flex-start',
             padding: width * 0.01,
-            height: height * 0.25,
+            height: height * 0.35,
+            // height: 'auto',
             paddingHorizontal: width * 0.04,
             zIndex: 15,
           }}>
           <TypeWriter
             style={{
               fontFamily: 'HoonPinkpungchaR',
-              fontSize: width * 0.026,
+              fontSize: height * 0.045,
               color: 'black',
-              lineHeight: width * 0.04,
+              lineHeight: height * 0.06,
             }}
             typing={1}
             fixed={true}
