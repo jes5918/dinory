@@ -43,6 +43,7 @@ function DiaryDetail({route}) {
     getNotesOnlyDay(
       selectedDiaryPK,
       (res) => {
+        console.log(res.data);
         setDataByDay(() => res.data);
       },
       (err) => {},
