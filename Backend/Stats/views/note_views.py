@@ -149,7 +149,7 @@ def diary_stat(request):
 def diary_commit(request):
     child = get_object_or_404(Child, parent=request.user, pk=request.GET.get('child'))
     select_year = request.GET.get('year')
-    notes = Note.objects.filter(year=select_year, child=child)
+    notes = Note.objects.filter(year=select_year, child=child).order_by('month')
     commitsDATA = []
     for note in notes:
         month = note.month
