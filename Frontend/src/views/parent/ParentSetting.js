@@ -200,7 +200,9 @@ function ParentSetting({route}) {
             <Text style={styles.mainText}>일기 검사하기</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => willUpdateInfomationCloseModal()}
+            onPress={() =>
+              navigation.navigate('DiaryChart', {profilePK: profilePK})
+            }
             activeOpacity={0.7}
             style={styles.mainButton}>
             <Text style={styles.mainText}>통계 보기</Text>
