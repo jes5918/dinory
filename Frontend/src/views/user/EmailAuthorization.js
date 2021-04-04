@@ -44,6 +44,7 @@ export default function EmailAuthorization({navigation}) {
   const Authenticate = async () => {
     if (userWriteEmail.length > 8) {
       setSpinner(true);
+      setPause(true);
       setShowtoClock(false);
       let emailAuthForm = new FormData();
       emailAuthForm.append('email', userWriteEmail);
