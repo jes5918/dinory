@@ -278,7 +278,6 @@ const styles = StyleSheet.create({
     color: '#707070',
     alignSelf: 'flex-start',
     marginBottom: windowHeight * 0.02,
-    fontFamily: 'NotoSansKR-Bold',
   },
   alertMessage: {
     color: 'red',
@@ -287,6 +286,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 10,
-    fontFamily: 'NotoSansKR-Bold',
   },
 });

@@ -17,8 +17,11 @@ import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
 import AlertModal from '../../components/elements/AlertModal';
-import CountDown from 'react-native-countdown-component';
-
+import CountDown from '../../components/elements/CountDown';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
@@ -36,7 +39,7 @@ export default function EmailAuthorization({navigation}) {
   const [fmodalVisible, setfModalVisible] = useState(false);
   const [gmodalVisible, setgModalVisible] = useState(false);
   const [showToClock, setShowtoClock] = useState(false);
-  const [initialState, setinitialState] = useState(false);
+  const [pause, setPause] = useState(true);
   const [disabled, setDisabled] = useState(false);
   const Authenticate = async () => {
     if (userWriteEmail.length > 8) {
@@ -82,6 +85,7 @@ export default function EmailAuthorization({navigation}) {
         ConfirmForm,
         (res) => {
           changeModalState();
+          setPause(false);
           navigation.navigate('SignupScreen', {email: userWriteEmail});
         },
         (error) => {
@@ -166,7 +170,7 @@ export default function EmailAuthorization({navigation}) {
               text={'이메일을 입력하세요'}
               width={windowWidth * 0.3}
               height={windowHeight * 0.08}
-              size={windowHeight * 0.025}
+              size={hp(2.8)}
               setFunction={setUserWriteEmail}
               keyboardType={'email-address'}
               secureTextEntry={false}
@@ -189,7 +193,7 @@ export default function EmailAuthorization({navigation}) {
               text={'인증번호를 입력하세요'}
               width={windowWidth * 0.3}
               height={windowHeight * 0.08}
-              size={windowHeight * 0.025}
+              size={hp(2.8)}
               setFunction={setUserWriteCode}
               autoFocus={false}
               secureTextEntry={true}
@@ -212,11 +216,12 @@ export default function EmailAuthorization({navigation}) {
                 until={300}
                 size={windowHeight * 0.025}
                 separatorStyle={{color: 'red'}}
-                digitStyle={{backgroundColor: '#FFF'}}
+                digitStyle={{backgroundColor: '#fff'}}
                 digitTxtStyle={{color: 'red'}}
                 timeToShow={['M', 'S']}
                 timeLabels={{m: null, s: null}}
                 showSeparator
+                running={pause}
                 onFinish={() => {
                   OnFinishedTimer();
                 }}
@@ -331,7 +336,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   footerText: {
-    fontFamily: 'NotoSansKR-Bold',
     fontSize: windowHeight * 0.025,
     color: '#8c8c8c',
     textAlign: 'left',
@@ -340,27 +344,21 @@ const styles = StyleSheet.create({
     flex: 1.5,
   },
   linkText: {
-    fontFamily: 'NotoSansKR-Bold',
     fontSize: windowHeight * 0.025,
     color: '#0A82FF',
     position: 'absolute',
     right: windowWidth * 0.01,
   },
-  counter: {
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
   timerText: {
     color: 'red',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    fontFamily: 'NotoSansKR-Bold',
+    fontWeight: 'bold',
     marginRight: windowWidth * 0.01,
     fontSize: windowHeight * 0.025,
   },
   timer: {
-    flex: 0.2,
+    height: windowHeight * 0.06,
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'flex-start',
   },
 });

@@ -22,7 +22,10 @@ const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
 const layoutWidth = windowWidth * 0.3718;
 const layoutHeight = windowHeight * 0.755;
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 export default function ModifyPassword({navigation, route}) {
   const [userWritePassword, setUserWritePassword] = useState('');
   const [userCheckPassword, setUserCheckPassword] = useState('');
@@ -103,7 +106,7 @@ export default function ModifyPassword({navigation, route}) {
             text={'변경할 비밀번호를 입력해주세요'}
             width={windowWidth * 0.3}
             height={windowHeight * 0.08}
-            size={18}
+            size={hp(2.8)}
             setFunction={setUserWritePassword}
             secureTextEntry={true}
             autoFocus={false}
@@ -113,7 +116,7 @@ export default function ModifyPassword({navigation, route}) {
             text={'한 번 더 입력해주세요.'}
             width={windowWidth * 0.3}
             height={windowHeight * 0.08}
-            size={18}
+            size={hp(2.8)}
             setFunction={setUserCheckPassword}
             secureTextEntry={true}
             autoFocus={false}
