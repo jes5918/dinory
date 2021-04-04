@@ -65,6 +65,7 @@ function DiaryDetail({route}) {
         date,
       },
       (res) => {
+        console.log(res.data);
         setDataByDay(() => res.data);
       },
       (err) => {
@@ -114,7 +115,7 @@ function DiaryDetail({route}) {
           {dataByDay && (
             <FlatList
               contentContainerStyle={{paddingLeft: windowWidth * 0.15}}
-              windowSize={2}
+              // windowSize={2}
               ref={scrollRef}
               data={dataByDay}
               renderItem={renderItem}
@@ -194,12 +195,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 24,
     marginRight: windowWidth * 0.14,
+    paddingHorizontal: windowWidth * 0.03,
+    paddingVertical: windowHeight * 0.05,
   },
   image: {
-    width: windowWidth * 0.3,
-    height: windowWidth * 0.3,
+    width: windowHeight * 0.5,
+    height: windowHeight * 0.5,
+    maxHeight: windowHeight * 0.55,
     borderRadius: 30,
     resizeMode: 'contain',
   },
