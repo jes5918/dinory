@@ -15,16 +15,17 @@ export default function UploadPhoto({
   changeModalState,
   closeModal,
   modalVisible,
-  child,
+  children,
+  onHandleArrow,
 }) {
   const bgurl = require('../../../assets/images/background4.png');
   const navigation = useNavigation();
 
   return (
     <ImageBackground source={bgurl} style={styles.bgBox}>
-      {child}
+      {children}
       <View style={styles.arrowBtnBox}>
-        <ArrowButton onHandlePress={() => navigation.goBack()} />
+        <ArrowButton onHandlePress={() => onHandleArrow()} />
       </View>
       <View style={styles.mainIconBox}>
         <TouchableOpacity
@@ -71,10 +72,10 @@ const styles = StyleSheet.create({
     overflow: 'visible',
     top: height * 0.02,
     left: '2%',
-    zIndex: 999,
+    zIndex: 33,
   },
   mainIconBox: {
-    zIndex: 999,
+    zIndex: 8,
     position: 'absolute',
     top: height * 0.02,
     right: '2%',

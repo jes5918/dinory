@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Dimensions,
+  BackHandler,
 } from 'react-native';
 import ArrowButton from '../../elements/ArrowButton';
 import AlertModal from '../../elements/AlertModal';
@@ -39,6 +40,7 @@ export default function CreateDiary({
   onHandleChangeContent,
   titleInput,
   onHandleClear,
+  children,
 }) {
   const navigation = useNavigation();
   const bgurl = require('../../../assets/images/background4.png');
@@ -47,8 +49,22 @@ export default function CreateDiary({
     setQuit(false);
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        setQuit(true);
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
+
   return (
     <ImageBackground source={bgurl} style={styles.bgBox}>
+      {children}
       <View style={styles.arrowBtnBox}>
         <ArrowButton onHandlePress={() => setQuit(true)} />
       </View>
@@ -172,10 +188,10 @@ const styles = StyleSheet.create({
     overflow: 'visible',
     top: height * 0.02,
     left: '2%',
-    zIndex: 999,
+    zIndex: 33,
   },
   mainIconBox: {
-    zIndex: 999,
+    zIndex: 6,
     position: 'absolute',
     top: height * 0.02,
     right: '2%',

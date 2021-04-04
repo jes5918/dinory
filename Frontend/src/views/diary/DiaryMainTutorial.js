@@ -1,21 +1,24 @@
 import React, {useEffect, useState, useCallback, useRef} from 'react';
-import {ImageBackground, StyleSheet, Dimensions} from 'react-native';
-import {useFocusEffect} from '@react-navigation/core';
+import {ImageBackground, StyleSheet, Dimensions, View} from 'react-native';
+import {useFocusEffect, useNavigation} from '@react-navigation/core';
 import UploadPhoto from '../../components/diary/diaryPage/UploadPhoto';
 import ShowICresult from '../../components/diary/diaryPage/ShowICresult';
 import CreateDiary from '../../components/diary/diaryPage/CreateDiary';
 import LoadingSec from '../../components/elements/LoadingSec';
+import Intro from '../../components/diary/tutorial.js/Intro';
+import Finish from '../../components/diary/tutorial.js/Finish';
+import RoundButton from '../../components/elements/RoundButton';
 import {
   createDiary,
   imageCaptioning,
   saveWords,
   grammarCheck,
 } from '../../api/diary/writeDiary';
-import {useNavigation} from '@react-navigation/core';
+import TypeWriter from 'react-native-typewriter';
 import DiraryAgainTutorial from '../../views/diary/DiraryAgainTutorial';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {debounce} from 'lodash';
-
+import HowToWrite from '../../components/diary/tutorial.js/HowToWrite';
 ///////날짜
 const date = new Date();
 const textMonth = String(date.getMonth() + 1);
@@ -46,7 +49,7 @@ const day = makeDate(textDate);
 
 const debounceSomethingFunc = debounce(() => {}, 300);
 
-export default function Diary() {
+export default function DiaryMainTutorial() {
   const navigation = useNavigation();
   const bgurl = require('../../assets/images/background4.png');
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,6 +83,9 @@ export default function Diary() {
     setDiaryContent(e.nativeEvent.text);
     debounceSomethingFunc();
   };
+  const gotoMain = () => {
+    navigation.goBack();
+  };
   const closeModal = (e) => {
     if (e === 1) {
       setTimeout(() => {
@@ -96,7 +102,7 @@ export default function Diary() {
     } else if (e === 4) {
       setTimeout(() => {
         setSuccess(false);
-        navigation.navigate('Main');
+        gotoNext();
       }, 1000);
     } else if (e === 7) {
       setTimeout(() => {
@@ -139,6 +145,9 @@ export default function Diary() {
   const gotoBack = () => {
     setCurrentPage(currentPage - 1);
   };
+  const gotoNext = () => {
+    setCurrentPage(currentPage + 1);
+  };
   const gotoWriteDiary = () => {
     const selectedWordList = captionWords.filter(
       (word) => word.checked === true,
@@ -158,12 +167,12 @@ export default function Diary() {
       }).then((res) => {
         if (res.status === 201) {
           setWordSaveSpinner(false);
-          setCurrentPage(3);
+          setCurrentPage(5);
         }
       });
     } else {
       setWordSaveSpinner(false);
-      setCurrentPage(3);
+      setCurrentPage(5);
     }
   };
   const getChildPk = async () => {
@@ -206,11 +215,11 @@ export default function Diary() {
         formData,
         (res) => {
           setCaptionWords(res.data.data);
-          setCurrentPage(2);
+          setCurrentPage(3);
         },
         () => {
           setSelectImage(false);
-          setCurrentPage(1);
+          setCurrentPage(2);
           setModalVisible(!modalVisible);
         },
       );
@@ -244,6 +253,13 @@ export default function Diary() {
     }
   };
 
+  const onHandleClear = () => {
+    setTitle('');
+    setDiaryContent('');
+    setGrammarchecked(false);
+    setCheckData(false);
+    gotoBack();
+  };
   const saveDiary = () => {
     if (title && diaryContent && selectImage) {
       setConfirmSave(false);
@@ -301,32 +317,36 @@ export default function Diary() {
 
   if (currentPage < 0) {
     return <DiraryAgainTutorial onhandleEnd={() => tutorialToggle()} />;
-  } else if (currentPage === 1) {
-    return (
-      <UploadPhoto
-        onHandleTutorialToggle={() => tutorialToggle()}
-        PsetSelectImage={propsSetSelectImage}
-        changeModalState={(e) => changeModalState(e)}
-        closeModal={(e) => closeModal(e)}
-        modalVisible={modalVisible}>
-        <View
-          style={{
-            width: width,
-            height: height,
-            backgroundColor: 'black',
-            position: 'absolute',
-            zIndex: 10,
-            opacity: 0.6,
-          }}></View>
-      </UploadPhoto>
-    );
   } else if (currentPage === 0) {
     return (
       <ImageBackground source={bgurl} style={styles.bgBox}>
         <LoadingSec />
       </ImageBackground>
     );
-  } else if (currentPage == 2) {
+  } else if (currentPage === 1) {
+    return <Intro gotoNext={() => gotoNext()} />;
+  } else if (currentPage === 2) {
+    return (
+      <UploadPhoto
+        onHandleTutorialToggle={() => tutorialToggle()}
+        PsetSelectImage={propsSetSelectImage}
+        changeModalState={(e) => changeModalState(e)}
+        closeModal={(e) => closeModal(e)}
+        modalVisible={modalVisible}
+        onHandleArrow={() => gotoBack()}>
+        <View
+          style={{
+            width: width,
+            height: height,
+            backgroundColor: 'black',
+            position: 'absolute',
+            zIndex: 12,
+            opacity: 0.6,
+          }}
+        />
+      </UploadPhoto>
+    );
+  } else if (currentPage == 3) {
     return (
       <ShowICresult
         onHandleTutorialToggle={() => tutorialToggle()}
@@ -338,10 +358,101 @@ export default function Diary() {
         wordSaveSpinner={wordSaveSpinner}
         changeModalState={(e) => changeModalState(e)}
         closeModal={(e) => closeModal(e)}
-        trylater={trylater}
+        trylater={trylater}>
+        <View
+          style={{
+            width: width,
+            height: height,
+            backgroundColor: 'black',
+            position: 'absolute',
+            zIndex: 20,
+            opacity: 0.6,
+          }}
+        />
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            alignSelf: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+            zIndex: 22,
+          }}>
+          <RoundButton
+            text={'Next'}
+            color={'#56A4F1'}
+            styleProps={{margin: width * 0.03}}
+            onHandlePress={() => gotoNext()}
+          />
+          <View
+            style={{
+              backgroundColor: 'rgba(256, 256, 256, 0.8)',
+              width: width,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+              padding: width * 0.01,
+              height: height * 0.25,
+              paddingHorizontal: width * 0.04,
+              zIndex: 15,
+            }}>
+            <TypeWriter
+              style={{
+                fontFamily: 'HoonPinkpungchaR',
+                fontSize: width * 0.026,
+                color: 'black',
+                lineHeight: width * 0.04,
+              }}
+              typing={1}
+              fixed={true}
+              initialDelay={500}
+              minDelay={20}>
+              자, 어떤 단어들이 나왔는지 같이 살펴볼까요? 단어 박스에 나온
+              단어들을 클릭해 뜻을 확인해보고 발음을 들어보세요! 또, 추가 하고
+              싶은 단어들을 체크해 내 단어장에 추가해 보아요!
+            </TypeWriter>
+          </View>
+        </View>
+      </ShowICresult>
+    );
+  } else if (currentPage == 4) {
+    return (
+      <ShowICresult
+        onHandleTutorialToggle={() => tutorialToggle()}
+        onHandleGoback={() => gotoBack()}
+        selected={selectImage.uri}
+        captionWords={captionWords}
+        changeTemp={(e) => changeTemp(e)}
+        gotoWriteDiary={() => gotoWriteDiary()}
+        wordSaveSpinner={wordSaveSpinner}
+        changeModalState={(e) => changeModalState(e)}
+        closeModal={(e) => closeModal(e)}
+        trylater={trylater}>
+        <View
+          style={{
+            width: width,
+            height: height,
+            backgroundColor: 'black',
+            position: 'absolute',
+            zIndex: 12,
+            opacity: 0.6,
+          }}
+        />
+      </ShowICresult>
+    );
+  } else if (currentPage == 5) {
+    return (
+      <HowToWrite
+        OnHandleGotoBack={() => {
+          gotoBack();
+        }}
+        OnHandleGotoNext={() => gotoNext()}
       />
     );
-  } else if (currentPage == 3) {
+  } else if (currentPage === 6) {
     return (
       <CreateDiary
         onHandleTutorialToggle={() => tutorialToggle()}
@@ -367,10 +478,24 @@ export default function Diary() {
         titleInput={titleInput}
         onHandleChangeTitle={(e) => titleChange(e)}
         onHandleChangeContent={(e) => contentChange(e)}
-      />
+        onHandleClear={() => onHandleClear()}>
+        <View
+          style={{
+            width: width,
+            height: height,
+            backgroundColor: 'black',
+            position: 'absolute',
+            zIndex: 10,
+            opacity: 0.6,
+          }}
+        />
+      </CreateDiary>
     );
+  } else if (currentPage === 7) {
+    return <Finish />;
   }
 }
+
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;

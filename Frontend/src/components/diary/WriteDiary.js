@@ -291,6 +291,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: '1.5%',
+    zIndex: 11,
   },
   dirayBox: {
     width: '80%',
