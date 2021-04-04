@@ -55,7 +55,6 @@ export default function EmailAuthorization({navigation}) {
             //인증 번호 전송
             emailAuthForm,
             (res) => {
-              setShowtoClock(true);
               setSpinner(false);
               setDisabled(false);
               setShowtoClock(true);
@@ -235,7 +234,10 @@ export default function EmailAuthorization({navigation}) {
             <Text style={styles.footerText}> 이미 아이디가 있나요?</Text>
             <Text
               style={styles.linkText}
-              onPress={() => navigation.navigate('LoginScreen')}>
+              onPress={() => {
+                navigation.navigate('LoginScreen');
+                setPause(false);
+              }}>
               로그인
             </Text>
           </View>
