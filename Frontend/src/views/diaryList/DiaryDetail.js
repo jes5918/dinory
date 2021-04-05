@@ -1,14 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  Dimensions,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -17,9 +8,7 @@ import {
 //components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
-import DiaryListFooter from '../../components/diary/DiaryListFooter';
-import DiaryFooterImage from '../../components/diary/DiaryFooterImage';
-import {getNotesByDay, getNotesByOneDay} from '../../api/diary/readDiary';
+import {getNotesOnlyDay} from '../../api/diary/readDiary';
 
 // static variable
 const image = require('../../assets/images/background1.png');
@@ -46,104 +35,35 @@ const Diary = ({data}) => {
 };
 
 function DiaryDetail({route}) {
-  let {year, month, date, diary, profilePK} = route.params;
+  let {year, month, date, diaryPK} = route.params;
   const [dataByDay, setDataByDay] = useState();
-  const [dataJustOneDay, setDataJustOneDay] = useState();
-  const [selectedDate, setSelectedDate] = useState();
-  const scrollRef = useRef();
+  const headerTitle = `${year}년 ${month}월 ${date}일`;
 
-  const onHandleSelectDay = (clickedDate) => {
-    setSelectedDate(clickedDate);
-  };
-
-  const fetchNotesByDay = (child, year, month, date) => {
-    getNotesByDay(
-      {
-        child,
-        year,
-        month: String(month).length === 1 ? '0' + String(month) : month,
-        date,
-      },
+  const fetchNotesOnlyDay = (selectedDiaryPK) => {
+    getNotesOnlyDay(
+      selectedDiaryPK,
       (res) => {
         setDataByDay(() => res.data);
-      },
-      (err) => {
-        console.error(err);
-      },
-    );
-  };
-
-  const fetchNotesByOneDay = (child, year, month) => {
-    getNotesByOneDay(
-      {
-        child,
-        year,
-        month: String(month).length === 1 ? '0' + String(month) : month,
-      },
-      (res) => {
-        setDataJustOneDay(() => res.data);
       },
       (err) => {},
     );
   };
 
-  const renderItem = ({item}) => <Diary data={item} />;
-
-  // 보류: 2021-04-04
-  const scrollToIndex = (moveToIndex) => {
-    scrollRef.current.scrollToIndex({animated: true, index: moveToIndex});
-  };
-
   useEffect(() => {
-    let tempDate = selectedDate || date;
-    fetchNotesByDay(profilePK, year, month, tempDate);
-    fetchNotesByOneDay(profilePK, year, month);
-  }, [profilePK, year, month, date, selectedDate]);
+    fetchNotesOnlyDay(diaryPK);
+  }, [diaryPK]);
 
   return (
     <View style={styles.container}>
       <BackgroundAbsolute imageSrc={image}>
         <Header>
           <View style={styles.headerContainer}>
-            <Text style={styles.headerText}>{`${year}년 ${month}월 ${
-              selectedDate || date
-            }일`}</Text>
+            <Text style={styles.headerText}>{headerTitle}</Text>
           </View>
         </Header>
         <View style={styles.body}>
-          {dataByDay && (
-            <FlatList
-              contentContainerStyle={{paddingLeft: windowWidth * 0.15}}
-              // windowSize={2}
-              extraData={dataByDay}
-              ref={scrollRef}
-              data={dataByDay}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => item.id.toString()}
-              horizontal={true}
-              getItemLayout={(item, index) => ({
-                length: windowWidth * 0.7,
-                offset: windowWidth * 0.7 * index,
-                index,
-              })}
-            />
-          )}
+          {dataByDay && <Diary data={dataByDay} />}
         </View>
-        <DiaryListFooter>
-          {dataJustOneDay &&
-            dataJustOneDay.map((data) => {
-              return (
-                <DiaryFooterImage
-                  key={data.id}
-                  year={data.year}
-                  month={month}
-                  date={data.date}
-                  image={baseURL + data.img}
-                  onHandlePress={() => onHandleSelectDay(data.date)}
-                />
-              );
-            })}
-        </DiaryListFooter>
       </BackgroundAbsolute>
     </View>
   );
@@ -178,33 +98,32 @@ const styles = StyleSheet.create({
     fontFamily: 'HoonPinkpungchaR',
   },
   body: {
-    flex: 5,
     width: '100%',
     position: 'relative',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: windowHeight * 0.17,
   },
   bodyContainer: {
-    width: windowWidth * 0.7,
-    height: windowHeight * 0.55,
+    width: windowWidth * 0.9,
+    height: windowHeight * 0.75,
     backgroundColor: '#fffff0',
     borderRadius: 30,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginRight: windowWidth * 0.14,
     paddingHorizontal: windowWidth * 0.03,
     paddingVertical: windowHeight * 0.05,
+    marginTop: windowHeight * 0.08,
   },
   image: {
-    width: windowHeight * 0.5,
-    height: windowHeight * 0.5,
-    maxHeight: windowHeight * 0.55,
+    width: windowHeight * 0.7,
+    height: windowHeight * 0.7,
+    maxHeight: windowHeight * 0.7,
+    maxWidth: windowHeight * 0.7,
     borderRadius: 30,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   mainBox: {
     display: 'flex',
