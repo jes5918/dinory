@@ -223,11 +223,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  text: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: '#707070',
-  },
   start: {
     display: 'flex',
     flexDirection: 'row',
@@ -236,22 +231,10 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.3,
     marginTop: windowHeight * 0.043 * 2,
   },
-  label: {
-    fontSize: 18,
-    color: '#707070',
-  },
-  logo: {
-    width: 220, //595
-    height: undefined, //101
-    aspectRatio: 300 / 100,
-  },
   checkOption: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: windowWidth * 0.05,
-  },
-  checkBox: {
-    fontSize: 30,
   },
 });
