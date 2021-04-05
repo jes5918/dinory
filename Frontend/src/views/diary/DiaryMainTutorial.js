@@ -47,8 +47,6 @@ const year = String(date.getFullYear());
 const month = makeMonth(textMonth);
 const day = makeDate(textDate);
 
-const debounceSomethingFunc = debounce(() => {}, 300);
-
 export default function DiaryMainTutorial() {
   const navigation = useNavigation();
   const bgurl = require('../../assets/images/background4.png');
@@ -73,15 +71,17 @@ export default function DiaryMainTutorial() {
   const [wordSaveSpinner, setWordSaveSpinner] = useState(false);
   const [title, setTitle] = useState('');
   const [diaryContent, setDiaryContent] = useState('');
-  const titleInput = useRef();
-  const contentInput = useRef();
+  const debounceSomethingFunc = debounce((value) => {
+    setTitle(value);
+  }, 300);
+  const debounceSomethingFunct = debounce((value) => {
+    setDiaryContent(value);
+  }, 300);
   const titleChange = (e) => {
-    setTitle(e.nativeEvent.text);
-    debounceSomethingFunc();
+    debounceSomethingFunc(e.nativeEvent.text);
   };
   const contentChange = (e) => {
-    setDiaryContent(e.nativeEvent.text);
-    debounceSomethingFunc();
+    debounceSomethingFunct(e.nativeEvent.text);
   };
   const gotoMain = () => {
     navigation.goBack();
@@ -473,9 +473,6 @@ export default function DiaryMainTutorial() {
         spinner={spinner}
         saveDiary={() => saveDiary()}
         captionWords={captionWords}
-        diaryContent={diaryContent}
-        title={title}
-        titleInput={titleInput}
         onHandleChangeTitle={(e) => titleChange(e)}
         onHandleChangeContent={(e) => contentChange(e)}
         onHandleClear={() => onHandleClear()}>
