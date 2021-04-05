@@ -7,6 +7,7 @@ import voiceOne from '../../assets/sound/0hellonicetomeetyou.wav';
 import voiceTwo from '../../assets/sound/1hellonicetomeetyou.wav';
 import voiceThr from '../../assets/sound/2hellonicetomeetyou.wav';
 import voiceFou from '../../assets/sound/3hellonicetomeetyou.wav';
+import voiceFiv from '../../assets/sound/4hellonicetomeetyou.wav';
 import AlertModal from '../../components/elements/AlertModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {editChildVoice} from '../../api/accounts/childSettings';
@@ -39,6 +40,10 @@ export default function SelectVoice() {
     }
   });
   let soundfo = new Sound(voiceFou, Sound.MAIN_BUNDLE, (error) => {
+    if (error) {
+    }
+  });
+  let soundfi = new Sound(voiceFiv, Sound.MAIN_BUNDLE, (error) => {
     if (error) {
     }
   });
@@ -136,6 +141,12 @@ export default function SelectVoice() {
               setVoice(3);
               setImageNumber(3);
               soundfo.play();
+            }}
+            onHandlePressC5={() => {
+              soundfi.setVolume(0.5);
+              setVoice(4);
+              setImageNumber(4);
+              soundfi.play();
             }}
             onHandlePressBasic={() => submitVoice()}
           />
