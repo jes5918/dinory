@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertModal from '../components/elements/AlertModal';
 import SelectModal from '../components/elements/SelectModal';
 import Sound from 'react-native-sound';
-import BGM from '../assets/sound/bgm.mp3';
+import BGM from '../assets/sound/rockabyebaby.mp3';
 import {
   StyleSheet,
   View,
@@ -30,7 +30,7 @@ let sound = new Sound(BGM, (error) => {
   if (error) {
     console.log('bgm 재생 실패');
   }
-  sound.setVolume(0.1);
+  sound.setVolume(0.2);
   sound.setNumberOfLoops(-1);
 });
 export default function Main() {
@@ -278,7 +278,15 @@ export default function Main() {
             onPress={() => {
               setSoundSetting(!soundSetting);
             }}>
-            <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
+            {soundSetting && (
+              <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
+            )}
+            {!soundSetting && (
+              <MaterialCommunityIcons
+                style={styles.mainIcon}
+                name={'volume-mute'}
+              />
+            )}
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.7}
