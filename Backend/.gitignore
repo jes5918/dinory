@@ -8,12 +8,13 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
+utils/
 
 ### Django.Python Stack ###
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
-
+TTS.py
 # C extensions
 *.so
 

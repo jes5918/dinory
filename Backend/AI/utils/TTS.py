@@ -3,9 +3,7 @@
 
 import azure.cognitiveservices.speech as speechsdk
 import json
-import django.conf import settings
 
-MEDIA_ROOT = settings.MEDIA_ROOT + ''
 
 with open('config.json', 'r') as f: # API key 보호
     config = json.load(f)
@@ -23,7 +21,7 @@ ssml_string = open("ssml.xml", "r").read()
 result = synthesizer.speak_ssml_async(ssml_string).get()
 
 stream = speechsdk.AudioDataStream(result)
-stream.save_to_wav_file("/file.wav")
+stream.save_to_wav_file("./file.wav")
 
 # Checks result.
 if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
