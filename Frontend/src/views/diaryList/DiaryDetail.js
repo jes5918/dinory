@@ -65,7 +65,6 @@ function DiaryDetail({route}) {
         date,
       },
       (res) => {
-        console.log(res.data);
         setDataByDay(() => res.data);
       },
       (err) => {
@@ -116,10 +115,11 @@ function DiaryDetail({route}) {
             <FlatList
               contentContainerStyle={{paddingLeft: windowWidth * 0.15}}
               // windowSize={2}
+              extraData={dataByDay}
               ref={scrollRef}
               data={dataByDay}
               renderItem={renderItem}
-              keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(item, index) => item.id.toString()}
               horizontal={true}
               getItemLayout={(item, index) => ({
                 length: windowWidth * 0.7,
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   },
   mainText: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: windowWidth * 0.024, // 24
+    fontSize: hp(4), // 24
   },
   contentContainer: {
     flex: 4,
@@ -231,9 +231,8 @@ const styles = StyleSheet.create({
   },
   contentText: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: windowWidth * 0.017, // 18
-    lineHeight: windowHeight * 0.05,
-    textDecorationLine: 'underline',
+    fontSize: hp(3), // 18
+    lineHeight: hp(5),
   },
   imageBack: {
     position: 'absolute',
