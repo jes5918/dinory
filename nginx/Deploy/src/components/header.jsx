@@ -37,7 +37,7 @@ export const Header = (props) => {
                     <span class='letters'>play with Dinory</span>
                   </span>
                 </h1>
-                <p>Compatible with Android Devices</p>
+                <p>Compatible with Android 11 Tablet</p>
                 <a
                   href='#features'
                   className='btn btn-custom btn-lg page-scroll'
