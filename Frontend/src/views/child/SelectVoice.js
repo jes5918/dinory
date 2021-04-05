@@ -23,6 +23,7 @@ export default function SelectVoice() {
   const [child, setChild] = useState('');
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
+  let voice = '';
   const [imgNumber, setImageNumber] = useState(-1);
 
   let soundf = new Sound(voiceOne, Sound.MAIN_BUNDLE, (error) => {
