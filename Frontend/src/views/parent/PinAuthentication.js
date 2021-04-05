@@ -143,9 +143,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     minWidth: windowWidth * 0.372, // 476
     minHeight: windowHeight * 0.58, // 642
-    borderRadius: 50,
+    borderRadius: hp(8),
     elevation: 7,
     paddingTop: windowHeight * 0.043, // 32
+    paddingBottom: windowHeight * 0.043, // 32
   },
   mainTop: {
     marginBottom: windowHeight * 0.043, // 64
