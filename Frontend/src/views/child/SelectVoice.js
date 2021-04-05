@@ -21,9 +21,9 @@ export default function SelectVoice() {
   const [fmodalVisible, setfModalVisible] = useState(false);
   const [nomodalVisible, setNoModalVisible] = useState(false);
   const [child, setChild] = useState('');
+  const [voice, setVoice] = useState('');
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
-  let voice = '';
   const [imgNumber, setImageNumber] = useState(-1);
 
   let soundf = new Sound(voiceOne, Sound.MAIN_BUNDLE, (error) => {
@@ -54,10 +54,6 @@ export default function SelectVoice() {
     getProfileInfo();
   }, [getProfileInfo]);
 
-  const soundOn = (num) => {
-    voice = num;
-    setImageNumber(num);
-  };
   const submitVoice = () => {
     const formData = new FormData();
     formData.append('voice', Number(voice));
@@ -119,22 +115,26 @@ export default function SelectVoice() {
             imgNumber={imgNumber}
             onHandlePressC1={() => {
               soundf.setVolume(0.5);
-              soundOn(0);
+              setVoice(0);
+              setImageNumber(0);
               soundf.play();
             }}
             onHandlePressC2={() => {
               sounds.setVolume(0.5);
-              soundOn(1);
+              setVoice(1);
+              setImageNumber(1);
               sounds.play();
             }}
             onHandlePressC3={() => {
               soundt.setVolume(0.5);
-              soundOn(2);
+              setVoice(2);
+              setImageNumber(2);
               soundt.play();
             }}
             onHandlePressC4={() => {
               soundfo.setVolume(0.5);
-              soundOn(3);
+              setVoice(3);
+              setImageNumber(3);
               soundfo.play();
             }}
             onHandlePressBasic={() => submitVoice()}
