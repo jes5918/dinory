@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Layout from './Layout';
 import BasicButton from './BasicButton';
 import RoundButton from './RoundButton';
@@ -16,6 +16,7 @@ export default function SelectLayout({
   onHandlePressC2, // 캐릭터 2 선택시 이벤트
   onHandlePressC3, // 캐릭터 3 선택시 이벤트
   onHandlePressC4, // 캐릭터 4 선택시 이벤트
+  onHandlePressC5, // 캐릭터 5 선택시 이벤트
   arrow, // true일 경우 arrow버튼 생성, 없을 경우 basic 버튼 생성
   onHandlePressArrow, // arrow 버튼 이벤트
   btnText, // basic 버튼 문구
@@ -26,6 +27,7 @@ export default function SelectLayout({
   const character2 = require('../../assets/images/character2.png');
   const character3 = require('../../assets/images/character3.png');
   const character4 = require('../../assets/images/character4.png');
+  const character5 = require('../../assets/images/character5.png');
 
   return (
     <View style={styles.container}>
@@ -65,12 +67,21 @@ export default function SelectLayout({
             ) : (
               <View style={styles.null}></View>
             )}
+            {imgNumber === 4 ? (
+              <Image
+                style={styles.crownImage}
+                source={require('../../assets/images/crown.png')}
+              />
+            ) : (
+              <View style={styles.null}></View>
+            )}
           </View>
           <View style={styles.innerMiddle}>
             <DinoButton imgSrc={character1} onHandlePress={onHandlePressC1} />
             <DinoButton imgSrc={character2} onHandlePress={onHandlePressC2} />
             <DinoButton imgSrc={character3} onHandlePress={onHandlePressC3} />
             <DinoButton imgSrc={character4} onHandlePress={onHandlePressC4} />
+            <DinoButton imgSrc={character5} onHandlePress={onHandlePressC5} />
           </View>
           <View style={styles.innerLower}>
             {arrow ? (
