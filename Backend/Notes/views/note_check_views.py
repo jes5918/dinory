@@ -20,10 +20,13 @@ def diary_check(request):
         notes = Note.objects.filter(user=request.user)
         context = []
         for note in notes:
-            diary = Diary.objects.filter(note=note, check=False)
-            serializer = CheckSerializer(diary, many=True)
-            context += serializer.data
-        # child = get_object_or_404(Child, parent=request.user, pk=request.GET['child']
+            child_name = note.child.name
+            diaries = Diary.objects.filter(note=note, check=False)
+            for diary in diaries:
+                serializer = CheckSerializer(diary)
+                data = serializer.data
+                data['child_name'] = child_name
+                context.append(data)
         return Response(context, status=status.HTTP_200_OK)
     else:
         diary_id = request.GET.get('id')
