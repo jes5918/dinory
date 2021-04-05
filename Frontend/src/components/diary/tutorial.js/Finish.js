@@ -33,7 +33,7 @@ export default function Intro() {
           alignItems: 'flex-end',
         }}>
         <RoundButton
-          text={'Next'}
+          text={'다음'}
           color={'#56A4F1'}
           styleProps={{margin: width * 0.03}}
           onHandlePress={() => navigation.navigate('Main')}
