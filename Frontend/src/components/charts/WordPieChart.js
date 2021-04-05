@@ -7,16 +7,28 @@ import {
 import {VictoryPie, VictoryLegend, VictoryLabel, Point} from 'victory-native';
 
 const graphicColor = [
-  '#ec407a',
-  '#7e57c2',
-  '#42a5f5',
-  '#00bcd4',
-  '#4caf50',
-  '#ff5722',
-  '#795548',
-  '#616161',
-  '#455a64',
-  '#212121',
+  '#FF66B3',
+  '#42BFDD',
+  '#084B83',
+  '#023e8a',
+  '#6A5B6E',
+  '#392F5A',
+  '#9DD9D2',
+  '#ffd7ba',
+  '#F4D06F',
+  '#FF8811',
+].reverse();
+const graphicColorOther = [
+  '#9b5de5',
+  '#f15bb5',
+  '#fee440',
+  '#00bbf9',
+  '#00f5d4',
+  '#f88dad',
+  '#f9e9ec',
+  '#fac748',
+  '#8390fa',
+  '#1d2f6f',
 ];
 const defaultGraphicData = [
   {count: 1, word: ''},
@@ -46,62 +58,66 @@ function WordPieChart({data, imageSrc}) {
   });
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>
+      <Text style={styles.title}>
         아이가 어떤 단어를 주로 사용하는지 알 수 있습니다.
-      </Text> */}
-      <View style={styles.chart}>
-        <VictoryPie
-          animate={{easing: 'exp'}}
-          data={graphicData}
-          x="word"
-          y="count"
-          width={hp(50)}
-          height={hp(50)}
-          innerRadius={30}
-          // colorScale={'qualitative'}
-          colorScale={graphicColor}
-          padAngle={1}
-          // labels={({datum}) => datum.x}
-          // endAngle={180}
-          labels={Array.from({length: 10}, (v, i) => `${data[i].count}회`)}
-          labelComponent={
-            <VictoryLabel
-              style={{
-                fontSize: hp(3),
-                fontFamily: 'HoonPinkpungchaR',
-              }}
-            />
-          }
-        />
-      </View>
-      <View style={styles.legend}>
-        <VictoryLegend
-          width={wp(15)}
-          height={hp(60)}
-          centerTitle
-          orientation="vertical"
-          gutter={wp(5)}
-          rowGutter={hp(1.4)}
-          style={{
-            title: {fontSize: 20},
-          }}
-          data={legendData}
-          borderPadding={{top: hp(2), left: wp(1)}}
-          labelComponent={
-            <VictoryLabel
-              style={{
-                fontSize: hp(3),
-                fontFamily: 'HoonPinkpungchaR',
-              }}
-            />
-          }
-        />
-      </View>
-      <Image
+      </Text>
+      <View style={styles.subContainer}>
+        <View style={styles.chart}>
+          <VictoryPie
+            animate={{easing: 'exp'}}
+            data={graphicData}
+            x="word"
+            y="count"
+            width={hp(60)}
+            height={hp(60)}
+            innerRadius={hp(5)}
+            // colorScale={'qualitative'}
+            colorScale={graphicColor}
+            padAngle={1}
+            // labels={({datum}) => datum.x}
+            endAngle={270}
+            labels={Array.from({length: 10}, (v, i) => `${data[i].count}회`)}
+            labelComponent={
+              <VictoryLabel
+                style={{
+                  fontSize: hp(3),
+                  fontFamily: 'HoonPinkpungchaR',
+                  color: 'red',
+                }}
+              />
+            }
+          />
+        </View>
+        <View style={styles.legend}>
+          <VictoryLegend
+            width={wp(30)}
+            height={hp(50)}
+            centerTitle
+            orientation="vertical"
+            gutter={wp(5)}
+            rowGutter={hp(1.4)}
+            style={{
+              title: {fontSize: 20},
+            }}
+            data={legendData}
+            borderPadding={{top: hp(2), left: wp(1)}}
+            itemsPerRow={5}
+            labelComponent={
+              <VictoryLabel
+                style={{
+                  fontSize: hp(3),
+                  fontFamily: 'HoonPinkpungchaR',
+                }}
+              />
+            }
+          />
+        </View>
+        {/* <Image
         source={{uri: `data:image/png;base64,${imageSrc}`}}
         // source={{uri: imageSrc}}
         style={styles.wordCloudImage}
-      />
+      /> */}
+      </View>
     </View>
   );
 }
@@ -109,18 +125,31 @@ function WordPieChart({data, imageSrc}) {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
   },
-  title: {},
-  chart: {
-    paddingTop: hp(4),
+  subContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
-  legend: {},
+  chart: {
+    paddingRight: wp(3),
+  },
+  legend: {
+    height: hp(50),
+  },
   wordCloudImage: {
     width: hp(35),
     height: hp(35),
     resizeMode: 'cover',
+  },
+  title: {
+    fontSize: hp(3),
+    marginTop: hp(3),
+    marginBottom: hp(3),
   },
 });
 
