@@ -18,7 +18,6 @@ const chartConfig = {
 };
 
 function WordPieChart({data}) {
-  console.log('WordPieChart Data : ', data);
   return (
     <PieChart
       style={styles.graphStyle}

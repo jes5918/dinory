@@ -76,12 +76,8 @@ function DiaryList({route}) {
   const navigation = useNavigation();
 
   const onHandleDetail = (params) => {
-    const diariesByDay = dataByMonth.filter(
-      (diary) => diary.month === params.month,
-    );
     navigation.navigate('DiaryDetail', {
       ...params,
-      diary: diariesByDay,
       profilePK: profilePK,
     });
   };
@@ -143,7 +139,9 @@ function DiaryList({route}) {
                     diaryText={title}
                     diaryImage={baseURL + img}
                     dateText={`${year}.${month}.${date}`}
-                    onHandlePress={() => onHandleDetail({year, month, date})}
+                    onHandlePress={() =>
+                      onHandleDetail({year, month, date, diaryPK: id})
+                    }
                     key={id}
                   />
                 );
