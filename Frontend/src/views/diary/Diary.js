@@ -73,8 +73,6 @@ export default function Diary() {
   const [wordSaveSpinner, setWordSaveSpinner] = useState(false);
   const [title, setTitle] = useState('');
   const [diaryContent, setDiaryContent] = useState('');
-  const titleInput = useRef();
-  const contentInput = useRef();
   const debounceSomethingFunc = debounce((value) => {
     setTitle(value);
   }, 300);
@@ -373,9 +371,6 @@ export default function Diary() {
         spinner={spinner}
         saveDiary={() => saveDiary()}
         captionWords={captionWords}
-        diaryContent={diaryContent}
-        title={title}
-        titleInput={titleInput}
         onHandleChangeTitle={(e) => titleChange(e)}
         onHandleChangeContent={(e) => contentChange(e)}
         onHandleClear={() => onHandleClear()}
