@@ -28,20 +28,11 @@ export default function WriteDiary({
   onHandleCheckGrammar,
   grammarchecked,
   checkData,
-  title,
-  content,
-  titleInput,
 }) {
   const imgIcon = require('../../assets/images/egg.png');
   const imgPerfect = require('../../assets/images/character5.png');
-  const [savedTitle, setSavedTitle] = useState('');
   const arrText = ['문', '법', '체', '크'];
   const arrText2 = ['저', '장'];
-  useFocusEffect(
-    useCallback(() => {
-      setSavedTitle(content);
-    }, []),
-  );
   const grammar = (
     <View style={[styles.grammarBox]}>
       {checkData && checkData.length ? (
@@ -125,7 +116,6 @@ export default function WriteDiary({
             <View style={[styles.titleBox]}>
               <Text style={[styles.text]}>제목 :</Text>
               <TextInput
-                ref={titleInput}
                 style={[styles.TitleInput]}
                 autoCompleteType={'off'}
                 placeholder={'여기를 터치하세요!'}

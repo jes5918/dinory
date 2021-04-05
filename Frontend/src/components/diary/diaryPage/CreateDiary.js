@@ -34,11 +34,8 @@ export default function CreateDiary({
   spinner,
   saveDiary,
   captionWords,
-  diaryContent,
-  title,
   onHandleChangeTitle,
   onHandleChangeContent,
-  titleInput,
   onHandleClear,
   children,
 }) {
@@ -82,8 +79,6 @@ export default function CreateDiary({
         </TouchableOpacity>
       </View>
       <WriteDiary
-        title={title}
-        content={diaryContent}
         wordList={captionWords}
         onHandleChangeTitle={(e) => onHandleChangeTitle(e)}
         onHandleChangeContent={(e) => onHandleChangeContent(e)}
@@ -92,7 +87,6 @@ export default function CreateDiary({
         onHandleSaveDiary={() => openConfirmSave()}
         grammarchecked={grammarchecked}
         checkData={checkData}
-        titleInput={titleInput}
       />
       <AlertModal
         modalVisible={koreanWarnModalVisible}
