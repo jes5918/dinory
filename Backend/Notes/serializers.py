@@ -64,8 +64,8 @@ class CheckSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Diary
-        fields = ('note', 'check', 'title', 'img', 'content', 'year', 'month', 'date', 'id')
-        depth = 1
+        fields = ('check', 'title', 'img', 'content', 'year', 'month', 'date', 'id')
+        # depth = 1
 
 class WordStateSerializer(serializers.ModelSerializer):
 
