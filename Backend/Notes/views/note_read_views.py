@@ -31,7 +31,7 @@ def diary_read_total_monthly(request):
     month = request.GET.get('month')
     if Note.objects.filter(child=child, year=year, month=month).exists():
         note = get_object_or_404(Note, child=child, year=year, month=month)
-        diary = Diary.objects.filter(note=note).order_by('-date')
+        diary = Diary.objects.filter(note=note).order_by('-date', '-id')
         serializer = MonthlyDiarySerializer(diary, many=True)
         ans = serializer.data
     else:
