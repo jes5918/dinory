@@ -29,7 +29,7 @@ const transformMonth = (mon) => {
 // static variables
 const date = new Date();
 const year = date.getFullYear();
-const getMonth = date.getMonth();
+const getMonth = date.getMonth() + 1;
 const month = transformMonth(getMonth);
 const randomColors = [
   '#8e24aa',
@@ -45,7 +45,7 @@ const randomColors = [
 ];
 
 const generateMonthLabel = (startMonth) => {
-  const monthLabels = Array.from({length: 12}, (value, index) =>
+  const monthLabels = Array.from({length: 12}, (v, index) =>
     transformMonth(index),
   );
 
@@ -59,6 +59,8 @@ const generateMonthLabel = (startMonth) => {
 
   const returnLabels = leftLabels.concat(rightLabels);
 
+  // return example : [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
+
   return returnLabels;
 };
 
@@ -70,27 +72,21 @@ function DiaryChart({route}) {
   const [commitCount, setCommitCount] = useState();
   const [selectedChart, setSelectedChart] = useState(0);
 
+  // return [{date: "2021.03", value: 16}, ...]
   const generateDiaryStatsData = (diaryData) => {
-    const resData = {
-      labels: generateMonthLabel(getMonth),
-      datasets: [
-        {
-          data: diaryData.age_child_cnt,
-        },
-      ],
-    };
+    const generatedMonthLabel = generateMonthLabel(getMonth); // 최근이 가장 마지막으로 오도록 정렬
+    const diaryCountByMonth = diaryData.age_child_cnt;
+    const resData = [];
+
+    for (let i = 0; i < diaryCountByMonth.length; i++) {
+      resData.push({
+        date: generatedMonthLabel[i],
+        value: diaryCountByMonth[i],
+      });
+    }
+
     return resData;
   };
-
-  // 바 차트 데이터 예시
-  // const data = {
-  //   labels: ["January", "February", "March", "April", "May", "June"],
-  //   datasets: [
-  //     {
-  //       data: [20, 45, 28, 80, 99, 43]
-  //     }
-  //   ]
-  // };
 
   const generateWordFreqData = (wordData) => {
     const average = wordData.average; // 단어당 평균 사용 횟수
@@ -99,28 +95,17 @@ function DiaryChart({route}) {
 
     const resData = words.map((word, index) => {
       const mappingWord = {
-        name: word.content,
-        population: word.count,
-        color: randomColors[index],
-        legendFontColor: '#7F7F7F',
-        legendFontSize: hp(2.5),
+        word: word.content,
+        count: word.count,
       };
 
       return mappingWord;
     });
 
-    return {avg: average, total: total, data: resData};
-  };
+    console.log('word frequency : ', resData);
 
-  // 파이 차트 데이터 예시
-  // const data = [
-  //   {
-  //     name: "Seoul",
-  //     population: 21500000,
-  //     color: "rgba(131, 167, 234, 1)",
-  //     legendFontColor: "#7F7F7F",
-  //     legendFontSize: 15
-  //   },]
+    return resData;
+  };
 
   const fetchWordFrequency = useCallback(() => {
     getWordFrequency(
@@ -150,7 +135,13 @@ function DiaryChart({route}) {
     getDiaryStats(
       {child: profilePK, year, month},
       (res) => {
-        setDiaryStats(res.data);
+        if (res.data) {
+          const data = {
+            ...res.data,
+            age_child_cnt: res.data.age_child_cnt.reverse(),
+          };
+          setDiaryStats(data);
+        }
       },
       (error) => {
         console.error(error);
@@ -224,8 +215,11 @@ function DiaryChart({route}) {
         {selectedChart === 0 && diaryStats && (
           <DiaryBarChart data={generateDiaryStatsData(diaryStats)} />
         )}
-        {selectedChart === 1 && wordFreq && (
-          <WordPieChart data={generateWordFreqData(wordFreq)} />
+        {selectedChart === 1 && wordCloudImage && wordFreq && (
+          <WordPieChart
+            data={generateWordFreqData(wordFreq)}
+            imageSrc={wordCloudImage}
+          />
         )}
         {selectedChart === 2 && commitCount && (
           <HeatMapChart data={commitCount} />
@@ -237,7 +231,9 @@ function DiaryChart({route}) {
 
 const styles = StyleSheet.create({
   container: {
-    minWidth: wp(90),
+    width: wp(90),
+    height: hp(70),
+    minWidth: wp(95),
     minHeight: hp(70),
     backgroundColor: 'white',
     marginTop: hp(7),
