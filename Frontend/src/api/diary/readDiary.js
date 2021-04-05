@@ -51,6 +51,10 @@ export function getNotesByOneDay(params, success, fail) {
     .catch(fail);
 }
 
+export function getNotesOnlyDay(diaryPK, success, fail) {
+  instance.get(`notes/diary/${diaryPK}`).then(success).catch(fail);
+}
+
 // date 구하기
 // ==========================
 const today = new Date();
