@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   },
   alertMessage: {
     color: 'red',
-    fontSize: 18,
+    fontSize: hp(2.8),
     marginBottom: windowHeight * 0.043,
     marginTop: windowHeight * 0.02,
     alignSelf: 'flex-start',

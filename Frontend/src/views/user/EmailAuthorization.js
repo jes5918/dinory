@@ -201,7 +201,7 @@ export default function EmailAuthorization({navigation}) {
             />
             <BasicButton
               text="확인"
-              customFontSize={windowHeight * 0.025}
+              customFontSize={hp(2.8)}
               btnWidth={windowHeight * 0.15}
               btnHeight={windowHeight * 0.08}
               borderRadius={10}
@@ -215,7 +215,7 @@ export default function EmailAuthorization({navigation}) {
               <CountDown
                 style={styles.counter}
                 until={300}
-                size={windowHeight * 0.025}
+                size={hp(2.8)}
                 separatorStyle={{color: 'red'}}
                 digitStyle={{backgroundColor: '#fff'}}
                 digitTxtStyle={{color: 'red'}}
