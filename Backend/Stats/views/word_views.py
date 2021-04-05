@@ -55,7 +55,8 @@ def word_used_cloud(request):
     plt.savefig(image, format='png')
     image.seek(0)
     string = base64.b64encode(image.read())
-    image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
+    # image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
+    image_64 = urllib.parse.quote(string)
     context = {
         'img' : image_64
     }
