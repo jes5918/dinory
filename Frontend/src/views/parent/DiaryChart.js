@@ -66,22 +66,26 @@ const generateMonthLabel = (startMonth) => {
 
 function DiaryChart({route}) {
   const profilePK = route.params.profilePK;
+  const [diaryStats, setDiaryStats] = useState();
   const [wordFreq, setWordFreq] = useState();
   const [wordCloudImage, setWordCloudImage] = useState();
-  const [diaryStats, setDiaryStats] = useState();
   const [commitCount, setCommitCount] = useState();
   const [selectedChart, setSelectedChart] = useState(0);
 
   // return [{date: "2021.03", value: 16}, ...]
   const generateDiaryStatsData = (diaryData) => {
     const generatedMonthLabel = generateMonthLabel(getMonth); // 최근이 가장 마지막으로 오도록 정렬
-    const diaryCountByMonth = diaryData.age_child_cnt;
+    const diaryCountByChildCnt = diaryData.child_cnt;
+    const diaryCountByAgeChildCnt = diaryData.age_child_cnt;
+    const diaryCountByUserChildCnt = diaryData.user_child_cnt;
     const resData = [];
 
-    for (let i = 0; i < diaryCountByMonth.length; i++) {
+    for (let i = 0; i < diaryCountByChildCnt.length; i++) {
       resData.push({
         date: generatedMonthLabel[i],
-        value: diaryCountByMonth[i],
+        value: diaryCountByChildCnt[i],
+        valueAge: diaryCountByAgeChildCnt[i],
+        valueUser: diaryCountByUserChildCnt[i],
       });
     }
 
@@ -101,8 +105,6 @@ function DiaryChart({route}) {
 
       return mappingWord;
     });
-
-    console.log('word frequency : ', resData);
 
     return resData;
   };
@@ -182,33 +184,57 @@ function DiaryChart({route}) {
           style={[
             styles.changeButton,
             {
-              backgroundColor: selectedChart === 0 ? '#2196f3' : 'lightgray',
-              color: selectedChart === 0 ? 'white' : 'black',
+              backgroundColor: selectedChart === 0 ? '#fca311' : '#e5e5e5',
             },
           ]}>
-          <Text style={styles.headerText}>매월 일기</Text>
+          <Text
+            style={[
+              styles.headerText,
+              {
+                color: selectedChart === 0 ? 'white' : '#707070',
+                fontWeight: selectedChart === 0 ? 'bold' : 'normal',
+              },
+            ]}>
+            매월 일기
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setSelectedChart(1)}
           style={[
             styles.changeButton,
             {
-              backgroundColor: selectedChart === 1 ? '#2196f3' : 'lightgray',
-              color: selectedChart === 1 ? 'white' : 'black',
+              backgroundColor: selectedChart === 1 ? '#fca311' : '#e5e5e5',
             },
           ]}>
-          <Text style={styles.headerText}>단어 사용</Text>
+          <Text
+            style={[
+              styles.headerText,
+              {
+                color: selectedChart === 1 ? 'white' : '#707070',
+                fontWeight: selectedChart === 1 ? 'bold' : 'normal',
+              },
+            ]}>
+            단어 사용
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setSelectedChart(2)}
           style={[
             styles.changeButton,
             {
-              backgroundColor: selectedChart === 2 ? '#2196f3' : 'lightgray',
-              color: selectedChart === 2 ? 'white' : 'black',
+              backgroundColor: selectedChart === 2 ? '#fca311' : '#e5e5e5',
             },
           ]}>
-          <Text style={styles.headerText}>매일 기록</Text>
+          <Text
+            style={[
+              styles.headerText,
+              {
+                color: selectedChart === 2 ? 'white' : '#707070',
+                fontWeight: selectedChart === 2 ? 'bold' : 'normal',
+              },
+            ]}>
+            매일 기록
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
@@ -238,12 +264,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: hp(7),
     display: 'flex',
-    flexDirection: 'row',
+    // flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
     elevation: 7,
-    paddingHorizontal: wp(5),
   },
   headerContainer: {
     width: wp(50),
@@ -256,6 +281,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    paddingVertical: hp(2),
   },
   changeButton: {
     paddingVertical: hp(2),
@@ -264,7 +290,6 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: wp(2),
-    fontFamily: 'HoonPinkpungchaR',
   },
 });
 
