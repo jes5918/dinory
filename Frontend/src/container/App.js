@@ -11,13 +11,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 // components
-// import NavIcon from '../components/elements/NavIcon';
-// import WriteDiary from '../components/diary/WriteDiary';
 import LoadingSec from '../components/elements/LoadingSec';
-// import ImageCaption from '../components/diary/ImageCaption';
-// import SelectImage from '../components/diary/SelectImage';
 import SelectLayout from '../components/elements/SelectLayout';
-// import GrammarCheck from '../components/diary/GrammarCheck';
 
 // view
 import Main from '../views/Main';
@@ -42,7 +37,6 @@ import Diary from '../views/diary/Diary';
 import DiaryMainTutorial from '../views/diary/DiaryMainTutorial';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
-// import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
 import DiaryDetail from '../views/diaryList/DiaryDetail';
 import PassWordUpdate from '../views/parent/PassWordUpdate';
 import PinUpdate from '../views/parent/PinUpdate';

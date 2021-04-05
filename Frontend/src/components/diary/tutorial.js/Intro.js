@@ -48,7 +48,7 @@ export default function Intro({gotoNext}) {
           zIndex: 14,
         }}>
         <RoundButton
-          text={'Next'}
+          text={'다음'}
           color={'#56A4F1'}
           styleProps={{margin: width * 0.03}}
           onHandlePress={() => gotoNext()}

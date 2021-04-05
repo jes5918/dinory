@@ -42,7 +42,7 @@ export default function HowToWrite({OnHandleGotoBack, OnHandleGotoNext}) {
           zIndex: 15,
         }}>
         <RoundButton
-          text={'Next'}
+          text={'다음'}
           color={'#56A4F1'}
           styleProps={{margin: width * 0.03}}
           onHandlePress={() => OnHandleGotoNext()}
