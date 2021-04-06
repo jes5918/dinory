@@ -26,8 +26,8 @@ import io
 import soundfile as sf
 
 @api_view(['POST'])
-# @authentication_classes([JSONWebTokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
 def image_caption(request):
     voice_num = int(request.data.get('num'))
     voice_index = [
