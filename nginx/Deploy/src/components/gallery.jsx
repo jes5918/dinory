@@ -261,6 +261,72 @@ export const Gallery = (props) => {
                 </div>
               </div>
             </div>
+            <div className='col-sm-6 col-md-4 col-lg-4'>
+              <div className='portfolio-item'>
+                <div className='hover-bg'>
+                  {' '}
+                  <a
+                    href='img/gallery/statbydairy.png'
+                    title='Project Title'
+                    data-toggle='lightbox'
+                    data-lightbox-gallery='gallery1'
+                  >
+                    <div className='hover-text'>
+                      <h4>Stat By Dairy</h4>
+                    </div>
+                    <img
+                      src='img/gallery/statbydairy.png'
+                      className='img-responsive img-fluid'
+                      alt='Project Title'
+                    />{' '}
+                  </a>{' '}
+                </div>
+              </div>
+            </div>
+            <div className='col-sm-6 col-md-4 col-lg-4'>
+              <div className='portfolio-item'>
+                <div className='hover-bg'>
+                  {' '}
+                  <a
+                    href='img/gallery/statbygreen.png'
+                    title='Project Title'
+                    data-toggle='lightbox'
+                    data-lightbox-gallery='gallery1'
+                  >
+                    <div className='hover-text'>
+                      <h4>Stat By Grass</h4>
+                    </div>
+                    <img
+                      src='img/gallery/statbygreen.png'
+                      className='img-responsive img-fluid'
+                      alt='Project Title'
+                    />{' '}
+                  </a>{' '}
+                </div>
+              </div>
+            </div>
+            <div className='col-sm-6 col-md-4 col-lg-4'>
+              <div className='portfolio-item'>
+                <div className='hover-bg'>
+                  {' '}
+                  <a
+                    href='img/gallery/statbyword.png'
+                    title='Project Title'
+                    data-toggle='lightbox'
+                    data-lightbox-gallery='gallery1'
+                  >
+                    <div className='hover-text'>
+                      <h4>Stat By Word</h4>
+                    </div>
+                    <img
+                      src='img/gallery/statbyword.png'
+                      className='img-responsive img-fluid'
+                      alt='Project Title'
+                    />{' '}
+                  </a>{' '}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
