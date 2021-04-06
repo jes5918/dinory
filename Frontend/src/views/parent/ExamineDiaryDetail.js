@@ -4,17 +4,22 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-
+import {useNavigation} from '@react-navigation/core';
 //components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
-import {getNotesOnlyDay} from '../../api/diary/readDiary';
-
+import {getNotesOnlyDay, ExamineNote} from '../../api/diary/readDiary';
+import BasicButton from '../../components/elements/BasicButton';
 // static variable
 const image = require('../../assets/images/background1.png');
 const baseURL = 'https://j4b105.p.ssafy.io/api';
-const stamp = require('../../assets/images/stamp.png');
-const Diary = ({data, check}) => {
+const Diary = ({data, profilePK}) => {
+  const navigation = useNavigation();
+  const PressStamp = () => {
+    ExamineNote(data.id, (res) => {
+      navigation.navigate('ExamineDiaryList', {profilePK: profilePK});
+    });
+  };
   return (
     <View style={styles.bodyContainer}>
       <Image style={styles.image} source={{uri: data && baseURL + data.img}} />
@@ -24,26 +29,30 @@ const Diary = ({data, check}) => {
           source={require('../../assets/images/logo_ver2.png')}
         />
         <View style={styles.mainContainer}>
+          <View style={styles.stamp}>
+            <BasicButton
+              text={'칭찬 도장 찍기'}
+              borderRadius={1000}
+              btnWidth={windowWidth * 0.25}
+              btnHeight={windowHeight * 0.08}
+              onHandlePress={() => {
+                PressStamp();
+              }}></BasicButton>
+          </View>
           <Text style={styles.mainText}>제목 : {data && data.title}</Text>
         </View>
         <View style={styles.contentContainer}>
           <Text style={styles.contentText}>{data && data.content}</Text>
         </View>
-        {check ? (
-          <Image style={styles.stamp} source={stamp} />
-        ) : (
-          <View style={styles.null}></View>
-        )}
       </View>
     </View>
   );
 };
 
-function DiaryDetail({route}) {
-  let {year, month, date, diaryPK, check} = route.params;
+function ExamineDiaryDetail({route}) {
+  let {year, month, date, diaryPK, profilePK} = route.params;
   const [dataByDay, setDataByDay] = useState();
   const headerTitle = `${year}년 ${month}월 ${date}일`;
-
   const fetchNotesOnlyDay = (selectedDiaryPK) => {
     getNotesOnlyDay(
       selectedDiaryPK,
@@ -67,7 +76,7 @@ function DiaryDetail({route}) {
           </View>
         </Header>
         <View style={styles.body}>
-          {dataByDay && <Diary data={dataByDay} check={check} />}
+          {dataByDay && <Diary data={dataByDay} profilePK={profilePK} />}
         </View>
       </BackgroundAbsolute>
     </View>
@@ -168,13 +177,8 @@ const styles = StyleSheet.create({
   },
   stamp: {
     position: 'absolute',
-    bottom: windowHeight * -0.02,
-    left: windowWidth * 0.15,
-    width: windowWidth * 0.2,
-    height: null,
-    zIndex: 999,
-    aspectRatio: 100 / 100,
+    top: windowHeight * 0.55,
   },
 });
 
-export default DiaryDetail;
+export default ExamineDiaryDetail;

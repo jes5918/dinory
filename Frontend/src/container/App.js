@@ -27,6 +27,8 @@ import AgeProfile from '../views/user/profile/AgeProfile';
 import AvatarProfile from '../views/user/profile/AvatarProfile';
 import SearchPassword from '../views/user/SearchPassword';
 import ModifyPassword from '../views/user/ModifyPassword';
+import ExamineDiaryList from '../views/parent/ExamineDiaryList';
+import ExamineDiaryDetail from '../views/parent/ExamineDiaryDetail';
 
 import DiaryList from '../views/diaryList/DiaryList';
 import ParentSetting from '../views/parent/ParentSetting';
@@ -88,6 +90,11 @@ const App = () => {
         <Stack.Screen name="PinAuthentication" component={PinAuthentication} />
         <Stack.Screen name="DiaryMainTutorial" component={DiaryMainTutorial} />
         <Stack.Screen name="DiaryChart" component={DiaryChart} />
+        <Stack.Screen name="ExamineDiaryList" component={ExamineDiaryList} />
+        <Stack.Screen
+          name="ExamineDiaryDetail"
+          component={ExamineDiaryDetail}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

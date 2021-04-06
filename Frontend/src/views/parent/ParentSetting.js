@@ -66,9 +66,6 @@ function ParentSetting({route}) {
         (e) => {},
       );
     } else {
-      console.log(
-        '문제: AsyncStorage에서 프로필 ID를 못 불러왔습니다.(ParentSetting.js를 확인해주세요.)',
-      );
     }
   };
 
@@ -194,7 +191,9 @@ function ParentSetting({route}) {
           height={windowHeight * 0.8}
           opacity={1}>
           <TouchableOpacity
-            onPress={() => willUpdateInfomationCloseModal()}
+            onPress={() =>
+              navigation.navigate('ExamineDiaryList', {profilePK: profilePK})
+            }
             activeOpacity={0.7}
             style={styles.mainButton}>
             <Text style={styles.mainText}>일기 검사하기</Text>

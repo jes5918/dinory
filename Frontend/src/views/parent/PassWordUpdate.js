@@ -43,7 +43,6 @@ function PassWordUpdate() {
     } else {
       setAlertForEnter(false);
     }
-    console.log(2);
     const newPasswordForm = new FormData();
     newPasswordForm.append('old_password', oldPassword);
     newPasswordForm.append('password', password);
@@ -53,9 +52,7 @@ function PassWordUpdate() {
       (res) => {
         changeModalState();
       },
-      (err) => {
-        console.log('PassWordUpdate.js 에러', err);
-      },
+      (err) => {},
     );
   };
   const chkPW = (password) => {
