@@ -38,24 +38,8 @@ const CardComponent = ({diaryText, diaryImage, onHandlePress, check}) => {
         }
         activeOpacity={0.7}
         style={styles.cardContainer}>
-        <Text style={styles.cardText}>
-          {check ? (
-            <FontAwesome5
-              style={styles.arrowIcon}
-              name={'check-square'}
-              color="red"
-              size={windowWidth * 0.01875}
-            />
-          ) : (
-            <FontAwesome5
-              style={styles.arrowIcon}
-              name={'square'}
-              color="red"
-              size={windowWidth * 0.01875}
-            />
-          )}{' '}
-          {diaryText}
-        </Text>
+        {check ? <Image source={stamp} style={styles.stamp} /> : null}
+        <Text style={styles.cardText}>{diaryText}</Text>
         <Image style={styles.cardImage} source={{uri: diaryImage}} />
       </TouchableOpacity>
     </>
@@ -299,6 +283,13 @@ const styles = StyleSheet.create({
   arrowIcon: {
     width: windowWidth * 0.5,
     height: windowHeight * 0.5,
+  },
+  stamp: {
+    position: 'absolute',
+    width: windowHeight * 0.1,
+    height: windowHeight * 0.1,
+    right: windowWidth * -0.007,
+    top: windowHeight * -0.01,
   },
 });
 
