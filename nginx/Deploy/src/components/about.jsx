@@ -105,6 +105,31 @@ export const About = (props) => {
             />{' '}
           </div>
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div className='row'>
+          <div className='col-xs-12 col-md-8'>
+            {' '}
+            <img
+              src='img/about/statbyword.png'
+              className='img-responsive about-img'
+              alt=''
+            />{' '}
+          </div>
+          <div className='col-xs-12 col-md-4'>
+            <div className='about-text'>
+              <h2>STATISTICS</h2>
+              <p>
+                부모님 계정에 속해 있는 아이들의 일기 작성 수, 단어 통계 등
+                다양한 통계자료를 활용하여 확인 할 수 있습니다.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
