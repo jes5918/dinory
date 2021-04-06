@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import {
   View,
   Text,
@@ -8,20 +8,21 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation, useFocusEffect} from '@react-navigation/core';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 // components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import DiaryListFooter from '../../components/diary/DiaryListFooter';
 import DiaryFooterImage from '../../components/diary/DiaryFooterImage';
+import HoonPinkpungchaR from '../../components/elements/HoonPinkText';
 // data request
-import {getNotesByMonth, getNotesByYear} from '../../api/diary/readDiary';
+import {NotesCheck, getNotesByYear} from '../../api/diary/readDiary';
+import HoonPinkText from '../../components/elements/HoonPinkText';
 
 // static variables
 const url = require('../../assets/images/background1.png');
@@ -29,36 +30,18 @@ const egg = require('../../assets/images/egg.png');
 const character = require('../../assets/images/character2.png');
 const baseURL = 'https://j4b105.p.ssafy.io/api';
 const stamp = require('../../assets/images/stamp.png');
-const CardComponent = ({diaryText, diaryImage, onHandlePress, check}) => {
+
+const CardComponent = ({diaryText, diaryImage, onHandlePress}) => {
   return (
-    <>
-      <TouchableOpacity
-        onPress={() =>
-          onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
-        }
-        activeOpacity={0.7}
-        style={styles.cardContainer}>
-        <Text style={styles.cardText}>
-          {check ? (
-            <FontAwesome5
-              style={styles.arrowIcon}
-              name={'check-square'}
-              color="red"
-              size={windowWidth * 0.01875}
-            />
-          ) : (
-            <FontAwesome5
-              style={styles.arrowIcon}
-              name={'square'}
-              color="red"
-              size={windowWidth * 0.01875}
-            />
-          )}{' '}
-          {diaryText}
-        </Text>
-        <Image style={styles.cardImage} source={{uri: diaryImage}} />
-      </TouchableOpacity>
-    </>
+    <TouchableOpacity
+      onPress={() =>
+        onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
+      }
+      activeOpacity={0.7}
+      style={styles.cardContainer}>
+      <Text style={styles.cardText}>{diaryText}</Text>
+      <Image style={styles.cardImage} source={{uri: diaryImage}} />
+    </TouchableOpacity>
   );
 };
 
@@ -67,6 +50,7 @@ const MainCardComponent = ({
   diaryImage,
   dateText,
   onHandlePress,
+  Name,
   check,
 }) => {
   return (
@@ -81,23 +65,28 @@ const MainCardComponent = ({
         diaryText={diaryText}
         diaryImage={diaryImage}
         onHandlePress={onHandlePress}
-        check={check}
       />
+      {{Name} ? (
+        <View style={styles.ProfileName}>
+          <HoonPinkText fontSize={windowHeight * 0.035}> {Name}</HoonPinkText>
+        </View>
+      ) : (
+        <HoonPinkText> Name</HoonPinkText>
+      )}
     </View>
   );
 };
 
-function DiaryList({route}) {
-  const [dataByMonth, setDataByMonth] = useState();
+function ExamineDiaryList({route}) {
+  const [UnckeckNotes, setUnCheckNotes] = useState();
   const [dataByYear, setDataByYear] = useState();
   const [fetchYear, setFetchYear] = useState();
   const [fetchMonth, setFetchMonth] = useState();
   const {profilePK} = route.params;
-
   const navigation = useNavigation();
 
   const onHandleDetail = (params) => {
-    navigation.navigate('DiaryDetail', {
+    navigation.navigate('ExamineDiaryDetail', {
       ...params,
       profilePK: profilePK,
     });
@@ -109,11 +98,11 @@ function DiaryList({route}) {
     setFetchMonth(newMonth);
   };
 
-  const fetchNotesByMonth = (child, year, month) => {
-    getNotesByMonth(
+  const fetchNotesCheck = (child, year, month) => {
+    NotesCheck(
       {child, year, month},
       (res) => {
-        setDataByMonth(() => res.data);
+        setUnCheckNotes(() => res.data);
       },
       (err) => {
         console.error(err);
@@ -132,11 +121,12 @@ function DiaryList({route}) {
       },
     );
   };
-
-  useEffect(() => {
-    fetchNotesByMonth(profilePK, fetchYear, fetchMonth);
-    fetchNotesByYear(profilePK);
-  }, [profilePK, fetchYear, fetchMonth]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchNotesCheck(profilePK, fetchYear, fetchMonth);
+      fetchNotesByYear(profilePK);
+    }, [profilePK, fetchYear, fetchMonth]),
+  );
 
   return (
     <View style={styles.container}>
@@ -152,19 +142,29 @@ function DiaryList({route}) {
               },
             ]}
             style={styles.bodyCardContainer}>
-            {dataByMonth &&
-              dataByMonth.map((diary) => {
-                const {title, img, year, month, date, id, check} = diary; // 현재 체크가 없음
+            {UnckeckNotes &&
+              UnckeckNotes.map((diary) => {
+                const {
+                  title,
+                  img,
+                  year,
+                  month,
+                  date,
+                  id,
+                  child_name,
+                  check,
+                } = diary;
                 return (
                   <MainCardComponent
                     diaryText={title}
                     diaryImage={baseURL + img}
                     dateText={`${year}.${month}.${date}`}
                     onHandlePress={() =>
-                      onHandleDetail({year, month, date, diaryPK: id, check})
+                      onHandleDetail({year, month, date, diaryPK: id})
                     }
-                    key={id}
                     check={check}
+                    key={id}
+                    Name={child_name}
                   />
                 );
               })}
@@ -246,12 +246,19 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   mainImage: {
+    flexDirection: 'row',
     width: windowWidth * 0.034,
     height: windowHeight * 0.061,
   },
   mainEgg: {
     width: windowWidth * 0.031,
     height: windowHeight * 0.061,
+    resizeMode: 'contain',
+  },
+  mainStamp: {
+    width: windowWidth * 0.2,
+    height: windowHeight * 0.2,
+    position: 'relative',
     resizeMode: 'contain',
   },
   line: {
@@ -296,10 +303,16 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.169,
     height: windowWidth * 0.169,
   },
-  arrowIcon: {
-    width: windowWidth * 0.5,
-    height: windowHeight * 0.5,
+  ProfileName: {
+    marginTop: 10,
+    backgroundColor: '#fffff0',
+    borderRadius: 100,
+    width: windowWidth * 0.17,
+    height: windowHeight * 0.06,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
-export default DiaryList;
+export default ExamineDiaryList;
