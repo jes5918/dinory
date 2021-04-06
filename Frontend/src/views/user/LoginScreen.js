@@ -52,7 +52,6 @@ export default function LoginScreen({navigation}) {
         },
         (error) => {
           dchangeModalState();
-          console.log(error);
         },
       );
     } else {

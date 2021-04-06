@@ -2,6 +2,22 @@ import {AuthorizationInstance} from '../index.js';
 
 const instance = AuthorizationInstance();
 
+export function NotesCheck(params, success, fail) {
+  instance
+    .get('notes/check/', {
+      params: {
+        child: Object.keys(params).length !== 0 && params.child,
+        year: Object.keys(params).length !== 0 && (params.year || todayYear),
+        month: Object.keys(params).length !== 0 && (params.month || todayMonth),
+      },
+    })
+    .then(success)
+    .catch(fail);
+}
+export function ExamineNote(diary_id, success, fail) {
+  instance.put(`notes/check/?id=${diary_id}`).then(success).catch(fail);
+}
+
 export function getNotesByYear(child, success, fail) {
   instance
     .get('notes/diary/total/', {
