@@ -166,7 +166,6 @@ export default function Main() {
       } else if (soundSetting && sound.isPlaying) {
         sound.pause();
         sound.play();
-        // return;
       } else if (!soundSetting && !sound.isPlaying) {
         return;
       } else {
@@ -177,6 +176,10 @@ export default function Main() {
       sound.stop();
       sound.pause();
     }
+    return () => {
+      sound.stop();
+      sound.pause();
+    };
   });
   // 사운드 설정 종료
   return (
