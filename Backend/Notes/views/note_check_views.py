@@ -21,11 +21,13 @@ def diary_check(request):
         context = []
         for note in notes:
             child_name = note.child.name
+            child_pk = note.child.id
             diaries = Diary.objects.filter(note=note, check=False)
             for diary in diaries:
                 serializer = CheckSerializer(diary)
                 data = serializer.data
                 data['child_name'] = child_name
+                data['child_pk'] = child_pk
                 context.append(data)
         return Response(context, status=status.HTTP_200_OK)
     else:
