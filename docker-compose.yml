@@ -13,6 +13,7 @@ services:
         volumes:
           - ./Backend:/srv/docker-server
           - ./log:/var/log/nginx
+          - ./Backend/static:/srv/docker-server/static
         depends_on:
           - django
 
