@@ -12,14 +12,16 @@ function HeatMapChart({data}) {
     backgroundGradientFromOpacity: 1,
     backgroundGradientTo: 'white',
     backgroundGradientToOpacity: 1,
-    color: (opacity = 1) => `rgba(239, 71, 111,${opacity})`,
+    color: (opacity = 1) => `rgba(239, 71, 111,${opacity ? opacity : 1})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 2,
     useShadowColorFromDataset: false, // optional
     propsForLabels: {fontSize: hp(2.7), color: 'black'},
   };
-  const startDate = data[0].date;
-  const endDate = data[data.length - 1].date;
+
+  const endDate = new Date(data[data.length - 1].date);
+  endDate.setDate(endDate.getDate() + 7);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -32,7 +34,7 @@ function HeatMapChart({data}) {
       <ContributionGraph
         style={styles.graphStyle}
         values={data}
-        endDate={new Date(endDate)}
+        endDate={endDate}
         numDays={200}
         width={wp(85)}
         height={hp(45)}

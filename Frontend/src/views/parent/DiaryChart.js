@@ -21,7 +21,7 @@ import WordPieChart from '../../components/charts/WordPieChart';
 import HeatMapChart from '../../components/charts/HeatMapChart';
 
 const transformMonth = (mon) => {
-  const nowMon = mon + 1;
+  const nowMon = mon;
   const res = String(nowMon).length === 1 ? '0' + String(nowMon) : nowMon;
   return res;
 };
@@ -46,7 +46,7 @@ const randomColors = [
 
 const generateMonthLabel = (startMonth) => {
   const monthLabels = Array.from({length: 12}, (v, index) =>
-    transformMonth(index),
+    transformMonth(index + 1),
   );
 
   const leftLabels = monthLabels
@@ -58,9 +58,6 @@ const generateMonthLabel = (startMonth) => {
     .map((label) => `${year}.${label}`);
 
   const returnLabels = leftLabels.concat(rightLabels);
-
-  // return example : [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
-
   return returnLabels;
 };
 
@@ -68,7 +65,6 @@ function DiaryChart({route}) {
   const profilePK = route.params.profilePK;
   const [diaryStats, setDiaryStats] = useState();
   const [wordFreq, setWordFreq] = useState();
-  const [wordCloudImage, setWordCloudImage] = useState();
   const [commitCount, setCommitCount] = useState();
   const [selectedChart, setSelectedChart] = useState(0);
 
@@ -93,8 +89,8 @@ function DiaryChart({route}) {
   };
 
   const generateWordFreqData = (wordData) => {
-    const average = wordData.average; // 단어당 평균 사용 횟수
-    const total = wordData.total; // 총 단어 사용 횟수
+    // const average = wordData.average; // 단어당 평균 사용 횟수
+    // const total = wordData.total; // 총 단어 사용 횟수
     const words = wordData.words; // 가장 많이 사용하는 단어 Top 10, {content, count, rate}
 
     const resData = words.map((word, index) => {
@@ -113,23 +109,11 @@ function DiaryChart({route}) {
     getWordFrequency(
       profilePK,
       (res) => {
-        setWordFreq(res.data);
+        if (res.data) {
+          setWordFreq(res.data);
+        }
       },
-      (error) => {
-        console.error(error);
-      },
-    );
-  }, [profilePK]);
-
-  const fetchWordCloudImage = useCallback(() => {
-    getWordCloudImage(
-      profilePK,
-      (res) => {
-        setWordCloudImage(res.data);
-      },
-      (error) => {
-        console.error(error);
-      },
+      (error) => {},
     );
   }, [profilePK]);
 
@@ -139,15 +123,14 @@ function DiaryChart({route}) {
       (res) => {
         if (res.data) {
           const data = {
-            ...res.data,
             age_child_cnt: res.data.age_child_cnt.reverse(),
+            child_cnt: res.data.child_cnt.reverse(),
+            user_child_cnt: res.data.user_child_cnt.reverse(),
           };
           setDiaryStats(data);
         }
       },
-      (error) => {
-        console.error(error);
-      },
+      (error) => {},
     );
   }, [profilePK]);
 
@@ -155,25 +138,19 @@ function DiaryChart({route}) {
     getCommitCount(
       {child: profilePK, year},
       (res) => {
-        setCommitCount(res.data);
+        if (res.data) {
+          setCommitCount(res.data);
+        }
       },
-      (error) => {
-        console.error(error);
-      },
+      (error) => {},
     );
   }, [profilePK]);
 
   useEffect(() => {
     fetchWordFrequency();
-    fetchWordCloudImage();
     fetchDiaryStats();
     fetchCommitCount();
-  }, [
-    fetchWordFrequency,
-    fetchWordCloudImage,
-    fetchDiaryStats,
-    fetchCommitCount,
-  ]);
+  }, [fetchWordFrequency, fetchDiaryStats, fetchCommitCount]);
 
   return (
     <AuthBackGround>
@@ -241,14 +218,22 @@ function DiaryChart({route}) {
         {selectedChart === 0 && diaryStats && (
           <DiaryBarChart data={generateDiaryStatsData(diaryStats)} />
         )}
-        {selectedChart === 1 && wordCloudImage && wordFreq && (
-          <WordPieChart
-            data={generateWordFreqData(wordFreq)}
-            imageSrc={wordCloudImage}
-          />
+        {selectedChart === 1 && wordFreq.words.length > 0 && (
+          <WordPieChart data={generateWordFreqData(wordFreq)} />
         )}
-        {selectedChart === 2 && commitCount && (
+        {selectedChart === 1 && wordFreq.words.length === 0 && (
+          <Text style={styles.textInfo}>
+            단어 사용량 그래프를 위한 데이터가 없습니다. 일기를 먼저
+            작성해주세요.
+          </Text>
+        )}
+        {selectedChart === 2 && commitCount.length > 0 && (
           <HeatMapChart data={commitCount} />
+        )}
+        {selectedChart === 2 && commitCount.length === 0 && (
+          <Text style={styles.textInfo}>
+            매일 기록 그래프를 위한 데이터가 없습니다. 일기를 먼저 작성해주세요.
+          </Text>
         )}
       </View>
     </AuthBackGround>
@@ -264,7 +249,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: hp(7),
     display: 'flex',
-    // flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
@@ -290,6 +274,9 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: wp(2),
+  },
+  textInfo: {
+    fontSize: hp(3),
   },
 });
 
