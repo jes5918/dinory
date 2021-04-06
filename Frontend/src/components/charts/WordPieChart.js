@@ -44,11 +44,13 @@ const defaultGraphicData = [
 ];
 
 // legend, tooltip / label을 지우고, legend와 tooltip으로 구성
-function WordPieChart({data, imageSrc}) {
+function WordPieChart({data}) {
   const [graphicData, setGraphicData] = useState(defaultGraphicData);
+
   useEffect(() => {
     setGraphicData(data);
   }, [data]);
+
   const legendData = data.map((item, index) => {
     const newItem = {
       name: item.word,
@@ -56,10 +58,12 @@ function WordPieChart({data, imageSrc}) {
     };
     return newItem;
   });
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        아이가 어떤 단어를 주로 사용하는지 알 수 있습니다.
+        아이가 어떤 단어를 주로 사용하는지 알 수 있습니다. 자주 쓰는 단어 상위
+        10개를 보여줍니다.
       </Text>
       <View style={styles.subContainer}>
         <View style={styles.chart}>
@@ -76,7 +80,10 @@ function WordPieChart({data, imageSrc}) {
             padAngle={1}
             // labels={({datum}) => datum.x}
             endAngle={270}
-            labels={Array.from({length: 10}, (v, i) => `${data[i].count}회`)}
+            labels={Array.from(
+              {length: data.length},
+              (v, i) => `${data[i].count}회`,
+            )}
             labelComponent={
               <VictoryLabel
                 style={{
@@ -96,9 +103,6 @@ function WordPieChart({data, imageSrc}) {
             orientation="vertical"
             gutter={wp(5)}
             rowGutter={hp(1.4)}
-            style={{
-              title: {fontSize: 20},
-            }}
             data={legendData}
             borderPadding={{top: hp(2), left: wp(1)}}
             itemsPerRow={5}
@@ -112,10 +116,6 @@ function WordPieChart({data, imageSrc}) {
             }
           />
         </View>
-        {/* <Image
-          source={{uri: `data:image/png;base64,${imageSrc}`}}
-          style={styles.wordCloudImage}
-        /> */}
       </View>
     </View>
   );
