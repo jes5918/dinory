@@ -27,6 +27,15 @@ function SelectModal({
           : alert('함수를 props로 내려주세요!');
       }}>
       <View style={styles.centeredView}>
+        <View
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            zIndex: 25,
+            position: 'absolute',
+          }}
+        />
         <View style={styles.modalView}>
           <View
             style={{
@@ -105,8 +114,6 @@ const styles = StyleSheet.create({
     fontSize: windowWidth * 0.02,
     color: '#707070',
     fontFamily: 'NotoSansKR-Bold',
-    // backgroundColor: 'red',
-    // height: windowWidth * 0.01875,
   },
   allowText: {
     fontSize: windowWidth * 0.02,
@@ -123,6 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
+    zIndex: 35,
   },
   modalView: {
     backgroundColor: 'white',
@@ -134,6 +142,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-around',
     elevation: 5,
+    zIndex: 33,
   },
 });
 

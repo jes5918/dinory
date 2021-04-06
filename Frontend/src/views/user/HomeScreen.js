@@ -95,6 +95,7 @@ export default function HomeScreen({navigation, route}) {
           btnWidth={wp('30%')}
           btnHeight={hp('8%')}
           borderRadius={14}
+          backgroundColor={'#9979C2'}
           onHandlePress={() => navigation.navigate('LoginScreen')}
         />
       </View>
