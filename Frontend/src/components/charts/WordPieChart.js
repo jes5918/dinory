@@ -113,10 +113,9 @@ function WordPieChart({data, imageSrc}) {
           />
         </View>
         {/* <Image
-        source={{uri: `data:image/png;base64,${imageSrc}`}}
-        // source={{uri: imageSrc}}
-        style={styles.wordCloudImage}
-      /> */}
+          source={{uri: `data:image/png;base64,${imageSrc}`}}
+          style={styles.wordCloudImage}
+        /> */}
       </View>
     </View>
   );
