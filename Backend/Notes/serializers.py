@@ -15,7 +15,7 @@ class MonthlyDiarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Diary
-        fields = ('title', 'img', 'year', 'month', 'date', 'id')
+        fields = ('title', 'img', 'year', 'month', 'date', 'id', 'check',)
 
 
 class DailyDiarySerializer(serializers.ModelSerializer):
