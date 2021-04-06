@@ -28,7 +28,6 @@ const height = dimensions.height;
 
 let sound = new Sound(BGM, (error) => {
   if (error) {
-    console.log('bgm 재생 실패');
   }
   sound.setVolume(0.2);
   sound.setNumberOfLoops(-1);
@@ -136,7 +135,6 @@ export default function Main() {
     didTutorial(
       child,
       (res) => {
-        console.log(res.data.tutorial);
         if (res.data.tutorial) {
           navigation.navigate('DiaryMainTutorial');
         } else {

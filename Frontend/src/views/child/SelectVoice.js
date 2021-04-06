@@ -80,7 +80,6 @@ export default function SelectVoice() {
         }
       },
       (err) => {
-        console.log('selectVoice error : ', err);
         noChangeModalState();
       },
     );
