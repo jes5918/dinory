@@ -18,11 +18,16 @@ function HeatMapChart({data}) {
     useShadowColorFromDataset: false, // optional
     propsForLabels: {fontSize: hp(2.7), color: 'black'},
   };
+  const startDate = data[0].date;
   const endDate = data[data.length - 1].date;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        꾸준히 일기를 썼는지 알 수 있습니다. 색의 진함과 일기 수가 비례합니다.
+        개발자들이 주로 사용하는 잔디 차트입니다. 아이가 일기를 쓰면 그 날에
+        해당하는 사각형의 색이 더 진해집니다.
+      </Text>
+      <Text style={styles.subTitle}>
+        매일 꾸준히 일기를 쓰면 그래프의 모든 사각형이 색칠됩니다.
       </Text>
       <ContributionGraph
         style={styles.graphStyle}
@@ -35,9 +40,10 @@ function HeatMapChart({data}) {
         gutterSize={hp(0.7)}
         squareSize={hp(3.8)}
       />
-      <Text style={styles.subTitle}>
-        왼쪽부터 오른쪽으로 갈수록 최근 데이터입니다.
-      </Text>
+      <View style={styles.subTitleContainer}>
+        <Text style={styles.subTitle}>예전에 쓴 기록</Text>
+        <Text style={styles.subTitle}>최근에 쓴 기록</Text>
+      </View>
     </View>
   );
 }
@@ -53,13 +59,20 @@ const styles = StyleSheet.create({
   graphStyle: {},
   title: {
     fontSize: hp(3),
-    marginBottom: hp(6),
+    marginBottom: hp(3),
     marginTop: hp(3.5),
+    textAlign: 'center',
   },
   subTitle: {
-    fontSize: hp(2.6),
+    fontSize: hp(3),
     marginBottom: hp(3),
     color: 'rgba(0,0,0,0.9)',
+  },
+  subTitleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
   },
 });
 
