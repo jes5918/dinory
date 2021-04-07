@@ -18,7 +18,12 @@ export default function HomeScreen({navigation, route}) {
         return JSON.parse(value);
       })
       .then((res) => {
-        AutologinMount();
+        if (res) {
+          AutologinMount();
+          return;
+        } else {
+          return;
+        }
       });
   }, []);
 
