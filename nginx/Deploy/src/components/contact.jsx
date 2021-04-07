@@ -7,6 +7,7 @@ const initialState = {
   message: '',
 };
 export const Contact = (props) => {
+  // eslint-disable-next-line
   const [{ name, email, message }, setState] = useState(initialState);
 
   const handleChange = (e) => {
