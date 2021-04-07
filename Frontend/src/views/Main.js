@@ -66,7 +66,10 @@ export default function Main() {
   // 로그아웃
   const executeLogout = async () => {
     const willRemovedKeys = ['jwt', 'profile'];
-
+    sound.pause(() => {
+      sound.stop();
+      sound.release();
+    });
     try {
       setLogoutModal(!logoutModal);
       await AsyncStorage.multiRemove(willRemovedKeys);
@@ -163,17 +166,20 @@ export default function Main() {
       if (soundSetting && !sound.isPlaying) {
         sound.play();
       } else if (soundSetting && sound.isPlaying) {
-        sound.pause();
-        sound.play();
+        sound.pause(() => {
+          sound.play();
+        });
       } else if (!soundSetting && !sound.isPlaying) {
         return;
       } else {
-        sound.stop();
-        sound.pause();
+        sound.pause(() => {
+          sound.stop();
+        });
       }
     } else {
-      sound.stop();
-      sound.pause();
+      sound.pause(() => {
+        sound.stop();
+      });
     }
   });
   // 사운드 설정 종료

@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -45,20 +45,9 @@ import PinUpdate from '../views/parent/PinUpdate';
 import PinAuthentication from '../views/parent/PinAuthentication';
 import DiaryChart from '../views/parent/DiaryChart';
 
-import Sound from 'react-native-sound';
-import BGM from '../assets/sound/rockabyebaby.mp3';
-
 const Stack = createStackNavigator();
 
-let sound = new Sound(BGM, () => {});
-
 const App = () => {
-  useEffect(() => {
-    return () => {
-      sound.stop();
-      sound.pause();
-    };
-  });
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HomeScreen" headerMode="none">
