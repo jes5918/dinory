@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {
