@@ -45,7 +45,12 @@ export default function LoginScreen({navigation}) {
           await AsyncStorage.setItem('jwt', res.data.token);
           changeModalState();
           AsyncStorage.setItem('jwt', res.data.token);
-          AsyncStorage.setItem('autoUserName', userName);
+          if (storeId) {
+            AsyncStorage.setItem('autoUserName', userName);
+          } else {
+            AsyncStorage.setItem('autoUserName', '');
+          }
+
           setTimeout(() => {
             navigation.navigate('SelectProfile');
           }, 1500);
@@ -96,11 +101,13 @@ export default function LoginScreen({navigation}) {
       });
       AsyncStorage.getItem('autoUserName')
         .then((name) => {
-          setUserName(name);
+          if (name === '') {
+            setUserName('');
+          } else {
+            setUserName(name);
+          }
         })
-        .catch(() => {
-          setUserName('');
-        });
+        .catch(() => {});
     }, []),
   );
   const closeModal = () => {
