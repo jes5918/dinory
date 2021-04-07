@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FastImage from 'react-native-fast-image';
 
 // components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
@@ -41,7 +42,7 @@ const CardComponent = ({diaryText, diaryImage, onHandlePress, check}) => {
         style={styles.cardContainer}>
         {check ? <Image source={stamp} style={styles.stamp} /> : null}
         <Text style={styles.cardText}>{diaryText}</Text>
-        <Image style={styles.cardImage} source={{uri: diaryImage}} />
+        <FastImage style={styles.cardImage} source={{uri: diaryImage}} />
       </TouchableOpacity>
     </>
   );
@@ -60,7 +61,7 @@ const MainCardComponent = ({
         <Text style={styles.mainText}>{dateText}</Text>
       </View>
       <View style={styles.mainImage}>
-        <Image style={styles.mainEgg} source={egg} />
+        <FastImage style={styles.mainEgg} source={egg} />
       </View>
       <CardComponent
         diaryText={diaryText}
@@ -94,7 +95,7 @@ function DiaryList({route}) {
     setFetchMonth(newMonth);
   };
 
-  const fetchNotesByMonth = (child, year, month) => {
+  const fetchNotesByMonth = useCallback((child, year, month) => {
     getNotesByMonth(
       {child, year, month},
       (res) => {
@@ -102,9 +103,9 @@ function DiaryList({route}) {
       },
       () => {},
     );
-  };
+  }, []);
 
-  const fetchNotesByYear = (child) => {
+  const fetchNotesByYear = useCallback((child) => {
     getNotesByYear(
       child,
       (res) => {
@@ -112,12 +113,12 @@ function DiaryList({route}) {
       },
       () => {},
     );
-  };
+  }, []);
 
   useEffect(() => {
     fetchNotesByMonth(profilePK, fetchYear, fetchMonth);
     fetchNotesByYear(profilePK);
-  }, [profilePK, fetchYear, fetchMonth]);
+  }, [profilePK, fetchYear, fetchMonth, fetchNotesByMonth, fetchNotesByYear]);
 
   return (
     <View style={styles.container}>
@@ -150,7 +151,7 @@ function DiaryList({route}) {
                 );
               })}
           </ScrollView>
-          <Image style={styles.character} source={character} />
+          <FastImage style={styles.character} source={character} />
           <View style={styles.line} />
         </View>
         <DiaryListFooter>
@@ -290,4 +291,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DiaryList;
+export default React.memo(DiaryList);

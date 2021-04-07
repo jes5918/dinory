@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import FastImage from 'react-native-fast-image';
 
 //components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
@@ -17,9 +18,12 @@ const stamp = require('../../assets/images/stamp.png');
 const Diary = ({data, check}) => {
   return (
     <View style={styles.bodyContainer}>
-      <Image style={styles.image} source={{uri: data && baseURL + data.img}} />
+      <FastImage
+        style={styles.image}
+        source={{uri: data && baseURL + data.img}}
+      />
       <View style={styles.mainBox}>
-        <Image
+        <FastImage
           style={styles.imageBack}
           source={require('../../assets/images/logo_ver2.png')}
         />
@@ -30,7 +34,7 @@ const Diary = ({data, check}) => {
           <Text style={styles.contentText}>{data && data.content}</Text>
         </View>
         {check ? (
-          <Image style={styles.stamp} source={stamp} />
+          <FastImage style={styles.stamp} source={stamp} />
         ) : (
           <View style={styles.null}></View>
         )}
@@ -44,7 +48,7 @@ function DiaryDetail({route}) {
   const [dataByDay, setDataByDay] = useState();
   const headerTitle = `${year}년 ${month}월 ${date}일`;
 
-  const fetchNotesOnlyDay = (selectedDiaryPK) => {
+  const fetchNotesOnlyDay = useCallback((selectedDiaryPK) => {
     getNotesOnlyDay(
       selectedDiaryPK,
       (res) => {
@@ -52,11 +56,11 @@ function DiaryDetail({route}) {
       },
       (err) => {},
     );
-  };
+  }, []);
 
   useEffect(() => {
     fetchNotesOnlyDay(diaryPK);
-  }, [diaryPK]);
+  }, [diaryPK, fetchNotesOnlyDay]);
 
   return (
     <View style={styles.container}>
@@ -177,4 +181,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DiaryDetail;
+export default React.memo(DiaryDetail);
