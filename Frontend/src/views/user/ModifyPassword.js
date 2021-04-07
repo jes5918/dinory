@@ -121,9 +121,9 @@ export default function ModifyPassword({navigation, route}) {
             secureTextEntry={true}
             autoFocus={false}
           />
-          {userWritePassword.length < 8 ? (
+          {userWritePassword.length < 8 || !chkPW(userWritePassword) ? (
             <Text style={styles.alertMessage}>
-              대,소문자 영어+숫자로 8자리 이상 적 어주세요.
+              대,소문자 영어+숫자로 8자리 이상 적어주세요.
             </Text>
           ) : null}
           {userWritePassword !== userCheckPassword ? (
