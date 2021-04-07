@@ -127,7 +127,7 @@ function ExamineDiaryList({route}) {
   return (
     <View style={styles.container}>
       <BackgroundAbsolute style={styles.container} imageSrc={url}>
-        <Header />
+        <Header logoHeader={true} />
         <View style={styles.body}>
           <ScrollView
             horizontal={true}

@@ -70,7 +70,7 @@ function ExamineDiaryDetail({route}) {
   return (
     <View style={styles.container}>
       <BackgroundAbsolute imageSrc={image}>
-        <Header>
+        <Header logoHeader={true}>
           <View style={styles.headerContainer}>
             <Text style={styles.headerText}>{headerTitle}</Text>
           </View>
