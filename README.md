@@ -142,11 +142,11 @@
 
 ⭐ **Common** : <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/> <img src="https://img.shields.io/badge/GitLab-FCA121?style=flat-square&logo=GitLab&logoColor=black"/><img src="https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=Jenkins&logoColor=black"/> <img src="https://img.shields.io/badge/NGINX-269539?style=flat-square&logo=NGINX&logoColor=black"/><img src="https://img.shields.io/badge/Jira-0052CC?style=flat-square&logo=Jira&logoColor=white"/><img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat-square&logo=JSON Web Tokens&logoColor=white"/>
 
-<img src="README.assets/그림2.png" alt="그림2" style="zoom: 50%;" />
+![image-20210407223533848](README.assets/image-20210407223533848.png)
 
 🚀 **ERD**
 
-<img src="README.assets/특화프로젝트ERD.png" alt="특화프로젝트ERD" style="zoom:60%;" />
+<img src="README.assets/finalERD.png" alt="특화프로젝트ERD" style="zoom:60%;" />
 
 
 
