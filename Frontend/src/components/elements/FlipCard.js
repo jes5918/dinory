@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontFamily: 'HoonPinkpungchaR',
+    textAlign: 'center',
   },
   wordClass: {
     fontSize: cardWidth * 0.1,

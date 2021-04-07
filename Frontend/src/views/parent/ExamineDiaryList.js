@@ -104,9 +104,7 @@ function ExamineDiaryList({route}) {
       (res) => {
         setUnCheckNotes(() => res.data);
       },
-      (err) => {
-        console.error(err);
-      },
+      () => {},
     );
   };
 
@@ -116,9 +114,7 @@ function ExamineDiaryList({route}) {
       (res) => {
         setDataByYear(() => res.data);
       },
-      (err) => {
-        console.error(err);
-      },
+      () => {},
     );
   };
   useFocusEffect(

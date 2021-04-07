@@ -99,7 +99,7 @@ def image_caption(request):
                 data, samplerate = sf.read(io.BytesIO(responseData.content))
                 stream_path = mediaROOTURL+ '/tts_basic/' + str(voice_num) + tag.name + '.wav'
                 sf.write(stream_path, data, samplerate)
-                for i in range(4):
+                for i in range(5):
                     if i == voice_num:
                         continue
                     stream_path2 = mediaROOTURL+ '/tts_basic/' + str(i) + tag.name + '.wav'
@@ -116,7 +116,7 @@ def image_caption(request):
                 # Checks result.
                 if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
                     stream.save_to_wav_file(stream_path)
-                    for i in range(4):
+                    for i in range(5):
                         if i == voice_num:
                             continue
                         stream_path2 = mediaROOTURL+ '/tts_basic/' + str(i) + tag.name + '.wav'
