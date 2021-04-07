@@ -51,10 +51,11 @@ const SelectImage = ({setSelectImage}) => {
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        // console.warn(err);
         return false;
       }
-    } else return true;
+    } else {
+      return true;
+    }
   };
 
   const requestExternalWritePermission = async () => {
@@ -70,11 +71,12 @@ const SelectImage = ({setSelectImage}) => {
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        // console.warn(err);
         alert('Write permission err', err);
       }
       return false;
-    } else return true;
+    } else {
+      return true;
+    }
   };
 
   const captureImage = async (type) => {
@@ -151,7 +153,8 @@ const SelectImage = ({setSelectImage}) => {
               height: layoutWidth * 0.2,
               resizeMode: 'contain',
               marginVertical: 10,
-            }}></Image>
+            }}
+          />
           <Text style={styles.textStyle}>사진 촬영</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -165,7 +168,8 @@ const SelectImage = ({setSelectImage}) => {
               height: layoutWidth * 0.2,
               resizeMode: 'contain',
               marginVertical: 10,
-            }}></Image>
+            }}
+          />
           <Text style={styles.textStyle}>사진 가져오기</Text>
         </TouchableOpacity>
       </View>

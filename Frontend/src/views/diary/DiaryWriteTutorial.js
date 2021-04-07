@@ -162,7 +162,6 @@ export default function Diary() {
           setCurrentPage(2);
         },
         (err) => {
-          console.error(err);
           setSelectImage(false);
           setCurrentPage(1);
           setModalVisible(!modalVisible);
@@ -181,7 +180,6 @@ export default function Diary() {
         setGrammarchecked(true);
       },
       (err) => {
-        console.error(err);
         alert('다시 시도해주세요!');
       },
     );
@@ -210,7 +208,6 @@ export default function Diary() {
           // setKoreanWarnModalVisible(!koreanWarnModalVisible);
         },
         (err) => {
-          console.error(err);
           if (err.error === '한글은 작성할 수 없습니다') {
             setConfirmSave(!confirmSave);
             setKoreanWarnModalVisible(!koreanWarnModalVisible);

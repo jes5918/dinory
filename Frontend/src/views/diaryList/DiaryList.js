@@ -99,9 +99,7 @@ function DiaryList({route}) {
       (res) => {
         setDataByMonth(() => res.data);
       },
-      (err) => {
-        console.error(err);
-      },
+      () => {},
     );
   };
 
@@ -111,9 +109,7 @@ function DiaryList({route}) {
       (res) => {
         setDataByYear(() => res.data);
       },
-      (err) => {
-        console.error(err);
-      },
+      () => {},
     );
   };
 

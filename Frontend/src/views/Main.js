@@ -142,7 +142,6 @@ export default function Main() {
         }
       },
       (err) => {
-        console.error(err);
         navigation.navigate('Diary');
       },
     );

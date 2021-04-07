@@ -17,7 +17,6 @@ export const Contact = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name, email, message);
     emailjs
       .sendForm(
         'service_5awvwyi',
@@ -27,12 +26,9 @@ export const Contact = (props) => {
       )
       .then(
         (result) => {
-          console.log(result.text);
           clearState();
         },
-        (error) => {
-          console.log(error.text);
-        }
+        () => {}
       );
   };
   return (
