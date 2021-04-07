@@ -72,7 +72,9 @@ export default function FlipCard({english, korean, pos, voiceNum}) {
   );
 
   const flip = useCallback(() => {
-    sound.play();
+    sound.stop(() => {
+      sound.play();
+    });
     if (temp < 90) {
       getWordDetail(
         {child: child, word: english},
@@ -95,6 +97,7 @@ export default function FlipCard({english, korean, pos, voiceNum}) {
         useNativeDriver: true,
       }).start();
     }
+    return sound.stop();
   }, [temp, animationvalue, english, child]);
 
   return (
