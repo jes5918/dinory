@@ -154,7 +154,7 @@ function DiaryChart({route}) {
 
   return (
     <AuthBackGround>
-      <Header logoHeader={true} />
+      <Header />
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => setSelectedChart(0)}
