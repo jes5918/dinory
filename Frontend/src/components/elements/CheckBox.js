@@ -107,7 +107,13 @@ export default function CheckBox({
           name={'check'}>
           <Text style={styles.text}>{textKr}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.volume} onPress={() => sound.play()}>
+        <TouchableOpacity
+          style={styles.volume}
+          onPress={() =>
+            sound.stop(() => {
+              sound.play();
+            })
+          }>
           <FontAwesome5
             style={styles.volumeIcon}
             name={'volume-up'}
@@ -142,7 +148,13 @@ export default function CheckBox({
           onPress={() => onHandleFlipCard()}>
           <Text style={styles.text}>{textEn}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.volume} onPress={() => sound.play()}>
+        <TouchableOpacity
+          style={styles.volume}
+          onPress={() =>
+            sound.stop(() => {
+              sound.play();
+            })
+          }>
           <FontAwesome5
             style={styles.volumeIcon}
             name={'volume-up'}
