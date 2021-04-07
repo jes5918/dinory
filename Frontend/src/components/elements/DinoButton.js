@@ -36,7 +36,7 @@ export default function DinoButton({
   onHandlePress,
   widthProps,
   effectDisalbe,
-  active,
+  children,
 }) {
   const imageUri = Image.resolveAssetSource(imgSrc).uri;
 
@@ -66,6 +66,7 @@ export default function DinoButton({
             },
           ]}
         />
+        {children}
       </View>
       {childName && <Text style={styles.nameText}>{childName}</Text>}
     </TouchableOpacity>

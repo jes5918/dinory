@@ -175,10 +175,6 @@ export default function Main() {
       sound.stop();
       sound.pause();
     }
-    // return () => {
-    //   sound.stop();
-    //   sound.pause();
-    // };
   });
   // 사운드 설정 종료
   return (
