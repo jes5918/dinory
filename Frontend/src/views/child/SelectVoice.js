@@ -23,6 +23,7 @@ export default function SelectVoice() {
   const [nomodalVisible, setNoModalVisible] = useState(false);
   const [child, setChild] = useState('');
   const [voice, setVoice] = useState('');
+  const [originVoice, setOriginVoice] = useState('');
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
   const [imgNumber, setImageNumber] = useState(-1);
@@ -52,24 +53,37 @@ export default function SelectVoice() {
     await AsyncStorage.getItem('profile').then((profile) => {
       const data = JSON.parse(profile);
       setChild(data.profile_pk);
+      setOriginVoice(data.voice_pk);
     });
   }, []);
 
   useEffect(() => {
     getProfileInfo();
-  }, [getProfileInfo]);
+  });
 
   const submitVoice = () => {
     const formData = new FormData();
-    formData.append('voice', Number(voice));
+    if (voice !== '') {
+      formData.append('voice', Number(voice));
+    } else {
+      console.log('originVoice : ', originVoice);
+      formData.append('voice', originVoice);
+    }
     editChildVoice(
       child,
       formData,
       (res) => {
+        let profileData = '';
         if (res.status === 200) {
-          const profileData = {
-            voice_pk: voice,
-          };
+          if (voice !== '') {
+            profileData = {
+              voice_pk: voice,
+            };
+          } else {
+            profileData = {
+              voice_pk: originVoice,
+            };
+          }
           AsyncStorage.mergeItem('profile', JSON.stringify(profileData));
           changeModalState();
           setTimeout(() => {
