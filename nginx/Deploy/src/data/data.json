@@ -85,8 +85,8 @@
   "Team": [
     {
       "img": "img/team/01.png",
-      "name": "명도균",
-      "job": "Director, PM, Frontend, UCC"
+      "name": "명도균(팀장)",
+      "job": "Director, Frontend, 기획, UCC"
     },
     {
       "img": "img/team/02.png",
@@ -111,7 +111,7 @@
     {
       "img": "img/team/06.png",
       "name": "신민호",
-      "job": "Frontend, PPT, UCC"
+      "job": "Frontend, PPT, 기획, UCC"
     }
   ],
   "Contact": {
