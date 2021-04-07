@@ -113,7 +113,7 @@ def image_caption(request):
                 stream = speechsdk.AudioDataStream(result)
                 stream_path = mediaROOTURL+ '/tts_basic/' + str(voice_num) + tag.name + '.wav'
                 
-                # Checks result.
+                # Checks result..
                 if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
                     stream.save_to_wav_file(stream_path)
                     for i in range(5):
