@@ -45,7 +45,10 @@ export const Header = (props) => {
                   Learn More
                 </a>
                 {/* eslint-disable-next-line */}
-                <a href='https://j4b105.p.ssafy.io/' target='_blank'>
+                <a
+                  href='https://play.google.com/store/apps/details?id=com.DINORY'
+                  target='_blank'
+                >
                   <img src={playStoreBadge} alt='' style={{ width: 190 }} />
                 </a>
               </div>
