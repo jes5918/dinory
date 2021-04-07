@@ -28,20 +28,30 @@ function PinUpdate() {
   const [pinCodeCheck, setPinCodeCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [failModalVisible, setFailModalVisible] = useState(false);
+  const [pinfailModalVisible, setPinFailModalVisible] = useState(false);
+  const [pinSameModalVisible, setPinSameModalVisible] = useState(false);
 
   const onHandleSubmit = async () => {
-    const pinCodeForm = new FormData();
-    pinCodeForm.append('old_pincode', oldPinCode);
-    pinCodeForm.append('pin_code', pinCode);
-    changePincode(
-      pinCodeForm,
-      () => {
-        setModalVisible(!modalVisible);
-      },
-      () => {
-        setFailModalVisible(!failModalVisible);
-      },
-    );
+    if (oldPinCode !== pinCode) {
+      if (pinCode === pinCodeCheck) {
+        const pinCodeForm = new FormData();
+        pinCodeForm.append('old_pincode', oldPinCode);
+        pinCodeForm.append('pin_code', pinCode);
+        changePincode(
+          pinCodeForm,
+          () => {
+            setModalVisible(!modalVisible);
+          },
+          () => {
+            setFailModalVisible(!failModalVisible);
+          },
+        );
+      } else {
+        setPinFailModalVisible(!pinfailModalVisible);
+      }
+    } else {
+      setPinSameModalVisible(!pinSameModalVisible);
+    }
   };
 
   const closeModal = (e) => {
@@ -54,6 +64,14 @@ function PinUpdate() {
       setTimeout(() => {
         setFailModalVisible(!failModalVisible);
       }, 1500);
+    } else if (e === 3) {
+      setTimeout(() => {
+        setPinFailModalVisible(!pinfailModalVisible);
+      }, 1500);
+    } else if (e === 4) {
+      setTimeout(() => {
+        setPinSameModalVisible(!pinSameModalVisible);
+      }, 1500);
     }
   };
 
@@ -62,6 +80,10 @@ function PinUpdate() {
       setModalVisible(!modalVisible);
     } else if (e === 2) {
       setFailModalVisible(!failModalVisible);
+    } else if (e === 3) {
+      setPinFailModalVisible(!pinfailModalVisible);
+    } else if (e === 4) {
+      setPinSameModalVisible(!pinSameModalVisible);
     }
   };
 
@@ -78,10 +100,26 @@ function PinUpdate() {
       <AlertModal
         modalVisible={failModalVisible}
         onHandleCloseModal={() => changeModalState(2)}
-        text={'현재 비밀번호가 정확하지 않습니다!'}
+        text={'비밀번호가 정확하지 않거나 양식에 맞지 않습니다!'}
         iconName={'exclamationcircle'}
         color={'red'}
         setTimeFunction={() => closeModal(2)}
+      />
+      <AlertModal
+        modalVisible={pinfailModalVisible}
+        onHandleCloseModal={() => changeModalState(3)}
+        text={'핀 번호가 일치하지 않습니다!'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModal(3)}
+      />
+      <AlertModal
+        modalVisible={pinSameModalVisible}
+        onHandleCloseModal={() => changeModalState(4)}
+        text={'변경할 핀 번호가 현재 핀 번호와 같습니다 '}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModal(4)}
       />
       <BackgroundAbsolute imageSrc={backgroundImage}>
         <Header />
