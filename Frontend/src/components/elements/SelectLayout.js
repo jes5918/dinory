@@ -4,7 +4,7 @@ import BasicButton from './BasicButton';
 import RoundButton from './RoundButton';
 import DinoButton from './DinoButton';
 import ContentTitle from './ContentTitle';
-import {StyleSheet, View, Dimensions, Image} from 'react-native';
+import {StyleSheet, View, Dimensions, Image, Text} from 'react-native';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
@@ -81,7 +81,11 @@ export default function SelectLayout({
             <DinoButton imgSrc={character2} onHandlePress={onHandlePressC2} />
             <DinoButton imgSrc={character3} onHandlePress={onHandlePressC3} />
             <DinoButton imgSrc={character4} onHandlePress={onHandlePressC4} />
-            <DinoButton imgSrc={character5} onHandlePress={onHandlePressC5} />
+            <DinoButton imgSrc={character5} onHandlePress={onHandlePressC5}>
+              <View style={styles.betaIcon}>
+                <Text style={styles.betaText}>Beta</Text>
+              </View>
+            </DinoButton>
           </View>
           <View style={styles.innerLower}>
             {arrow ? (
@@ -133,5 +137,18 @@ const styles = StyleSheet.create({
   null: {
     width: width * 0.13,
     height: height * 0.13,
+  },
+  betaIcon: {
+    backgroundColor: '#fff',
+    opacity: 0.5,
+    borderRadius: 20,
+    paddingHorizontal: 5,
+    flexWrap: 'wrap',
+    display: 'flex',
+    marginTop: height * -0.02,
+  },
+  betaText: {
+    fontSize: height * 0.03,
+    fontFamily: 'HoonPinkpungchaR',
   },
 });
