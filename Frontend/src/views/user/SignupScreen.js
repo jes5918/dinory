@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   text_Pin: {
-    fontSize: 18,
+    fontSize: hp(2.25),
     width: windowWidth * 0.38,
     color: '#707070',
     alignSelf: 'flex-start',
@@ -281,10 +281,10 @@ const styles = StyleSheet.create({
   },
   alertMessage: {
     color: 'red',
-    fontSize: 18,
+    fontSize: hp(2.25),
     alignSelf: 'flex-start',
     position: 'absolute',
     bottom: 0,
-    left: 10,
+    left: wp(0.8),
   },
 });
