@@ -30,18 +30,27 @@ function PassWordUpdate() {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [alertForEnter, setAlertForEnter] = useState(false);
+  const [alertForSame, setAlertForSame] = useState(false);
+  const [alertForOld, setAlertForOld] = useState(false);
   const onHandleSubmit = async () => {
     // validation 로직
-    if (
-      password.length < 8 ||
-      password !== passwordCheck ||
-      password == oldPassword ||
-      !chkPW(password)
-    ) {
+    if (!chkPW(password)) {
       setAlertForEnter(true);
       return;
     } else {
       setAlertForEnter(false);
+    }
+    if (password !== passwordCheck) {
+      setAlertForSame(true);
+      return;
+    } else {
+      setAlertForSame(false);
+    }
+    if (password === oldPassword) {
+      setAlertForOld(true);
+      return;
+    } else {
+      setAlertForOld(false);
     }
     const newPasswordForm = new FormData();
     newPasswordForm.append('old_password', oldPassword);
@@ -88,6 +97,22 @@ function PassWordUpdate() {
       setAlertForEnter(!alertForEnter);
     }, 1500);
   };
+  const changeModalStateForSame = () => {
+    setAlertForSame(!alertForSame);
+  };
+  const closeModalForSame = () => {
+    setTimeout(() => {
+      setAlertForSame(!alertForSame);
+    }, 1500);
+  };
+  const changeModalStateForOld = () => {
+    setAlertForOld(!alertForOld);
+  };
+  const closeModalForOld = () => {
+    setTimeout(() => {
+      setAlertForOld(!alertForOld);
+    }, 1500);
+  };
 
   return (
     <View style={styles.container}>
@@ -106,6 +131,22 @@ function PassWordUpdate() {
         iconName={'exclamationcircle'}
         color={'red'}
         setTimeFunction={() => closeModalForEnter()}
+      />
+      <AlertModal
+        modalVisible={alertForSame}
+        onHandleCloseModal={() => changeModalStateForSame()}
+        text={'비밀번호가 일치하지 않습니다!'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModalForSame()}
+      />
+      <AlertModal
+        modalVisible={alertForOld}
+        onHandleCloseModal={() => changeModalStateForOld()}
+        text={'변경할 비밀번호는 현재 비밀번호와 일치할 수 없습니다.'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModalForOld()}
       />
       <BackgroundAbsolute imageSrc={backgroundImage}>
         <Header />
