@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: wp(85),
     height: hp(70),
+    minWidth: wp(85),
+    minHeight: hp(70),
   },
   graphStyle: {},
   title: {
