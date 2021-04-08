@@ -16,6 +16,9 @@ class Child(models.Model):
     year = models.IntegerField()
     voice = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.name
+
 
 class Authenticatecode(models.Model):
     code = CharField(max_length=255)
