@@ -140,7 +140,7 @@ class CountDown extends React.Component {
       <View
         style={[
           styles.digitCont,
-          {width: size * 2.3, height: size * 2.6},
+          {width: size * 2.6, height: size * 2.6},
           digitStyle,
         ]}>
         <Text style={[styles.digitTxt, {fontSize: size}, digitTxtStyle]}>
@@ -245,9 +245,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   timeTxt: {
-    color: 'white',
+    color: 'black',
     marginVertical: 0,
-    backgroundColor: 'transparent',
   },
   timeInnerCont: {
     flexDirection: 'row',

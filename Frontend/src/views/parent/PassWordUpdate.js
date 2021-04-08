@@ -61,7 +61,9 @@ function PassWordUpdate() {
       (res) => {
         changeModalState();
       },
-      (err) => {},
+      (err) => {
+        changeModalStateForEnter();
+      },
     );
   };
   const chkPW = (password) => {
