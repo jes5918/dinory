@@ -1,11 +1,14 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Logo from '../components/elements/Logo';
 import Header from '../components/elements/Header';
 import BackgroundAbsolute from '../components/elements/BackgroundAbsolute';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertModal from '../components/elements/AlertModal';
 import SelectModal from '../components/elements/SelectModal';
+import Sound from 'react-native-sound';
+import BGM from '../assets/sound/rockabyebaby.mp3';
 import {
   StyleSheet,
   View,
@@ -14,15 +17,30 @@ import {
   TouchableOpacity,
   Text,
   BackHandler,
+  AppState,
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/core';
-// import {didTutorial} from '../api/diary/checkTutorial';
+import {didTutorial} from '../api/diary/checkTutorial';
 
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
 
+let sound = new Sound(BGM, (error) => {
+  if (error) {
+  }
+  sound.setVolume(0.2);
+  sound.setNumberOfLoops(-1);
+});
 export default function Main() {
+  const url = require('../assets/images/background4.png');
+  const navigation = useNavigation();
+  const [child, setChild] = useState('');
+  const [backGroundCharacterImage, setBackGroundCharacterImage] = useState('');
+  const [logoutModal, setLogoutModal] = useState(false);
+  const [logoutInfoModal, setLogoutInfoModal] = useState(false);
+  const [soundSetting, setSoundSetting] = useState(true);
+
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
@@ -35,23 +53,6 @@ export default function Main() {
         BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     }, []),
   );
-  // 2차 배포 때 구현 예정
-  // let onSound = true;
-  // const stopAndPlay = () => {
-  //   if (onSound) {
-  //     console.log(onSound);
-  //     ound.play();
-  //   } else {
-  //     console.log(onSound);
-  //     ound.pause();
-  //   }
-  // };
-  const url = require('../assets/images/background4.png');
-  const navigation = useNavigation();
-  const [child, setChild] = useState('');
-  const [backGroundCharacterImage, setBackGroundCharacterImage] = useState('');
-  const [logoutModal, setLogoutModal] = useState(false);
-  const [logoutInfoModal, setLogoutInfoModal] = useState(false);
 
   // 자녀 고유넘버 가져오기
   useFocusEffect(
@@ -65,7 +66,10 @@ export default function Main() {
   // 로그아웃
   const executeLogout = async () => {
     const willRemovedKeys = ['jwt', 'profile'];
-
+    sound.pause(() => {
+      sound.stop();
+      sound.release();
+    });
     try {
       setLogoutModal(!logoutModal);
       await AsyncStorage.multiRemove(willRemovedKeys);
@@ -130,17 +134,55 @@ export default function Main() {
 
   //
   // 2차 배포 때 구현 예정 : 일기작성 여부에 따른 페이징 처리(작성 X : 튜토리얼 / 작성 O : 일기작성)
-  // const checkDidTutorial = () => {
-  //   if (didTutorial(child)) {
-  //     navigation.navigate('Diary');
-  //   } else {
-  //     navigation.navigate('DiaryWriteTutorial');
-  //   }
-  // };
   const checkDidTutorial = () => {
-    navigation.navigate('Diary');
+    didTutorial(
+      child,
+      (res) => {
+        if (res.data.tutorial) {
+          navigation.navigate('DiaryMainTutorial');
+        } else {
+          navigation.navigate('Diary');
+        }
+      },
+      (err) => {
+        navigation.navigate('Diary');
+      },
+    );
   };
 
+  // 사운드 설정
+  const [appState, setAppState] = useState(AppState.currentState);
+  const handleAppStateChange = (state) => {
+    setAppState(state);
+  };
+  useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange);
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange);
+    };
+  }, []);
+  useEffect(() => {
+    if (appState === 'active') {
+      if (soundSetting && !sound.isPlaying) {
+        sound.play();
+      } else if (soundSetting && sound.isPlaying) {
+        sound.pause(() => {
+          sound.play();
+        });
+      } else if (!soundSetting && !sound.isPlaying) {
+        return;
+      } else {
+        sound.pause(() => {
+          sound.stop();
+        });
+      }
+    } else {
+      sound.pause(() => {
+        sound.stop();
+      });
+    }
+  });
+  // 사운드 설정 종료
   return (
     <View style={styles.container}>
       <SelectModal
@@ -165,7 +207,7 @@ export default function Main() {
           <Logo />
         </Header>
         <View style={styles.innerContainer}>
-          <View>
+          <View style={styles.menuContainer}>
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles.menuBtn}
@@ -198,6 +240,14 @@ export default function Main() {
                 목소리 변경
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.menuBtn}
+              onPress={() => navigation.navigate('ChildSetting')}>
+              <Text style={[styles.innerText, {color: '#8F7CEE'}]}>
+                나의 정보 변경
+              </Text>
+            </TouchableOpacity>
           </View>
           <Image
             source={
@@ -225,12 +275,21 @@ export default function Main() {
               name={'replay'}
             />
           </TouchableOpacity>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
+              setSoundSetting(!soundSetting);
             }}>
-            <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
-          </TouchableOpacity> */}
+            {soundSetting && (
+              <MaterialIcons style={styles.mainIcon} name={'volume-up'} />
+            )}
+            {!soundSetting && (
+              <MaterialCommunityIcons
+                style={styles.mainIcon}
+                name={'volume-mute'}
+              />
+            )}
+          </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() =>
@@ -239,7 +298,10 @@ export default function Main() {
                 profilePK: child,
               })
             }>
-            <MaterialIcons style={styles.mainIcon} name={'settings'} />
+            <MaterialCommunityIcons
+              style={styles.mainIcon}
+              name={'account-lock'}
+            />
           </TouchableOpacity>
         </View>
       </BackgroundAbsolute>
@@ -259,25 +321,24 @@ const styles = StyleSheet.create({
   },
   menuBtn: {
     width: width * 0.3,
-    height: 'auto',
+    height: height * 0.1,
     borderRadius: 50,
     backgroundColor: '#EEE',
-    marginVertical: 8,
-    paddingVertical: 20,
+    marginVertical: height * 0.01,
+    paddingVertical: height * 0.04,
     elevation: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   innerContainer: {
     flex: 5,
     flexDirection: 'row',
     marginHorizontal: width * 0.17,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: height * 0.17,
   },
   innerText: {
-    textAlign: 'center',
-    justifyContent: 'center',
-    textAlignVertical: 'center',
     fontFamily: 'HoonPinkpungchaR',
     fontSize: width * 0.022,
   },
@@ -290,8 +351,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: width * 0.02,
     justifyContent: 'flex-end',
     left: width * 0.4,
+  },
+  menuContainer: {
+    marginTop: height * 0.15,
   },
 });

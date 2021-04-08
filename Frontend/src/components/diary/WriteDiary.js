@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   Text,
@@ -10,9 +10,14 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import WordList from './WordList';
 import MaterialIcons from 'react-native-vector-icons/AntDesign';
+import {useFocusEffect} from '@react-navigation/core';
 
 export default function WriteDiary({
   wordList,
@@ -23,8 +28,6 @@ export default function WriteDiary({
   onHandleCheckGrammar,
   grammarchecked,
   checkData,
-  title,
-  content,
 }) {
   const imgIcon = require('../../assets/images/egg.png');
   const imgPerfect = require('../../assets/images/character5.png');
@@ -57,7 +60,8 @@ export default function WriteDiary({
                     height: screenWidth * 0.02,
                     resizeMode: 'contain',
                     marginRight: screenHeight * 0.01,
-                  }}></Image>
+                  }}
+                />
                 <View
                   style={{
                     width: screenWidth * 0.23,
@@ -98,10 +102,12 @@ export default function WriteDiary({
             resizeMode: 'contain',
             height: screenHeight * 0.13,
             marginVertical: screenHeight * 0.01,
-          }}></Image>
+          }}
+        />
       )}
     </View>
   );
+
   return (
     <KeyboardAvoidingView behavior={'height'} style={[styles.container]}>
       <View style={[styles.wrapper]}>
@@ -110,17 +116,19 @@ export default function WriteDiary({
             <View style={[styles.titleBox]}>
               <Text style={[styles.text]}>제목 :</Text>
               <TextInput
-                value={title}
                 style={[styles.TitleInput]}
                 autoCompleteType={'off'}
-                onChange={(e) => onHandleChangeTitle(e)}></TextInput>
+                placeholder={'여기를 터치하세요!'}
+                onChange={(e) => onHandleChangeTitle(e)}
+              />
             </View>
             <TextInput
               style={[styles.contentInput]}
               multiline
-              value={content}
               autoCompleteType={'off'}
-              onChange={(e) => onHandleChangeContent(e)}></TextInput>
+              placeholder={'여기를 터치하세요!'}
+              onChange={(e) => onHandleChangeContent(e)}
+            />
           </ScrollView>
           {grammarchecked && grammar}
         </View>
@@ -155,7 +163,8 @@ export default function WriteDiary({
       </View>
       <WordList
         words={wordList}
-        onHandleChangeTemp={(e) => onHandleChangeTemp(e)}></WordList>
+        onHandleChangeTemp={(e) => onHandleChangeTemp(e)}
+      />
     </KeyboardAvoidingView>
   );
 }
@@ -176,20 +185,19 @@ const styles = StyleSheet.create({
     paddingVertical: screenHeight * 0.025,
   },
   correctList: {
-    marginHorizontal: 10,
+    marginHorizontal: wp(0.8),
     paddingVertical: screenHeight * 0.02,
-    paddingHorizontal: screenWidth * 0.017,
+    paddingHorizontal: screenWidth * 0.015,
     width: '100%',
-    paddingHorizontal: screenHeight * 0.015,
   },
   buttonPosition: {
     width: 'auto',
     height: 'auto',
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    paddingHorizontal: wp(1.2),
+    paddingVertical: hp(1.4),
     backgroundColor: '#FB537B',
-    borderTopRightRadius: 30,
-    borderBottomRightRadius: 30,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
     elevation: 5,
     display: 'flex',
     flexDirection: 'column',
@@ -199,11 +207,11 @@ const styles = StyleSheet.create({
   buttonPosition2: {
     width: 'auto',
     height: 'auto',
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    paddingHorizontal: wp(1.2),
+    paddingVertical: hp(1.4),
     backgroundColor: '#76b0e9',
-    borderTopRightRadius: 30,
-    borderBottomRightRadius: 30,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
     elevation: 5,
     display: 'flex',
     flexDirection: 'column',
@@ -247,23 +255,23 @@ const styles = StyleSheet.create({
     fontSize: screenWidth * 0.02,
     borderBottomWidth: 2,
     borderColor: 'gray',
-    paddingHorizontal: 10,
-    marginBottom: 10,
+    paddingHorizontal: wp(0.8),
+    marginBottom: hp(1.4),
   },
   contentInput: {
     width: '100%',
     fontFamily: 'HoonPinkpungchaR',
     fontSize: screenWidth * 0.02,
     borderRadius: 30,
-    paddingHorizontal: 10,
+    paddingHorizontal: wp(0.8),
   },
   textInputBox: {
     borderWidth: 2,
     borderColor: 'gray',
     borderRadius: 30,
     height: '100%',
-    marginHorizontal: 10,
-    paddingHorizontal: 10,
+    marginHorizontal: wp(0.8),
+    paddingHorizontal: wp(0.8),
     width: '40%',
   },
   container: {
@@ -273,6 +281,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: '1.5%',
+    zIndex: 11,
   },
   dirayBox: {
     width: '80%',
@@ -282,9 +291,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
     elevation: 5,
-    marginVertical: 15,
+    marginVertical: hp(2),
   },
   wrapper: {
     width: '100%',

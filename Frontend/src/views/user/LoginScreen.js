@@ -1,14 +1,20 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, View, Dimensions, Text} from 'react-native';
+import {useFocusEffect} from '@react-navigation/core';
 import CheckBox from '@react-native-community/checkbox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+// components
 import {loginInstance} from '../../api/accounts/login';
 import BasicButton from '../../components/elements/BasicButton';
 import Header from '../../components/elements/Header';
 import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
-import {useFocusEffect} from '@react-navigation/core';
 import AlertModal from '../../components/elements/AlertModal';
 
 // static variable
@@ -23,50 +29,39 @@ export default function LoginScreen({navigation}) {
   const [autoLogin, setAutoLogin] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
-  const [pmodalVisible, setpModalVisible] = useState(false);
 
-  const chkPW = (password) => {
-    chk1 = /^[a-zA-Z0-9]{8,20}$/;
-    chk2 = /[a-z]/;
-    chk3 = /[A-Z]/;
-    chk4 = /\d/;
-
-    return chk1.test(password) &&
-      chk2.test(password) &&
-      chk3.test(password) &&
-      chk4.test(password)
-      ? true
-      : false;
-  };
   const LoginHandler = async () => {
-    if (!chkPW(userPassword)) {
-      pchangeModalState();
-      return;
-    }
-    console.log(chkPW(userPassword));
-    let loginForm = new FormData();
-    loginForm.append('username', userName);
-    loginForm.append('password', userPassword);
+    if (userName.length !== 0 && userPassword.length !== 0) {
+      let loginForm = new FormData();
+      loginForm.append('username', userName);
+      loginForm.append('password', userPassword);
 
-    loginInstance(
-      loginForm,
-      async (res) => {
-        if (await AsyncStorage.getItem('jwt')) {
-          AsyncStorage.removeItem('jwt');
-        }
-        await AsyncStorage.setItem('jwt', res.data.token);
-        changeModalState();
-        AsyncStorage.setItem('jwt', res.data.token);
-        AsyncStorage.setItem('autoUserName', userName);
-        setTimeout(() => {
-          navigation.navigate('SelectProfile');
-        }, 1500);
-      },
-      (error) => {
-        dchangeModalState();
-        console.log(error);
-      },
-    );
+      loginInstance(
+        loginForm,
+        async (res) => {
+          if (await AsyncStorage.getItem('jwt')) {
+            AsyncStorage.removeItem('jwt');
+          }
+          await AsyncStorage.setItem('jwt', res.data.token);
+          changeModalState();
+          AsyncStorage.setItem('jwt', res.data.token);
+          if (storeId) {
+            AsyncStorage.setItem('autoUserName', userName);
+          } else {
+            AsyncStorage.setItem('autoUserName', '');
+          }
+
+          setTimeout(() => {
+            navigation.navigate('SelectProfile');
+          }, 1500);
+        },
+        (error) => {
+          dchangeModalState();
+        },
+      );
+    } else {
+      dchangeModalState();
+    }
   };
 
   const autoLoginToggle = () => {
@@ -89,7 +84,6 @@ export default function LoginScreen({navigation}) {
   );
 
   const setUserNameToggle = () => {
-    console.log('asd', storeId);
     if (storeId) {
       AsyncStorage.setItem('autoUser', JSON.stringify(false));
       setStoreId(false);
@@ -107,11 +101,13 @@ export default function LoginScreen({navigation}) {
       });
       AsyncStorage.getItem('autoUserName')
         .then((name) => {
-          setUserName(name);
+          if (name === '') {
+            setUserName('');
+          } else {
+            setUserName(name);
+          }
         })
-        .catch(() => {
-          setUserName('');
-        });
+        .catch(() => {});
     }, []),
   );
   const closeModal = () => {
@@ -130,90 +126,79 @@ export default function LoginScreen({navigation}) {
   const dchangeModalState = () => {
     setdModalVisible(!dmodalVisible);
   };
-  const pcloseModal = () => {
-    setTimeout(() => {
-      setpModalVisible(!pmodalVisible);
-    }, 2000);
-  };
-  const pchangeModalState = () => {
-    setpModalVisible(!pmodalVisible);
-  };
   return (
     <AuthBackGround>
       <Header logoHeader={true} />
       <View style={styles.container}>
-        <View style={styles.view}>
-          <AuthTitle title={'로그인'} />
+        <AuthTitle marginBottom={hp(5)} title={'로그인'} />
+        <AuthTextInput
+          text={'아이디를 입력하세요'}
+          width={wp(30)}
+          height={hp(8)}
+          size={hp(2.8)}
+          value={userName}
+          setFunction={setUserName}
+          secureTextEntry={false}
+          autoFocus={false}
+          marginBottom={hp(5)}
+        />
+        <AuthTextInput
+          text={'비밀번호를 입력해주세요'}
+          width={wp(30)}
+          height={hp(8)}
+          size={hp(2.8)}
+          setFunction={setUserPassword}
+          secureTextEntry={true}
+          autoFocus={false}
+          marginBottom={hp(5)}
+        />
+
+        <View style={styles.optionContainer}>
+          <View style={styles.optionBox}>
+            <CheckBox
+              tintColors={{true: '#FB537B', false: '#707070'}}
+              value={autoLogin}
+              onValueChange={autoLoginToggle}
+            />
+            <Text style={styles.optionText}>자동 로그인</Text>
+          </View>
+          <View style={styles.optionBox}>
+            <CheckBox
+              tintColors={{true: '#FB537B', false: '#707070'}}
+              value={storeId}
+              onValueChange={setUserNameToggle}
+            />
+            <Text style={styles.optionText}>아이디 저장</Text>
+          </View>
         </View>
-        <View style={styles.view}>
-          <AuthTextInput
-            text={'아이디를 입력하세요'}
-            width={windowWidth * 0.3}
-            height={windowHeight * 0.08}
-            size={18}
-            value={userName}
-            setFunction={setUserName}
-            secureTextEntry={false}
-            autoFocus={false}
-            marginBottom={windowHeight * 0.043}
-          />
-          <AuthTextInput
-            text={'비밀번호를 입력해주세요'}
-            width={windowWidth * 0.3}
-            height={windowHeight * 0.08}
-            size={18}
-            setFunction={setUserPassword}
-            secureTextEntry={true}
-            autoFocus={false}
-          />
-        </View>
-        <View style={styles.password}>
-          <Text>비밀번호를 잃어버리셨나요? </Text>
+        <View style={styles.textContainer}>
+          <Text style={[styles.infoText, {color: 'grey'}]}>
+            비밀번호를 잃어버리셨나요?{' '}
+          </Text>
           <Text
-            style={{color: 'blue'}}
+            style={[styles.infoText, {color: 'blue'}]}
             onPress={() => {
               navigation.navigate('SearchPassword');
             }}>
             비밀번호 찾기
           </Text>
         </View>
-        <View style={styles.start}>
-          <View style={styles.checkOption}>
-            <CheckBox
-              value={autoLogin}
-              onValueChange={autoLoginToggle}
-              style={styles.checkBox}
-            />
-            <Text style={styles.label}>자동 로그인</Text>
-          </View>
-          <View style={styles.checkOption}>
-            <CheckBox
-              value={storeId}
-              onValueChange={setUserNameToggle}
-              style={styles.checkBox}
-            />
-            <Text style={styles.label}>아이디 저장</Text>
-          </View>
-        </View>
-        <View style={styles.view}>
-          <BasicButton
-            text="로그인"
-            customFontSize={24}
-            paddingHorizon={24}
-            paddingVertical={11}
-            btnWidth={windowWidth * 0.3}
-            btnHeight={windowHeight * 0.08}
-            borderRadius={14}
-            margin={10}
-            onHandlePress={() => LoginHandler()}
-          />
-        </View>
+        <BasicButton
+          text="로그인"
+          customFontSize={hp(3.5)}
+          paddingHorizon={wp(2)}
+          paddingVertical={hp(5)}
+          btnWidth={wp(30)}
+          btnHeight={hp(8)}
+          borderRadius={14}
+          onHandlePress={() => LoginHandler()}
+        />
         <AlertModal
           modalVisible={modalVisible}
           onHandleCloseModal={() => changeModalState()}
           text={'로그인 되었습니다.'}
           iconName={'smileo'}
-          color={'#A0A0FF'}
+          color={'green'}
           setTimeFunction={() => closeModal()}
         />
         <AlertModal
@@ -221,16 +206,8 @@ export default function LoginScreen({navigation}) {
           onHandleCloseModal={() => dchangeModalState()}
           text={'아이디 또는 비밀번호를 확인해주세요'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => dcloseModal()}
-        />
-        <AlertModal
-          modalVisible={pmodalVisible}
-          onHandleCloseModal={() => pchangeModalState()}
-          text={'비밀번호는 영어 대,소문자 + 숫자로 구성된 8자리 이상입니다!'}
-          iconName={'frowno'}
-          color={'#FF0000'}
-          setTimeFunction={() => pcloseModal()}
         />
       </View>
     </AuthBackGround>
@@ -244,53 +221,40 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    width: windowWidth * 0.4,
-    height: windowHeight * 0.803,
+    minWidth: wp(40),
+    minHeight: hp(78),
     borderRadius: 30,
     elevation: 7,
+    paddingVertical: hp(5),
   },
-  view: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  infoText: {
+    fontSize: hp(2.5),
+    marginTop: hp(5),
   },
-  text: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: '#707070',
-  },
-  start: {
+  optionContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    width: windowWidth * 0.3,
-    marginTop: windowHeight * 0.043 * 2,
+    width: wp(30),
   },
-  password: {
+  textContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: windowWidth * 0.29,
-    marginTop: windowHeight * 0.043 * 2,
+    width: wp(30),
+    marginBottom: hp(3),
   },
-  label: {
-    fontSize: 18,
+  optionText: {
+    fontSize: hp(2.8),
     color: '#707070',
   },
-  logo: {
-    width: 220, //595
-    height: undefined, //101
-    aspectRatio: 300 / 100,
-  },
-  checkOption: {
+  text: {},
+  optionBox: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: windowWidth * 0.05,
-  },
-  checkBox: {
-    fontSize: 30,
+    marginBottom: hp(5),
   },
 });

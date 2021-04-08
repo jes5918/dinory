@@ -72,7 +72,9 @@ export default function FlipCard({english, korean, pos, voiceNum}) {
   );
 
   const flip = useCallback(() => {
-    sound.play();
+    sound.stop(() => {
+      sound.play();
+    });
     if (temp < 90) {
       getWordDetail(
         {child: child, word: english},
@@ -95,6 +97,7 @@ export default function FlipCard({english, korean, pos, voiceNum}) {
         useNativeDriver: true,
       }).start();
     }
+    return sound.stop();
   }, [temp, animationvalue, english, child]);
 
   return (
@@ -163,6 +166,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontFamily: 'HoonPinkpungchaR',
+    textAlign: 'center',
   },
   wordClass: {
     fontSize: cardWidth * 0.1,

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,55 +7,53 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from 'react-native';
-import {useNavigation, useFocusEffect} from '@react-navigation/core';
-import useDeepCompareEffect from 'use-deep-compare-effect';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/core';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FastImage from 'react-native-fast-image';
 
 // components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import DiaryListFooter from '../../components/diary/DiaryListFooter';
 import DiaryFooterImage from '../../components/diary/DiaryFooterImage';
-
 // data request
 import {getNotesByMonth, getNotesByYear} from '../../api/diary/readDiary';
 
-// image source
+// static variables
 const url = require('../../assets/images/background1.png');
 const egg = require('../../assets/images/egg.png');
 const character = require('../../assets/images/character2.png');
-
-// static variables
 const baseURL = 'https://j4b105.p.ssafy.io/api';
-
-// 일기 조회 컴포넌트 구조(페이지는 header, body, footer로 나눔)
-// |- DiaryList : 렌더링할 컴포넌트
-//    |- MainCardComponent : body에 들어가는 날짜, 달걀, 카드
-//        |- CardComponent : MainCardComponent에 들어가는 카드
-//    |- FooterImage : footer에 들어가는 날짜, 이미지
-
-// CardComponent : 일기 제목 텍스트, 이미지가 있는 컴포넌트입니다.
-const CardComponent = ({diaryText, diaryImage, onHandlePress}) => {
+const stamp = require('../../assets/images/stamp.png');
+const CardComponent = ({diaryText, diaryImage, onHandlePress, check}) => {
   return (
-    <TouchableOpacity
-      onPress={() =>
-        onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
-      }
-      activeOpacity={0.7}
-      style={styles.cardContainer}>
-      <Text style={styles.cardText}>{diaryText}</Text>
-      <Image style={styles.cardImage} source={{uri: diaryImage}} />
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity
+        onPress={() =>
+          onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
+        }
+        activeOpacity={0.7}
+        style={styles.cardContainer}>
+        {check ? <Image source={stamp} style={styles.stamp} /> : null}
+        <Text style={styles.cardText}>{diaryText}</Text>
+        <FastImage style={styles.cardImage} source={{uri: diaryImage}} />
+      </TouchableOpacity>
+    </>
   );
 };
 
-// MainCardComponent : 날짜 부분, Egg 이미지, CardComponent를 포함하는 컴포넌트입니다.
 const MainCardComponent = ({
   diaryText,
   diaryImage,
   dateText,
   onHandlePress,
+  check,
 }) => {
   return (
     <View style={styles.mainContainer}>
@@ -63,21 +61,19 @@ const MainCardComponent = ({
         <Text style={styles.mainText}>{dateText}</Text>
       </View>
       <View style={styles.mainImage}>
-        <Image style={styles.mainEgg} source={egg} />
+        <FastImage style={styles.mainEgg} source={egg} />
       </View>
       <CardComponent
         diaryText={diaryText}
         diaryImage={diaryImage}
         onHandlePress={onHandlePress}
+        check={check}
       />
     </View>
   );
 };
 
-// DiaryList : 전체를 렌더링하는 React Function Component입니다.
 function DiaryList({route}) {
-  // childID를 props로 받지 않고 Redux에 있는 데이터를 조회한다.
-  // states
   const [dataByMonth, setDataByMonth] = useState();
   const [dataByYear, setDataByYear] = useState();
   const [fetchYear, setFetchYear] = useState();
@@ -87,12 +83,8 @@ function DiaryList({route}) {
   const navigation = useNavigation();
 
   const onHandleDetail = (params) => {
-    const diariesByDay = dataByMonth.filter(
-      (diary) => diary.month === params.month,
-    );
     navigation.navigate('DiaryDetail', {
       ...params,
-      diary: diariesByDay,
       profilePK: profilePK,
     });
   };
@@ -103,35 +95,30 @@ function DiaryList({route}) {
     setFetchMonth(newMonth);
   };
 
-  const fetchNotesByMonth = (child, year, month) => {
+  const fetchNotesByMonth = useCallback((child, year, month) => {
     getNotesByMonth(
       {child, year, month},
       (res) => {
         setDataByMonth(() => res.data);
       },
-      (err) => {
-        console.error(err);
-      },
+      () => {},
     );
-  };
+  }, []);
 
-  const fetchNotesByYear = (child) => {
+  const fetchNotesByYear = useCallback((child) => {
     getNotesByYear(
       child,
       (res) => {
         setDataByYear(() => res.data);
       },
-      (err) => {
-        console.error(err);
-      },
+      () => {},
     );
-  };
+  }, []);
 
   useEffect(() => {
     fetchNotesByMonth(profilePK, fetchYear, fetchMonth);
     fetchNotesByYear(profilePK);
-    console.log('출력해보자 : ', profilePK, fetchMonth, fetchYear);
-  }, [profilePK, fetchYear, fetchMonth]);
+  }, [profilePK, fetchYear, fetchMonth, fetchNotesByMonth, fetchNotesByYear]);
 
   return (
     <View style={styles.container}>
@@ -149,19 +136,22 @@ function DiaryList({route}) {
             style={styles.bodyCardContainer}>
             {dataByMonth &&
               dataByMonth.map((diary) => {
-                const {title, img, year, month, date, id} = diary;
+                const {title, img, year, month, date, id, check} = diary; // 현재 체크가 없음
                 return (
                   <MainCardComponent
                     diaryText={title}
                     diaryImage={baseURL + img}
                     dateText={`${year}.${month}.${date}`}
-                    onHandlePress={() => onHandleDetail({year, month, date})}
+                    onHandlePress={() =>
+                      onHandleDetail({year, month, date, diaryPK: id, check})
+                    }
                     key={id}
+                    check={check}
                   />
                 );
               })}
           </ScrollView>
-          <Image style={styles.character} source={character} />
+          <FastImage style={styles.character} source={character} />
           <View style={styles.line} />
         </View>
         <DiaryListFooter>
@@ -205,9 +195,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     marginTop: windowHeight * 0.1,
   },
-  text: {
-    fontSize: 40,
-  },
   bodyCardContainer: {
     backgroundColor: 'transparent',
     width: '100%',
@@ -247,6 +234,7 @@ const styles = StyleSheet.create({
   mainEgg: {
     width: windowWidth * 0.031,
     height: windowHeight * 0.061,
+    resizeMode: 'contain',
   },
   line: {
     width: windowWidth,
@@ -254,7 +242,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ED6D48',
     position: 'absolute',
     top: windowHeight * 0.1,
-    // left: windowWidth * 0.06,
     zIndex: 0,
   },
   character: {
@@ -264,6 +251,7 @@ const styles = StyleSheet.create({
     top: windowHeight * 0.02,
     left: windowWidth * 0.015,
     zIndex: 100,
+    resizeMode: 'contain',
   },
 
   cardContainer: {
@@ -278,7 +266,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: windowWidth * 0.0235,
     paddingVertical: windowHeight * 0.0266,
-    marginTop: 10,
+    marginTop: hp(1.5),
   },
   cardText: {
     fontFamily: 'HoonPinkpungchaR',
@@ -290,6 +278,17 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.169,
     height: windowWidth * 0.169,
   },
+  arrowIcon: {
+    width: windowWidth * 0.5,
+    height: windowHeight * 0.5,
+  },
+  stamp: {
+    position: 'absolute',
+    width: windowHeight * 0.1,
+    height: windowHeight * 0.1,
+    right: windowWidth * -0.007,
+    top: windowHeight * -0.01,
+  },
 });
 
-export default DiaryList;
+export default React.memo(DiaryList);

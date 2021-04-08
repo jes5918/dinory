@@ -27,6 +27,15 @@ function SelectModal({
           : alert('함수를 props로 내려주세요!');
       }}>
       <View style={styles.centeredView}>
+        <View
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            zIndex: 25,
+            position: 'absolute',
+          }}
+        />
         <View style={styles.modalView}>
           <View
             style={{
@@ -91,30 +100,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: 'white',
     paddingVertical: 12,
-    height: windowHeight * 0.0745,
-    width: windowWidth * 0.133,
+    height: windowHeight * 0.081,
+    width: windowWidth * 0.13,
     elevation: 7,
   },
   allowButton: {
-    backgroundColor: '#707070',
+    backgroundColor: 'green',
   },
   refuseButton: {
-    backgroundColor: '#FB537B',
+    backgroundColor: 'red',
   },
   alertText: {
-    fontSize: windowWidth * 0.017,
+    fontSize: windowWidth * 0.02,
     color: '#707070',
     fontFamily: 'NotoSansKR-Bold',
-    // backgroundColor: 'red',
-    // height: windowWidth * 0.01875,
   },
   allowText: {
-    fontSize: windowWidth * 0.01875,
+    fontSize: windowWidth * 0.02,
     color: 'white',
     fontFamily: 'NotoSansKR-Bold',
   },
   refuseText: {
-    fontSize: windowWidth * 0.01875,
+    fontSize: windowWidth * 0.02,
     color: 'white',
     fontFamily: 'NotoSansKR-Bold',
   },
@@ -123,17 +130,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
+    zIndex: 35,
   },
   modalView: {
     backgroundColor: 'white',
     borderRadius: 20,
     padding: windowHeight * 0.08,
     alignItems: 'center',
-    width: windowWidth * 0.375,
-    height: windowHeight * 0.4122,
+    width: windowWidth * 0.4,
+    height: windowHeight * 0.5,
     display: 'flex',
     justifyContent: 'space-around',
     elevation: 5,
+    zIndex: 33,
   },
 });
 

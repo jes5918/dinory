@@ -29,6 +29,15 @@ export default function AlertModal({
           : alert('함수를 props로 내려주세요!');
       }}>
       <View style={styles.centeredView}>
+        <View
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            zIndex: 25,
+            position: 'absolute',
+          }}
+        />
         <View style={styles.modalView}>
           <MaterialIcons
             animationType="fade"
@@ -48,7 +57,7 @@ const height = dimension.height;
 const styles = StyleSheet.create({
   modalIcon: {
     color: 'red',
-    fontSize: width * 0.08,
+    fontSize: width * 0.1,
     marginVertical: width * 0.015,
   },
   centeredView: {
@@ -62,11 +71,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
-    width: width * 0.375,
-    height: height * 0.4122,
+    width: width * 0.5,
+    height: height * 0.6,
     display: 'flex',
     justifyContent: 'space-around',
     elevation: 5,
+    zIndex: 33,
   },
   button: {
     borderRadius: 20,
@@ -89,7 +99,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: width * 0.02,
+    fontSize: width * 0.03,
     color: '#707070',
   },
 });

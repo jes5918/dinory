@@ -1,30 +1,16 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {validateToken, refreshToken} from '../../api/accounts/login';
-import {
-  StyleSheet,
-  Text,
-  Button,
-  View,
-  ImageBackground,
-  Dimensions,
-  Image,
-  ScrollView,
-} from 'react-native';
-import Layout from '../../components/elements/Layout';
+import {StyleSheet, View, Image, Dimensions} from 'react-native';
 import BasicButton from '../../components/elements/BasicButton';
 import AlertModal from '../../components/elements/AlertModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useFocusEffect} from '@react-navigation/core';
-
-// static
-const windowSize = Dimensions.get('window');
-const windowWidth = windowSize.width; // 1280
-const windowHeight = windowSize.height; // 768 //752
-const layoutWidth = windowWidth * 0.5;
-const layoutHeight = windowHeight * 0.708;
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import AuthBackGround from '../../components/authorization/AuthBackGround';
 
 export default function HomeScreen({navigation, route}) {
-  // getAllKeys();
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     AsyncStorage.getItem('autoLogin')
@@ -32,7 +18,12 @@ export default function HomeScreen({navigation, route}) {
         return JSON.parse(value);
       })
       .then((res) => {
-        AutologinMount();
+        if (res) {
+          AutologinMount();
+          return;
+        } else {
+          return;
+        }
       });
   }, []);
 
@@ -85,96 +76,57 @@ export default function HomeScreen({navigation, route}) {
   };
 
   return (
-    <View style={styles.scroll}>
-      <ImageBackground
-        source={require('../../assets/images/background5.png')}
-        style={styles.container}>
-        <View style={styles.view_logo}>
-          <Image
-            style={styles.logoImage}
-            source={require('../../assets/images/logo_ver2.png')}
-          />
-        </View>
-        <View>
-          <Layout width={layoutWidth} height={layoutHeight} opacity={0}>
-            <View style={styles.body}>
-              <View style={styles.view}>
-                <View style={styles.button_mg}>
-                  <BasicButton
-                    text={'회원가입'}
-                    customFontSize={24}
-                    paddingHorizon={24}
-                    paddingVertical={11}
-                    btnWidth={336}
-                    btnHeight={73}
-                    borderRadius={14}
-                    onHandlePress={() =>
-                      navigation.navigate('EmailAuthorization')
-                    }
-                  />
-                </View>
-                <View style={styles.button_mg}>
-                  <BasicButton
-                    text={'로그인'}
-                    customFontSize={24}
-                    paddingHorizon={24}
-                    paddingVertical={11}
-                    btnWidth={336}
-                    btnHeight={73}
-                    borderRadius={14}
-                    onHandlePress={() => navigation.navigate('LoginScreen')}
-                  />
-                </View>
-              </View>
-            </View>
-            <AlertModal
-              modalVisible={modalVisible}
-              onHandleCloseModal={() => changeModalState()}
-              text={'로그인 되었습니다.'}
-              iconName={'smileo'}
-              color={'#A0A0FF'}
-              setTimeFunction={() => closeModal()}
-            />
-          </Layout>
-        </View>
-      </ImageBackground>
-    </View>
+    <AuthBackGround>
+      <Image
+        style={styles.logoImage}
+        source={require('../../assets/images/logo_ver2.png')}
+      />
+      <View style={styles.buttonContainer}>
+        <BasicButton
+          text={'회원가입'}
+          customFontSize={hp('3.5%')}
+          paddingHorizon={wp('2%')}
+          paddingVertical={hp('5%')}
+          btnWidth={wp('30%')}
+          btnHeight={hp('8%')}
+          borderRadius={14}
+          onHandlePress={() => navigation.navigate('EmailAuthorization')}
+        />
+        <BasicButton
+          text={'로그인'}
+          customFontSize={hp('3.5%')}
+          paddingHorizon={wp('2%')}
+          paddingVertical={hp('5%')}
+          btnWidth={wp('30%')}
+          btnHeight={hp('8%')}
+          borderRadius={14}
+          backgroundColor={'#9979C2'}
+          onHandlePress={() => navigation.navigate('LoginScreen')}
+        />
+      </View>
+      <AlertModal
+        modalVisible={modalVisible}
+        onHandleCloseModal={() => changeModalState()}
+        text={'로그인 되었습니다.'}
+        iconName={'smileo'}
+        color={'#A0A0FF'}
+        setTimeFunction={() => closeModal()}
+      />
+    </AuthBackGround>
   );
 }
 
 const styles = StyleSheet.create({
-  scroll: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    resizeMode: 'contain',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  view: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  view_logo: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: windowHeight * 0.2,
-  },
-  button_mg: {
-    margin: 32,
-  },
   logoImage: {
-    marginTop: windowHeight * 0.3,
-    width: windowWidth * 0.4, //595
-    height: windowHeight * 0.17, //101
+    width: wp('20%'),
+    height: hp('20%'),
     resizeMode: 'contain',
+    marginBottom: hp('10%'),
   },
-  body: {
-    flex: 4,
+  buttonContainer: {
+    height: hp('30%'),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 });

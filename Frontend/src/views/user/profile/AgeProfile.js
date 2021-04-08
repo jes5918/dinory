@@ -5,6 +5,7 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import Layout from '../../../components/elements/Layout';
 import BackgroundAbsolute from '../../../components/elements/BackgroundAbsolute';
@@ -53,7 +54,9 @@ export default function AgeProfile({navigation, route}) {
   };
 
   const next = () => {
-    if (childBirth >= 1990 && childBirth <= 2020) {
+    const date = new Date();
+    const thisYear = date.getFullYear();
+    if (childBirth >= (thisYear-100) && childBirth <= thisYear) {
       navigation.navigate('AvatarProfile', {
         ...route.params,
         ProfileYear: childBirth,
@@ -68,42 +71,56 @@ export default function AgeProfile({navigation, route}) {
       <View style={styles.body}>
         <ContentTitle title={'태어난 연도를 선택해주세요'} />
         <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
-          <View style={styles.innerContext}>
+          <View style={styles.colContainer}>
             {isChangeBirth && (
-              <DialButton // 민호체크
-                size={width * 0.06}
-                verMargin={height * 0.02}
-                horMargin={width * 0.01}
-                deleteSize={width * 0.04}
-                inputFunc={dialFunction}
-              />
+              <View style={styles.rowContainer}>
+                <DialButton
+                  size={width * 0.055}
+                  verMargin={height * 0.02}
+                  horMargin={width * 0.005}
+                  deleteSize={width * 0.04}
+                  inputFunc={dialFunction}
+                />
+              </View>
             )}
-          </View>
-          <View style={styles.bottomWrapper}>
-            <View style={styles.inLine}>
-              <TouchableOpacity
-                activeOpacity={0.9}
-                onPress={() => [setIschangeBirth(true)]}>
-                <View
-                  style={styles.birthContainer}
+            <View style={styles.rowContainer}>
+              <View style={styles.inLine}>
+                <Text style={styles.myInfo}>저는 </Text>
+                <TouchableOpacity
+                  activeOpacity={0.7}
                   onPress={() => [setIschangeBirth(true)]}>
-                  <Text style={styles.birthText}>{childBirth}</Text>
-                </View>
-              </TouchableOpacity>
+                  <View style={styles.birthContainer}>
+                    {isChangeBirth && (
+                      <Text style={styles.birthText}>{childBirth}</Text>
+                    )}
+                    {!isChangeBirth && (
+                      <Text style={styles.beforeText}>눌러서 입력!</Text>
+                    )}
+                  </View>
+                </TouchableOpacity>
+                <Text style={styles.myInfo}> 년에</Text>
+              </View>
+              <View style={styles.inLine}>
+                <Text style={styles.myInfo}>태어났어요! </Text>
+                <RoundButton
+                  arrow={true}
+                  onHandlePress={() => {
+                    next();
+                  }}
+                />
+              </View>
+              <Image
+                source={require('../../../assets/images/babyDino.png')}
+                style={styles.babyDino}
+              />
             </View>
-            <RoundButton
-              arrow={true}
-              onHandlePress={() => {
-                next();
-              }}
-            />
           </View>
           <AlertModal
             modalVisible={bmodalVisible}
             onHandleCloseModal={() => bchangeModalState()}
             text={'태어난 년도를 다시 확인해볼까요?'}
             iconName={'frowno'}
-            color={'#FF0000'}
+            color={'red'}
             setTimeFunction={() => bcloseModal()}
           />
         </Layout>
@@ -118,12 +135,13 @@ const styles = StyleSheet.create({
     paddingTop: height * 0.14,
   },
   inLine: {
-    flexDirection: 'row',
     alignItems: 'center',
-    marginRight: width * 0.03,
+    display: 'flex',
+    flexDirection: 'row',
+    marginVertical: height * 0.01,
   },
   birthContainer: {
-    width: width * 0.18,
+    width: width * 0.15,
     height: height * 0.1,
     backgroundColor: '#fff',
     borderRadius: 15,
@@ -132,11 +150,36 @@ const styles = StyleSheet.create({
   },
   birthText: {
     textAlign: 'center',
-    fontSize: height * 0.04,
+    fontSize: height * 0.06,
+    color: '#FB537B',
     fontFamily: 'HoonPinkpungchaR',
   },
-  bottomWrapper: {
+  myInfo: {
+    fontFamily: 'HoonPinkpungchaR',
+    fontSize: height * 0.06,
+    marginHorizontal: height * 0.015,
+    textAlign: 'center',
+  },
+  colContainer: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rowContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: width * 0.35,
+  },
+  babyDino: {
+    height: height * 0.3,
+    resizeMode: 'contain',
+  },
+  beforeText: {
+    textAlign: 'center',
+    fontSize: height * 0.05,
+    color: '#6e6e6e',
+    fontFamily: 'HoonPinkpungchaR',
   },
 });

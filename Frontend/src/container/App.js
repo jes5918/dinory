@@ -6,20 +6,13 @@
  * @flow strict-local
  */
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import Sound from 'react-native-sound';
-import BGM from '../assets/sound/BunnyHopQuincasMoreira.mp3';
 
 // components
-import NavIcon from '../components/elements/NavIcon';
-// import WriteDiary from '../components/diary/WriteDiary';
 import LoadingSec from '../components/elements/LoadingSec';
-import ImageCaption from '../components/diary/ImageCaption';
-import SelectImage from '../components/diary/SelectImage';
 import SelectLayout from '../components/elements/SelectLayout';
-// import GrammarCheck from '../components/diary/GrammarCheck';
 
 // view
 import Main from '../views/Main';
@@ -34,6 +27,8 @@ import AgeProfile from '../views/user/profile/AgeProfile';
 import AvatarProfile from '../views/user/profile/AvatarProfile';
 import SearchPassword from '../views/user/SearchPassword';
 import ModifyPassword from '../views/user/ModifyPassword';
+import ExamineDiaryList from '../views/parent/ExamineDiaryList';
+import ExamineDiaryDetail from '../views/parent/ExamineDiaryDetail';
 
 import DiaryList from '../views/diaryList/DiaryList';
 import ParentSetting from '../views/parent/ParentSetting';
@@ -41,39 +36,18 @@ import SelectVoice from '../views/child/SelectVoice';
 import MainTutorial from '../views/MainTutorial';
 import ChildSetting from '../views/child/ChildSetting';
 import Diary from '../views/diary/Diary';
+import DiaryMainTutorial from '../views/diary/DiaryMainTutorial';
 import Word from '../views/word/Word';
 import WordByAlphabet from '../views/word/WordByAlphabet';
-import DiaryWriteTutorial from '../views/diary/DiaryWriteTutorial';
 import DiaryDetail from '../views/diaryList/DiaryDetail';
 import PassWordUpdate from '../views/parent/PassWordUpdate';
 import PinUpdate from '../views/parent/PinUpdate';
 import PinAuthentication from '../views/parent/PinAuthentication';
+import DiaryChart from '../views/parent/DiaryChart';
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  // 배경음
-  useEffect(() => {
-    return () => {
-      sound.release();
-      sound.pause();
-    };
-  });
-  let sound = new Sound(BGM, (error) => {
-    sound.setVolume(0.1);
-    sound.play();
-    sound.setNumberOfLoops(-1);
-  });
-  // let [soundSetting, setSoundSetting] = useState(true);
-
-  // 배경음 Mute/Play 2차 배포 개발 예정
-  // let [soundSetting, setSoundSetting] = useState(true);
-  // if (soundSetting) {
-  //   sound.play();
-  //   console.log(soundSetting);
-  // } else {
-  //   sound.pause();
-  // }
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HomeScreen" headerMode="none">
@@ -114,6 +88,13 @@ const App = () => {
         <Stack.Screen name="PassWordUpdate" component={PassWordUpdate} />
         <Stack.Screen name="PinUpdate" component={PinUpdate} />
         <Stack.Screen name="PinAuthentication" component={PinAuthentication} />
+        <Stack.Screen name="DiaryMainTutorial" component={DiaryMainTutorial} />
+        <Stack.Screen name="DiaryChart" component={DiaryChart} />
+        <Stack.Screen name="ExamineDiaryList" component={ExamineDiaryList} />
+        <Stack.Screen
+          name="ExamineDiaryDetail"
+          component={ExamineDiaryDetail}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

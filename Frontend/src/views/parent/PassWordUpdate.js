@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 // components
 import AlertModal from '../../components/elements/AlertModal';
@@ -10,15 +14,13 @@ import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import {changePassword} from '../../api/accounts/settings';
+import AuthTitle from '../../components/authorization/AuthTitle';
 
 // static variable
 const backgroundImage = require('../../assets/images/background2.png');
 const windowSize = Dimensions.get('window');
 const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
-const inputWidth = windowWidth * 0.2625;
-const inputHeight = windowHeight * 0.077;
-const marginBottom = windowHeight * 0.06;
 
 function PassWordUpdate() {
   const navigation = useNavigation();
@@ -28,20 +30,28 @@ function PassWordUpdate() {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [alertForEnter, setAlertForEnter] = useState(false);
+  const [alertForSame, setAlertForSame] = useState(false);
+  const [alertForOld, setAlertForOld] = useState(false);
   const onHandleSubmit = async () => {
     // validation 로직
-    if (
-      password.length < 8 ||
-      password !== passwordCheck ||
-      password == oldPassword ||
-      !chkPW(password)
-    ) {
+    if (!chkPW(password)) {
       setAlertForEnter(true);
       return;
     } else {
       setAlertForEnter(false);
     }
-    console.log(2);
+    if (password !== passwordCheck) {
+      setAlertForSame(true);
+      return;
+    } else {
+      setAlertForSame(false);
+    }
+    if (password === oldPassword) {
+      setAlertForOld(true);
+      return;
+    } else {
+      setAlertForOld(false);
+    }
     const newPasswordForm = new FormData();
     newPasswordForm.append('old_password', oldPassword);
     newPasswordForm.append('password', password);
@@ -52,7 +62,7 @@ function PassWordUpdate() {
         changeModalState();
       },
       (err) => {
-        console.log('PassWordUpdate.js 에러', err);
+        changeModalStateForEnter();
       },
     );
   };
@@ -89,6 +99,22 @@ function PassWordUpdate() {
       setAlertForEnter(!alertForEnter);
     }, 1500);
   };
+  const changeModalStateForSame = () => {
+    setAlertForSame(!alertForSame);
+  };
+  const closeModalForSame = () => {
+    setTimeout(() => {
+      setAlertForSame(!alertForSame);
+    }, 1500);
+  };
+  const changeModalStateForOld = () => {
+    setAlertForOld(!alertForOld);
+  };
+  const closeModalForOld = () => {
+    setTimeout(() => {
+      setAlertForOld(!alertForOld);
+    }, 1500);
+  };
 
   return (
     <View style={styles.container}>
@@ -108,43 +134,53 @@ function PassWordUpdate() {
         color={'red'}
         setTimeFunction={() => closeModalForEnter()}
       />
+      <AlertModal
+        modalVisible={alertForSame}
+        onHandleCloseModal={() => changeModalStateForSame()}
+        text={'비밀번호가 일치하지 않습니다!'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModalForSame()}
+      />
+      <AlertModal
+        modalVisible={alertForOld}
+        onHandleCloseModal={() => changeModalStateForOld()}
+        text={'변경할 비밀번호는 현재 비밀번호와 일치할 수 없습니다.'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModalForOld()}
+      />
       <BackgroundAbsolute imageSrc={backgroundImage}>
         <Header />
         <View style={styles.main}>
-          <View style={styles.mainTop}>
-            <Text style={styles.mainText}>비밀번호 변경</Text>
-          </View>
+          <AuthTitle marginBottom={hp(5)} title={'비밀번호 변경'} />
           <View style={styles.mainMid}>
             <AuthTextInput
               setFunction={setOldPassword}
-              width={inputWidth}
-              height={inputHeight}
-              marginRight={0}
-              marginBottom={marginBottom}
+              width={wp(30)}
+              height={hp(8)}
+              size={hp(2.8)}
               text={'현재 비밀번호를 입력해주세요.'}
               secureTextEntry={true}
+              marginBottom={hp(5)}
             />
             <AuthTextInput
               setFunction={setPassword}
-              width={inputWidth}
-              height={inputHeight}
-              marginRight={0}
-              marginBottom={0}
+              width={wp(30)}
+              height={hp(8)}
+              size={hp(2.8)}
               text={'새로운 비밀번호를 입력해주세요.'}
               secureTextEntry={true}
+              marginBottom={hp(5)}
             />
-            <Text style={styles.infoText}>
-              * 비밀번호는 대소문자(영어), 숫자 조합 8자리 이상으로 구성해야
-              합니다
-            </Text>
             <AuthTextInput
               setFunction={setPasswordCheck}
-              width={inputWidth}
-              height={inputHeight}
-              marginRight={0}
-              marginBottom={marginBottom}
+              width={wp(30)}
+              height={hp(8)}
+              size={hp(2.8)}
               text={'비밀번호를 한 번 더 입력해주세요.'}
               secureTextEntry={true}
+              marginBottom={hp(5)}
             />
             {password !== passwordCheck ? (
               <Text style={styles.alertMessage}>
@@ -152,16 +188,19 @@ function PassWordUpdate() {
               </Text>
             ) : null}
           </View>
-          <View style={styles.mainBot}>
-            <BasicButton
-              text="변경 완료"
-              customFontSize={windowWidth * 0.01875} // 24
-              btnWidth={windowWidth * 0.2625} // 336
-              btnHeight={windowHeight * 0.077} // 58
-              borderRadius={14}
-              onHandlePress={onHandleSubmit}
-            />
-          </View>
+          <Text style={styles.infoText}>
+            * 비밀번호는 대문자, 소문자, 숫자를 모두 포함한 8자리 이상으로
+            구성해야 합니다
+          </Text>
+          <BasicButton
+            text="변경 완료"
+            customFontSize={hp(3.5)}
+            paddingHorizon={wp(2)}
+            btnWidth={wp(30)}
+            btnHeight={hp(8)}
+            borderRadius={14}
+            onHandlePress={onHandleSubmit}
+          />
         </View>
       </BackgroundAbsolute>
     </View>
@@ -182,41 +221,34 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'white',
-    width: windowWidth * 0.372, // 476
-    height: windowHeight * 0.854, // 642
+    minWidth: wp(40),
+    minHeight: hp(75),
+    paddingVertical: hp(5),
     borderRadius: 50,
     elevation: 7,
-    paddingTop: windowHeight * 0.043, // 32
-  },
-  mainTop: {
-    marginBottom: windowHeight * 0.043, // 64
   },
   mainMid: {
     position: 'relative',
+    marginBottom: hp(5),
   },
   mainText: {
     fontSize: windowWidth * 0.03125,
     fontFamily: 'NotoSansKR-Bold',
     color: '#707070',
   },
-  mainBot: {
-    marginTop: windowHeight * 0.043, //64
-    marginBottom: windowHeight * 0.043, //64
-  },
   alertMessage: {
     position: 'absolute',
     color: '#FF3120',
-    fontSize: 18,
-    fontFamily: 'NotoSansKR-Bold',
+    fontSize: hp(2.5),
     bottom: 0,
+    fontWeight: 'bold',
   },
   infoText: {
-    fontSize: 14,
+    fontSize: hp(2.5),
     color: '#707070',
-    width: windowWidth * 0.25,
-    marginTop: windowHeight * 0.01,
-    marginBottom: windowHeight * 0.04,
-    paddingLeft: 12,
+    width: wp(30),
+    paddingLeft: wp(1),
+    marginBottom: hp(5),
   },
 });
 

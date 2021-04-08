@@ -1,128 +1,78 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  Dimensions,
-  Image,
-} from 'react-native';
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import FastImage from 'react-native-fast-image';
+
+//components
 import BackgroundAbsolute from '../../components/elements/BackgroundAbsolute';
 import Header from '../../components/elements/Header';
-import DiaryListFooter from '../../components/diary/DiaryListFooter';
-import DiaryFooterImage from '../../components/diary/DiaryFooterImage';
-import {getNotesByDay, getNotesByOneDay} from '../../api/diary/readDiary';
+import {getNotesOnlyDay} from '../../api/diary/readDiary';
 
+// static variable
 const image = require('../../assets/images/background1.png');
-
 const baseURL = 'https://j4b105.p.ssafy.io/api';
-
-const Diary = ({data}) => {
+const stamp = require('../../assets/images/stamp.png');
+const Diary = ({data, check}) => {
   return (
     <View style={styles.bodyContainer}>
-      <Image style={styles.image} source={{uri: data && baseURL + data.img}} />
+      <FastImage
+        style={styles.image}
+        source={{uri: data && baseURL + data.img}}
+      />
       <View style={styles.mainBox}>
+        <FastImage
+          style={styles.imageBack}
+          source={require('../../assets/images/logo_ver2.png')}
+        />
         <View style={styles.mainContainer}>
           <Text style={styles.mainText}>제목 : {data && data.title}</Text>
         </View>
         <View style={styles.contentContainer}>
           <Text style={styles.contentText}>{data && data.content}</Text>
         </View>
+        {check ? (
+          <FastImage style={styles.stamp} source={stamp} />
+        ) : (
+          <View style={styles.null}></View>
+        )}
       </View>
     </View>
   );
 };
 
 function DiaryDetail({route}) {
-  let {year, month, date, diary, profilePK} = route.params;
+  let {year, month, date, diaryPK, check} = route.params;
   const [dataByDay, setDataByDay] = useState();
-  const [dataJustOneDay, setDataJustOneDay] = useState();
-  const [selectedDate, setSelectedDate] = useState();
+  const headerTitle = `${year}년 ${month}월 ${date}일`;
 
-  const onHandleSelectDay = (clickedDate) => {
-    setSelectedDate(clickedDate);
-  };
-
-  const fetchNotesByDay = (child, year, month, date) => {
-    getNotesByDay(
-      {
-        child,
-        year,
-        month: String(month).length === 1 ? '0' + String(month) : month,
-        date,
-      },
+  const fetchNotesOnlyDay = useCallback((selectedDiaryPK) => {
+    getNotesOnlyDay(
+      selectedDiaryPK,
       (res) => {
-        setDataByDay(() => res.data); // 일단 하나 받는 걸로 고정.
+        setDataByDay(() => res.data);
       },
-      (err) => {
-        console.error(err);
-      },
+      (err) => {},
     );
-  };
-
-  const fetchNotesByOneDay = (child, year, month) => {
-    getNotesByOneDay(
-      {
-        child,
-        year,
-        month: String(month).length === 1 ? '0' + String(month) : month,
-      },
-      (res) => {
-        setDataJustOneDay(() => res.data); // 일단 하나 받는 걸로 고정.
-      },
-      (err) => {
-        console.error(err);
-      },
-    );
-  };
+  }, []);
 
   useEffect(() => {
-    let tempDate = selectedDate || date;
-    fetchNotesByDay(profilePK, year, month, tempDate);
-    fetchNotesByOneDay(profilePK, year, month);
-  }, [profilePK, year, month, date, selectedDate]);
+    fetchNotesOnlyDay(diaryPK);
+  }, [diaryPK, fetchNotesOnlyDay]);
 
   return (
     <View style={styles.container}>
       <BackgroundAbsolute imageSrc={image}>
         <Header>
           <View style={styles.headerContainer}>
-            <Text style={styles.headerText}>{`${year}년 ${month}월 ${
-              selectedDate || date
-            }일`}</Text>
+            <Text style={styles.headerText}>{headerTitle}</Text>
           </View>
         </Header>
         <View style={styles.body}>
-          <ScrollView
-            horizontal={true}
-            contentContainerStyle={[
-              {
-                paddingLeft: windowWidth * 0.14,
-                paddingRight: windowWidth * 0.1,
-              },
-            ]}
-            style={styles.bodyCardContainer}>
-            {dataByDay &&
-              dataByDay.map((data) => {
-                return <Diary data={data} key={data.id} />;
-              })}
-          </ScrollView>
+          {dataByDay && <Diary data={dataByDay} check={check} />}
         </View>
-        <DiaryListFooter>
-          {dataJustOneDay &&
-            dataJustOneDay.map((data) => {
-              return (
-                <DiaryFooterImage
-                  key={data.id}
-                  year={data.year}
-                  month={month}
-                  date={data.date}
-                  image={baseURL + data.img}
-                  onHandlePress={() => onHandleSelectDay(data.date)}
-                />
-              );
-            })}
-        </DiaryListFooter>
       </BackgroundAbsolute>
     </View>
   );
@@ -157,38 +107,32 @@ const styles = StyleSheet.create({
     fontFamily: 'HoonPinkpungchaR',
   },
   body: {
-    flex: 5,
     width: '100%',
     position: 'relative',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: windowHeight * 0.17,
   },
   bodyContainer: {
-    width: windowWidth * 0.7,
-    height: windowHeight * 0.55,
-    backgroundColor: 'white',
+    width: windowWidth * 0.9,
+    height: windowHeight * 0.75,
+    backgroundColor: '#fffff0',
     borderRadius: 30,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    padding: 24,
-    marginRight: windowWidth * 0.14,
-  },
-  bodyCardContainer: {
-    backgroundColor: 'transparent',
-    width: '100%',
-    height: 'auto',
-    display: 'flex',
-    flexDirection: 'row',
-    zIndex: 100,
+    paddingHorizontal: windowWidth * 0.03,
+    paddingVertical: windowHeight * 0.05,
+    marginTop: windowHeight * 0.08,
   },
   image: {
-    width: windowWidth * 0.3,
-    height: windowWidth * 0.3,
+    width: windowHeight * 0.7,
+    height: windowHeight * 0.7,
+    maxHeight: windowHeight * 0.7,
+    maxWidth: windowHeight * 0.7,
     borderRadius: 30,
+    resizeMode: 'cover',
   },
   mainBox: {
     display: 'flex',
@@ -203,7 +147,7 @@ const styles = StyleSheet.create({
   },
   mainText: {
     fontFamily: 'HoonPinkpungchaR',
-    fontSize: windowWidth * 0.024, // 24
+    fontSize: hp(4), // 24
   },
   contentContainer: {
     flex: 4,
@@ -215,11 +159,26 @@ const styles = StyleSheet.create({
   },
   contentText: {
     fontFamily: 'HoonPinkpungchaR',
-    // fontSize: windowWidth * 0.014, // 18
-    fontSize: windowWidth * 0.017, // 18
-    lineHeight: windowHeight * 0.05,
-    textDecorationLine: 'underline',
+    fontSize: hp(3), // 18
+    lineHeight: hp(5),
+  },
+  imageBack: {
+    position: 'absolute',
+    width: windowWidth * 0.26,
+    height: null,
+    aspectRatio: 400 / 150,
+    top: windowHeight * 0.3,
+    opacity: 0.1,
+  },
+  stamp: {
+    position: 'absolute',
+    bottom: windowHeight * -0.02,
+    left: windowWidth * 0.15,
+    width: windowWidth * 0.2,
+    height: null,
+    zIndex: 999,
+    aspectRatio: 100 / 100,
   },
 });
 
-export default DiaryDetail;
+export default React.memo(DiaryDetail);

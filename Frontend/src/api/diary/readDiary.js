@@ -2,6 +2,22 @@ import {AuthorizationInstance} from '../index.js';
 
 const instance = AuthorizationInstance();
 
+export function NotesCheck(params, success, fail) {
+  instance
+    .get('notes/check/', {
+      params: {
+        child: Object.keys(params).length !== 0 && params.child,
+        year: Object.keys(params).length !== 0 && (params.year || todayYear),
+        month: Object.keys(params).length !== 0 && (params.month || todayMonth),
+      },
+    })
+    .then(success)
+    .catch(fail);
+}
+export function ExamineNote(diary_id, success, fail) {
+  instance.put(`notes/check/?id=${diary_id}`).then(success).catch(fail);
+}
+
 export function getNotesByYear(child, success, fail) {
   instance
     .get('notes/diary/total/', {
@@ -12,14 +28,6 @@ export function getNotesByYear(child, success, fail) {
 }
 
 export function getNotesByMonth(params, success, fail) {
-  console.log(
-    'today year: ',
-    Object.keys(params).length !== 0 && (params.year || todayYear),
-  );
-  console.log(
-    'today month: ',
-    Object.keys(params).length !== 0 && (params.month || todayMonth),
-  );
   instance
     .get('notes/diary/total/monthly/', {
       params: {
@@ -57,6 +65,10 @@ export function getNotesByOneDay(params, success, fail) {
     })
     .then(success)
     .catch(fail);
+}
+
+export function getNotesOnlyDay(diaryPK, success, fail) {
+  instance.get(`notes/diary/${diaryPK}`).then(success).catch(fail);
 }
 
 // date 구하기

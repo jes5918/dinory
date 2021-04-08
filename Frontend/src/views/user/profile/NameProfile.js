@@ -7,7 +7,7 @@ import RoundButton from '../../../components/elements/RoundButton';
 import ProfileTextInput from '../../../components/authorization/ProfileTextInput';
 import Header from '../../../components/elements/Header';
 import AlertModal from '../../../components/elements/AlertModal';
-
+import {checkProfileName} from '../../../api/accounts/childSettings';
 const dimensions = Dimensions.get('window');
 const width = dimensions.width;
 const height = dimensions.height;
@@ -17,6 +17,7 @@ export default function NameProfile({navigation}) {
   const [fmodalVisible, setfModalVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [Name, setName] = useState('');
+  const [emodalVisible, seteModalVisible] = useState(false);
 
   // 다음화면
   const next = () => {
@@ -36,6 +37,11 @@ export default function NameProfile({navigation}) {
       fchangeModalState();
       return;
     }
+    let number_pattern = /[0-9]/g;
+    if (number_pattern.test(Name) === true) {
+      changeModalState();
+      return;
+    }
 
     let special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 
@@ -43,10 +49,19 @@ export default function NameProfile({navigation}) {
       changeModalState();
       return;
     }
-
-    navigation.navigate('AgeProfile', {
-      ProfileName: Name,
-    });
+    let ProfileName = new FormData();
+    ProfileName.append('name', Name);
+    checkProfileName(
+      ProfileName,
+      (res) => {
+        navigation.navigate('AgeProfile', {
+          ProfileName: Name,
+        });
+      },
+      (error) => {
+        echangeModalState();
+      },
+    );
   };
 
   // 모달 상태변화
@@ -69,7 +84,15 @@ export default function NameProfile({navigation}) {
       setModalVisible(!modalVisible);
     }, 1500);
   };
+  const ecloseModal = () => {
+    setTimeout(() => {
+      seteModalVisible(!emodalVisible);
+    }, 2000);
+  };
 
+  const echangeModalState = () => {
+    seteModalVisible(!emodalVisible);
+  };
   return (
     <BackgroundAbsolute imageSrc={imageSrc}>
       <Header logoHeader={true} />
@@ -77,10 +100,10 @@ export default function NameProfile({navigation}) {
         <ContentTitle title={'이름을 입력해주세요'} />
         <Layout width={width * 0.8} height={height * 0.6} opacity={0.8}>
           <ProfileTextInput
-            text={'한글 또는 영어로 입력해주세요'}
+            text={'한글 또는 영어로 입력해주세요.'}
             width={width * 0.375}
             height={height * 0.1}
-            size={32}
+            size={height * 0.042}
             autoFocus={false}
             setFunction={setName}
             elevation={3}
@@ -98,16 +121,24 @@ export default function NameProfile({navigation}) {
             onHandleCloseModal={() => fchangeModalState()}
             text={'이름을 입력해주세요(공백 금지)'}
             iconName={'frowno'}
-            color={'#FF0000'}
+            color={'red'}
             setTimeFunction={() => fcloseModal()}
           />
           <AlertModal
             modalVisible={modalVisible}
             onHandleCloseModal={() => changeModalState()}
-            text={'특수문자는 사용할 수 없습니다.'}
+            text={'숫자 또는 특수문자는 사용할 수 없습니다.'}
             iconName={'frowno'}
-            color={'#A0A0FF'}
+            color={'red'}
             setTimeFunction={() => closeModal()}
+          />
+          <AlertModal
+            modalVisible={emodalVisible}
+            onHandleCloseModal={() => echangeModalState()}
+            text={'이미 등록된 프로필이 존재합니다!'}
+            iconName={'frowno'}
+            color={'red'}
+            setTimeFunction={() => ecloseModal()}
           />
         </Layout>
       </View>

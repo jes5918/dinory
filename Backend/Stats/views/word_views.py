@@ -25,7 +25,7 @@ def word_used_rate(request):
     child = get_object_or_404(Child, parent=request.user, pk=request.GET.get('child'))
     total = Word.objects.filter(child=child, state=False).aggregate(Sum('count'))
     average = Word.objects.filter(child=child, state=False).aggregate(Avg('count'))
-    words = Word.objects.filter(child=child, state=False).order_by('-count')[:3]
+    words = Word.objects.filter(child=child, state=False).order_by('-count')[:10]
     serializer = WordStateSerializer(words, many=True)
     for s in serializer.data:
         rate = (s['count'] / total['count__sum']) * 100
@@ -55,7 +55,8 @@ def word_used_cloud(request):
     plt.savefig(image, format='png')
     image.seek(0)
     string = base64.b64encode(image.read())
-    image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
+    # image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
+    image_64 = urllib.parse.quote(string)
     context = {
         'img' : image_64
     }

@@ -13,6 +13,7 @@ function BasicButton({
   onHandlePress,
   fontHoonPink,
   margin,
+  disabled,
 }) {
   return (
     <TouchableOpacity
@@ -20,6 +21,7 @@ function BasicButton({
         onHandlePress ? onHandlePress() : alert('함수를 props로 내려주세요!')
       }
       activeOpacity={0.7}
+      disabled={disabled}
       style={[
         styles.container,
         {
@@ -27,7 +29,7 @@ function BasicButton({
           paddingRight: paddingHorizon || windowWidth * 0.00859375,
           paddingBottom: paddingVertical || windowHeight * 0.014323,
           paddingTop: paddingVertical || windowHeight * 0.014323,
-          backgroundColor: backgroundColor || '#FB537B',
+          backgroundColor: disabled ? 'grey' : backgroundColor || '#FB537B',
           width: btnWidth || windowWidth * 0.4,
           height: btnHeight || windowHeight * 0.08,
           borderRadius: borderRadius || 14,
@@ -55,14 +57,13 @@ const windowHeight = windowSize.height;
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    width: windowWidth * 0.4,
-    height: windowHeight * 0.08,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
     elevation: 7,
   },
   text: {
+    fontFamily: 'NotoSansKR-Bold',
     color: 'white',
   },
 });

@@ -51,10 +51,11 @@ const SelectImage = ({setSelectImage}) => {
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        // console.warn(err);
         return false;
       }
-    } else return true;
+    } else {
+      return true;
+    }
   };
 
   const requestExternalWritePermission = async () => {
@@ -70,17 +71,18 @@ const SelectImage = ({setSelectImage}) => {
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        // console.warn(err);
         alert('Write permission err', err);
       }
       return false;
-    } else return true;
+    } else {
+      return true;
+    }
   };
 
   const captureImage = async (type) => {
     let options = {
       mediaType: type,
-      quality: 0.2,
+      quality: 0.15,
       saveToPhotos: true,
       // includeBase64: true,
     };
@@ -134,7 +136,11 @@ const SelectImage = ({setSelectImage}) => {
   const layoutHeight = dimensions.height * 0.5;
 
   return (
-    <Layout width={700} height={500} opacity={0.9} styleProps={{zIndex: 10}}>
+    <Layout
+      width={'60%'}
+      height={'65%'}
+      opacity={0.9}
+      styleProps={{zIndex: 13}}>
       <View style={[styles.container]}>
         <TouchableOpacity
           activeOpacity={0.7}
@@ -147,7 +153,8 @@ const SelectImage = ({setSelectImage}) => {
               height: layoutWidth * 0.2,
               resizeMode: 'contain',
               marginVertical: 10,
-            }}></Image>
+            }}
+          />
           <Text style={styles.textStyle}>사진 촬영</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -161,7 +168,8 @@ const SelectImage = ({setSelectImage}) => {
               height: layoutWidth * 0.2,
               resizeMode: 'contain',
               marginVertical: 10,
-            }}></Image>
+            }}
+          />
           <Text style={styles.textStyle}>사진 가져오기</Text>
         </TouchableOpacity>
       </View>
@@ -231,11 +239,6 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
 
-  imageStyle: {
-    width: 400,
-    height: 400,
-    margin: 5,
-  },
   container: {
     width: '100%',
     flex: 1,

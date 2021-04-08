@@ -14,8 +14,8 @@ WORKDIR /srv/docker-server
 RUN pip install --upgrade pip
 RUN pip install nltk
 RUN pip install uwsgi
-RUN [ "python", "-c", "import nltk; nltk.download('all')"]
 RUN pip install -r requirements.txt
+RUN [ "python", "-c", "import nltk; nltk.download('all')"]
 
 # EXPOSE 8000
 # CMD ["python", "manage.py", "runserver","0.0.0.0:8000"]

@@ -18,6 +18,12 @@ import azure.cognitiveservices.speech as speechsdk
 import xml.etree.ElementTree as ET
 import uuid
 import requests
+import os.path
+
+# TTS docker container connection
+import requests
+import io
+import soundfile as sf
 
 @api_view(['POST'])
 @authentication_classes([JSONWebTokenAuthentication])
@@ -45,11 +51,6 @@ def image_caption(request):
             'pitch': '20%',
             'rate': '-20%'
             },
-        {
-            'name': 'en-US-AriaRUS',
-            'pitch': '30%',
-            'rate': '-30%'
-        }
     ]
     
     mediaURL = getattr(settings, 'MEDIA_URL', 'MEDIA_URL')
@@ -60,15 +61,16 @@ def image_caption(request):
     speech_config.set_speech_synthesis_output_format(speechsdk.SpeechSynthesisOutputFormat["Riff16Khz16BitMonoPcm"])
     synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
     
-    speak = ET.Element('speak')
-    speak.set('version', '1.0')
-    speak.set('xmlns', 'https://www.w3.org/2001/10/synthesis')
-    speak.set('xml:lang', 'en-US')
-    voice = ET.SubElement(speak, 'voice')
-    voice.set('name', voice_index[voice_num]['name'])
-    prosody = ET.SubElement(voice, 'prosody')
-    prosody.set('rate', voice_index[voice_num]['rate'])
-    prosody.set('pitch', voice_index[voice_num]['pitch'])
+    if voice_num != 4:
+        speak = ET.Element('speak')
+        speak.set('version', '1.0')
+        speak.set('xmlns', 'https://www.w3.org/2001/10/synthesis')
+        speak.set('xml:lang', 'en-US')
+        voice = ET.SubElement(speak, 'voice')
+        voice.set('name', voice_index[voice_num]['name'])
+        prosody = ET.SubElement(voice, 'prosody')
+        prosody.set('rate', voice_index[voice_num]['rate'])
+        prosody.set('pitch', voice_index[voice_num]['pitch'])
     
     try:
         img = request.data.get('img')
@@ -91,26 +93,43 @@ def image_caption(request):
         for idx, tag in enumerate(tags_result_remote.tags):
             if idx == 8:
                 break
+            if voice_num == 4:
+                dockerUrl = "http://j4b105.p.ssafy.io:5002/api/tts?text=" + tag.name
+                responseData = requests.request("GET", dockerUrl)
+                data, samplerate = sf.read(io.BytesIO(responseData.content))
+                stream_path = mediaROOTURL+ '/tts_basic/' + str(voice_num) + tag.name + '.wav'
+                sf.write(stream_path, data, samplerate)
+                for i in range(5):
+                    if i == voice_num:
+                        continue
+                    stream_path2 = mediaROOTURL+ '/tts_basic/' + str(i) + tag.name + '.wav'
+                    if not os.path.isfile(stream_path2):
+                        sf.write(stream_path2, data, samplerate)
+            else:
+                prosody.text = tag.name
+                mydata = ET.tostring(speak).decode("utf-8")
+                result = synthesizer.speak_ssml_async(mydata).get()
 
-            prosody.text = tag.name
-            mydata = ET.tostring(speak).decode("utf-8")
-            result = synthesizer.speak_ssml_async(mydata).get()
-
-            stream = speechsdk.AudioDataStream(result)
-            stream_path = mediaROOTURL+ '/tts_basic/' + str(voice_num) + tag.name + '.wav'
-            
-            # Checks result.
-            if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-                stream.save_to_wav_file(stream_path)
-                print("complete")
-            elif result.reason == speechsdk.ResultReason.Canceled:
-                cancellation_details = result.cancellation_details
-                print("Speech synthesis canceled: {}".format(cancellation_details.reason))
-                if cancellation_details.reason == speechsdk.CancellationReason.Error:
-                    if cancellation_details.error_details:
-                        print("Error details: {}".format(cancellation_details.error_details))
-                print("Did you update the subscription info?")
-                return Response({'error' : 'voice tts error please retry'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+                stream = speechsdk.AudioDataStream(result)
+                stream_path = mediaROOTURL+ '/tts_basic/' + str(voice_num) + tag.name + '.wav'
+                
+                # Checks result..
+                if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+                    stream.save_to_wav_file(stream_path)
+                    for i in range(5):
+                        if i == voice_num:
+                            continue
+                        stream_path2 = mediaROOTURL+ '/tts_basic/' + str(i) + tag.name + '.wav'
+                        if not os.path.isfile(stream_path2):
+                            stream.save_to_wav_file(stream_path2)
+                elif result.reason == speechsdk.ResultReason.Canceled:
+                    cancellation_details = result.cancellation_details
+                    print("Speech synthesis canceled: {}".format(cancellation_details.reason))
+                    if cancellation_details.reason == speechsdk.CancellationReason.Error:
+                        if cancellation_details.error_details:
+                            print("Error details: {}".format(cancellation_details.error_details))
+                    print("Did you update the subscription info?")
+                    return Response({'error' : 'voice tts error please retry'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
             captiontags.append({
                 'content': tag.name, 

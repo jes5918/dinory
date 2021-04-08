@@ -1,3 +1,4 @@
 {
-  "python.pythonPath": "AI\\speak_image\\TTS\\vevn\\Scripts\\python.exe"
+  "python.pythonPath": "Backend\\venv\\Scripts\\python.exe",
+  "git.ignoreLimitWarning": true
 }

@@ -7,7 +7,6 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  // Image,
 } from 'react-native';
 import Header from '../../components/elements/Header';
 import ContentTitle from '../../components/elements/ContentTitle';
@@ -38,12 +37,12 @@ export default function ChildSetting() {
   const [childBirth, setChildBirth] = useState('');
   const [dinoPicNum, setDinoPicNum] = useState('');
   const [originName, setOriginName] = useState('');
+  const [originBirth, setOriginBirth] = useState('');
   const [child, setChild] = useState('');
   const [voiceNum, setVoiceNum] = useState('');
 
   const navigation = useNavigation();
   const url = require('../../assets/images/background2.png');
-  // const child = '10'; // 임시값
 
   let dinoArray = {
     0: require('../../assets/images/character1.png'),
@@ -63,7 +62,7 @@ export default function ChildSetting() {
         if (childBirth.length <= 3) {
           setChildBirth(childBirth.concat(data));
         } else {
-          bchangeModalState();
+          changeModalState(3);
         }
       } else {
         setChildBirth(childBirth.slice(0, -1));
@@ -74,12 +73,20 @@ export default function ChildSetting() {
       }
     }
   };
-
   // 변경요청
   const submitChangeInfo = () => {
-    if (childBirth >= year || childBirth <= 1900) {
-      bchangeModalState();
+    if ((childBirth >= year || childBirth <= year - 100) && childBirth !== '') {
+      changeModalState(3);
     } else if (childBirth < year && childBirth > 1900) {
+      mkFormdata();
+    } else {
+      setChildBirth(originBirth);
+      mkFormdata();
+    }
+  };
+
+  const mkFormdata = () => {
+    setTimeout(() => {
       const formData = new FormData();
       formData.append(
         'name',
@@ -87,7 +94,12 @@ export default function ChildSetting() {
           ? childNName
           : originName,
       );
-      formData.append('year', childBirth);
+      formData.append(
+        'year',
+        childBirth !== originBirth && childBirth.length !== 0
+          ? childBirth
+          : originBirth,
+      );
       formData.append('img', dinoPicNum);
 
       editChildProfile(
@@ -102,50 +114,47 @@ export default function ChildSetting() {
                 childNName !== originName && childNName.length !== 0
                   ? childNName
                   : originName,
-              profile_year: childBirth,
+              profile_year:
+                childBirth !== originBirth && childBirth.length !== 0
+                  ? childBirth
+                  : originBirth,
               voice_pk: voiceNum,
             };
             AsyncStorage.mergeItem('profile', JSON.stringify(profileData));
-            changeModalState();
+            changeModalState(1);
             setTimeout(() => {
               navigation.navigate('Main');
             }, 2000);
           } else {
-            fchangeModalState();
+            changeModalState(2);
           }
         },
         (err) => {
-          console.log('childsetting err : ', err);
-          fchangeModalState();
+          changeModalState(2);
         },
       );
-    }
+    }, 1000);
   };
-
   // 상태 변경
-  const closeModal = () => {
+  const closeModal = (num) => {
     setTimeout(() => {
-      setModalVisible(!modalVisible);
+      if (num === 1) {
+        setModalVisible(!modalVisible);
+      } else if (num === 2) {
+        setfModalVisible(!fmodalVisible);
+      } else if (num === 3) {
+        setbModalVisible(!bmodalVisible);
+      }
     }, 1500);
   };
-  const changeModalState = () => {
-    setModalVisible(!modalVisible);
-  };
-  const fcloseModal = () => {
-    setTimeout(() => {
+  const changeModalState = (num) => {
+    if (num === 1) {
+      setModalVisible(!modalVisible);
+    } else if (num === 2) {
       setfModalVisible(!fmodalVisible);
-    }, 2000);
-  };
-  const fchangeModalState = () => {
-    setfModalVisible(!fmodalVisible);
-  };
-  const bcloseModal = () => {
-    setTimeout(() => {
+    } else if (num === 3) {
       setbModalVisible(!bmodalVisible);
-    }, 2000);
-  };
-  const bchangeModalState = () => {
-    setbModalVisible(!bmodalVisible);
+    }
   };
 
   useFocusEffect(
@@ -155,7 +164,7 @@ export default function ChildSetting() {
         setChild(data.profile_pk);
         setOriginName(data.profile_name);
         setDinoPicNum(data.profile_image);
-        setChildBirth(String(data.profile_year));
+        setOriginBirth(String(data.profile_year));
         setVoiceNum(data.voice_pk);
       });
     }, []),
@@ -208,7 +217,14 @@ export default function ChildSetting() {
                             setIschangeBirth(true),
                             setIschangePic(false),
                           ]}>
-                          <Text style={styles.birthText}>{childBirth}</Text>
+                          {childBirth.length === 0 ? (
+                            <Text
+                              style={[styles.birthText, {color: '#6e6e6e'}]}>
+                              {originBirth}
+                            </Text>
+                          ) : (
+                            <Text style={styles.birthText}>{childBirth}</Text>
+                          )}
                         </View>
                       </TouchableOpacity>
                       <Text style={styles.myInfo}>년에 태어났구요</Text>
@@ -244,7 +260,7 @@ export default function ChildSetting() {
                     {isChangeName && <Text> </Text>}
                     {isChangeBirth && (
                       <DialButton
-                        size={width * 0.06}
+                        size={width * 0.05}
                         verMargin={height * 0.02}
                         horMargin={width * 0.01}
                         deleteSize={width * 0.04}
@@ -266,27 +282,27 @@ export default function ChildSetting() {
                   </View>
                   <AlertModal
                     modalVisible={modalVisible}
-                    onHandleCloseModal={() => changeModalState()}
+                    onHandleCloseModal={() => changeModalState(1)}
                     text={'내 정보가 수정되었어요!'}
                     iconName={'smileo'}
-                    color={'#A0A0FF'}
-                    setTimeFunction={() => closeModal()}
+                    color={'green'}
+                    setTimeFunction={() => closeModal(1)}
                   />
                   <AlertModal
                     modalVisible={fmodalVisible}
-                    onHandleCloseModal={() => fchangeModalState()}
+                    onHandleCloseModal={() => changeModalState(2)}
                     text={'다시 시도해주세요!'}
                     iconName={'frowno'}
-                    color={'#FF0000'}
-                    setTimeFunction={() => fcloseModal()}
+                    color={'red'}
+                    setTimeFunction={() => closeModal(2)}
                   />
                   <AlertModal
                     modalVisible={bmodalVisible}
-                    onHandleCloseModal={() => bchangeModalState()}
+                    onHandleCloseModal={() => changeModalState(3)}
                     text={'태어난 년도를 다시 확인해볼까요?'}
                     iconName={'frowno'}
-                    color={'#FF0000'}
-                    setTimeFunction={() => bcloseModal()}
+                    color={'red'}
+                    setTimeFunction={() => closeModal(3)}
                   />
                 </Layout>
               </View>
@@ -321,7 +337,7 @@ const styles = StyleSheet.create({
   myInfo: {
     fontFamily: 'HoonPinkpungchaR',
     fontSize: height * 0.04,
-    marginHorizontal: 10,
+    marginHorizontal: height * 0.015,
     textAlign: 'center',
   },
   inLine: {
@@ -333,7 +349,7 @@ const styles = StyleSheet.create({
     fontSize: height * 0.04,
     color: '#FB537B',
     width: height * 0.35,
-    height: height * 0.08,
+    height: height * 0.1,
     textAlign: 'center',
     backgroundColor: '#fff',
     borderRadius: 20,
@@ -365,7 +381,7 @@ const styles = StyleSheet.create({
   },
   birthContainer: {
     width: width * 0.1,
-    height: height * 0.08,
+    height: height * 0.1,
     backgroundColor: '#fff',
     borderRadius: 20,
     elevation: 7,

@@ -66,9 +66,6 @@ function ParentSetting({route}) {
         (e) => {},
       );
     } else {
-      console.log(
-        '문제: AsyncStorage에서 프로필 ID를 못 불러왔습니다.(ParentSetting.js를 확인해주세요.)',
-      );
     }
   };
 
@@ -175,7 +172,7 @@ function ParentSetting({route}) {
         onHandleCloseModal={() => logoutCompleteInfomationCloseModal()}
         text={'로그아웃이 완료되었습니다.'}
         iconName={'warning'}
-        color={'#ffcc00'}
+        color={'green'}
         setTimeFunction={() => logoutCompleteInfomationTimeModal()}
       />
       <AlertModal
@@ -183,7 +180,7 @@ function ParentSetting({route}) {
         onHandleCloseModal={() => profileDeleteInfomationCloseModal()}
         text={'프로필이 삭제되었습니다.'}
         iconName={'warning'}
-        color={'#ffcc00'}
+        color={'green'}
         setTimeFunction={() => profileDeleteInfomationTimeModal()}
       />
       <BackgroundAbsolute imageSrc={url}>
@@ -194,13 +191,17 @@ function ParentSetting({route}) {
           height={windowHeight * 0.8}
           opacity={1}>
           <TouchableOpacity
-            onPress={() => willUpdateInfomationCloseModal()}
+            onPress={() =>
+              navigation.navigate('ExamineDiaryList', {profilePK: profilePK})
+            }
             activeOpacity={0.7}
             style={styles.mainButton}>
             <Text style={styles.mainText}>일기 검사하기</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => willUpdateInfomationCloseModal()}
+            onPress={() =>
+              navigation.navigate('DiaryChart', {profilePK: profilePK})
+            }
             activeOpacity={0.7}
             style={styles.mainButton}>
             <Text style={styles.mainText}>통계 보기</Text>

@@ -22,7 +22,10 @@ const windowWidth = windowSize.width; // 1280
 const windowHeight = windowSize.height; // 768
 const layoutWidth = windowWidth * 0.3718;
 const layoutHeight = windowHeight * 0.755;
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 export default function ModifyPassword({navigation, route}) {
   const [userWritePassword, setUserWritePassword] = useState('');
   const [userCheckPassword, setUserCheckPassword] = useState('');
@@ -103,7 +106,7 @@ export default function ModifyPassword({navigation, route}) {
             text={'변경할 비밀번호를 입력해주세요'}
             width={windowWidth * 0.3}
             height={windowHeight * 0.08}
-            size={18}
+            size={hp(2.8)}
             setFunction={setUserWritePassword}
             secureTextEntry={true}
             autoFocus={false}
@@ -113,14 +116,13 @@ export default function ModifyPassword({navigation, route}) {
             text={'한 번 더 입력해주세요.'}
             width={windowWidth * 0.3}
             height={windowHeight * 0.08}
-            size={18}
+            size={hp(2.8)}
             setFunction={setUserCheckPassword}
             secureTextEntry={true}
             autoFocus={false}
           />
-          {userWritePassword.length < 8 ? (
+          {userWritePassword.length < 8 || !chkPW(userWritePassword) ? (
             <Text style={styles.alertMessage}>
-              {' '}
               대,소문자 영어+숫자로 8자리 이상 적어주세요.
             </Text>
           ) : null}
@@ -133,7 +135,7 @@ export default function ModifyPassword({navigation, route}) {
         <View style={styles.view}>
           <BasicButton
             text="변경"
-            customFontSize={24}
+            customFontSize={hp(3.5)}
             paddingHorizon={0}
             paddingVertical={11}
             btnWidth={windowWidth * 0.3}
@@ -149,7 +151,7 @@ export default function ModifyPassword({navigation, route}) {
           onHandleCloseModal={() => changeModalState()}
           text={'비밀번호가 수정되었어요!'}
           iconName={'smileo'}
-          color={'#A0A0FF'}
+          color={'green'}
           setTimeFunction={() => closeModal()}
         />
         <AlertModal
@@ -157,7 +159,7 @@ export default function ModifyPassword({navigation, route}) {
           onHandleCloseModal={() => dchangeModalState()}
           text={'비밀번호를 형식에 맞춰 작성하세요!'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => dcloseModal()}
         />
         <AlertModal
@@ -165,7 +167,7 @@ export default function ModifyPassword({navigation, route}) {
           onHandleCloseModal={() => pchangeModalState()}
           text={'비밀번호는 영어 대,소문자 + 숫자로 구성된 8자리 이상입니다!'}
           iconName={'frowno'}
-          color={'#FF0000'}
+          color={'red'}
           setTimeFunction={() => pcloseModal()}
         />
       </View>
@@ -210,7 +212,7 @@ const styles = StyleSheet.create({
   },
   alertMessage: {
     color: 'red',
-    fontSize: 18,
+    fontSize: hp(2.8),
     marginBottom: windowHeight * 0.043,
     marginTop: windowHeight * 0.02,
     alignSelf: 'flex-start',

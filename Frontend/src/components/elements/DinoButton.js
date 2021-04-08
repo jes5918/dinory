@@ -36,6 +36,7 @@ export default function DinoButton({
   onHandlePress,
   widthProps,
   effectDisalbe,
+  children,
 }) {
   const imageUri = Image.resolveAssetSource(imgSrc).uri;
 
@@ -65,6 +66,7 @@ export default function DinoButton({
             },
           ]}
         />
+        {children}
       </View>
       {childName && <Text style={styles.nameText}>{childName}</Text>}
     </TouchableOpacity>
@@ -79,6 +81,14 @@ const styles = StyleSheet.create({
     borderRadius: 1000,
     elevation: 7,
     marginHorizontal: width * 0.01,
+  },
+  containerPress: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 1000,
+    elevation: 7,
+    marginHorizontal: width * 0.02,
   },
   characterImage: {
     resizeMode: 'contain',
