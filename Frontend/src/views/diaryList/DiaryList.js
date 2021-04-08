@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -14,7 +14,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FastImage from 'react-native-fast-image';
 
 // components
@@ -78,6 +77,8 @@ function DiaryList({route}) {
   const [dataByYear, setDataByYear] = useState();
   const [fetchYear, setFetchYear] = useState();
   const [fetchMonth, setFetchMonth] = useState();
+  const [updateData, setUpdateDate] = useState(false);
+  const refreshRef = useRef();
   const {profilePK} = route.params;
 
   const navigation = useNavigation();
@@ -90,6 +91,8 @@ function DiaryList({route}) {
   };
 
   const onHandleSelectMonth = ({year, month}) => {
+    setUpdateDate(!updateData);
+    refreshRef.current.scrollToIndex({animated: true, index: 0});
     const newMonth = String(month).length === 1 ? '0' + String(month) : month;
     setFetchYear(year);
     setFetchMonth(newMonth);
@@ -120,12 +123,35 @@ function DiaryList({route}) {
     fetchNotesByYear(profilePK);
   }, [profilePK, fetchYear, fetchMonth, fetchNotesByMonth, fetchNotesByYear]);
 
+  const renderItem = ({item}) => {
+    const {title, img, year, month, date, id, check} = item;
+
+    return (
+      <MainCardComponent
+        diaryText={title}
+        diaryImage={baseURL + img}
+        dateText={`${year}.${month}.${date}`}
+        onHandlePress={() =>
+          onHandleDetail({year, month, date, diaryPK: id, check})
+        }
+        key={id}
+        check={check}
+      />
+    );
+  };
+
   return (
     <View style={styles.container}>
       <BackgroundAbsolute style={styles.container} imageSrc={url}>
         <Header />
         <View style={styles.body}>
-          <ScrollView
+          <FlatList
+            ref={refreshRef}
+            style={styles.bodyCardContainer}
+            data={dataByMonth}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            extraData={updateData}
             horizontal={true}
             contentContainerStyle={[
               {
@@ -133,24 +159,8 @@ function DiaryList({route}) {
                 paddingRight: windowWidth * 0.1,
               },
             ]}
-            style={styles.bodyCardContainer}>
-            {dataByMonth &&
-              dataByMonth.map((diary) => {
-                const {title, img, year, month, date, id, check} = diary; // 현재 체크가 없음
-                return (
-                  <MainCardComponent
-                    diaryText={title}
-                    diaryImage={baseURL + img}
-                    dateText={`${year}.${month}.${date}`}
-                    onHandlePress={() =>
-                      onHandleDetail({year, month, date, diaryPK: id, check})
-                    }
-                    key={id}
-                    check={check}
-                  />
-                );
-              })}
-          </ScrollView>
+          />
+
           <FastImage style={styles.character} source={character} />
           <View style={styles.line} />
         </View>
