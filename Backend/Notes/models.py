@@ -11,7 +11,8 @@ class Note(models.Model):
     month = models.IntegerField(default=3)
     count = models.IntegerField(default=1)
 
-
+    def __str__(self):
+        return '{}의 일기장 - {}'.format(self.child.name, self.vol)
 
 class Diary(models.Model):
     note = models.ForeignKey('Note', on_delete=models.CASCADE, related_name='diary')
@@ -23,6 +24,9 @@ class Diary(models.Model):
     date = models.IntegerField()
     check = models.BooleanField(default=False)
 
+    def __str__(self):
+        return '{} 의 일기 - {}'.format(self.note.child.name, self.title)
+
 
 class Word(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -31,11 +35,16 @@ class Word(models.Model):
     count = models.IntegerField(default=0)
     state = models.BooleanField()
 
+    def __str__(self):
+        return '{} 의 사용한 단어 - {}'.format(self.child.name, self.content)
+
 
 class Sentence(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     child = models.ForeignKey('Accounts.Child', on_delete=models.CASCADE)
     content = models.CharField(max_length=255)
+    def __str__(self):
+        return '{} 의 사용한 문장 - {}'.format(self.child.name, self.content)
 
 
 class WordToSentence(models.Model):
