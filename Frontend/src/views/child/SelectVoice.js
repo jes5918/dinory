@@ -20,7 +20,6 @@ const height = dimensions.height;
 export default function SelectVoice() {
   const [modalVisible, setModalVisible] = useState(false);
   const [fmodalVisible, setfModalVisible] = useState(false);
-  const [nomodalVisible, setNoModalVisible] = useState(false);
   const [child, setChild] = useState('');
   const [voice, setVoice] = useState('');
   const [originVoice, setOriginVoice] = useState('');
@@ -85,43 +84,34 @@ export default function SelectVoice() {
             };
           }
           AsyncStorage.mergeItem('profile', JSON.stringify(profileData));
-          changeModalState();
+          changeModalState(1);
           setTimeout(() => {
             navigation.navigate('Main');
           }, 2000);
         } else {
-          fchangeModalState();
+          changeModalState(2);
         }
       },
-      (err) => {
-        noChangeModalState();
-      },
+      (err) => {},
     );
   };
-  const closeModal = () => {
+  const closeModal = (num) => {
     setTimeout(() => {
+      if (num === 1) {
+        setModalVisible(!modalVisible);
+      } else if (num === 2) {
+        setfModalVisible(!fmodalVisible);
+      }
+    }, 1500);
+  };
+  const changeModalState = (num) => {
+    if (num === 1) {
       setModalVisible(!modalVisible);
-    }, 1500);
-  };
-  const changeModalState = () => {
-    setModalVisible(!modalVisible);
-  };
-  const fcloseModal = () => {
-    setTimeout(() => {
+    } else if (num === 2) {
       setfModalVisible(!fmodalVisible);
-    }, 1500);
+    }
   };
-  const fchangeModalState = () => {
-    setfModalVisible(!fmodalVisible);
-  };
-  const noCloseModal = () => {
-    setTimeout(() => {
-      setNoModalVisible(!nomodalVisible);
-    }, 1500);
-  };
-  const noChangeModalState = () => {
-    setNoModalVisible(!nomodalVisible);
-  };
+
   return (
     <View style={styles.container}>
       <BackgroundAbsolute imageSrc={url}>
@@ -165,27 +155,19 @@ export default function SelectVoice() {
           />
           <AlertModal
             modalVisible={modalVisible}
-            onHandleCloseModal={() => changeModalState()}
+            onHandleCloseModal={() => changeModalState(1)}
             text={'목소리가 변경되었어요!'}
             iconName={'smileo'}
             color={'green'}
-            setTimeFunction={() => closeModal()}
+            setTimeFunction={() => closeModal(1)}
           />
           <AlertModal
             modalVisible={fmodalVisible}
-            onHandleCloseModal={() => fchangeModalState()}
+            onHandleCloseModal={() => changeModalState(2)}
             text={'다시 시도해주세요!'}
             iconName={'frowno'}
             color={'red'}
-            setTimeFunction={() => fcloseModal()}
-          />
-          <AlertModal
-            modalVisible={nomodalVisible}
-            onHandleCloseModal={() => noChangeModalState()}
-            text={'목소리를 선택해주세요!'}
-            iconName={'frowno'}
-            color={'red'}
-            setTimeFunction={() => noCloseModal()}
+            setTimeFunction={() => closeModal(2)}
           />
         </View>
       </BackgroundAbsolute>
