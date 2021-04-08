@@ -30,8 +30,15 @@ function PinUpdate() {
   const [failModalVisible, setFailModalVisible] = useState(false);
   const [pinfailModalVisible, setPinFailModalVisible] = useState(false);
   const [pinSameModalVisible, setPinSameModalVisible] = useState(false);
+  const [alertForEnter, setAlertForEnter] = useState(false);
 
   const onHandleSubmit = async () => {
+    if (pinCode.length !== 6 || isNaN(pinCode) || oldPinCode.length < 6) {
+      setAlertForEnter(true);
+      return;
+    } else {
+      setAlertForEnter(false);
+    }
     if (oldPinCode !== pinCode) {
       if (pinCode === pinCodeCheck) {
         const pinCodeForm = new FormData();
@@ -86,9 +93,26 @@ function PinUpdate() {
       setPinSameModalVisible(!pinSameModalVisible);
     }
   };
+  const changeModalStateForEnter = () => {
+    setAlertForEnter(!alertForEnter);
+  };
+
+  const closeModalForEnter = () => {
+    setTimeout(() => {
+      setAlertForEnter(!alertForEnter);
+    }, 1500);
+  };
 
   return (
     <View style={styles.container}>
+      <AlertModal
+        modalVisible={alertForEnter}
+        onHandleCloseModal={() => changeModalStateForEnter()}
+        text={'핀 번호를 정확히 입력해주세요.'}
+        iconName={'exclamationcircle'}
+        color={'red'}
+        setTimeFunction={() => closeModalForEnter()}
+      />
       <AlertModal
         modalVisible={modalVisible}
         onHandleCloseModal={() => changeModalState(1)}

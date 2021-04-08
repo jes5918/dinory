@@ -15,6 +15,7 @@ import AuthBackGround from '../../components/authorization/AuthBackGround';
 import AuthTextInput from '../../components/authorization/AuthTextInput';
 import AuthTitle from '../../components/authorization/AuthTitle';
 import AlertModal from '../../components/elements/AlertModal';
+import CountDown from '../../components/elements/CountDown';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -34,10 +35,14 @@ export default function SearchPassword({navigation}) {
   const [fmodalVisible, setfModalVisible] = useState(false);
   const [dmodalVisible, setdModalVisible] = useState(false);
   const [emodalVisible, seteModalVisible] = useState(false);
+  const [gmodalVisible, setgModalVisible] = useState(false);
+  const [pause, setPause] = useState(true);
+
   const [spinner, setSpinner] = useState(false);
   const AuthenticateEmail = async () => {
     if (userWriteEmail.length > 0 && userWriteName.length > 0) {
       setSpinner(true);
+      setPause(true);
       let PasswordForm = new FormData();
       PasswordForm.append('email', userWriteEmail);
       PasswordForm.append('username', userWriteName);
@@ -68,11 +73,19 @@ export default function SearchPassword({navigation}) {
       CodeForm,
       (res) => {
         navigation.navigate('ModifyPassword', {user_ID: res.data.user});
+        setPause(false);
       },
       (error) => {
         dchangeModalState();
       },
     );
+  };
+  const OnFinishedTimer = () => {
+    setgModalVisible(!gmodalVisible);
+    setTimeout(() => {
+      setVisibleState(true);
+      setCodeInputState(false);
+    }, 1000);
   };
   const fcloseModal = () => {
     setTimeout(() => {
@@ -97,6 +110,11 @@ export default function SearchPassword({navigation}) {
   };
   const echangeModalState = () => {
     seteModalVisible(!emodalVisible);
+  };
+  const gcloseModal = () => {
+    setTimeout(() => {
+      setgModalVisible(!gmodalVisible);
+    }, 1500);
   };
   return (
     <AuthBackGround>
@@ -125,6 +143,7 @@ export default function SearchPassword({navigation}) {
             secureTextEntry={false}
             autoFocus={false}
           />
+          <View style={styles.view}></View>
         </View>
         {VisibleState ? (
           <View style={styles.view}>
@@ -163,8 +182,27 @@ export default function SearchPassword({navigation}) {
               margin={windowHeight * 0.04}
               onHandlePress={() => AuthenticateCode()}
             />
+            <View style={styles.timer}>
+              <Text style={styles.timerText}>남은시간 :</Text>
+              <CountDown
+                style={styles.counter}
+                until={300}
+                size={hp(2.8)}
+                separatorStyle={{color: 'red'}}
+                digitStyle={{backgroundColor: 'null'}}
+                digitTxtStyle={{color: 'red'}}
+                timeToShow={['M', 'S']}
+                timeLabels={{m: null, s: null}}
+                showSeparator
+                running={pause}
+                onFinish={() => {
+                  OnFinishedTimer();
+                }}
+              />
+            </View>
           </View>
         ) : null}
+
         <AlertModal
           modalVisible={fmodalVisible}
           onHandleCloseModal={() => fchangeModalState()}
@@ -188,6 +226,14 @@ export default function SearchPassword({navigation}) {
           iconName={'frowno'}
           color={'#FF0000'}
           setTimeFunction={() => ecloseModal()}
+        />
+        <AlertModal
+          modalVisible={gmodalVisible}
+          onHandleCloseModal={() => gchangeModalState()}
+          text={'인증시간이 만료되었습니다'}
+          iconName={'frowno'}
+          color={'#FF0000'}
+          setTimeFunction={() => gcloseModal()}
         />
         <ActivityIndicator
           size="large"
@@ -236,5 +282,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: windowWidth * 0.05,
+  },
+  timerText: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginRight: windowWidth * 0.01,
+    fontSize: windowHeight * 0.025,
+  },
+  timer: {
+    height: windowHeight * 0.07,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 });
