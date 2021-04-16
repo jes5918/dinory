@@ -1,5 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ScrollView,
+} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -30,8 +37,12 @@ const Diary = ({data, check}) => {
         <View style={styles.mainContainer}>
           <Text style={styles.mainText}>제목 : {data && data.title}</Text>
         </View>
-        <View style={styles.contentContainer}>
-          <Text style={styles.contentText}>{data && data.content}</Text>
+        <View style={{height: '80%'}}>
+          <ScrollView style={{width: '100%'}}>
+            <View style={styles.contentContainer}>
+              <Text style={styles.contentText}>{data && data.content}</Text>
+            </View>
+          </ScrollView>
         </View>
         {check ? (
           <FastImage style={styles.stamp} source={stamp} />
@@ -120,7 +131,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
     paddingHorizontal: windowWidth * 0.03,
     paddingVertical: windowHeight * 0.05,
@@ -137,7 +148,7 @@ const styles = StyleSheet.create({
   mainBox: {
     display: 'flex',
     flexDirection: 'column',
-    width: windowWidth * 0.3,
+    width: windowWidth * 0.35,
   },
   mainContainer: {
     flex: 1,
