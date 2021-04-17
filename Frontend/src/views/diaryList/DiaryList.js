@@ -60,7 +60,7 @@ const MainCardComponent = ({
         <Text style={styles.mainText}>{dateText}</Text>
       </View>
       <View style={styles.mainImage}>
-        <FastImage style={styles.mainEgg} source={egg} />
+        <Image style={styles.mainEgg} source={egg} />
       </View>
       <CardComponent
         diaryText={diaryText}
