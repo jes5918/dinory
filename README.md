@@ -1,5 +1,10 @@
 ![logo_ver2](README.assets/logo_ver2.png)
 
+## YOUTUBE LINK 
+- https://www.youtube.com/watch?v=G4HGE65g3mg
+## PlayStore LINK 
+- https://play.google.com/store/apps/details?id=com.DINORY
+
 ## Table of Contents
 
 - [❓ **About Dinory**](#about-dinory)
