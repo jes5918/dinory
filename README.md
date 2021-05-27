@@ -1,3 +1,5 @@
+# 🥇 SSAFY 4기 특화프로젝트 1등 수상
+
 ![logo_ver2](README.assets/logo_ver2.png)
 
 ## YOUTUBE LINK 
