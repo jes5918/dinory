@@ -2,9 +2,13 @@
 
 ![logo_ver2](README.assets/logo_ver2.png)
 
+## DINORY Deploy Page
+- https://www.dinory.shop/
+
 ## YOUTUBE LINK 
 - https://www.youtube.com/watch?v=G4HGE65g3mg
-## PlayStore LINK 
+
+## PlayStore APP LINK 
 - https://play.google.com/store/apps/details?id=com.DINORY
 
 ## Table of Contents
